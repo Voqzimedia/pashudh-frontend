@@ -4,11 +4,15 @@ import React from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
+import Tracker from "./seoWraper";
+
 const Layout = (props) => {
   return (
     <div>
       <Header />
-      <main>{props.children}</main>
+      <Tracker>
+        <main>{props.children}</main>
+      </Tracker>
       <Footer />
     </div>
   );
