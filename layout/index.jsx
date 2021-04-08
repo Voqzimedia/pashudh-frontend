@@ -11,7 +11,7 @@ const Layout = (props) => {
     <div>
       <Header />
       <Tracker>
-        <main>{props.children}</main>
+        <main className={`page-main`}>{props.children}</main>
       </Tracker>
       <Footer />
     </div>

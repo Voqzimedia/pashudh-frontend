@@ -1,1 +1,20 @@
 @import "~bootstrap/scss/bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+// Globle Colors
+
+$base-primary-light: #ffffff;
+$base-secondary-light: #1a1818;
+$base-gradient: linear-gradient(90deg, #5f3f91, #8c2483, #e4003f);
+$base-font: "Poppins";
+$font-light: #1a1818;
+$font-light2: #acacac;
+$light-gray: #fafafa;
+$p-font-size: 0.85rem;
+
+// Globle Colors
+
+$base-primary-dark: #ffffff;
+$base-secondary-dark: #1a1818;
+$font-dark: #1a1818;
+$font-dark2: #acacac;

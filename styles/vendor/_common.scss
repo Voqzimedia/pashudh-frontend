@@ -1,0 +1,12 @@
+body {
+  font-family: $base-font;
+  background: $base-primary-light;
+}
+
+p {
+  font-size: $p-font-size;
+}
+
+.page-main {
+  min-height: 75vh;
+}

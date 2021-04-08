@@ -1,0 +1,54 @@
+.footer-area {
+  background: $base-secondary-light;
+  .footer-top {
+    padding: 15px 0;
+  }
+
+  .footer-logo {
+    padding: 50px 0;
+    padding-top: 75px;
+    .logo-holder {
+      max-width: 300px;
+      margin: auto;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .footer-item {
+    padding: 15px;
+    .footer-contact {
+      h3 {
+        color: $base-primary-light;
+        font-size: 1.2rem;
+      }
+      .footer-nav {
+        padding: 0;
+        li {
+          list-style: none;
+          font-size: $p-font-size;
+          padding: 2px 0;
+          a {
+            color: $font-light2;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .copyright-area {
+    .container {
+      color: $font-light2;
+      padding: 20px 0;
+      border-top: 1px solid;
+    }
+
+    p {
+      text-align: center;
+      margin: 0;
+    }
+  }
+}
