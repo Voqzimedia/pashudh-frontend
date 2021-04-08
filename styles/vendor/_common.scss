@@ -10,3 +10,10 @@ p {
 .page-main {
   min-height: 75vh;
 }
+
+.icon {
+  svg {
+    max-width: $p-font-size;
+    max-height: $p-font-size;
+  }
+}

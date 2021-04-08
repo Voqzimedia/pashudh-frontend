@@ -37,6 +37,15 @@
           }
         }
       }
+      .social {
+        margin: 15px 0;
+        .icon {
+          margin-right: 15px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
     }
   }
   .copyright-area {

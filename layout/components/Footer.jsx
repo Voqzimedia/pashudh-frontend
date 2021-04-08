@@ -1,5 +1,14 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faTwitter,
+  faPinterest,
+} from "@fortawesome/free-brands-svg-icons";
 
+// Images
 import footerLogo from "../../public/images/logo/logo-white@2x.png";
 
 export default function Footer() {
@@ -65,7 +74,20 @@ export default function Footer() {
                       <a href="#">+91 90033 95998</a>
                     </li>
                     <li>
-                      <div className="social"></div>
+                      <div className="social">
+                        <a href="#" className="icon">
+                          <FontAwesomeIcon icon={faFacebookF} />
+                        </a>
+                        <a href="#" className="icon">
+                          <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                        <a href="#" className="icon">
+                          <FontAwesomeIcon icon={faTwitter} />
+                        </a>
+                        <a href="#" className="icon">
+                          <FontAwesomeIcon icon={faPinterest} />
+                        </a>
+                      </div>
                     </li>
                   </ul>
                 </div>
