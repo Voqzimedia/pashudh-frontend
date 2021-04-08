@@ -3,6 +3,7 @@ import React from "react";
 //Componets
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import NewsLetter from "./components/NewsLetter";
 
 import Tracker from "./seoWraper";
 
@@ -13,6 +14,7 @@ const Layout = (props) => {
       <Tracker>
         <main className={`page-main`}>{props.children}</main>
       </Tracker>
+      <NewsLetter />
       <Footer />
     </div>
   );

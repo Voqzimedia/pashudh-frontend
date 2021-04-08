@@ -10,6 +10,7 @@
     .logo-holder {
       max-width: 300px;
       margin: auto;
+
       img {
         width: 100%;
       }
@@ -29,26 +30,41 @@
           list-style: none;
           font-size: $p-font-size;
           padding: 2px 0;
-          a {
-            color: $font-light2;
-            &:hover {
-              text-decoration: none;
-            }
-          }
-        }
-      }
-      .social {
-        margin: 15px 0;
-        .icon {
-          margin-right: 15px;
-          &:last-child {
-            margin-right: 0;
-          }
         }
       }
     }
   }
+
+  a {
+    color: $font-light2;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .social {
+    margin: 15px 0;
+    &.mobile {
+      text-align: center;
+      .icon {
+        color: $base-primary-light;
+      }
+    }
+    .icon {
+      margin-right: 15px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
   .copyright-area {
+    &.mobile {
+      color: $font-light2;
+      padding: 20px 0;
+      margin-top: 25px;
+    }
+
     .container {
       color: $font-light2;
       padding: 20px 0;
@@ -58,6 +74,53 @@
     p {
       text-align: center;
       margin: 0;
+    }
+  }
+}
+
+.newsletter {
+  padding: 100px 0;
+  .subscription-block {
+    .subscription-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      input {
+        outline: none !important;
+        border: 0;
+        border-bottom: 1px solid;
+        margin: 25px 0;
+        min-width: 35vw;
+        background: $light-gray;
+        @media only screen and (max-width: 800px) {
+          min-width: 75vw;
+        }
+      }
+
+      .section-title {
+        text-align: center;
+        margin: 15px 0;
+        @media only screen and (max-width: 800px) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+.mobile-footer-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid $font-light2;
+  margin-bottom: 25px;
+
+  .footer-item {
+    width: 33%;
+    a {
+      font-size: 0.55rem;
     }
   }
 }

@@ -5,8 +5,10 @@ import SEO from "../seo.config";
 import { AnimatePresence } from "framer-motion";
 import Layout from "../layout";
 import NextNprogress from "nextjs-progressbar";
+import { credits } from "../helper/credits";
 
 function MyApp({ Component, pageProps, router }) {
+  credits();
   return (
     <>
       <DefaultSeo {...SEO} />
