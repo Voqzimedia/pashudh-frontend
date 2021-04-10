@@ -7,19 +7,20 @@ import {
   faTwitter,
   faPinterest,
 } from "@fortawesome/free-brands-svg-icons";
+import { Container, Row, Col } from "reactstrap";
 
 import { useResponsive } from "../../hooks/useWindowSize";
 
 // Images
-import footerLogo from "../../public/images/logo/logo-white@2x.png";
-import footerLogoMobile from "../../public/images/logo/logo-mobile-white@2x.png";
+import footerLogo from "../../images/logo/logo-white.png?webp";
+import footerLogoMobile from "../../images/logo/logo-mobile-white.png?webp";
 
 export default function Footer() {
   const isMobile = useResponsive();
   return (
     <footer className="footer-area">
       <div className="footer-header">
-        <div className="container">
+        <Container>
           <div className="footer-logo">
             <div className="logo-holder">
               {isMobile ? (
@@ -50,13 +51,13 @@ export default function Footer() {
               </>
             ) : null}
           </div>
-        </div>
+        </Container>
       </div>
       <div className="footer-top">
-        <div className="container">
+        <Container>
           {!isMobile ? (
-            <div className="row">
-              <div className="col-lg-3">
+            <Row>
+              <Col lg="3" md="6">
                 <div className="footer-item">
                   <div className="footer-contact">
                     <h3>Quick Links</h3>
@@ -76,8 +77,8 @@ export default function Footer() {
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-3">
+              </Col>
+              <Col lg="3" md="6">
                 <div className="footer-item">
                   <div className="footer-contact">
                     <h3>Say Hello</h3>
@@ -91,8 +92,8 @@ export default function Footer() {
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-3">
+              </Col>
+              <Col lg="3" md="6">
                 <div className="footer-item">
                   <div className="footer-contact">
                     <h3>Support</h3>
@@ -122,8 +123,8 @@ export default function Footer() {
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-3">
+              </Col>
+              <Col lg="3" md="6">
                 <div className="footer-item">
                   <div className="footer-contact">
                     <h3>Information</h3>
@@ -149,8 +150,8 @@ export default function Footer() {
                     </ul>
                   </div>
                 </div>
-              </div>
-            </div>
+              </Col>
+            </Row>
           ) : (
             <div className="mobile-footer-bottom">
               <div className="footer-item">
@@ -193,13 +194,13 @@ export default function Footer() {
               </div>
             </div>
           )}
-        </div>
+        </Container>
       </div>
       {!isMobile ? (
         <div className="copyright-area">
-          <div className="container">
+          <Container>
             <p>Copyright © 2021 Pashudh. All Rights Reserved.</p>
-          </div>
+          </Container>
         </div>
       ) : null}
     </footer>
