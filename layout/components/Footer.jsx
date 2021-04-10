@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
   faInstagram,
-  faLinkedinIn,
   faTwitter,
   faPinterest,
 } from "@fortawesome/free-brands-svg-icons";
-import { Container, Row, Col } from "reactstrap";
 
-import { useResponsive } from "../../hooks/useWindowSize";
+import { Container, Row, Col } from "reactstrap";
+import AppContext from "../../context/AppContext";
 
 // Images
 import footerLogo from "../../images/logo/logo-white.png?webp";
 import footerLogoMobile from "../../images/logo/logo-mobile-white.png?webp";
 
 export default function Footer() {
-  const isMobile = useResponsive();
+  const { deviceWidth } = useContext(AppContext);
+
+  const isMobile = deviceWidth < 500;
   return (
     <footer className="footer-area">
       <div className="footer-header">
