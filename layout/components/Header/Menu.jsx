@@ -11,6 +11,7 @@ export default function Menu() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+
   return (
     <Nav>
       <NavItem>

@@ -1,0 +1,29 @@
+{
+  "name": "Pashudh - Ethnic Silks Eternal Style",
+  "short_name": "Pashudh",
+  "description": "Woven by hand, designed from heart, our authentic, pure silk sarees are treasured for their contemporary appeal. Browse through our creations and discover masterpieces that embrace tradition and trends with equal zeal. Allow us to add a silken touch to the special moments of your life.",
+  "icons": [
+    {
+      "src": "/images/app/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/app/app-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/app/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en",
+  "categories": ["business", "ecommerce", "fashion"],
+  "theme_color": "#1a1818",
+  "background_color": "#1a1818",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
