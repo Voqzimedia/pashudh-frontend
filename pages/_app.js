@@ -61,6 +61,7 @@ class MyApp extends App {
       );
     }
   };
+
   removeItem = (item) => {
     let { items } = this.state.cart;
     //check for item already in cart
