@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faHeart } from "@fortawesome/free-regular-svg-icons";
+import {
+  faUser,
+  faHeart,
+  faTimesCircle,
+} from "@fortawesome/free-regular-svg-icons";
+
+import AppContext from "../../../context/AppContext";
 
 import {
   faCartPlus,
@@ -13,19 +19,34 @@ import SlidingPane from "react-sliding-pane";
 export default function UserAction({ isMobile }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const [isCartOpen, setCartOpen] = useState(false);
-  const [isWishlistOpen, setWishlistOpen] = useState(false);
+  const {
+    isCartOpen,
+    isWishlistOpen,
+    isMenuOpen,
+    setCartOpen,
+    setWishlistOpen,
+    setMenuOpen,
+  } = useContext(AppContext);
 
   const openCart = (event) => {
     event.preventDefault();
-    setWishlistOpen(() => false);
-    setCartOpen(() => true);
+    setWishlistOpen(false);
+    setMenuOpen(false);
+    isCartOpen ? setCartOpen(false) : setCartOpen(true);
   };
 
   const openWishlist = (event) => {
     event.preventDefault();
-    setCartOpen(() => false);
-    setWishlistOpen(() => true);
+    setCartOpen(false);
+    setMenuOpen(false);
+    isWishlistOpen ? setWishlistOpen(false) : setWishlistOpen(true);
+  };
+
+  const openMenu = (event) => {
+    event.preventDefault();
+    setWishlistOpen(false);
+    setCartOpen(false);
+    isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
   };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -80,12 +101,12 @@ export default function UserAction({ isMobile }) {
           <FontAwesomeIcon icon={faHeart} />
         </a>
         {isMobile ? (
-          <a
-            href=""
-            onClick={(e) => openWishlist(e)}
-            className="icon-item icon"
-          >
-            <FontAwesomeIcon icon={faBars} />
+          <a href="" onClick={(e) => openMenu(e)} className="icon-item icon">
+            {isMenuOpen ? (
+              <FontAwesomeIcon icon={faTimesCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
           </a>
         ) : null}
       </div>
@@ -97,7 +118,7 @@ export default function UserAction({ isMobile }) {
         width={`${isMobile ? "100vw" : "500px"}`}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
-          setCartOpen(() => false);
+          setCartOpen(false);
         }}
       >
         <div>Cart pane</div>
@@ -110,7 +131,20 @@ export default function UserAction({ isMobile }) {
         width={`${isMobile ? "100vw" : "500px"}`}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
-          setWishlistOpen(() => false);
+          setWishlistOpen(false);
+        }}
+      >
+        <div>Wishlists pane</div>
+      </SlidingPane>
+      <SlidingPane
+        className="side-pane-wrapper nav-menu"
+        overlayClassName="side-pane-overlay"
+        isOpen={isMenuOpen}
+        title="Menu"
+        width={`${isMobile ? "100vw" : "500px"}`}
+        onRequestClose={() => {
+          // triggered on "<" on left top click or on outside click
+          setMenuOpen(false);
         }}
       >
         <div>Wishlists pane</div>

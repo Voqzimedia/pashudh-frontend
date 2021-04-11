@@ -19,6 +19,9 @@ class MyApp extends App {
     darkTheme: false,
     width: undefined,
     height: undefined,
+    isCartOpen: false,
+    isWishlistOpen: false,
+    isMenuOpen: false,
   };
 
   componentDidMount() {
@@ -70,6 +73,16 @@ class MyApp extends App {
 
   setUser = (user) => {
     this.setState({ user });
+  };
+
+  setCartOpen = (val) => {
+    this.setState({ isCartOpen: val });
+  };
+  setWishlistOpen = (val) => {
+    this.setState({ isWishlistOpen: val });
+  };
+  setMenuOpen = (val) => {
+    this.setState({ isMenuOpen: val });
   };
 
   toggleTheme = () => {
@@ -148,20 +161,26 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, router } = this.props;
 
+    const AppProps = {
+      user: this.state.user,
+      isAuthenticated: !!this.state.user,
+      cart: this.state.cart,
+      darkTheme: this.state.darkTheme,
+      deviceWidth: this.state.width,
+      isCartOpen: this.state.isCartOpen,
+      isWishlistOpen: this.state.isWishlistOpen,
+      isMenuOpen: this.state.isMenuOpen,
+      setUser: this.setUser,
+      addItem: this.addItem,
+      removeItem: this.removeItem,
+      toggleTheme: this.toggleTheme,
+      setCartOpen: this.setCartOpen,
+      setWishlistOpen: this.setWishlistOpen,
+      setMenuOpen: this.setMenuOpen,
+    };
+
     return (
-      <AppContext.Provider
-        value={{
-          user: this.state.user,
-          isAuthenticated: !!this.state.user,
-          cart: this.state.cart,
-          darkTheme: this.state.darkTheme,
-          deviceWidth: this.state.width,
-          setUser: this.setUser,
-          addItem: this.addItem,
-          removeItem: this.removeItem,
-          toggleTheme: this.toggleTheme,
-        }}
-      >
+      <AppContext.Provider value={AppProps}>
         <DefaultSeo {...SEO} />
         <NextNprogress
           options={{ easing: "ease", speed: 500, showSpinner: false }}
