@@ -95,10 +95,26 @@ export default function UserAction({ isMobile }) {
         )}
 
         <a onClick={(e) => openCart(e)} href="" className="icon-item icon">
-          <FontAwesomeIcon icon={faCartPlus} />
+          {isMobile ? (
+            isCartOpen ? (
+              <FontAwesomeIcon icon={faTimesCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faCartPlus} />
+            )
+          ) : (
+            <FontAwesomeIcon icon={faCartPlus} />
+          )}
         </a>
         <a href="" onClick={(e) => openWishlist(e)} className="icon-item icon">
-          <FontAwesomeIcon icon={faHeart} />
+          {isMobile ? (
+            isWishlistOpen ? (
+              <FontAwesomeIcon icon={faTimesCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faHeart} />
+            )
+          ) : (
+            <FontAwesomeIcon icon={faHeart} />
+          )}
         </a>
         {isMobile ? (
           <a href="" onClick={(e) => openMenu(e)} className="icon-item icon">
