@@ -21,6 +21,7 @@ export default function Header() {
               <div className="search-block">
                 <div className="search-input">
                   <input type="text" name="search" />
+                  <label htmlFor=""></label>
                   <div className="icon search-box-icon">
                     <FontAwesomeIcon icon={faSearch} />
                   </div>
@@ -35,6 +36,7 @@ export default function Header() {
               </div>
 
               <div className="theme-block">
+                <label htmlFor=""></label>
                 <CustomInput
                   type="switch"
                   id="themeSwitch"

@@ -20,6 +20,8 @@ import SlidingPane from "react-sliding-pane";
 
 export default function UserAction({ isMobile }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isUserOpen, setUserOpen] = useState(false);
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   const {
     isCartOpen,
@@ -52,27 +54,39 @@ export default function UserAction({ isMobile }) {
   };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const toggleUser = (e) => {
+    e.preventDefault();
+    setUserOpen((prevState) => !prevState);
+  };
+  const toggleSearch = (e) => {
+    e.preventDefault();
+    setSearchOpen((prevState) => !prevState);
+  };
 
   return (
     <>
-      <div className="icon-wrapper">
+      <ul className="icon-wrapper">
         {isMobile ? (
           <a
             href=""
-            onClick={(e) => openWishlist(e)}
+            onClick={(e) => toggleSearch(e)}
             className="icon-item icon"
           >
-            <FontAwesomeIcon icon={faSearch} />
+            {isSearchOpen ? (
+              <FontAwesomeIcon icon={faTimesCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faSearch} />
+            )}
           </a>
         ) : null}
 
         {isMobile ? (
-          <a
-            href=""
-            onClick={(e) => openWishlist(e)}
-            className="icon-item icon"
-          >
-            <FontAwesomeIcon icon={faUser} />
+          <a href="" onClick={(e) => toggleUser(e)} className="icon-item icon">
+            {isUserOpen ? (
+              <FontAwesomeIcon icon={faTimesCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faUser} />
+            )}
           </a>
         ) : (
           <Dropdown
@@ -127,7 +141,7 @@ export default function UserAction({ isMobile }) {
             )}
           </a>
         ) : null}
-      </div>
+      </ul>
       <SlidingPane
         className="side-pane-wrapper"
         overlayClassName="side-pane-overlay"
