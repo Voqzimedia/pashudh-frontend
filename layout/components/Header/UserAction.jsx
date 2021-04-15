@@ -134,6 +134,7 @@ export default function UserAction({ isMobile }) {
         isOpen={isCartOpen}
         title="Your Cart"
         width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
           setCartOpen(false);
@@ -147,6 +148,7 @@ export default function UserAction({ isMobile }) {
         isOpen={isWishlistOpen}
         title="Your Wishlists"
         width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
           setWishlistOpen(false);
@@ -156,6 +158,7 @@ export default function UserAction({ isMobile }) {
       </SlidingPane>
       <SlidingPane
         className="side-pane-wrapper nav-menu"
+        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
         overlayClassName="side-pane-overlay"
         isOpen={isMenuOpen}
         title="Menu"

@@ -50,3 +50,21 @@ p {
     background: transparent;
   }
 }
+
+.side-pane-wrapper {
+  .slide-pane__header {
+    flex-direction: row-reverse;
+    .slide-pane__close {
+      margin-right: 24px;
+    }
+  }
+}
+
+.parent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
