@@ -6,6 +6,8 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-regular-svg-icons";
 
+import Menu from "./Menu";
+
 import AppContext from "../../../context/AppContext";
 
 import {
@@ -163,7 +165,7 @@ export default function UserAction({ isMobile }) {
           setMenuOpen(false);
         }}
       >
-        <div>Wishlists pane</div>
+        <Menu />
       </SlidingPane>
     </>
   );
