@@ -56,15 +56,97 @@ p {
     flex-direction: row-reverse;
     .slide-pane__close {
       margin-right: 24px;
+      svg {
+        width: 20px;
+      }
     }
   }
 }
 
-.parent {
+.scroll-parent {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+.svgIcon.red {
+  color: #b10606;
+  svg {
+    .a {
+      stroke: #b10606;
+    }
+  }
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+p.content {
+  padding: 20px 0;
+  font-size: 1rem;
+}
+
+.social-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    color: inherit;
+  }
+  p {
+    margin: 0;
+    padding-left: 15px;
+    text-transform: uppercase;
+  }
+}
+
+.shop-now {
+  &.btn {
+    box-shadow: none !important;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    color: $font-light;
+    font-weight: 500;
+  }
+}
+
+.page-section {
+  margin: 125px 0;
+}
+
+.social {
+  margin: 15px 0;
+  &.mobile {
+    text-align: center;
+    .icon {
+      color: $base-primary-light;
+    }
+  }
+  .icon {
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+hr {
+  &.small {
+    width: 5em;
+    height: 1.5px;
+  }
+  &.gradient {
+    background: $base-gradient;
+  }
+
+  &.no-m {
+    margin: 0;
+  }
 }

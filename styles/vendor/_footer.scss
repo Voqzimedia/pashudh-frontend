@@ -42,22 +42,6 @@
     }
   }
 
-  .social {
-    margin: 15px 0;
-    &.mobile {
-      text-align: center;
-      .icon {
-        color: $base-primary-light;
-      }
-    }
-    .icon {
-      margin-right: 15px;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-
   .copyright-area {
     &.mobile {
       color: $font-light2;

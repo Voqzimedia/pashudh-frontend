@@ -7,13 +7,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "../../context/AppContext";
 
+import SvgIcon from "../../components/utils/SvgIcon";
+import SearchIcon from "../../images/icons/search.svg?include";
+
 export default function Header() {
   const { deviceWidth } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
   return (
-    <header>
+    <header className={isMobile ? "mobile-head" : ""}>
       <div className="navbar-area">
         {!isMobile ? (
           <Container>
@@ -23,7 +26,8 @@ export default function Header() {
                   <input type="text" name="search" />
                   <label htmlFor=""></label>
                   <div className="icon search-box-icon">
-                    <FontAwesomeIcon icon={faSearch} />
+                    {/* <FontAwesomeIcon icon={faSearch} /> */}
+                    <SvgIcon icon={SearchIcon} />
                   </div>
                 </div>
               </div>

@@ -1,20 +1,19 @@
 import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faHeart,
-  faTimesCircle,
-} from "@fortawesome/free-regular-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 import Menu from "./Menu";
+import SvgIcon from "../../../components/utils/SvgIcon";
 
 import AppContext from "../../../context/AppContext";
 
-import {
-  faCartPlus,
-  faBars,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import MenuIcon from "../../../images/icons/menu.svg?include";
+import HeartIcon from "../../../images/icons/heart.svg?include";
+import CartIcon from "../../../images/icons/cart.svg?include";
+import UserIcon from "../../../images/icons/user.svg?include";
+import SearchIcon from "../../../images/icons/search.svg?include";
+import CloseIcon from "../../../images/icons/x.svg?include";
+
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SlidingPane from "react-sliding-pane";
 
@@ -73,9 +72,11 @@ export default function UserAction({ isMobile }) {
             className="icon-item icon"
           >
             {isSearchOpen ? (
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <SvgIcon icon={CloseIcon} />
             ) : (
-              <FontAwesomeIcon icon={faSearch} />
+              // <FontAwesomeIcon icon={faSearch} />
+
+              <SvgIcon icon={SearchIcon} />
             )}
           </a>
         ) : null}
@@ -83,9 +84,11 @@ export default function UserAction({ isMobile }) {
         {isMobile ? (
           <a href="" onClick={(e) => toggleUser(e)} className="icon-item icon">
             {isUserOpen ? (
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <SvgIcon icon={CloseIcon} />
             ) : (
-              <FontAwesomeIcon icon={faUser} />
+              // <FontAwesomeIcon icon={faUser} />
+
+              <SvgIcon icon={UserIcon} />
             )}
           </a>
         ) : (
@@ -97,7 +100,9 @@ export default function UserAction({ isMobile }) {
             onMouseEnter={!dropdownOpen ? toggle : null}
           >
             <DropdownToggle nav caret className={`icon-item icon`}>
-              <FontAwesomeIcon icon={faUser} />
+              {/* <FontAwesomeIcon icon={faUser} /> */}
+
+              <SvgIcon icon={UserIcon} />
             </DropdownToggle>
             <DropdownMenu>
               <a href="#" className="dropdown-item">
@@ -110,34 +115,36 @@ export default function UserAction({ isMobile }) {
           </Dropdown>
         )}
 
-        <a onClick={(e) => openCart(e)} href="" className="icon-item icon">
+        <a onClick={(e) => openCart(e)} href="" className="icon-item icon cart">
           {isMobile ? (
             isCartOpen ? (
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <SvgIcon className="red" icon={CartIcon} />
             ) : (
-              <FontAwesomeIcon icon={faCartPlus} />
+              <SvgIcon icon={CartIcon} />
             )
           ) : (
-            <FontAwesomeIcon icon={faCartPlus} />
+            <SvgIcon icon={CartIcon} />
           )}
         </a>
         <a href="" onClick={(e) => openWishlist(e)} className="icon-item icon">
           {isMobile ? (
             isWishlistOpen ? (
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <SvgIcon className="red" icon={HeartIcon} />
             ) : (
-              <FontAwesomeIcon icon={faHeart} />
+              <SvgIcon icon={HeartIcon} />
             )
           ) : (
-            <FontAwesomeIcon icon={faHeart} />
+            <SvgIcon icon={HeartIcon} />
           )}
         </a>
         {isMobile ? (
           <a href="" onClick={(e) => openMenu(e)} className="icon-item icon">
             {isMenuOpen ? (
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <SvgIcon className="red" icon={MenuIcon} />
             ) : (
-              <FontAwesomeIcon icon={faBars} />
+              // <FontAwesomeIcon icon={faBars} />
+
+              <SvgIcon icon={MenuIcon} />
             )}
           </a>
         ) : null}
@@ -148,7 +155,7 @@ export default function UserAction({ isMobile }) {
         isOpen={isCartOpen}
         title="Your Cart"
         width={`${isMobile ? "100vw" : "500px"}`}
-        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
+        closeIcon={<SvgIcon icon={CloseIcon} />}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
           setCartOpen(false);
@@ -162,7 +169,7 @@ export default function UserAction({ isMobile }) {
         isOpen={isWishlistOpen}
         title="Your Wishlists"
         width={`${isMobile ? "100vw" : "500px"}`}
-        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
+        closeIcon={<SvgIcon icon={CloseIcon} />}
         onRequestClose={() => {
           // triggered on "<" on left top click or on outside click
           setWishlistOpen(false);
@@ -172,7 +179,7 @@ export default function UserAction({ isMobile }) {
       </SlidingPane>
       <SlidingPane
         className="side-pane-wrapper nav-menu"
-        closeIcon={<FontAwesomeIcon icon={faTimesCircle} />}
+        closeIcon={<SvgIcon icon={CloseIcon} />}
         overlayClassName="side-pane-overlay"
         isOpen={isMenuOpen}
         title="Menu"
