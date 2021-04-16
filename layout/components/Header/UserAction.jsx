@@ -7,12 +7,12 @@ import SvgIcon from "../../../components/utils/SvgIcon";
 
 import AppContext from "../../../context/AppContext";
 
-import MenuIcon from "../../../images/icons/menu.svg?include";
-import HeartIcon from "../../../images/icons/heart.svg?include";
-import CartIcon from "../../../images/icons/cart.svg?include";
-import UserIcon from "../../../images/icons/user.svg?include";
-import SearchIcon from "../../../images/icons/search.svg?include";
-import CloseIcon from "../../../images/icons/x.svg?include";
+import MenuIcon from "../../../images/icons/menu.svg";
+import HeartIcon from "../../../images/icons/heart.svg";
+import CartIcon from "../../../images/icons/cart.svg";
+import UserIcon from "../../../images/icons/user.svg";
+import SearchIcon from "../../../images/icons/search.svg";
+import CloseIcon from "../../../images/icons/x.svg";
 
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SlidingPane from "react-sliding-pane";

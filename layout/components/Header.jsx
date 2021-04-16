@@ -8,7 +8,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "../../context/AppContext";
 
 import SvgIcon from "../../components/utils/SvgIcon";
-import SearchIcon from "../../images/icons/search.svg?include";
+import SearchIcon from "../../images/icons/search.svg";
 
 export default function Header() {
   const { deviceWidth } = useContext(AppContext);
