@@ -1,4 +1,7 @@
 .about-section {
+  @media only screen and (max-width: 500px) {
+    margin-top: 25px;
+  }
   .about-wraper {
     display: flex;
     flex-wrap: wrap;
@@ -23,6 +26,13 @@
       position: relative;
       display: flex;
       height: 100%;
+      width: 75%;
+      float: right;
+      margin: auto;
+      @media only screen and (max-width: 500px) {
+        float: none !important;
+      }
+
       .img-holder {
         max-width: 400px;
         padding: 50px 20px;
@@ -43,6 +53,7 @@
     &.alter {
       background: $light-gray;
       .highlight-wraper {
+        float: left;
         .content-holder {
           bottom: 0;
           right: auto;

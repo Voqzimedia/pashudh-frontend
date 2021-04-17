@@ -1,5 +1,10 @@
 .footer-area {
   background: $base-secondary-light;
+  padding-bottom: 10px;
+  @media only screen and (max-width: 500px) {
+    padding-bottom: 100px;
+  }
+
   .footer-top {
     padding: 15px 0;
   }
@@ -99,7 +104,6 @@
   justify-content: center;
   align-items: center;
   border-top: 1px solid $font-light2;
-  margin-bottom: 60px;
 
   .footer-item {
     width: 33%;
