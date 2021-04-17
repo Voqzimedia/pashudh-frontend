@@ -60,7 +60,7 @@ export default function ExploreSection() {
                 <div className="content-holder">
                   {!isMobile && (
                     <div className="content-header">
-                      <h6 className="sub-title">{explore.subTitle}</h6>
+                      <p className="sub-title">{explore.subTitle}</p>
                       <hr className="small gradient no-m" />
                       <h2 className="title">{explore.title}</h2>
                     </div>

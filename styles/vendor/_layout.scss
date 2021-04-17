@@ -29,14 +29,22 @@
       width: 75%;
       float: right;
       margin: auto;
-      @media only screen and (max-width: 500px) {
+
+      @media only screen and (max-width: 800px) {
         float: none !important;
+        width: 100%;
+        justify-content: flex-start;
       }
 
       .img-holder {
         max-width: 400px;
         padding: 50px 20px;
         margin: auto;
+        @media only screen and (max-width: 800px) {
+          width: 75%;
+          float: left;
+          margin: 0;
+        }
         img {
           width: 100%;
         }
@@ -54,6 +62,18 @@
       background: $light-gray;
       .highlight-wraper {
         float: left;
+        @media only screen and (max-width: 800px) {
+          justify-content: flex-end;
+        }
+
+        .img-holder {
+          @media only screen and (max-width: 800px) {
+            width: 75%;
+            float: right;
+            margin: 0;
+          }
+        }
+
         .content-holder {
           bottom: 0;
           right: auto;
@@ -136,16 +156,75 @@
         margin: 10px 0;
         @media only screen and (max-width: 500px) {
           padding: 10px 0;
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
       }
       .sub-title {
         padding: 10px 0;
         position: relative;
         width: fit-content;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        font-weight: 500;
       }
       .description {
         font-size: 1rem;
+        @media only screen and (max-width: 500px) {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+.testimonial-section {
+  .testimonial-wraper {
+    position: relative;
+    .quotes-icon {
+      position: absolute;
+      top: -10%;
+      right: 8%;
+      @media only screen and (max-width: 500px) {
+        text-align: center;
+        top: -5%;
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    .testimonial-slider {
+      box-shadow: 10px 10px 20px #0000000d;
+    }
+    .testimonial-item {
+      padding: 50px 30px;
+      @media only screen and (max-width: 500px) {
+        margin: 0 5px;
+      }
+      .testimonial-img {
+        @media only screen and (max-width: 500px) {
+          padding: 35px;
+          width: 60%;
+          margin: auto;
+        }
+        img {
+          width: 100%;
+        }
+      }
+      .testimonial-container {
+        .name {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+          @media only screen and (max-width: 500px) {
+            text-align: center;
+          }
+        }
+        .testimonial {
+          font-size: 1rem;
+          @media only screen and (max-width: 500px) {
+            text-align: center;
+          }
+        }
       }
     }
   }

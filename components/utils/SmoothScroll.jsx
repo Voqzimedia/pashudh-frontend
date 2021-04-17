@@ -30,15 +30,19 @@ const SmoothScroll = ({ children }) => {
 
   // 5.
   useEffect(() => {
-    requestAnimationFrame(() => smoothScrollingHandler());
-  }, []);
+    windowSize.width > 500
+      ? requestAnimationFrame(() => smoothScrollingHandler())
+      : null;
+  }, [windowSize]);
 
   const smoothScrollingHandler = () => {
     data.current = window.scrollY;
     data.previous += (data.current - data.previous) * data.ease;
     data.rounded = Math.round(data.previous * 100) / 100;
 
-    scrollingContainerRef.current.style.transform = `translateY(-${data.previous}px)`;
+    scrollingContainerRef.current
+      ? (scrollingContainerRef.current.style.transform = `translateY(-${data.previous}px)`)
+      : null;
 
     // Recursive call
     requestAnimationFrame(() => smoothScrollingHandler());
