@@ -67,7 +67,7 @@ export default function UserAction({ isMobile }) {
       <ul className="icon-wrapper">
         {isMobile ? (
           <a
-            href=""
+            href="#"
             onClick={(e) => toggleSearch(e)}
             className="icon-item icon"
           >
@@ -82,7 +82,7 @@ export default function UserAction({ isMobile }) {
         ) : null}
 
         {isMobile ? (
-          <a href="" onClick={(e) => toggleUser(e)} className="icon-item icon">
+          <a href="#" onClick={(e) => toggleUser(e)} className="icon-item icon">
             {isUserOpen ? (
               <SvgIcon icon={CloseIcon} />
             ) : (
@@ -115,7 +115,11 @@ export default function UserAction({ isMobile }) {
           </Dropdown>
         )}
 
-        <a onClick={(e) => openCart(e)} href="" className="icon-item icon cart">
+        <a
+          onClick={(e) => openCart(e)}
+          href="#"
+          className="icon-item icon cart"
+        >
           {isMobile ? (
             isCartOpen ? (
               <SvgIcon className="red" icon={CartIcon} />
@@ -126,7 +130,7 @@ export default function UserAction({ isMobile }) {
             <SvgIcon icon={CartIcon} />
           )}
         </a>
-        <a href="" onClick={(e) => openWishlist(e)} className="icon-item icon">
+        <a href="#" onClick={(e) => openWishlist(e)} className="icon-item icon">
           {isMobile ? (
             isWishlistOpen ? (
               <SvgIcon className="red" icon={HeartIcon} />
@@ -138,7 +142,7 @@ export default function UserAction({ isMobile }) {
           )}
         </a>
         {isMobile ? (
-          <a href="" onClick={(e) => openMenu(e)} className="icon-item icon">
+          <a href="#" onClick={(e) => openMenu(e)} className="icon-item icon">
             {isMenuOpen ? (
               <SvgIcon className="red" icon={MenuIcon} />
             ) : (

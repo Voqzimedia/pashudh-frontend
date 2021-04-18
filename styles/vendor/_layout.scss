@@ -195,9 +195,14 @@
 
     .testimonial-slider {
       box-shadow: 10px 10px 20px #0000000d;
+      margin-bottom: 50px;
+      .slick-dots {
+        bottom: -50px;
+      }
     }
     .testimonial-item {
       padding: 50px 30px;
+
       @media only screen and (max-width: 500px) {
         margin: 0 5px;
       }
@@ -225,6 +230,41 @@
             text-align: center;
           }
         }
+      }
+    }
+  }
+}
+
+.blog-section {
+  .blog-wrapper {
+    padding: 10px;
+    .blog-img {
+      position: relative;
+      .date {
+        position: absolute;
+        writing-mode: vertical-lr;
+        padding: 10px;
+        background-color: $base-primary-light;
+      }
+      .image-holder {
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .blog-content {
+      .title {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+        // @media only screen and (max-width: 500px) {
+        //   text-align: center;
+        // }
+      }
+      .description {
+        font-size: 1rem;
+        // @media only screen and (max-width: 500px) {
+        //   text-align: center;
+        // }
       }
     }
   }

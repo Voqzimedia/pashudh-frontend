@@ -18,6 +18,7 @@ export default function TestimonialSection() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
   };
   return (
     <section className={`page-section testimonial-section`}>

@@ -11,7 +11,7 @@ import SvgIcon from "../../components/utils/SvgIcon";
 import SearchIcon from "../../images/icons/search.svg";
 
 export default function Header() {
-  const { deviceWidth } = useContext(AppContext);
+  const { deviceWidth, toggleTheme } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
@@ -46,6 +46,7 @@ export default function Header() {
                   id="themeSwitch"
                   name="themeSwitch"
                   className={`theme-switch`}
+                  onChange={toggleTheme}
                 />
               </div>
             </div>

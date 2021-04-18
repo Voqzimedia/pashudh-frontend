@@ -18,7 +18,7 @@ export default function HighlightSection() {
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>
-              <a href="" className="shop-now btn">
+              <a href="#" className="shop-now btn">
                 Shop Now
               </a>
             </div>
@@ -33,7 +33,7 @@ export default function HighlightSection() {
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>
-              <a href="" className="shop-now btn">
+              <a href="#" className="shop-now btn">
                 Shop Now
               </a>
             </div>

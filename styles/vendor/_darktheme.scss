@@ -1,0 +1,8 @@
+.app-theme {
+  &.dark {
+    .scroll-parent {
+      background: $base-primary-dark;
+      color: #fff;
+    }
+  }
+}

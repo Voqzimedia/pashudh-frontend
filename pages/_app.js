@@ -86,7 +86,7 @@ class MyApp extends App {
   };
 
   toggleTheme = () => {
-    darkTheme
+    this.state.darkTheme
       ? this.setState({ darkTheme: false })
       : this.setState({ darkTheme: true });
   };
@@ -189,12 +189,13 @@ class MyApp extends App {
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
-        <Layout page={router.route}>
-          <AnimatePresence exitBeforeEnter>
-            <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
-        </Layout>
+        <div className={`app-theme ${this.state.darkTheme ? "dark" : "light"}`}>
+          <Layout page={router.route}>
+            <AnimatePresence exitBeforeEnter>
+              <Component {...pageProps} key={router.route} />
+            </AnimatePresence>
+          </Layout>
+        </div>
       </AppContext.Provider>
     );
   }

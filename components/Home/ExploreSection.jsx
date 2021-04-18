@@ -67,7 +67,7 @@ export default function ExploreSection() {
                   )}
 
                   <p className="description">{explore.txt}</p>
-                  <a href="" className="shop-now btn">
+                  <a href="#" className="shop-now btn">
                     Shop Now
                   </a>
                 </div>

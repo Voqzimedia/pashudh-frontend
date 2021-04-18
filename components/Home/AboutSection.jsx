@@ -27,7 +27,7 @@ export default function AboutSection() {
                 <p>follow us</p>
               </div>
               <div className="action-holder">
-                <a href="" className="shop-now btn">
+                <a href="#" className="shop-now btn">
                   Shop Now
                 </a>
               </div>
