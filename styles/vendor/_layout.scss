@@ -269,3 +269,144 @@
     }
   }
 }
+
+.category-section {
+  .left-section,
+  .right-section {
+    height: 100%;
+    padding: 25px 35px;
+    @media only screen and (max-width: 500px) {
+      padding: 12px;
+    }
+  }
+
+  .content-holder {
+    max-width: 400px;
+    padding: 25px;
+
+    @media only screen and (max-width: 500px) {
+      max-width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+
+    .title {
+      font-size: 3rem;
+      margin: 10px 0;
+      @media only screen and (max-width: 800px) {
+        padding: 10px 0;
+        font-size: 1.5rem;
+      }
+    }
+    .sub-title {
+      padding: 0;
+      position: relative;
+      width: fit-content;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+      font-weight: 500;
+      @media only screen and (max-width: 800px) {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  .category-item {
+    position: relative;
+
+    @media only screen and (max-width: 500px) {
+      padding: 15px 0;
+      margin-bottom: 50px;
+    }
+
+    .content-header {
+      display: none;
+      @media only screen and (max-width: 500px) {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .seperator-right,
+    .seperator-left {
+      border-color: $light-gray !important;
+    }
+    .seperator-right {
+      border-left: 0.5px solid;
+      border-right: none;
+    }
+
+    .seperator-left {
+      border-right: 0.5px solid;
+      border-left: none;
+    }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+
+      .seperator-left {
+        border-left: 0.5px solid;
+        border-right: none;
+      }
+
+      .seperator-right {
+        border-right: 0.5px solid;
+        border-left: none;
+      }
+
+      .right-section {
+        .cate-wrapper {
+          .cate-holder {
+            flex-direction: row-reverse;
+          }
+          .action-holder {
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    &::after {
+      content: url("/images/icons/swan.svg");
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      @media only screen and (max-width: 500px) {
+        padding: 10px;
+      }
+    }
+  }
+
+  .left-section {
+    .image-holder {
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    .cate-wrapper {
+      .cate-holder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .image-holder {
+          img {
+            width: 100%;
+          }
+        }
+      }
+      .action-holder {
+        margin: 15px 0;
+      }
+    }
+  }
+}

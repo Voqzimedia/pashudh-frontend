@@ -28,62 +28,53 @@ export default function BlogSection() {
     arrows: false,
   };
 
+  const blogList = [
+    {
+      title: "Kanjeevaram: The dream weave of deities and divas",
+      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
+      img: blogImg1,
+      date: "March 6",
+    },
+    {
+      title: "Tips for choosing Kanjeevarams for your bridal trousseau",
+      description: `You want to be the centre of attraction on your special day, but not for the wrong reasons. Here are a few pointers to keep in mind while choosing a Kanjeevaram…`,
+      img: blogImg2,
+      date: "March 7",
+    },
+    {
+      title: "The long life of your silk sarees is in your hands",
+      description: `With the right care, your silk saree can last generations in all its glory. We bring you some hacks that your grandma will vouch for and some that will be news to her…`,
+      img: blogImg3,
+      date: "March 8",
+    },
+    {
+      title: "Tips for choosing Kanjeevarams for your bridal trousseau",
+      description: `You want to be the centre of attraction on your special day, but not for the wrong reasons. Here are a few pointers to keep in mind while choosing a Kanjeevaram…`,
+      img: blogImg2,
+      date: "March 7",
+    },
+  ];
+
   return (
     <section className={`page-section blog-section`}>
       <Container>
         <Slider {...sliderSettings} className={`blog-slider`}>
-          <div className="blog-wrapper">
-            <div className="blog-img">
-              <div className="date">March 6</div>
-              <div className="image-holder">
-                <picture>
-                  <img src={blogImg1} alt="Blog" />
-                </picture>
+          {blogList.map((post, index) => (
+            <div className="blog-wrapper" key={index}>
+              <div className="blog-img">
+                <div className="date">{post.date}</div>
+                <div className="image-holder">
+                  <picture>
+                    <img src={post.img} alt="Blog" />
+                  </picture>
+                </div>
+              </div>
+              <div className="blog-content">
+                <h2 className="title">{post.title}</h2>
+                <p className="description">{post.description}</p>
               </div>
             </div>
-            <div className="blog-content">
-              <h2 className="title">Pashudh / Fashion / Silks</h2>
-              <p className="description">
-                It is the queen of silks that is said to be the favourite fabric
-                of the gods. Today, it’s the go-to choice of jet-setting
-                women.....
-              </p>
-            </div>
-          </div>
-          <div className="blog-wrapper">
-            <div className="blog-img">
-              <div className="date">March 7</div>
-              <div className="image-holder">
-                <picture>
-                  <img src={blogImg2} alt="Blog" />
-                </picture>
-              </div>
-            </div>
-            <div className="blog-content">
-              <h2 className="title">Pashudh / Fashion / Silks</h2>
-              <p className="description">
-                You want to be the centre of attraction on your special day, but
-                not for the wrong reasons. Here are a few pointers......
-              </p>
-            </div>
-          </div>
-          <div className="blog-wrapper">
-            <div className="blog-img">
-              <div className="date">March 8</div>
-              <div className="image-holder">
-                <picture>
-                  <img src={blogImg3} alt="Blog" />
-                </picture>
-              </div>
-            </div>
-            <div className="blog-content">
-              <h2 className="title">Pashudh / Fashion / Silks</h2>
-              <p className="description">
-                With the right care, your silk saree can last generations in all
-                its glory. We bring you some hacks that your grandma.....
-              </p>
-            </div>
-          </div>
+          ))}
         </Slider>
       </Container>
     </section>
