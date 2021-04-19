@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-nextjs-template",
+  "name": "pashudh-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -48,5 +48,10 @@
     "svg-sprite-loader": "^5.2.1",
     "terser-webpack-plugin": "^5.1.1",
     "webp-loader": "^0.6.0"
-  }
+  },
+  "description": "Pashudh Site frontend bootstrapped with Next.js",
+  "main": "index.js",
+  "repository": "https://github.com/Voqzimedia/pashudh-frontend.git",
+  "author": "vinocrzy <vinoth.vinothkanna.kanna2@gmail.com>",
+  "license": "MIT"
 }
