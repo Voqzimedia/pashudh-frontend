@@ -4,6 +4,8 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 import Menu from "./Menu";
 import SvgIcon from "../../../components/utils/SvgIcon";
+import CartList from "../../../components/Shop/CartList";
+import WishList from "../../../components/Shop/WishList";
 
 import AppContext from "../../../context/AppContext";
 
@@ -165,7 +167,9 @@ export default function UserAction({ isMobile }) {
           setCartOpen(false);
         }}
       >
-        <div>Cart pane</div>
+        <div>
+          <CartList />
+        </div>
       </SlidingPane>
       <SlidingPane
         className="side-pane-wrapper"
@@ -179,7 +183,7 @@ export default function UserAction({ isMobile }) {
           setWishlistOpen(false);
         }}
       >
-        <div>Wishlists pane</div>
+        <WishList />
       </SlidingPane>
       <SlidingPane
         className="side-pane-wrapper nav-menu"
