@@ -18,6 +18,8 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "feather-icons": "^4.28.0",
+    "feather-icons-react": "^0.4.3",
     "framer-motion": "^4.1.2",
     "image-trace-loader": "^1.0.2",
     "imagemin-gifsicle": "^7.0.0",

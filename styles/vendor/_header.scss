@@ -3,6 +3,18 @@ header {
     display: none;
   }
 
+  .has-subMenu {
+    &:hover,
+    &:focus-within {
+      .subMenu {
+        display: block;
+        float: none;
+        left: -100%;
+        right: auto;
+      }
+    }
+  }
+
   &.mobile-head {
     @media only screen and (max-width: 500px) {
       display: block;
@@ -59,8 +71,9 @@ header {
         border: none;
         min-height: 32px;
         padding: 0 20px;
-        padding-left: 30px;
-        max-width: 240px;
+        padding-left: 40px;
+        max-width: 100%;
+        width: 100%;
         font-size: $p-font-size;
       }
     }
@@ -83,6 +96,8 @@ header {
               width: 18px;
               border-radius: 100%;
               background-color: $base-primary-light;
+              background-image: url("/images/icons/moon.svg");
+
               top: calc(0.25rem + 3px);
               left: calc(-2.25rem + 5px);
             }
@@ -191,6 +206,7 @@ header {
           }
         }
       }
+
       .menu-link {
         position: relative;
         margin: 0.5rem 1rem;
@@ -220,6 +236,7 @@ header {
         border-radius: 5px;
         margin: auto;
         background-color: $base-primary-light;
+        position: relative;
         .icon-wrapper {
           padding: 10px;
 
@@ -229,6 +246,33 @@ header {
           .icon-item.icon svg {
             width: 1rem;
             height: 1rem;
+          }
+        }
+
+        .user-panel {
+          position: absolute;
+          width: 100%;
+          bottom: 100%;
+          background: $base-primary-light;
+          box-shadow: 3px 1px 29px rgb(0 0 0 / 12%);
+          border-radius: 5px;
+          margin-bottom: 15px;
+          padding: 15px 0;
+          text-align: center;
+          .close-btn {
+            box-shadow: none !important;
+            position: absolute;
+            top: -4%;
+            right: -4%;
+            background: $base-gradient;
+            border-radius: 100%;
+            width: 2rem;
+            height: 2rem;
+            color: $base-primary-light;
+            padding: 0;
+            svg {
+              width: 0.8rem;
+            }
           }
         }
       }

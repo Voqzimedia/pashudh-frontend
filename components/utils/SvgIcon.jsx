@@ -2,10 +2,9 @@ import React from "react";
 
 const SvgIcon = ({ icon, className }) => {
   return (
-    <img
+    <div
       className={`svgIcon ${className ? className : ""}`}
-      src={icon}
-      alt="Icon"
+      dangerouslySetInnerHTML={{ __html: icon }}
     />
   );
 };

@@ -68,6 +68,7 @@ export default function Blog() {
       img: blogImg6,
     },
   ];
+
   return (
     <>
       <section className={`blog-section page-section`}>
@@ -110,7 +111,7 @@ export default function Blog() {
             overscanBy={2}
             items={blogItems}
             render={BlogGrid}
-            columnWidth={isMobile ? 800 : deviceWidth / 2}
+            columnWidth={deviceWidth ? deviceWidth / 2.5 : 800}
           />
         </section>
       )}

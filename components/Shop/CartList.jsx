@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import QuantityBtn from "./QuantityBtn";
-import CloseIcon from "../../images/icons/x.svg?include";
+import { icons } from "feather-icons";
 
 // images
 
@@ -19,9 +19,10 @@ export default function CartList() {
               </picture>
             </div>
             <div className="quantity">1</div>
-            <button className={`close-btn btn`}>
-              <div dangerouslySetInnerHTML={{ __html: CloseIcon }} />
-            </button>
+            <button
+              className={`close-btn btn`}
+              dangerouslySetInnerHTML={{ __html: icons.x.toSvg() }}
+            ></button>
           </div>
         </Col>
         <Col xs="8">

@@ -15,7 +15,6 @@ import AppContext from "../../../context/AppContext";
 export default function Menu() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const toggleA = (e) => {
     e.preventDefault();
     setDropdownOpen((prevState) => !prevState);
@@ -29,11 +28,9 @@ export default function Menu() {
     let activeMenu = e.target;
 
     document
-      ? console.log(
-          document.querySelectorAll(".menu-link").forEach((menu) => {
-            menu.classList.remove("active");
-          })
-        )
+      ? document.querySelectorAll(".menu-link").forEach((menu) => {
+          menu.classList.remove("active");
+        })
       : null;
 
     activeMenu.classList.add("active");
@@ -104,40 +101,35 @@ export default function Menu() {
           ) : null}
         </>
       ) : (
-        <Dropdown
-          nav
-          inNavbar
-          isOpen={dropdownOpen}
-          toggle={toggle}
-          onMouseEnter={!dropdownOpen ? toggle : null}
-        >
-          <DropdownToggle
-            nav
-            caret
-            className={`nav-link menu-link ${dropdownOpen ? "active" : null}`}
+        <Dropdown nav inNavbar>
+          <a
+            href="#"
+            className={`nav-link dropdown-toggle menu-link has-subMenu ${
+              dropdownOpen ? "active" : ""
+            }`}
           >
             Shop
-          </DropdownToggle>
-          <DropdownMenu>
-            <a href="#" className="dropdown-item">
-              Yards of Couture
-            </a>
-            <a href="#" className="dropdown-item">
-              Yards of Eminence
-            </a>
-            <a href="#" className="dropdown-item">
-              Yards of Luxury
-            </a>
-            <a href="#" className="dropdown-item">
-              Yards of Elegance
-            </a>
-            <a href="#" className="dropdown-item">
-              The Shri Collection
-            </a>
-            <a href="#" className="dropdown-item">
-              Whole Six Yards
-            </a>
-          </DropdownMenu>
+            <DropdownMenu className={`subMenu`}>
+              <a href="#" className="dropdown-item">
+                Yards of Couture
+              </a>
+              <a href="#" className="dropdown-item">
+                Yards of Eminence
+              </a>
+              <a href="#" className="dropdown-item">
+                Yards of Luxury
+              </a>
+              <a href="#" className="dropdown-item">
+                Yards of Elegance
+              </a>
+              <a href="#" className="dropdown-item">
+                The Shri Collection
+              </a>
+              <a href="#" className="dropdown-item">
+                Whole Six Yards
+              </a>
+            </DropdownMenu>
+          </a>
         </Dropdown>
       )}
       <NavItem>

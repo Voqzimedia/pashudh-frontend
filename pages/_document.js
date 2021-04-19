@@ -27,6 +27,10 @@ export default class extends Document {
           <link rel="apple-touch-icon" sizes="180x180" href="/images/log.png" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/images/log.png" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap"
+            rel="stylesheet"
+          ></link>
         </Head>
         <body>
           <Main />

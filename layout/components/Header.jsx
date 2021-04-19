@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Menu from "./Header/Menu";
 import UserAction from "./Header/UserAction";
 import { Container, CustomInput } from "reactstrap";
+import { icons } from "feather-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -23,11 +24,16 @@ export default function Header() {
             <div className="large-nav">
               <div className="search-block">
                 <div className="search-input">
-                  <input type="text" name="search" />
-                  <label htmlFor=""></label>
+                  <label htmlFor="searchBox"></label>
+                  <input
+                    type="text"
+                    id={`searchBox`}
+                    name="search"
+                    placeholder={`Serach`}
+                  />
+
                   <div className="icon search-box-icon">
-                    {/* <FontAwesomeIcon icon={faSearch} /> */}
-                    <SvgIcon icon={SearchIcon} />
+                    <SvgIcon icon={icons.search.toSvg()} />
                   </div>
                 </div>
               </div>
@@ -40,7 +46,7 @@ export default function Header() {
               </div>
 
               <div className="theme-block">
-                <label htmlFor=""></label>
+                <label htmlFor="themeSwitch"></label>
                 <CustomInput
                   type="switch"
                   id="themeSwitch"
