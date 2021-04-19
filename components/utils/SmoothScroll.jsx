@@ -19,8 +19,13 @@ const SmoothScroll = ({ children }) => {
 
   // 4.
   useEffect(() => {
-    setBodyHeight();
-  }, [windowSize.height]);
+    setTimeout(
+      function () {
+        setBodyHeight();
+      }.bind(this),
+      100
+    );
+  }, [windowSize.height, children]);
 
   const setBodyHeight = () => {
     document.body.style.height = `${
@@ -33,7 +38,7 @@ const SmoothScroll = ({ children }) => {
     windowSize.width > 500
       ? requestAnimationFrame(() => smoothScrollingHandler())
       : null;
-  }, [windowSize]);
+  }, [windowSize, children]);
 
   const smoothScrollingHandler = () => {
     data.current = window.scrollY;

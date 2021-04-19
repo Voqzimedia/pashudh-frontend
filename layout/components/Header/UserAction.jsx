@@ -131,6 +131,7 @@ export default function UserAction({ isMobile }) {
           ) : (
             <SvgIcon icon={CartIcon} />
           )}
+          <div className="cart-quantity">1</div>
         </a>
         <a href="#" onClick={(e) => openWishlist(e)} className="icon-item icon">
           {isMobile ? (

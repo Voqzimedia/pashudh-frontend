@@ -410,3 +410,40 @@
     }
   }
 }
+
+.about-header-section {
+  .highlight-container {
+    margin: 50px 0;
+    margin-top: 100px;
+  }
+  .highlight-wrapper {
+    padding: 25px;
+    box-shadow: 10px 10px 20px #00000009;
+    height: 100%;
+    margin: 0 10px;
+    .title {
+      font-size: 1.2rem;
+      @media only screen and (max-width: 500px) {
+        text-align: center;
+      }
+    }
+    .content {
+      margin: 0;
+      font-size: 0.8rem;
+      @media only screen and (max-width: 500px) {
+        text-align: center;
+      }
+    }
+    .highlight-icon {
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+      svg {
+        width: 100%;
+        @media only screen and (max-width: 500px) {
+          width: 25%;
+        }
+      }
+    }
+  }
+}

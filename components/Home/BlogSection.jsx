@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Slider from "react-slick";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 
 import AppContext from "../../context/AppContext";
 

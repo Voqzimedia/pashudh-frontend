@@ -8,6 +8,8 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
+import Link from "next/link";
+
 import AppContext from "../../../context/AppContext";
 
 export default function Menu() {
@@ -19,21 +21,40 @@ export default function Menu() {
     setDropdownOpen((prevState) => !prevState);
   };
 
-  const { deviceWidth } = useContext(AppContext);
+  const { deviceWidth, setMenuOpen, isMenuOpen } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
+
+  const closeMenu = (e) => {
+    let activeMenu = e.target;
+
+    document
+      ? console.log(
+          document.querySelectorAll(".menu-link").forEach((menu) => {
+            menu.classList.remove("active");
+          })
+        )
+      : null;
+
+    activeMenu.classList.add("active");
+    isMenuOpen ? setMenuOpen(false) : null;
+  };
 
   return (
     <Nav className={isMobile ? "mobile-menu menu-block" : ""}>
       <NavItem>
-        <a href="#" className={`nav-link menu-link active`}>
-          Home
-        </a>
+        <Link href={`/`}>
+          <a className={`nav-link menu-link`} onClick={closeMenu}>
+            Home
+          </a>
+        </Link>
       </NavItem>
       <NavItem>
-        <a href="#" className={`nav-link menu-link`}>
-          About
-        </a>
+        <Link href={`/about`}>
+          <a className={`nav-link menu-link`} onClick={closeMenu}>
+            About
+          </a>
+        </Link>
       </NavItem>
 
       {isMobile ? (
@@ -120,9 +141,11 @@ export default function Menu() {
         </Dropdown>
       )}
       <NavItem>
-        <a href="#" className={`nav-link menu-link`}>
-          Blog
-        </a>
+        <Link href={`/blog`}>
+          <a className={`nav-link menu-link `} onClick={closeMenu}>
+            Blog
+          </a>
+        </Link>
       </NavItem>
       <NavItem>
         <a href="#" className={`nav-link menu-link`}>

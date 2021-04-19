@@ -60,6 +60,30 @@
   }
 }
 
+.cart {
+  position: relative;
+  .cart-quantity {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.5rem;
+    display: flex;
+    align-items: center;
+    color: $base-primary-light;
+    border-radius: 100%;
+    bottom: 2%;
+    right: 0;
+    background: $base-gradient;
+    justify-content: center;
+    @media only screen and (max-width: 500px) {
+      width: 0.8rem;
+      height: 0.8rem;
+      bottom: 0;
+      right: 30%;
+    }
+  }
+}
+
 .quantity-action {
   .quantity-wrapper {
     display: flex;
