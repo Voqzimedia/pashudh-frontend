@@ -23,6 +23,9 @@ header {
 
   .navbar-area {
     padding: 20px 0;
+    @media only screen and (max-width: 500px) {
+      padding: 0;
+    }
     .large-nav {
       display: flex;
       justify-content: space-between;
@@ -38,6 +41,11 @@ header {
       justify-content: center;
       align-items: center;
     }
+
+    .theme-block {
+      width: 9%;
+    }
+
     .search-block {
       width: 25%;
       justify-content: end;
@@ -75,56 +83,6 @@ header {
         max-width: 100%;
         width: 100%;
         font-size: $p-font-size;
-      }
-    }
-
-    .theme-block {
-      width: 9%;
-      .custom-switch {
-        &.theme-switch {
-          min-height: 2rem;
-          .custom-control-label {
-            &::before {
-              width: 3rem;
-              height: 25px;
-              border-radius: 100px;
-              border-color: $base-primary-light;
-              background-color: $base-secondary-light;
-            }
-            &::after {
-              height: 18px;
-              width: 18px;
-              border-radius: 100%;
-              background-color: $base-primary-light;
-              background-image: url("/images/icons/moon.svg");
-
-              top: calc(0.25rem + 3px);
-              left: calc(-2.25rem + 5px);
-            }
-          }
-        }
-
-        .custom-control-input:checked ~ .custom-control-label::after {
-          background-color: $base-secondary-light;
-          transform: translateX(1.3rem);
-        }
-
-        .custom-control-input:checked ~ .custom-control-label::before {
-          color: $base-secondary-light;
-          border-color: $base-secondary-light;
-          background-color: $base-primary-light;
-        }
-
-        .custom-control-input:not(:disabled):active
-          ~ .custom-control-label::before {
-          color: $base-secondary-light;
-          background-color: $base-primary-light;
-          border-color: $base-primary-light;
-        }
-
-        .custom-control-input:focus ~ .custom-control-label::before {
-          box-shadow: none;
-        }
       }
     }
 
@@ -280,12 +238,64 @@ header {
   }
 }
 
+.theme-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .custom-switch {
+    &.theme-switch {
+      min-height: 2rem;
+      .custom-control-label {
+        &::before {
+          width: 3rem;
+          height: 25px;
+          border-radius: 100px;
+          border-color: $base-primary-light;
+          background-color: $base-secondary-light;
+        }
+        &::after {
+          height: 18px;
+          width: 18px;
+          border-radius: 100%;
+          background-color: $base-primary-light;
+          background-image: url("/images/icons/moon.svg");
+
+          top: calc(0.25rem + 3px);
+          left: calc(-2.25rem + 5px);
+        }
+      }
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::after {
+      background-color: $base-secondary-light;
+      transform: translateX(1.3rem);
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: $base-secondary-light;
+      border-color: $base-secondary-light;
+      background-color: $base-primary-light;
+    }
+
+    .custom-control-input:not(:disabled):active
+      ~ .custom-control-label::before {
+      color: $base-secondary-light;
+      background-color: $base-primary-light;
+      border-color: $base-primary-light;
+    }
+
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: none;
+    }
+  }
+}
+
 .mobile-menu {
   flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-  padding-top: 20%;
+  padding-top: 10%;
   padding-bottom: 20%;
 
   &.sub-menu {

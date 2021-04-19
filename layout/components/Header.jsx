@@ -4,12 +4,9 @@ import UserAction from "./Header/UserAction";
 import { Container, CustomInput } from "reactstrap";
 import { icons } from "feather-icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "../../context/AppContext";
 
 import SvgIcon from "../../components/utils/SvgIcon";
-import SearchIcon from "../../images/icons/search.svg";
 
 export default function Header() {
   const { deviceWidth, toggleTheme } = useContext(AppContext);

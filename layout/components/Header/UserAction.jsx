@@ -8,7 +8,7 @@ import { icons } from "feather-icons";
 
 import AppContext from "../../../context/AppContext";
 
-import { Dropdown, DropdownMenu } from "reactstrap";
+import { Dropdown, DropdownMenu, CustomInput } from "reactstrap";
 import SlidingPane from "react-sliding-pane";
 
 export default function UserAction({ isMobile }) {
@@ -22,6 +22,8 @@ export default function UserAction({ isMobile }) {
     setCartOpen,
     setWishlistOpen,
     setMenuOpen,
+    toggleTheme,
+    darkTheme,
   } = useContext(AppContext);
 
   const openCart = (event) => {
@@ -153,20 +155,33 @@ export default function UserAction({ isMobile }) {
       >
         <WishList />
       </SlidingPane>
-      <SlidingPane
-        className="side-pane-wrapper nav-menu"
-        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
-        overlayClassName="side-pane-overlay"
-        isOpen={isMenuOpen}
-        title="Menu"
-        width={`${isMobile ? "100vw" : "500px"}`}
-        onRequestClose={() => {
-          // triggered on "<" on left top click or on outside click
-          setMenuOpen(false);
-        }}
-      >
-        <Menu />
-      </SlidingPane>
+      {isMobile ? (
+        <SlidingPane
+          className="side-pane-wrapper nav-menu"
+          closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+          overlayClassName="side-pane-overlay"
+          isOpen={isMenuOpen}
+          title="Menu"
+          width={`${isMobile ? "100vw" : "500px"}`}
+          onRequestClose={() => {
+            // triggered on "<" on left top click or on outside click
+            setMenuOpen(false);
+          }}
+        >
+          <div className="theme-block">
+            <label htmlFor="themeSwitch"></label>
+            <CustomInput
+              type="switch"
+              id="themeSwitch"
+              name="themeSwitch"
+              className={`theme-switch`}
+              onChange={toggleTheme}
+              checked={darkTheme}
+            />
+          </div>
+          <Menu />
+        </SlidingPane>
+      ) : null}
     </>
   );
 }
