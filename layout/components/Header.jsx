@@ -28,7 +28,7 @@ export default function Header() {
                     type="text"
                     id={`searchBox`}
                     name="search"
-                    placeholder={`Serach`}
+                    placeholder={`Search`}
                   />
 
                   <div className="icon search-box-icon">
