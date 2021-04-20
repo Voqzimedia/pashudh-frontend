@@ -1,10 +1,13 @@
+import dynamic from "next/dynamic";
+
 import React from "react";
-import Slider from "react-slick";
 import { Container, Row, Col } from "reactstrap";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const Slider = dynamic(() => import("react-slick"));
 
 // images
 

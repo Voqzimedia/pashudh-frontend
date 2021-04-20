@@ -9,12 +9,17 @@ export default function HighlightSection() {
   return (
     <section className={`page-section highlight-section`}>
       <Row className={`flex-center`}>
-        <Col lg="6" className={`highlight-container`}>
-          <div className="highlight-wraper">
-            <div className="img-holder">
+        <Col lg="6" className={`highlight-container video`}>
+          <div className="highlight-wraper ">
+            {/* <div className="img-holder">
               <picture>
                 <img src={highlightImg1} alt="Highlight" />
               </picture>
+            </div> */}
+            <div className="video-holder">
+              <video autoPlay={true} muted={true} loop={true}>
+                <source src="/videos/left.mp4" />
+              </video>
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>
@@ -24,12 +29,17 @@ export default function HighlightSection() {
             </div>
           </div>
         </Col>
-        <Col lg="6" className={`highlight-container alter`}>
+        <Col lg="6" className={`highlight-container alter video`}>
           <div className="highlight-wraper">
-            <div className="img-holder">
+            {/* <div className="img-holder">
               <picture>
                 <img src={highlightImg2} alt="Highlight" />
               </picture>
+            </div> */}
+            <div className="video-holder">
+              <video autoPlay={true} muted={true} loop={true}>
+                <source src="/videos/right.mp4" />
+              </video>
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>

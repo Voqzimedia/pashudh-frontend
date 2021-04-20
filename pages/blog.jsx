@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 import { Masonry } from "masonic";
 import React, { useContext } from "react";
 

@@ -2,6 +2,12 @@
   @media only screen and (max-width: 500px) {
     margin-top: 25px;
   }
+  margin: 0 !important;
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .about-wraper {
     display: flex;
     flex-wrap: wrap;
@@ -20,6 +26,7 @@
 }
 
 .highlight-section {
+  margin-top: 100px;
   .highlight-container {
     background: $light-gray2;
 
@@ -83,6 +90,59 @@
           padding: 50px 30px;
         }
       }
+    }
+
+    &.video {
+      // padding: 0;
+      .highlight-wraper {
+        width: 100%;
+        .video-holder {
+          width: 100%;
+          position: relative;
+          video {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+
+            @media only screen and (max-width: 500px) {
+              margin-top: 25px;
+              height: auto;
+              object-fit: cover;
+            }
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 20%;
+
+            left: 0;
+            bottom: 0;
+          }
+        }
+
+        .content-holder {
+          color: $base-primary-light;
+          a {
+            color: $base-primary-light;
+          }
+        }
+      }
+
+      // &.alter {
+      //   .highlight-wraper {
+      //     .video-holder {
+      //       &::after {
+      //         background: linear-gradient(
+      //           12deg,
+      //           $base-primary-light,
+      //           transparent,
+      //           transparent
+      //         );
+      //       }
+      //     }
+      //   }
+      // }
     }
   }
 }

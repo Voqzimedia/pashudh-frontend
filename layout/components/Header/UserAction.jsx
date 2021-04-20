@@ -1,15 +1,23 @@
 import React, { useState, useContext } from "react";
 
-import Menu from "./Menu";
-import SvgIcon from "../../../components/utils/SvgIcon";
-import CartList from "../../../components/Shop/CartList";
-import WishList from "../../../components/Shop/WishList";
+import dynamic from "next/dynamic";
+
+// import Menu from "./Menu";
+// import SvgIcon from "../../../components/utils/SvgIcon";
+// import CartList from "../../../components/Shop/CartList";
+// import WishList from "../../../components/Shop/WishList";
+
 import { icons } from "feather-icons";
 
 import AppContext from "../../../context/AppContext";
 
 import { Dropdown, DropdownMenu, CustomInput } from "reactstrap";
-import SlidingPane from "react-sliding-pane";
+
+const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
+const Menu = dynamic(() => import("./Menu"));
+const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
+const CartList = dynamic(() => import("../../../components/Shop/CartList"));
+const WishList = dynamic(() => import("../../../components/Shop/WishList"));
 
 export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);

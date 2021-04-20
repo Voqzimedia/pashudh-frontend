@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import Menu from "./Header/Menu";
-import UserAction from "./Header/UserAction";
+import dynamic from "next/dynamic";
 import { Container, CustomInput } from "reactstrap";
 import { icons } from "feather-icons";
-
 import AppContext from "../../context/AppContext";
 
-import SvgIcon from "../../components/utils/SvgIcon";
+const Menu = dynamic(() => import("./Header/Menu"));
+const UserAction = dynamic(() => import("./Header/UserAction"), { ssr: false });
+const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
+  ssr: false,
+});
 
 export default function Header() {
   const { deviceWidth, toggleTheme } = useContext(AppContext);
