@@ -12,9 +12,15 @@
     .shop-now.btn,
     .slick-dots li.slick-active button:before,
     .slick-dots li button:before,
-    header .navbar-area .menu-block a,
+    header .navbar-area .menu-block a {
+      color: $base-primary-light;
+    }
+
     header .navbar-area .user-block .icon-wrapper .icon-item {
       color: $base-primary-light;
+      @media only screen and (max-width: 500px) {
+        color: $base-primary-dark;
+      }
     }
 
     header .navbar-area .menu-block .subMenu .dropdown-item,
