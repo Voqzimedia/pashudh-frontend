@@ -1,6 +1,7 @@
 const withPlugins = require("next-compose-plugins");
 const withOptimizedImages = require("next-optimized-images");
 const withPWA = require("next-pwa");
+const withVideos = require("next-videos");
 
 // next.js configuration
 const nextConfig = withPWA({
@@ -14,6 +15,6 @@ const nextConfig = withPWA({
 });
 
 module.exports = withPlugins(
-  [withOptimizedImages, { optimizeImagesInDev: true }],
+  [withOptimizedImages, { optimizeImagesInDev: true }, withVideos],
   nextConfig
 );

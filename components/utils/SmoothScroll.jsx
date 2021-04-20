@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 
 import useWindowSize from "../../hooks/useWindowSize";
 
+import Footer from "../../layout/components/Footer";
+
 const SmoothScroll = ({ children }) => {
   // 1.
   const windowSize = useWindowSize();
@@ -28,6 +30,7 @@ const SmoothScroll = ({ children }) => {
   }, [windowSize.height, children]);
 
   const setBodyHeight = () => {
+    // console.log(FooterRef.current.firstChild.getBoundingClientRect());
     document.body.style.height = `${
       scrollingContainerRef.current.getBoundingClientRect().height
     }px`;

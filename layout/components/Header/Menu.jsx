@@ -140,14 +140,18 @@ export default function Menu() {
         </Link>
       </NavItem>
       <NavItem>
-        <a href="#" className={`nav-link menu-link`}>
-          Gift Cards
-        </a>
+        <Link href={`/gift-cards`}>
+          <a className={`nav-link menu-link `} onClick={closeMenu}>
+            Gift Cards
+          </a>
+        </Link>
       </NavItem>
       <NavItem>
-        <a href="#" className={`nav-link menu-link`}>
-          Contact
-        </a>
+        <Link href={`/contact`}>
+          <a className={`nav-link menu-link `} onClick={closeMenu}>
+            Contact
+          </a>
+        </Link>
       </NavItem>
     </Nav>
   );

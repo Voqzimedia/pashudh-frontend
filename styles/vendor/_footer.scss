@@ -66,6 +66,16 @@
       margin: 0;
     }
   }
+
+  &.parallax {
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+    width: 100vw;
+  }
+  &.hide {
+    opacity: 0;
+  }
 }
 
 .newsletter {
@@ -83,7 +93,7 @@
         border-bottom: 1px solid;
         margin: 25px 0;
         min-width: 35vw;
-        background: $light-gray;
+        background: transparent;
         @media only screen and (max-width: 800px) {
           min-width: 75vw;
         }

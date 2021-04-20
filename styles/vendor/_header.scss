@@ -5,12 +5,14 @@ header {
 
   .has-subMenu {
     &:hover,
-    &:focus-within {
+    &:focus-within,
+    &.active {
       .subMenu {
         display: block;
         float: none;
         left: -100%;
         right: auto;
+        margin: 0;
       }
     }
   }

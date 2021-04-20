@@ -1,8 +1,49 @@
 .app-theme {
   &.dark {
-    .scroll-parent {
+    background: $base-primary-dark;
+    header,
+    .alter-bg,
+    .highlight-section .highlight-container {
       background: $base-primary-dark;
-      color: #fff;
+      color: $base-primary-light;
+      border: none;
+    }
+
+    .shop-now.btn,
+    .slick-dots li.slick-active button:before,
+    .slick-dots li button:before,
+    header .navbar-area .menu-block a,
+    header .navbar-area .user-block .icon-wrapper .icon-item {
+      color: $base-primary-light;
+    }
+
+    header .navbar-area .menu-block .subMenu .dropdown-item,
+    .contact-section .contact-container .contact-info-holder .contact-items {
+      color: $base-primary-dark;
+    }
+
+    .newsletter .subscription-block .subscription-form input {
+      border-color: $base-primary-light;
+    }
+
+    .category-section .category-item .seperator-right,
+    .category-section .category-item .seperator-left,
+    .category-section .category-item .seperator-right,
+    .category-section .category-item .seperator-left {
+      border-color: $font-light3 !important;
+    }
+
+    .contact-section .contact-container .contact-info-holder,
+    .form-body .input-Holder .submit-btn {
+      background: $base-primary-light;
+      color: $base-primary-dark;
+    }
+
+    .scroll-parent {
+      .page-main {
+        background: $base-primary-dark;
+        color: $base-primary-light;
+      }
     }
   }
 }

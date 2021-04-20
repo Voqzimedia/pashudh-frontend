@@ -20,12 +20,15 @@ p {
 
 .page-main {
   min-height: 75vh;
+  background-color: $base-primary-light;
+  padding: 5px 0;
 }
 
 .icon {
   svg {
     max-width: $p-font-size;
     max-height: $p-font-size;
+    stroke-width: 1;
   }
 }
 
@@ -41,6 +44,8 @@ p {
     padding-left: 25px;
     padding-right: 25px;
     margin: 15px 0;
+    outline: none;
+    border: 0;
   }
 }
 
@@ -70,6 +75,7 @@ p {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: 9;
   @media only screen and (max-width: 500px) {
     position: relative;
   }
@@ -145,6 +151,11 @@ article {
     @media only screen and (max-width: 500px) {
       margin-top: 25px;
     }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 125px;
   }
 }
 

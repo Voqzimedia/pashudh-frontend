@@ -487,6 +487,14 @@
     box-shadow: 10px 10px 20px #00000009;
     height: 100%;
     margin: 0 10px;
+
+    transition: all ease-in-out 0.5s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translate(0, -15px);
+    }
+
     .title {
       font-size: 1.2rem;
       @media only screen and (max-width: 500px) {
@@ -546,6 +554,109 @@
         linear-gradient(0deg, #000000b3 0%, #00000000 100%) 0% 0% no-repeat
         padding-box;
       opacity: 1;
+    }
+  }
+}
+
+.gift-card-section {
+  .gift-card-container {
+    margin: 50px 0;
+    margin-top: 100px;
+    .gift-card-wrapper {
+      padding: 25px;
+      box-shadow: 10px 10px 20px #00000009;
+      height: 100%;
+      margin: 0 10px;
+      justify-content: center;
+      text-align: center;
+      transition: all ease-in-out 0.5s;
+      cursor: pointer;
+
+      &:hover {
+        transform: translate(0, -15px);
+      }
+
+      .logo-holder {
+        padding: 5px 20px;
+      }
+
+      .content {
+        padding: 15px;
+        .title {
+          font-size: 2rem;
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+      .price {
+        p {
+          font-size: 1.8rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.contact-section {
+  padding-bottom: 5px;
+  .contact-container {
+    margin: 50px 0;
+    margin-top: 100px;
+    .contact-info-holder {
+      background: $base-secondary-light;
+      padding: 50px 35px;
+      color: $base-primary-light;
+      margin: 25px 0;
+      .contact-title {
+        margin: 35px 0;
+      }
+
+      .contact-items {
+        padding: 15px 0;
+        align-items: center;
+        color: $font-light2;
+        display: flex;
+        .icon {
+          .svgIcon {
+            svg {
+              max-width: 100%;
+              max-height: 100%;
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+        }
+        p {
+          margin: 0;
+        }
+      }
+
+      .social-wrapper {
+        padding: 15px 0;
+        .social {
+          .icon {
+            font-size: 1.5rem;
+            color: inherit;
+            svg {
+              max-width: 100%;
+              max-height: 100%;
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    .from-container {
+      padding: 0 25px;
+      margin: 25px 0;
+
+      @media only screen and (max-width: 800px) {
+        padding: 0;
+      }
     }
   }
 }

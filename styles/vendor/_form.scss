@@ -1,0 +1,33 @@
+.form-body {
+  .input-Holder {
+    label {
+      display: none;
+    }
+    margin: 25px 0;
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      min-height: 50px;
+      outline: none;
+    }
+
+    input,
+    textarea {
+      padding: 10px 20px;
+      border: 1px solid $font-light2;
+      background-color: transparent;
+    }
+
+    .submit-btn {
+      color: $base-primary-light;
+      background-color: $base-secondary-light;
+      border-radius: 0;
+      padding: 10px 35px;
+      font-size: 1.2rem;
+      font-weight: 200;
+      box-shadow: none !important;
+    }
+  }
+}

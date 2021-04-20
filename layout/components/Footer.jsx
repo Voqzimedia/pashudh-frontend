@@ -8,12 +8,12 @@ import AppContext from "../../context/AppContext";
 import footerLogo from "../../images/logo/logo-white.svg";
 import footerLogoMobile from "../../images/logo/logo-mobile-white.svg";
 
-export default function Footer() {
+export default function Footer({ className }) {
   const { deviceWidth } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
   return (
-    <footer className="footer-area">
+    <footer className={`footer-area ${className ? className : ""} `}>
       <div className="footer-header">
         <Container>
           <div className="footer-logo">

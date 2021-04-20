@@ -5,6 +5,9 @@ import { Row, Col } from "reactstrap";
 import highlightImg1 from "../../images/highlight/highlight-1.png?webp";
 import highlightImg2 from "../../images/highlight/highlight-2.png?webp";
 
+import leftVid from "../../videos/left.mp4";
+import rightVid from "../../videos/right.mp4";
+
 export default function HighlightSection() {
   return (
     <section className={`page-section highlight-section`}>
@@ -17,8 +20,13 @@ export default function HighlightSection() {
               </picture>
             </div> */}
             <div className="video-holder">
-              <video autoPlay={true} muted={true} loop={true}>
-                <source src="/videos/left.mp4" />
+              <video
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                controlsList="nodownload"
+              >
+                <source src={leftVid} />
               </video>
             </div>
             <div className="content-holder">
@@ -37,8 +45,13 @@ export default function HighlightSection() {
               </picture>
             </div> */}
             <div className="video-holder">
-              <video autoPlay={true} muted={true} loop={true}>
-                <source src="/videos/right.mp4" />
+              <video
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                controlsList="nodownload"
+              >
+                <source src={rightVid} />
               </video>
             </div>
             <div className="content-holder">
