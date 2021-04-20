@@ -1,8 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
 
 import { Container, Row, Col } from "reactstrap";
-import Logo from "../Logo";
-import Social from "../Social";
+
+const Logo = dynamic(() => import("../Logo"));
+const Social = dynamic(() => import("../Social"));
 
 export default function AboutSection() {
   return (

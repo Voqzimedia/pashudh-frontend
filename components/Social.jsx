@@ -11,16 +11,16 @@ import {
 export default function Social({ className }) {
   return (
     <div className={`social ${className ? className : ""}`}>
-      <a href="#" className="icon">
+      <a href="#" title={`Facebook`} className="icon">
         <FontAwesomeIcon icon={faFacebookF} />
       </a>
       <a href="#" className="icon">
-        <FontAwesomeIcon icon={faInstagram} />
+        <FontAwesomeIcon title={`Instagram`} icon={faInstagram} />
       </a>
-      <a href="#" className="icon">
+      <a href="#" title={`Twitter`} className="icon">
         <FontAwesomeIcon icon={faTwitter} />
       </a>
-      <a href="#" className="icon">
+      <a href="#" title={`Pinterest`} className="icon">
         <FontAwesomeIcon icon={faPinterest} />
       </a>
     </div>

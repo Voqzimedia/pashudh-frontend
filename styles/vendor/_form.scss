@@ -30,4 +30,23 @@
       box-shadow: none !important;
     }
   }
+
+  &.login-form {
+    padding: 0 35px;
+    @media only screen and (max-width: 500px) {
+      padding: 0 15px;
+    }
+    .input-Holder {
+      label {
+        display: block;
+      }
+
+      input,
+      textarea {
+        border: none;
+        padding: 0;
+        border-bottom: 1px solid $base-secondary-light;
+      }
+    }
+  }
 }

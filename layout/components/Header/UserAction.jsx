@@ -2,26 +2,35 @@ import React, { useState, useContext } from "react";
 
 import dynamic from "next/dynamic";
 
-// import Menu from "./Menu";
-// import SvgIcon from "../../../components/utils/SvgIcon";
-// import CartList from "../../../components/Shop/CartList";
-// import WishList from "../../../components/Shop/WishList";
-
 import { icons } from "feather-icons";
 
 import AppContext from "../../../context/AppContext";
 
-import { Dropdown, DropdownMenu, CustomInput } from "reactstrap";
+import {
+  DropdownMenu,
+  CustomInput,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap";
 
 const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
-const Menu = dynamic(() => import("./Menu"));
+const Menu = dynamic(() => import("./Menu"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
 const CartList = dynamic(() => import("../../../components/Shop/CartList"));
 const WishList = dynamic(() => import("../../../components/Shop/WishList"));
+const LoginForm = dynamic(() => import("../../../components/User/LoginForm"));
 
 export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
+
+  const [modalLogin, setModalLogin] = useState(false);
+
+  const toggleLogin = (e) => {
+    e.preventDefault();
+    setModalLogin(() => !modalLogin);
+  };
 
   const {
     isCartOpen,
@@ -66,64 +75,78 @@ export default function UserAction({ isMobile }) {
 
   return (
     <>
-      <ul className="icon-wrapper">
+      <div className="icon-wrapper">
         {isMobile ? (
-          <a
-            href="#"
-            onClick={(e) => toggleSearch(e)}
-            className="icon-item icon"
-          >
+          <div onClick={(e) => toggleSearch(e)} className="icon-item icon">
             <SvgIcon icon={icons.search.toSvg()} />
-          </a>
+          </div>
         ) : null}
 
         {isMobile ? (
-          <a href="#" onClick={(e) => toggleUser(e)} className="icon-item icon">
+          <div onClick={(e) => toggleUser(e)} className="icon-item icon">
             <SvgIcon icon={icons.user.toSvg()} />
-          </a>
+          </div>
         ) : (
-          <Dropdown nav inNavbar>
-            <a href="#" className={`icon-item icon has-subMenu nav-link`}>
+          <div className={`dropdown nav-item`}>
+            <div
+              title={`user`}
+              className={`icon-item icon has-subMenu nav-link`}
+            >
               <SvgIcon icon={icons.user.toSvg()} />
 
               <DropdownMenu className={`subMenu`}>
-                <a href="#" className="dropdown-item">
+                <a
+                  title={`login`}
+                  onClick={toggleLogin}
+                  className="dropdown-item"
+                >
                   Login
                 </a>
-                <a href="#" className="dropdown-item">
+                <a title={`signup`} className="dropdown-item">
                   Signup
                 </a>
               </DropdownMenu>
-            </a>
-          </Dropdown>
+            </div>
+          </div>
         )}
 
-        <a
-          onClick={(e) => openCart(e)}
-          href="#"
-          className="icon-item icon cart"
-        >
+        <div onClick={(e) => openCart(e)} className="icon-item icon cart">
           <SvgIcon icon={icons["shopping-cart"].toSvg()} />
 
           <div className="cart-quantity">1</div>
-        </a>
-        <a href="#" onClick={(e) => openWishlist(e)} className="icon-item icon">
+        </div>
+        <div
+          title={`wishlist`}
+          onClick={(e) => openWishlist(e)}
+          className="icon-item icon"
+        >
           <SvgIcon icon={icons.heart.toSvg()} />
-        </a>
+        </div>
         {isMobile ? (
-          <a href="#" onClick={(e) => openMenu(e)} className="icon-item icon">
+          <div
+            title={`menu`}
+            onClick={(e) => openMenu(e)}
+            className="icon-item icon"
+          >
             <SvgIcon icon={icons.menu.toSvg()} />
-          </a>
+          </div>
         ) : null}
-      </ul>
+      </div>
       {isMobile ? (
         isUserOpen ? (
           <div className="user-panel">
             <div className="link-wrapper">
-              <a href="#" className="dropdown-item">
+              <a
+                onClick={(e) => {
+                  toggleLogin(e);
+                  toggleUser(e);
+                }}
+                title={`login`}
+                className="dropdown-item"
+              >
                 Login
               </a>
-              <a href="#" className="dropdown-item">
+              <a href="#" title={`signup`} className="dropdown-item">
                 Signup
               </a>
             </div>
@@ -163,6 +186,11 @@ export default function UserAction({ isMobile }) {
       >
         <WishList />
       </SlidingPane>
+      <Modal isOpen={modalLogin} toggle={toggleLogin} className={"login-modal"}>
+        <ModalBody>
+          <LoginForm />
+        </ModalBody>
+      </Modal>
       {isMobile ? (
         <SlidingPane
           className="side-pane-wrapper nav-menu"

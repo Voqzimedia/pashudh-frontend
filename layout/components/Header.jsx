@@ -4,7 +4,8 @@ import { Container, CustomInput } from "reactstrap";
 import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
 
-const Menu = dynamic(() => import("./Header/Menu"));
+import Menu from "./Header/Menu";
+
 const UserAction = dynamic(() => import("./Header/UserAction"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
   ssr: false,

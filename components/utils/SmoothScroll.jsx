@@ -27,6 +27,7 @@ const SmoothScroll = ({ children }) => {
       }.bind(this),
       100
     );
+    setBodyHeight();
   }, [windowSize.height, children]);
 
   const setBodyHeight = () => {
