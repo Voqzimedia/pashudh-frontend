@@ -672,3 +672,21 @@
     }
   }
 }
+
+.support-content-section {
+  .support-accordions-wrapper {
+    .support-title {
+      font-size: 1.5rem;
+    }
+    .support-item {
+      .support-content {
+        padding: 25px 0;
+        margin: 0;
+        text-align: left;
+        p {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}

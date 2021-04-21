@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 import { Row, Col } from "reactstrap";
 
 import highlightImg1 from "../../assets/images/highlight/highlight-1.png?webp";
@@ -31,9 +31,9 @@ export default function HighlightSection() {
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>
-              <a href="#" className="shop-now btn">
-                Shop Now
-              </a>
+              <Link href={`/shop`}>
+                <a className="shop-now btn">Shop Now</a>
+              </Link>
             </div>
           </div>
         </Col>
@@ -56,9 +56,9 @@ export default function HighlightSection() {
             </div>
             <div className="content-holder">
               <h2 className="title">Pavana</h2>
-              <a href="#" className="shop-now btn">
-                Shop Now
-              </a>
+              <Link href={`/shop`}>
+                <a className="shop-now btn">Shop Now</a>
+              </Link>
             </div>
           </div>
         </Col>

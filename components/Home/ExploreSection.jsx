@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import AppContext from "../../context/AppContext";
+import Link from "next/link";
 
 import { Row, Col } from "reactstrap";
 
@@ -67,9 +68,9 @@ export default function ExploreSection() {
                   )}
 
                   <p className="description">{explore.txt}</p>
-                  <a href="#" className="shop-now btn">
-                    Shop Now
-                  </a>
+                  <Link href={`/shop`}>
+                    <a className="shop-now btn">Shop Now</a>
+                  </Link>
                 </div>
               </div>
             </Col>

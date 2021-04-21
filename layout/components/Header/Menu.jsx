@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Nav,
-  NavItem,
-  Dropdown,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-} from "reactstrap";
+import { Nav, NavItem, Dropdown, DropdownMenu } from "reactstrap";
 
 import Link from "next/link";
 

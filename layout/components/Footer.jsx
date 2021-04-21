@@ -4,6 +4,8 @@ import Social from "../../components/Social";
 import { Container, Row, Col } from "reactstrap";
 import AppContext from "../../context/AppContext";
 
+import Link from "next/link";
+
 // Images
 import footerLogo from "../../assets/images/logo/logo-white.svg";
 import footerLogoMobile from "../../assets/images/logo/logo-mobile-white.svg";
@@ -45,16 +47,24 @@ export default function Footer({ className }) {
                     <h3>Quick Links</h3>
                     <ul className="footer-nav">
                       <li>
-                        <a href="#">Home </a>
+                        <Link href={`/`}>
+                          <a>Home</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Shop</a>
+                        <Link href={`/shop`}>
+                          <a>Shop</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Gift Cards</a>
+                        <Link href={`/gift-cards`}>
+                          <a>Gift Cards</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Contact</a>
+                        <Link href={`/contact`}>
+                          <a>Contact</a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -99,22 +109,34 @@ export default function Footer({ className }) {
                     <h3>Information</h3>
                     <ul className="footer-nav">
                       <li>
-                        <a href="#">Shipping Policy </a>
+                        <Link href={`/support`}>
+                          <a>Shipping Policy </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Cancellation Policy</a>
+                        <Link href={`/support`}>
+                          <a>Cancellation Policy</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Exchange Policy</a>
+                        <Link href={`/support`}>
+                          <a>Exchange Policy</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Terms of Service</a>
+                        <Link href={`/support`}>
+                          <a>Terms of Service</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Privacy Policy</a>
+                        <Link href={`/support`}>
+                          <a>Privacy Policy</a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">FAQs</a>
+                        <Link href={`/support`}>
+                          <a>FAQs</a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -127,23 +149,14 @@ export default function Footer({ className }) {
                 <div className="footer-contact">
                   <ul className="footer-nav">
                     <li>
-                      <a href="#">Terms of Service</a>
+                      <Link href={`/support`}>
+                        <a>Terms of Service</a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">Shipping Policy</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="footer-item">
-                <div className="footer-contact">
-                  <ul className="footer-nav">
-                    <li>
-                      <a href="#">Cancellation Policy </a>
-                    </li>
-                    <li>
-                      <a href="#">Privacy Policy</a>
+                      <Link href={`/support`}>
+                        <a>Shipping Policy</a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -153,10 +166,31 @@ export default function Footer({ className }) {
                 <div className="footer-contact">
                   <ul className="footer-nav">
                     <li>
-                      <a href="#">Exchange Policy</a>
+                      <Link href={`/support`}>
+                        <a>Cancellation Policy </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">FAQs</a>
+                      <Link href={`/support`}>
+                        <a>Privacy Policy</a>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="footer-item">
+                <div className="footer-contact">
+                  <ul className="footer-nav">
+                    <li>
+                      <Link href={`/support`}>
+                        <a>Exchange Policy</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={`/support`}>
+                        <a href="#">FAQs</a>
+                      </Link>
                     </li>
                   </ul>
                 </div>

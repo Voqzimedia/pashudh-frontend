@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import AppContext from "../../context/AppContext";
+import Link from "next/link";
 
 //
 
@@ -83,9 +84,9 @@ export default function CategorySection() {
                         )}
                       </div>
                       <div className="action-holder">
-                        <a href="#" className="shop-now btn">
-                          Shop Now
-                        </a>
+                        <Link href={`/shop`}>
+                          <a className="shop-now btn">Shop Now</a>
+                        </Link>
                       </div>
                     </div>
                   </div>

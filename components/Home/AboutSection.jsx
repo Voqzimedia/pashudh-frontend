@@ -1,6 +1,8 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
+import Link from "next/link";
+
 import { Container, Row, Col } from "reactstrap";
 
 const Logo = dynamic(() => import("../Logo"));
@@ -29,9 +31,9 @@ export default function AboutSection() {
                 <p>follow us</p>
               </div>
               <div className="action-holder">
-                <a href="#" className="shop-now btn">
-                  Shop Now
-                </a>
+                <Link href={`/shop`}>
+                  <a className="shop-now btn">Shop Now</a>
+                </Link>
               </div>
             </div>
           </Col>

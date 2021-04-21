@@ -53,6 +53,8 @@ const SmoothScroll = ({ children }) => {
       ? (scrollingContainerRef.current.style.transform = `translateY(-${data.previous}px)`)
       : null;
 
+    setBodyHeight();
+
     // Recursive call
     requestAnimationFrame(() => smoothScrollingHandler());
   };

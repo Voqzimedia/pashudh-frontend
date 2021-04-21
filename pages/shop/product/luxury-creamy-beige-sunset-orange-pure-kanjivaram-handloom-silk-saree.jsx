@@ -46,10 +46,14 @@ export default function Product() {
             <div className="shop-breadcrumbs">
               <Breadcrumb className="breadcrumbs-holder">
                 <BreadcrumbItem>
-                  <a href="#">Shop</a>
+                  <Link href={`/shop`}>
+                    <a>Shop</a>
+                  </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <a href="#">Yards of luxury</a>
+                  <Link href={`/shop`}>
+                    <a>Yards of luxury</a>
+                  </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>Black checked saree</BreadcrumbItem>
               </Breadcrumb>

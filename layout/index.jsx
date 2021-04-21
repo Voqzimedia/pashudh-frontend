@@ -25,6 +25,7 @@ const Layout = (props) => {
           <main className={`page-main`}>{props.children}</main>
         </Tracker>
         <NewsLetter />
+
         <Footer className={`hide`} />
       </SmoothScroll>
       <Footer className={`parallax`} />
