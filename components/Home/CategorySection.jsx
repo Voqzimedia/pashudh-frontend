@@ -14,81 +14,85 @@ import img3Right from "../../assets/images/category/img3Right.png?webp";
 export default function CategorySection() {
   const { deviceWidth } = useContext(AppContext);
 
-  var testImage = [];
-
   const isMobile = deviceWidth < 500;
 
   const categoryList = [
     {
       title: "Brilliant Blues",
       subTitle: "Shades Of Sky",
-      imgLeft: img1Left,
-      imgRight: img1Right,
+      slug: "brilliant-blues",
+      longImg: img1Left,
+      shortImg: img1Right,
     },
     {
       title: "Radiant Reds",
       subTitle: "Shades Of Fire",
-      imgLeft: img2Left,
-      imgRight: img2Right,
+      slug: "radiant-reds",
+      longImg: img2Left,
+      shortImg: img2Right,
     },
     {
       title: "Youthful Yellows",
+      slug: "youthful-yellows",
       subTitle: "Shades Of Sunshine",
-      imgLeft: img3Left,
-      imgRight: img3Right,
+      longImg: img3Left,
+      shortImg: img3Right,
     },
   ];
 
   return (
     <section className={`page-section category-section`}>
       <Container>
-        {categoryList.map((category, intex) => (
-          <Row className={`category-item`} key={intex}>
-            <div className="content-header">
-              {isMobile && (
-                <div className="content-holder">
-                  <p className="sub-title">{category.subTitle}</p>
-                  <hr className="small gradient no-m" />
-                  <h2 className="title">{category.title}</h2>
+        {categoryList.map(
+          (category, intex) =>
+            intex < 3 && (
+              <Row className={`category-item`} key={intex}>
+                <div className="content-header">
+                  {isMobile && (
+                    <div className="content-holder">
+                      <p className="sub-title">{category.subTitle}</p>
+                      <hr className="small gradient no-m" />
+                      <h2 className="title">{category.title}</h2>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <Col md="6" sm="6" xs="6" className={`seperator-left`}>
-              <div className="left-section">
-                <div className="image-holder">
-                  <picture>
-                    <img src={category.imgLeft} alt={category.title} />
-                  </picture>
-                </div>
-              </div>
-            </Col>
-            <Col md="6" sm="6" xs="6" className={`seperator-right`}>
-              <div className="right-section">
-                <div className="cate-wrapper">
-                  <div className="cate-holder">
+                <Col md="6" sm="6" xs="6" className={`seperator-left`}>
+                  <div className="left-section">
                     <div className="image-holder">
                       <picture>
-                        <img src={category.imgRight} alt={category.title} />
+                        <img src={category.longImg} alt={category.title} />
                       </picture>
                     </div>
-                    {!isMobile && (
-                      <div className="content-holder">
-                        <p className="sub-title">{category.subTitle}</p>
-                        <hr className="small gradient no-m" />
-                        <h2 className="title">{category.title}</h2>
+                  </div>
+                </Col>
+                <Col md="6" sm="6" xs="6" className={`seperator-right`}>
+                  <div className="right-section">
+                    <div className="cate-wrapper">
+                      <div className="cate-holder">
+                        <div className="image-holder">
+                          <picture>
+                            <img src={category.shortImg} alt={category.title} />
+                          </picture>
+                        </div>
+                        {!isMobile && (
+                          <div className="content-holder">
+                            <p className="sub-title">{category.subTitle}</p>
+                            <hr className="small gradient no-m" />
+                            <h2 className="title">{category.title}</h2>
+                          </div>
+                        )}
                       </div>
-                    )}
+                      <div className="action-holder">
+                        <a href="#" className="shop-now btn">
+                          Shop Now
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                  <div className="action-holder">
-                    <a href="#" className="shop-now btn">
-                      Shop Now
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        ))}
+                </Col>
+              </Row>
+            )
+        )}
       </Container>
     </section>
   );

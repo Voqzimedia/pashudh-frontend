@@ -6,6 +6,7 @@ import ExploreSection from "../components/Home/ExploreSection";
 import TestimonialSection from "../components/Home/TestimonialSection";
 import BlogSection from "../components/Home/BlogSection";
 import CategorySection from "../components/Home/CategorySection";
+import axios from "axios";
 
 export default function Home() {
   return (

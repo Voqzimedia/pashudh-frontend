@@ -3,23 +3,20 @@ header {
     display: none;
   }
 
-  .has-subMenu {
-    &:hover,
-    &:focus-within,
-    &.active {
-      .subMenu {
-        display: block;
-        float: none;
-        left: -100%;
-        right: auto;
-        margin: 0;
-      }
-    }
-  }
-
   &.mobile-head {
     @media only screen and (max-width: 500px) {
       display: block;
+    }
+  }
+
+  .has-subMenu {
+    position: relative;
+    &:hover,
+    &.active {
+      .subMenu {
+        left: -100%;
+        right: auto;
+      }
     }
   }
 
@@ -162,6 +159,7 @@ header {
         &:hover,
         &.active {
           opacity: 1;
+          z-index: 9;
           &::before {
             width: 80%;
           }
@@ -237,6 +235,20 @@ header {
           }
         }
       }
+    }
+  }
+}
+
+.has-subMenu {
+  position: relative;
+  &:hover,
+  &.active {
+    .subMenu {
+      display: block;
+      float: none;
+      right: auto;
+      margin: 0;
+      z-index: 9;
     }
   }
 }

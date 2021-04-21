@@ -58,7 +58,6 @@ export default function Menu() {
         <>
           <NavItem>
             <a
-              href="#"
               onClick={toggleA}
               className={`nav-link menu-link dropdown-toggle`}
             >
@@ -102,34 +101,35 @@ export default function Menu() {
         </>
       ) : (
         <Dropdown nav inNavbar>
-          <a
-            href="#"
-            className={`nav-link dropdown-toggle menu-link has-subMenu ${
-              dropdownOpen ? "active" : ""
-            }`}
-          >
-            Shop
-            <DropdownMenu className={`subMenu`}>
-              <a href="#" className="dropdown-item">
-                Yards of Couture
-              </a>
-              <a href="#" className="dropdown-item">
-                Yards of Eminence
-              </a>
-              <a href="#" className="dropdown-item">
-                Yards of Luxury
-              </a>
-              <a href="#" className="dropdown-item">
-                Yards of Elegance
-              </a>
-              <a href="#" className="dropdown-item">
-                The Shri Collection
-              </a>
-              <a href="#" className="dropdown-item">
-                Whole Six Yards
-              </a>
-            </DropdownMenu>
-          </a>
+          <Link href={`/shop`}>
+            <a
+              className={`nav-link dropdown-toggle menu-link has-subMenu ${
+                dropdownOpen ? "active" : ""
+              }`}
+            >
+              Shop
+              <DropdownMenu className={`subMenu`}>
+                <a href="#" className="dropdown-item">
+                  Yards of Couture
+                </a>
+                <a href="#" className="dropdown-item">
+                  Yards of Eminence
+                </a>
+                <a href="#" className="dropdown-item">
+                  Yards of Luxury
+                </a>
+                <a href="#" className="dropdown-item">
+                  Yards of Elegance
+                </a>
+                <a href="#" className="dropdown-item">
+                  The Shri Collection
+                </a>
+                <a href="#" className="dropdown-item">
+                  Whole Six Yards
+                </a>
+              </DropdownMenu>
+            </a>
+          </Link>
         </Dropdown>
       )}
       <NavItem>

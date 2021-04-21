@@ -1,29 +1,28 @@
 [
   {
-    "title": "Brilliant Blues",
-    "subTitle": "Shades Of Sky",
-    "slug": "brilliant-blues",
-    "img": {
-      "long": "../../assets/images/category/img1Left.png",
-      "short": "../../assets/images/category/img1Right.png"
-    }
+    "title": "Yards of Couture",
+    "slug": "youthful-yellows"
   },
   {
-    "title": "Radiant Reds",
-    "subTitle": "Shades Of Fire",
-    "slug": "radiant-reds",
-    "img": {
-      "long": "../../assets/images/category/img2Left.png",
-      "short": "../../assets/images/category/img2Right.png"
-    }
+    "title": "Yards of Eminence",
+    "slug": "youthful-yellows"
   },
   {
-    "title": "Youthful Yellows",
-    "subTitle": "Shades Of Sky",
-    "slug": "youthful-yellows",
-    "img": {
-      "long": "../../assets/images/category/img3Left.png",
-      "short": "../../assets/images/category/img3Right.png"
-    }
+    "title": "Yards of Luxury",
+    "slug": "youthful-yellows"
+  },
+  {
+    "title": "Yards of Elegance",
+    "slug": "youthful-yellows"
+  },
+  {
+    "title": "The Shri Collection ",
+    "subTitle": "Men's Silk Dhotis",
+    "slug": "youthful-yellows"
+  },
+  {
+    "title": "Whole Six Yards ",
+    "subTitle": "All Products",
+    "slug": "youthful-yellows"
   }
 ]
