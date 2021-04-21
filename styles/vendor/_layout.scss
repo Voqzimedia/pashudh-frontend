@@ -335,6 +335,16 @@
       }
     }
   }
+
+  &.mobile-blog {
+    .blog-wrapper {
+      .blog-content {
+        .title {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }
 
 .category-section {

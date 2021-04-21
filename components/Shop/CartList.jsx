@@ -37,6 +37,10 @@ export default function CartList() {
         </Col>
         <Col xs="12"></Col>
       </Row>
+
+      <div className="checkout-action">
+        <button className="btn solid-btn">Checkout | ₹ 1,35,000.00</button>
+      </div>
     </div>
   );
 }

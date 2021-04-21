@@ -82,6 +82,18 @@ export default function Shop() {
     },
   ];
 
+  const changeTab = (e) => {
+    let activeMenu = e.target;
+
+    document
+      ? document.querySelectorAll(".filter-item").forEach((menu) => {
+          menu.classList.remove("active");
+        })
+      : null;
+
+    activeMenu.classList.add("active");
+  };
+
   return (
     <>
       <section className={`shop-section page-section`}>
@@ -96,14 +108,17 @@ export default function Shop() {
           <Container className={`shop-filter`}>
             <div className={`filter-wrapper`}>
               {cataList.map((cata, index) => (
-                <div xs="2" key={index} className={`filter-item`}>
-                  <a href="#">
-                    <p className="title">{cata.title}</p>
-                    {cata.subTitle && (
-                      <p className="sub-title">{cata.subTitle}</p>
-                    )}
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  key={index}
+                  onClick={changeTab}
+                  className={`filter-item`}
+                >
+                  <p className="title">{cata.title}</p>
+                  {cata.subTitle && (
+                    <p className="sub-title">{cata.subTitle}</p>
+                  )}
+                </a>
               ))}
             </div>
           </Container>
@@ -125,7 +140,7 @@ export default function Shop() {
             </div>
 
             <div className="product-sort-holder">
-              <a className={`nav-link dropdown-toggle menu-link has-subMenu`}>
+              <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
                 Sort
                 <DropdownMenu className={`subMenu`}>
                   <a href="#" className="dropdown-item">
@@ -138,8 +153,8 @@ export default function Shop() {
                     Newest Arrivals
                   </a>
                 </DropdownMenu>
-              </a>
-              <a className={`nav-link dropdown-toggle menu-link has-subMenu`}>
+              </div>
+              <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
                 Filter
                 <DropdownMenu className={`subMenu`}>
                   <a href="#" className="dropdown-item">
@@ -149,7 +164,7 @@ export default function Shop() {
                     Class
                   </a>
                 </DropdownMenu>
-              </a>
+              </div>
             </div>
 
             <div className="product-grid">

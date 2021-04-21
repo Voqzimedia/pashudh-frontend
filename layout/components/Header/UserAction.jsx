@@ -20,16 +20,23 @@ const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
 const CartList = dynamic(() => import("../../../components/Shop/CartList"));
 const WishList = dynamic(() => import("../../../components/Shop/WishList"));
 const LoginForm = dynamic(() => import("../../../components/User/LoginForm"));
+const SignupForm = dynamic(() => import("../../../components/User/SignupForm"));
 
 export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
 
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalSignup, setModalSignup] = useState(false);
 
   const toggleLogin = (e) => {
     e.preventDefault();
     setModalLogin(() => !modalLogin);
+  };
+
+  const toggleSignup = (e) => {
+    e.preventDefault();
+    setModalSignup(() => !modalSignup);
   };
 
   const {
@@ -102,7 +109,14 @@ export default function UserAction({ isMobile }) {
                 >
                   Login
                 </a>
-                <a title={`signup`} className="dropdown-item">
+                <a
+                  onClick={(e) => {
+                    toggleSignup(e);
+                    toggleUser(e);
+                  }}
+                  title={`signup`}
+                  className="dropdown-item"
+                >
                   Signup
                 </a>
               </DropdownMenu>
@@ -146,7 +160,14 @@ export default function UserAction({ isMobile }) {
               >
                 Login
               </a>
-              <a href="#" title={`signup`} className="dropdown-item">
+              <a
+                onClick={(e) => {
+                  toggleSignup(e);
+                  toggleUser(e);
+                }}
+                title={`signup`}
+                className="dropdown-item"
+              >
                 Signup
               </a>
             </div>
@@ -189,6 +210,15 @@ export default function UserAction({ isMobile }) {
       <Modal isOpen={modalLogin} toggle={toggleLogin} className={"login-modal"}>
         <ModalBody>
           <LoginForm />
+        </ModalBody>
+      </Modal>
+      <Modal
+        isOpen={modalSignup}
+        toggle={toggleSignup}
+        className={"login-modal"}
+      >
+        <ModalBody>
+          <SignupForm />
         </ModalBody>
       </Modal>
       {isMobile ? (

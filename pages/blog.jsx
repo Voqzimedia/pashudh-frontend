@@ -83,7 +83,7 @@ export default function Blog() {
         </Container>
       </section>
       {isMobile ? (
-        <section className={`page-section blog-section`}>
+        <section className={`page-section mobile-blog blog-section`}>
           <Container>
             <Row>
               {blogItems.map((post, index) => (

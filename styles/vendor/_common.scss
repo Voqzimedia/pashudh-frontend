@@ -149,8 +149,8 @@ article {
   }
 }
 
-.shop-now {
-  &.btn {
+.btn {
+  &.shop-now {
     box-shadow: none !important;
     border-bottom: 1px solid;
     border-radius: 0;
@@ -159,6 +159,17 @@ article {
     padding-right: 0;
     color: $font-light;
     font-weight: 500;
+  }
+
+  &.solid-btn {
+    color: $base-primary-light;
+    background-color: $base-secondary-light;
+    border-radius: 0;
+    padding: 10px 35px;
+    font-size: 1.2rem;
+    font-weight: 200;
+    box-shadow: none !important;
+    margin: 0 10px;
   }
 }
 
