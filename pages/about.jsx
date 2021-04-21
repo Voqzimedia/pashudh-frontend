@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "reactstrap";
 
-import rocketIcon from "../images/icons/rocket.svg?include";
-import badgeIcon from "../images/icons/badge.svg?include";
-import threadIcon from "../images/icons/thread.svg?include";
+import rocketIcon from "../assets/images/icons/rocket.svg?include";
+import badgeIcon from "../assets/images/icons/badge.svg?include";
+import threadIcon from "../assets/images/icons/thread.svg?include";
 
 export default function About() {
   const pageTitle = "About us";

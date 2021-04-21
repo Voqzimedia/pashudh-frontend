@@ -5,8 +5,8 @@ import { Container, Row, Col } from "reactstrap";
 import AppContext from "../../context/AppContext";
 
 // Images
-import footerLogo from "../../images/logo/logo-white.svg";
-import footerLogoMobile from "../../images/logo/logo-mobile-white.svg";
+import footerLogo from "../../assets/images/logo/logo-white.svg";
+import footerLogoMobile from "../../assets/images/logo/logo-mobile-white.svg";
 
 export default function Footer({ className }) {
   const { deviceWidth } = useContext(AppContext);

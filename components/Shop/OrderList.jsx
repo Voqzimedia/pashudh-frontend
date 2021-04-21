@@ -3,7 +3,7 @@ import { Row, Col } from "reactstrap";
 
 // images
 
-import productImg from "../../images/products/prod1.jpg?webp";
+import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function OrderList() {
   return (

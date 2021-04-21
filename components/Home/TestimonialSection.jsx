@@ -11,8 +11,8 @@ const Slider = dynamic(() => import("react-slick"));
 
 // images
 
-import userImg1 from "../../images/testimonial/user1.png?webp";
-import quoteImg from "../../images/icons/quotes.svg";
+import userImg1 from "../../assets/images/testimonial/user1.png?webp";
+import quoteImg from "../../assets/images/icons/quotes.svg";
 
 export default function TestimonialSection() {
   const testimonialList = [

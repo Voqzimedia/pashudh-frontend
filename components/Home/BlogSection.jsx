@@ -9,9 +9,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Images
-import blogImg1 from "../../images/blog/blog-1.png?webp";
-import blogImg2 from "../../images/blog/blog-2.png?webp";
-import blogImg3 from "../../images/blog/blog-3.png?webp";
+import blogImg1 from "../../assets/images/blog/blog-1.png?webp";
+import blogImg2 from "../../assets/images/blog/blog-2.png?webp";
+import blogImg3 from "../../assets/images/blog/blog-3.png?webp";
 
 export default function BlogSection() {
   const { deviceWidth } = useContext(AppContext);

@@ -2,8 +2,8 @@ import React from "react";
 
 import { Row, Col } from "reactstrap";
 
-import highlightImg1 from "../../images/highlight/highlight-1.png?webp";
-import highlightImg2 from "../../images/highlight/highlight-2.png?webp";
+import highlightImg1 from "../../assets/images/highlight/highlight-1.png?webp";
+import highlightImg2 from "../../assets/images/highlight/highlight-2.png?webp";
 
 import leftVid from "../../assets/videos/left.mp4";
 import rightVid from "../../assets/videos/right.mp4";

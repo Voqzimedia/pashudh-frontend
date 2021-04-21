@@ -3,9 +3,9 @@ import AppContext from "../../context/AppContext";
 
 import { Row, Col } from "reactstrap";
 
-import exploreImg1 from "../../images/explore/001.png?webp";
-import exploreImg2 from "../../images/explore/002.png?webp";
-import exploreImg3 from "../../images/explore/003.png?webp";
+import exploreImg1 from "../../assets/images/explore/001.png?webp";
+import exploreImg2 from "../../assets/images/explore/002.png?webp";
+import exploreImg3 from "../../assets/images/explore/003.png?webp";
 
 export default function ExploreSection() {
   const { deviceWidth } = useContext(AppContext);

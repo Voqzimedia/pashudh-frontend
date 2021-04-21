@@ -5,7 +5,7 @@ import { icons } from "feather-icons";
 
 // images
 
-import productImg from "../../images/products/prod1.jpg?webp";
+import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function CartList() {
   return (

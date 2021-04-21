@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import AppContext from "../context/AppContext";
 
-import LogoImg from "../images/logo/logo.svg";
-import LogoMobileImg from "../images/logo/logo-mobile.svg";
-import LogoImgDark from "../images/logo/logo-white.svg";
-import LogoMobileImgDark from "../images/logo/logo-mobile-white.svg";
+import LogoImg from "../assets/images/logo/logo.svg";
+import LogoMobileImg from "../assets/images/logo/logo-mobile.svg";
+import LogoImgDark from "../assets/images/logo/logo-white.svg";
+import LogoMobileImgDark from "../assets/images/logo/logo-mobile-white.svg";
 
 export default function Logo() {
   const { deviceWidth, darkTheme } = useContext(AppContext);

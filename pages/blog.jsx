@@ -9,12 +9,12 @@ import { Container, Row, Col } from "reactstrap";
 
 // Images
 
-import blogImg1 from "../images/blog/full/img1.png?webp";
-import blogImg2 from "../images/blog/full/img2.png?webp";
-import blogImg3 from "../images/blog/full/img3.png?webp";
-import blogImg4 from "../images/blog/full/img4.png?webp";
-import blogImg5 from "../images/blog/full/img5.png?webp";
-import blogImg6 from "../images/blog/full/img6.png?webp";
+import blogImg1 from "../assets/images/blog/full/img1.png?webp";
+import blogImg2 from "../assets/images/blog/full/img2.png?webp";
+import blogImg3 from "../assets/images/blog/full/img3.png?webp";
+import blogImg4 from "../assets/images/blog/full/img4.png?webp";
+import blogImg5 from "../assets/images/blog/full/img5.png?webp";
+import blogImg6 from "../assets/images/blog/full/img6.png?webp";
 
 const BlogGrid = ({ data: { name, img } }) => {
   return (

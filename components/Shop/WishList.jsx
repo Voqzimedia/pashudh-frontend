@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import QuantityBtn from "./QuantityBtn";
-import CloseIcon from "../../images/icons/x.svg?include";
+import CloseIcon from "../../assets/images/icons/x.svg?include";
 
 // images
 
-import productImg from "../../images/products/prod1.jpg?webp";
+import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function WishList() {
   return (

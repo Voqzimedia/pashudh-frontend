@@ -4,15 +4,17 @@ import AppContext from "../../context/AppContext";
 
 //
 
-import img1Left from "../../images/category/img1Left.png?webp";
-import img1Right from "../../images/category/img1Right.png?webp";
-import img2Left from "../../images/category/img2Left.png?webp";
-import img2Right from "../../images/category/img2Right.png?webp";
-import img3Left from "../../images/category/img3Left.png?webp";
-import img3Right from "../../images/category/img3Right.png?webp";
+import img1Left from "../../assets/images/category/img1Left.png?webp";
+import img1Right from "../../assets/images/category/img1Right.png?webp";
+import img2Left from "../../assets/images/category/img2Left.png?webp";
+import img2Right from "../../assets/images/category/img2Right.png?webp";
+import img3Left from "../../assets/images/category/img3Left.png?webp";
+import img3Right from "../../assets/images/category/img3Right.png?webp";
 
 export default function CategorySection() {
   const { deviceWidth } = useContext(AppContext);
+
+  var testImage = [];
 
   const isMobile = deviceWidth < 500;
 
