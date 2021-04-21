@@ -1,6 +1,7 @@
 body {
   font-family: $base-font;
   background: $base-primary-light;
+
   &::-webkit-scrollbar {
     width: 5px;
     border-radius: 100px;
@@ -11,6 +12,10 @@ body {
   }
   &::-webkit-scrollbar-thumb {
     background: $base-gradient;
+  }
+
+  &.dark {
+    background: $base-primary-dark;
   }
 }
 

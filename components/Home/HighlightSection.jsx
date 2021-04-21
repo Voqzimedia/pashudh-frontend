@@ -5,8 +5,8 @@ import { Row, Col } from "reactstrap";
 import highlightImg1 from "../../images/highlight/highlight-1.png?webp";
 import highlightImg2 from "../../images/highlight/highlight-2.png?webp";
 
-import leftVid from "../../videos/left.mp4";
-import rightVid from "../../videos/right.mp4";
+import leftVid from "../../assets/videos/left.mp4";
+import rightVid from "../../assets/videos/right.mp4";
 
 export default function HighlightSection() {
   return (

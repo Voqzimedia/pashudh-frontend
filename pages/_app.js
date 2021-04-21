@@ -89,6 +89,12 @@ class MyApp extends App {
     this.state.darkTheme
       ? this.setState({ darkTheme: false })
       : this.setState({ darkTheme: true });
+    document ? (document.body.className = "") : null;
+    document
+      ? document.body.classList.add(
+          `${this.state.darkTheme ? "light" : "dark"}`
+        )
+      : null;
   };
 
   addItem = (item) => {
