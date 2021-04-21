@@ -67,34 +67,34 @@ export default function Menu() {
           {dropdownOpen ? (
             <Nav className={isMobile ? "mobile-menu sub-menu" : ""}>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  Yards of Couture
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Couture</a>
+                </Link>
               </NavItem>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  Yards of Eminence
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Eminence</a>
+                </Link>
               </NavItem>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  Yards of Luxury
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Luxury</a>
+                </Link>
               </NavItem>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  Yards of Elegance
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Elegance</a>
+                </Link>
               </NavItem>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  The Shri Collection
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">The Shri Collection</a>
+                </Link>
               </NavItem>
               <NavItem>
-                <a href="#" className="dropdown-item">
-                  Whole Six Yards
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Whole Six Yards</a>
+                </Link>
               </NavItem>
             </Nav>
           ) : null}
@@ -109,24 +109,26 @@ export default function Menu() {
             >
               Shop
               <DropdownMenu className={`subMenu`}>
-                <a href="#" className="dropdown-item">
-                  Yards of Couture
-                </a>
-                <a href="#" className="dropdown-item">
-                  Yards of Eminence
-                </a>
-                <a href="#" className="dropdown-item">
-                  Yards of Luxury
-                </a>
-                <a href="#" className="dropdown-item">
-                  Yards of Elegance
-                </a>
-                <a href="#" className="dropdown-item">
-                  The Shri Collection
-                </a>
-                <a href="#" className="dropdown-item">
-                  Whole Six Yards
-                </a>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Couture</a>
+                </Link>
+
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Eminence</a>
+                </Link>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Luxury</a>
+                </Link>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Yards of Elegance</a>
+                </Link>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">The Shri Collection</a>
+                </Link>
+
+                <Link href={`/shop`}>
+                  <a className="dropdown-item">Whole Six Yards</a>
+                </Link>
               </DropdownMenu>
             </a>
           </Link>
