@@ -1,8 +1,6 @@
 .accordion {
   padding: 15px;
-  * {
-    transition: all ease 0.5s;
-  }
+
   .accordion-item {
     .title {
       background-color: transparent;
@@ -34,13 +32,14 @@
           width: 20px;
           float: right;
           transform: rotate(90deg);
+          transition: all ease 0.4s;
         }
       }
     }
 
     .panel {
       max-height: 0;
-      transition: max-height 0.15s ease-out;
+      transition: max-height 0.2s ease-out;
       overflow: hidden;
     }
 
@@ -59,7 +58,7 @@
     &.active {
       .panel {
         max-height: 500px;
-        transition: max-height 0.25s ease-in;
+        transition: max-height 0.3s ease-in;
       }
     }
   }

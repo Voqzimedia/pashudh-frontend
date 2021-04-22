@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+import AppContext from "../../../context/AppContext";
 
 import QuantityBtn from "../../../components/Shop/QuantityBtn";
 
@@ -13,7 +16,16 @@ import pImg2 from "../../../assets/images/products/inner/img2.png?webp";
 import pImg3 from "../../../assets/images/products/inner/img3.png?webp";
 import pImg4 from "../../../assets/images/products/inner/img4.png?webp";
 
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const Slider = dynamic(() => import("react-slick"));
+
 export default function Product() {
+  const { deviceWidth } = useContext(AppContext);
+  const isMobile = deviceWidth < 500;
+
   const prodList = [
     {
       name:
@@ -37,6 +49,15 @@ export default function Product() {
   ];
 
   const productImgs = [pImg1, pImg2, pImg3, pImg4];
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
 
   return (
     <>
@@ -124,15 +145,29 @@ export default function Product() {
                 </div>
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
-                <div className="product-images-holder">
-                  {productImgs.map((images, index) => (
-                    <div className="image-holder" key={index}>
-                      <picture>
-                        <img src={images} alt="Black Checked Saree" />
-                      </picture>
-                    </div>
-                  ))}
-                </div>
+                {isMobile ? (
+                  <div className="product-images-slider">
+                    <Slider {...sliderSettings} className={`image-slider`}>
+                      {productImgs.map((images, index) => (
+                        <div className="image-holder" key={index}>
+                          <picture>
+                            <img src={images} alt="Black Checked Saree" />
+                          </picture>
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                ) : (
+                  <div className="product-images-holder">
+                    {productImgs.map((images, index) => (
+                      <div className="image-holder" key={index}>
+                        <picture>
+                          <img src={images} alt="Black Checked Saree" />
+                        </picture>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </Col>
             </Row>
           </Container>

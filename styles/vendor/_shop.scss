@@ -224,7 +224,8 @@
           position: absolute;
           writing-mode: vertical-lr;
           padding: 10px;
-          background-color: #ffffff;
+          background-color: $base-primary-light;
+          color: $base-secondary-light;
           p {
             margin: 0;
           }
@@ -325,6 +326,10 @@
     }
 
     .product-image-wrapper {
+      .product-images-slider {
+        margin: 25px 0;
+      }
+
       .product-images-holder {
         display: flex;
         flex-wrap: wrap;

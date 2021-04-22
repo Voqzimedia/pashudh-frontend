@@ -675,8 +675,16 @@
 
 .support-content-section {
   .support-accordions-wrapper {
+    .accordion-item {
+      background: $base-primary-light 0% 0% no-repeat padding-box;
+      box-shadow: 10px 10px 20px #00000009;
+      margin: 25px 0;
+      padding: 10px 25px;
+    }
+
     .support-title {
       font-size: 1.5rem;
+      margin: 0;
     }
     .support-item {
       .support-content {
