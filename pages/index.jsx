@@ -1,4 +1,4 @@
-// Section Components
+import PageMotion from "../components/Motion/PageMotion";
 
 import AboutSection from "../components/Home/AboutSection";
 import HighlightSection from "../components/Home/HighlightSection";
@@ -9,13 +9,13 @@ import CategorySection from "../components/Home/CategorySection";
 
 export default function Home() {
   return (
-    <>
+    <PageMotion>
       <AboutSection />
       <HighlightSection />
       <ExploreSection />
       <CategorySection />
       <TestimonialSection />
       <BlogSection />
-    </>
+    </PageMotion>
   );
 }

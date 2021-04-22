@@ -4,7 +4,6 @@ import "../styles/globals.scss";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import SEO from "../seo.config";
-import { AnimatePresence } from "framer-motion";
 import Layout from "../layout";
 import NextNprogress from "nextjs-progressbar";
 import { credits } from "../helper/credits";
@@ -197,9 +196,7 @@ class MyApp extends App {
         </Head>
         <div className={`app-theme ${this.state.darkTheme ? "dark" : "light"}`}>
           <Layout page={router.route}>
-            <AnimatePresence exitBeforeEnter>
-              <Component {...pageProps} key={router.route} />
-            </AnimatePresence>
+            <Component {...pageProps} key={router.route} />
           </Layout>
         </div>
       </AppContext.Provider>

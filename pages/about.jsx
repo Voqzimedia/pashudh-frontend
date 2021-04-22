@@ -1,4 +1,5 @@
 import { Container, Row, Col } from "reactstrap";
+import PageMotion from "../components/Motion/PageMotion";
 
 import rocketIcon from "../assets/images/icons/rocket.svg?include";
 import badgeIcon from "../assets/images/icons/badge.svg?include";
@@ -8,7 +9,7 @@ export default function About() {
   const pageTitle = "About us";
 
   return (
-    <>
+    <PageMotion>
       <section className={`about-header-section page-section`}>
         <Container>
           <center>
@@ -122,6 +123,6 @@ export default function About() {
           </article>
         </Container>
       </section>
-    </>
+    </PageMotion>
   );
 }

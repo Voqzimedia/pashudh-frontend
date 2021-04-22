@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Row, Col, DropdownMenu } from "reactstrap";
-
+import { motion } from "framer-motion";
 import Link from "next/link";
+
+import PageMotion from "../../components/Motion/PageMotion";
 
 import prodImg1 from "../../assets/images/products/grid/prod1.png?webp";
 import prodImg2 from "../../assets/images/products/grid/prod2.png?webp";
@@ -94,8 +96,22 @@ export default function Shop() {
     activeMenu.classList.add("active");
   };
 
+  const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
+
+  const productImgMotion = {
+    initial: { opacity: 0, ease: "easeOut", duration: 0.2, type: "tween" },
+    animate: { opacity: 1, ease: "easeOut", duration: 0.2, type: "tween" },
+    whileHover: {
+      scale: 1.05,
+      y: -5,
+    },
+    transition: {
+      transition,
+    },
+  };
+
   return (
-    <>
+    <PageMotion>
       <section className={`shop-section page-section`}>
         <Container>
           <center>
@@ -171,34 +187,43 @@ export default function Shop() {
               <Row>
                 {prodList.map((product, index) => (
                   <Col md="4" key={index}>
-                    <Link
-                      href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
+                    <motion.div
+                      whileHover="whileHover"
+                      animate="animate"
+                      initial="initial"
+                      variants={productImgMotion}
+                      transition="transition"
+                      key={index}
                     >
-                      <a className="product-item">
-                        <div className="image-holder">
-                          {product.isSoldOut && (
-                            <div className="sold-out">
-                              <p>Sold Out</p>
-                            </div>
-                          )}
+                      <Link
+                        href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
+                      >
+                        <a className="product-item">
+                          <motion.div className="image-holder">
+                            {product.isSoldOut && (
+                              <motion.div className="sold-out">
+                                <p>Sold Out</p>
+                              </motion.div>
+                            )}
 
-                          <img
-                            width="100"
-                            height="100"
-                            src={product.img}
-                            alt={product.name}
-                          />
-                        </div>
-                        <Row className="product-content-holder">
-                          <Col xs="9" className="no-pad">
-                            <p className="title">{product.name}</p>
-                          </Col>
-                          <Col xs="3" className="no-pad">
-                            <p className="price">{product.price}</p>
-                          </Col>
-                        </Row>
-                      </a>
-                    </Link>
+                            <img
+                              width="100"
+                              height="100"
+                              src={product.img}
+                              alt={product.name}
+                            />
+                          </motion.div>
+                          <Row className="product-content-holder">
+                            <Col xs="9" className="no-pad">
+                              <p className="title">{product.name}</p>
+                            </Col>
+                            <Col xs="3" className="no-pad">
+                              <p className="price">{product.price}</p>
+                            </Col>
+                          </Row>
+                        </a>
+                      </Link>
+                    </motion.div>
                   </Col>
                 ))}
               </Row>
@@ -206,6 +231,6 @@ export default function Shop() {
           </Container>
         </div>
       </section>
-    </>
+    </PageMotion>
   );
 }

@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import PageMotion from "../components/Motion/PageMotion";
 
 import { Masonry } from "masonic";
 import React, { useContext } from "react";
@@ -72,7 +73,7 @@ export default function Blog() {
   ];
 
   return (
-    <>
+    <PageMotion>
       <section className={`blog-section page-section`}>
         <Container>
           <center>
@@ -122,6 +123,6 @@ export default function Blog() {
           />
         </section>
       )}
-    </>
+    </PageMotion>
   );
 }
