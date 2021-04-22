@@ -14,14 +14,14 @@ export default function Logo() {
       <div className="logo-holder">
         {darkTheme ? (
           isMobile ? (
-            <img src={LogoMobileImgDark} alt="logo" />
+            <img src={LogoMobileImgDark} width="100" height="100" alt="logo" />
           ) : (
-            <img src={LogoImgDark} alt="logo" />
+            <img src={LogoImgDark} width="100" height="100" alt="logo" />
           )
         ) : isMobile ? (
-          <img src={LogoMobileImg} alt="logo" />
+          <img src={LogoMobileImg} width="100" height="100" alt="logo" />
         ) : (
-          <img src={LogoImg} alt="logo" />
+          <img src={LogoImg} width="100" height="100" alt="logo" />
         )}
       </div>
     </div>

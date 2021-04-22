@@ -52,7 +52,12 @@ export default function ExploreSection() {
 
               <div className="img-holder">
                 <picture>
-                  <img src={explore.img} alt="Modern Muse" />
+                  <img
+                    width="100"
+                    height="100"
+                    src={explore.img}
+                    alt="Modern Muse"
+                  />
                 </picture>
               </div>
             </Col>

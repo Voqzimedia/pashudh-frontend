@@ -182,7 +182,12 @@ export default function Shop() {
                             </div>
                           )}
 
-                          <img src={product.img} alt={product.name} />
+                          <img
+                            width="100"
+                            height="100"
+                            src={product.img}
+                            alt={product.name}
+                          />
                         </div>
                         <Row className="product-content-holder">
                           <Col xs="9" className="no-pad">

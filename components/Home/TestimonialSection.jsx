@@ -48,7 +48,7 @@ export default function TestimonialSection() {
           <Col lg="8">
             <div className={`testimonial-wraper`}>
               <div className="quotes-icon">
-                <img src={quoteImg} alt="quotes" />
+                <img width="100" height="100" src={quoteImg} alt="quotes" />
               </div>
               <Slider {...sliderSettings} className={`testimonial-slider`}>
                 {testimonialList.map((testimonial, index) => (
@@ -56,7 +56,12 @@ export default function TestimonialSection() {
                     <Row>
                       <Col md="3">
                         <div className="testimonial-img">
-                          <img src={testimonial.img} alt="User" />
+                          <img
+                            width="100"
+                            height="100"
+                            src={testimonial.img}
+                            alt="User"
+                          />
                         </div>
                       </Col>
                       <Col md="9">

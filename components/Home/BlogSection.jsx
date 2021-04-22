@@ -65,7 +65,7 @@ export default function BlogSection() {
                 <div className="date">{post.date}</div>
                 <div className="image-holder">
                   <picture>
-                    <img src={post.img} alt="Blog" />
+                    <img src={post.img} width="100" height="100" alt="Blog" />
                   </picture>
                 </div>
               </div>

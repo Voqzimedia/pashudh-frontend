@@ -19,7 +19,7 @@ import blogImg6 from "../assets/images/blog/full/img6.png?webp";
 const BlogGrid = ({ data: { name, img } }) => {
   return (
     <div className={`blog-item`}>
-      <img src={img} alt={name} />
+      <img width="100" height="100" src={img} alt={name} />
       <div className="name">{name}</div>
     </div>
   );
@@ -93,7 +93,12 @@ export default function Blog() {
                       <div className="date">{post.date}</div>
                       <div className="image-holder">
                         <picture>
-                          <img src={post.img} alt="Blog" />
+                          <img
+                            width="100"
+                            height="100"
+                            src={post.img}
+                            alt="Blog"
+                          />
                         </picture>
                       </div>
                     </div>

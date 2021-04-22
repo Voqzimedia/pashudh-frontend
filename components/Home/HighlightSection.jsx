@@ -16,7 +16,7 @@ export default function HighlightSection() {
           <div className="highlight-wraper ">
             {/* <div className="img-holder">
               <picture>
-                <img src={highlightImg1} alt="Highlight" />
+                <img width="100" height="100" src={highlightImg1} alt="Highlight" />
               </picture>
             </div> */}
             <div className="video-holder">
@@ -41,7 +41,7 @@ export default function HighlightSection() {
           <div className="highlight-wraper">
             {/* <div className="img-holder">
               <picture>
-                <img src={highlightImg2} alt="Highlight" />
+                <img width="100" height="100" src={highlightImg2} alt="Highlight" />
               </picture>
             </div> */}
             <div className="video-holder">

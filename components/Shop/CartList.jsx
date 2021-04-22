@@ -15,7 +15,7 @@ export default function CartList() {
           <div className="product-holder">
             <div className="image-holder">
               <picture>
-                <img src={productImg} alt="Product" />
+                <img width="100" height="100" src={productImg} alt="Product" />
               </picture>
             </div>
             <div className="quantity">1</div>

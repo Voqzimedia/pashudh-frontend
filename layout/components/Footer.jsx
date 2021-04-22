@@ -21,9 +21,14 @@ export default function Footer({ className }) {
           <div className="footer-logo">
             <div className="logo-holder">
               {isMobile ? (
-                <img src={footerLogoMobile} alt="logo" />
+                <img
+                  width="100"
+                  height="100"
+                  src={footerLogoMobile}
+                  alt="logo"
+                />
               ) : (
-                <img src={footerLogo} alt="logo" />
+                <img width="100" height="100" src={footerLogo} alt="logo" />
               )}
             </div>
             {isMobile ? (

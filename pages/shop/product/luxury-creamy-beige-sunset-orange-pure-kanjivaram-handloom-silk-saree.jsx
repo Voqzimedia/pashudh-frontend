@@ -151,7 +151,12 @@ export default function Product() {
                       {productImgs.map((images, index) => (
                         <div className="image-holder" key={index}>
                           <picture>
-                            <img src={images} alt="Black Checked Saree" />
+                            <img
+                              width="100"
+                              height="100"
+                              src={images}
+                              alt="Black Checked Saree"
+                            />
                           </picture>
                         </div>
                       ))}
@@ -162,7 +167,12 @@ export default function Product() {
                     {productImgs.map((images, index) => (
                       <div className="image-holder" key={index}>
                         <picture>
-                          <img src={images} alt="Black Checked Saree" />
+                          <img
+                            width="100"
+                            height="100"
+                            src={images}
+                            alt="Black Checked Saree"
+                          />
                         </picture>
                       </div>
                     ))}
@@ -191,7 +201,12 @@ export default function Product() {
                             </div>
                           )}
 
-                          <img src={product.img} alt={product.name} />
+                          <img
+                            width="100"
+                            height="100"
+                            src={product.img}
+                            alt={product.name}
+                          />
                         </div>
                         <Row className="product-content-holder">
                           <Col xs="9" className="no-pad">

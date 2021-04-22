@@ -61,7 +61,12 @@ export default function CategorySection() {
                   <div className="left-section">
                     <div className="image-holder">
                       <picture>
-                        <img src={category.longImg} alt={category.title} />
+                        <img
+                          width="100"
+                          height="100"
+                          src={category.longImg}
+                          alt={category.title}
+                        />
                       </picture>
                     </div>
                   </div>
@@ -72,7 +77,12 @@ export default function CategorySection() {
                       <div className="cate-holder">
                         <div className="image-holder">
                           <picture>
-                            <img src={category.shortImg} alt={category.title} />
+                            <img
+                              width="100"
+                              height="100"
+                              src={category.shortImg}
+                              alt={category.title}
+                            />
                           </picture>
                         </div>
                         {!isMobile && (
