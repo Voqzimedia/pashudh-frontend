@@ -3,15 +3,16 @@ import { Container, Row, Col } from "reactstrap";
 
 import dynamic from "next/dynamic";
 
-import ContactInfo from "../components/Contact/ContactInfo";
+const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 
+const ContactInfo = dynamic(() => import("../components/Contact/ContactInfo"));
 const ContactForm = dynamic(() => import("../components/Contact/ContactForm"));
 
 export default function Contact() {
   const pageTitle = "Contact";
 
   return (
-    <>
+    <PageMotion>
       <section className={`contact-section page-section`}>
         <Container>
           <center>
@@ -29,6 +30,6 @@ export default function Contact() {
           </Row>
         </Container>
       </section>
-    </>
+    </PageMotion>
   );
 }

@@ -3,6 +3,10 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
+const PageMotion = dynamic(() =>
+  import("../../../components/Motion/PageMotion")
+);
+
 import AppContext from "../../../context/AppContext";
 
 import QuantityBtn from "../../../components/Shop/QuantityBtn";
@@ -60,7 +64,7 @@ export default function Product() {
   };
 
   return (
-    <>
+    <PageMotion>
       <section className={`shop-section page-section`}>
         <div className="shop-body-section">
           <Container>
@@ -225,6 +229,6 @@ export default function Product() {
           </Container>
         </div>
       </section>
-    </>
+    </PageMotion>
   );
 }

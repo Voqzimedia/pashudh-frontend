@@ -1,13 +1,16 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
-import Logo from "../components/Logo";
+import dynamic from "next/dynamic";
+
+const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
+const Logo = dynamic(() => import("../components/Logo"));
 
 export default function GiftCards() {
   const pageTitle = "Gift cards";
 
   return (
-    <>
+    <PageMotion>
       <section className={`gift-card-section page-section`}>
         <Container>
           <center>
@@ -67,6 +70,6 @@ export default function GiftCards() {
           </Row>
         </Container>
       </section>
-    </>
+    </PageMotion>
   );
 }

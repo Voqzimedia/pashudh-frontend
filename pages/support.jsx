@@ -1,12 +1,20 @@
-import { Container, UncontrolledCollapse } from "reactstrap";
+import { Container } from "reactstrap";
 
-import { Accordion, AccordionItem } from "../components/utils/accordion";
+import dynamic from "next/dynamic";
+
+const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
+const Accordion = dynamic(() =>
+  import("../components/utils/accordion").then((mod) => mod.Accordion)
+);
+const AccordionItem = dynamic(() =>
+  import("../components/utils/accordion").then((mod) => mod.AccordionItem)
+);
 
 export default function Support() {
   const pageTitle = "Support";
 
   return (
-    <>
+    <PageMotion>
       <section className={`support-header-section page-section`}>
         <Container>
           <center>
@@ -96,6 +104,6 @@ export default function Support() {
           </div>
         </Container>
       </section>
-    </>
+    </PageMotion>
   );
 }

@@ -1,5 +1,7 @@
 import { Container, Row, Col } from "reactstrap";
-import PageMotion from "../components/Motion/PageMotion";
+import dynamic from "next/dynamic";
+
+const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 
 import rocketIcon from "../assets/images/icons/rocket.svg?include";
 import badgeIcon from "../assets/images/icons/badge.svg?include";

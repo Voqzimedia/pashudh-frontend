@@ -2,8 +2,9 @@ import React from "react";
 import { Container, Row, Col, DropdownMenu } from "reactstrap";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
-import PageMotion from "../../components/Motion/PageMotion";
+const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 
 import prodImg1 from "../../assets/images/products/grid/prod1.png?webp";
 import prodImg2 from "../../assets/images/products/grid/prod2.png?webp";

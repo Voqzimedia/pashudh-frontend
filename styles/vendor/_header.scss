@@ -115,7 +115,9 @@ header {
       .dropdown-item:hover {
         background-color: transparent;
       }
-
+      .icon-container {
+        width: 100%;
+      }
       .icon-wrapper {
         display: flex;
         margin: 0;
@@ -357,6 +359,27 @@ header {
         top: 40%;
         display: none;
       }
+    }
+  }
+}
+
+.search-warper-mobile {
+  padding: 15px;
+  .search-input {
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    label {
+      display: none;
+    }
+    input {
+      outline: none !important;
+      border: 0;
+    }
+    .search-btn-icon {
+      outline: none;
+      border: 0;
+      background-color: transparent;
     }
   }
 }

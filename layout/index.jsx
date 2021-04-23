@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
+import dynamic from "next/dynamic";
 
-//Componets
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import NewsLetter from "./components/Footer/NewsLetter";
 import AppContext from "../context/AppContext";
+import Tracker from "./seoWraper";
+import SmoothScroll from "../components/utils/SmoothScroll";
 import { AnimatePresence } from "framer-motion";
 
-import Tracker from "./seoWraper";
-
-import SmoothScroll from "../components/utils/SmoothScroll";
+//Componets
+const Footer = dynamic(() => import("./components/Footer"));
+const Header = dynamic(() => import("./components/Header"));
+const NewsLetter = dynamic(() => import("./components/Footer/NewsLetter"));
 
 const Layout = (props) => {
   const { deviceWidth } = useContext(AppContext);

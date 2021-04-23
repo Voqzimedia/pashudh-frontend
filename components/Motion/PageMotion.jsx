@@ -16,8 +16,8 @@ export default function PageMotion({ children }) {
       exit="exit"
       animate="animate"
       initial="initial"
-      variants={pageAnimation}
       transition="transition"
+      variants={pageAnimation}
     >
       {children}
     </motion.div>

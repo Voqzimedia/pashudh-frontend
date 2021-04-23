@@ -1,12 +1,13 @@
-import dynamic from "next/dynamic";
-import PageMotion from "../components/Motion/PageMotion";
-
 import { Masonry } from "masonic";
 import React, { useContext } from "react";
 
 import AppContext from "../context/AppContext";
 
 import { Container, Row, Col } from "reactstrap";
+
+import dynamic from "next/dynamic";
+
+const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 
 // Images
 
