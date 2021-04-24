@@ -56,7 +56,7 @@ export default function Product() {
     },
   ];
 
-  const productImgs = [pImg1, pImg2, pImg3, pImg4, pImg1, pImg2, pImg3, pImg4];
+  const productImgs = [pImg1, pImg2, pImg3, pImg4];
 
   const sliderSettings = {
     dots: true,
