@@ -20,10 +20,12 @@ import blogImg6 from "../assets/images/blog/full/img6.png?webp";
 
 const BlogGrid = ({ data: { name, img } }) => {
   return (
-    <div className={`blog-item`}>
-      <img width="100" height="100" src={img} alt={name} />
-      <div className="name">{name}</div>
-    </div>
+    <a href={`#${name}`}>
+      <div className={`blog-item`}>
+        <img width="100" height="100" src={img} alt={name} />
+        <div className="name">{name}</div>
+      </div>
+    </a>
   );
 };
 
@@ -103,9 +105,10 @@ export default function Blog() {
                           />
                         </picture>
                       </div>
+                      <h2 className="blog-title">{post.name}</h2>
                     </div>
                     <div className="blog-content">
-                      <h2 className="title">{post.name}</h2>
+                      {/* <h2 className="title">{post.name}</h2> */}
                     </div>
                   </div>
                 </Col>

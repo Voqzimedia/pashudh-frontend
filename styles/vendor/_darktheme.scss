@@ -13,7 +13,19 @@
     .shop-now.btn,
     .slick-dots li.slick-active button:before,
     .slick-dots li button:before,
-    header .navbar-area .menu-block a {
+    header .navbar-area .menu-block a,
+    .shop-body-section .shop-breadcrumbs .breadcrumbs-holder .breadcrumb,
+    .shop-body-section
+      .shop-breadcrumbs
+      .breadcrumbs-holder
+      .breadcrumb
+      .breadcrumb-item.active,
+    .shop-body-section
+      .shop-breadcrumbs
+      .breadcrumbs-holder
+      .breadcrumb
+      .breadcrumb-item
+      + .breadcrumb-item::before {
       color: $base-primary-light;
     }
 

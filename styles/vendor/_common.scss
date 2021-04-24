@@ -225,14 +225,17 @@ hr {
 .page-title {
   font-size: 3.5rem;
   position: relative;
-  &::after {
-    content: attr(data-title);
-    position: absolute;
-    width: 100%;
-    bottom: -4%;
-    left: 0.5%;
-    opacity: 0.1;
-  }
+
+  // Page Title Shadow
+
+  // &::after {
+  //   content: attr(data-title);
+  //   position: absolute;
+  //   width: 100%;
+  //   bottom: -4%;
+  //   left: 0.5%;
+  //   opacity: 0.1;
+  // }
   @media only screen and (max-width: 500px) {
     font-size: 2rem;
   }

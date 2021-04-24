@@ -7,6 +7,10 @@ const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
 );
 
+const ProductScroll = dynamic(() =>
+  import("../../../components/utils/ProductScroll")
+);
+
 import AppContext from "../../../context/AppContext";
 
 import QuantityBtn from "../../../components/Shop/QuantityBtn";
@@ -52,7 +56,7 @@ export default function Product() {
     },
   ];
 
-  const productImgs = [pImg1, pImg2, pImg3, pImg4];
+  const productImgs = [pImg1, pImg2, pImg3, pImg4, pImg1, pImg2, pImg3, pImg4];
 
   const sliderSettings = {
     dots: true,
@@ -86,67 +90,71 @@ export default function Product() {
 
             <Row className={`single-product-wrapper`}>
               <Col lg="6" className={`product-detail-wrapper`}>
-                <article>
-                  <div className="product-header">
-                    <h1 className="product-name">Black Checked Saree</h1>
-                    <p className="price">₹ 45,000</p>
+                <ProductScroll>
+                  <article>
+                    <div className="product-header">
+                      <h1 className="product-name">Black Checked Saree</h1>
+                      <p className="price">₹ 45,000</p>
+                    </div>
+                    <p className="description">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Sint excepturi assumenda voluptates nemo, perspiciatis
+                      atque repellat officiis aperiam illum quisquam! Fuga nam
+                      ipsam dolorem similique? Incidunt optio quod dolorem.
+                      Alias.
+                    </p>
+                    <ul className="product-detail-list">
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>Details</b>
+                        </p>
+                        <p>Length 7.5 meters, Width 47 inches</p>
+                      </li>
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>Fabric</b>
+                        </p>
+                        <p>Handloom Cotton</p>
+                      </li>
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>Blouse Piece</b>
+                        </p>
+                        <p>Not Provided</p>
+                      </li>
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>How to wash</b>
+                        </p>
+                        <p>Hand wash in cold water, Medium heat iron</p>
+                      </li>
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>Note</b>
+                        </p>
+                        <p>
+                          This is a handcrafted product. Small imperfections add
+                          to the unique charm and beauty of these handwoven
+                          sarees.
+                        </p>
+                      </li>
+                      <li className="detail-items">
+                        <p className="title">
+                          <b>Shipping</b>
+                        </p>
+                        <p>
+                          We ship within 2-3 business days from the date of
+                          order
+                        </p>
+                      </li>
+                    </ul>
+                  </article>
+                  <div className="shop-action">
+                    <QuantityBtn />
+                    <button className="btn solid-btn">Add to Cart</button>
+                    <button className="btn solid-btn">Buy Now</button>
                   </div>
-                  <p className="description">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Sint excepturi assumenda voluptates nemo, perspiciatis atque
-                    repellat officiis aperiam illum quisquam! Fuga nam ipsam
-                    dolorem similique? Incidunt optio quod dolorem. Alias.
-                  </p>
-                  <ul className="product-detail-list">
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>Details</b>
-                      </p>
-                      <p>Length 7.5 meters, Width 47 inches</p>
-                    </li>
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>Fabric</b>
-                      </p>
-                      <p>Handloom Cotton</p>
-                    </li>
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>Blouse Piece</b>
-                      </p>
-                      <p>Not Provided</p>
-                    </li>
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>How to wash</b>
-                      </p>
-                      <p>Hand wash in cold water, Medium heat iron</p>
-                    </li>
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>Note</b>
-                      </p>
-                      <p>
-                        This is a handcrafted product. Small imperfections add
-                        to the unique charm and beauty of these handwoven
-                        sarees.
-                      </p>
-                    </li>
-                    <li className="detail-items">
-                      <p className="title">
-                        <b>Shipping</b>
-                      </p>
-                      <p>
-                        We ship within 2-3 business days from the date of order
-                      </p>
-                    </li>
-                  </ul>
-                </article>
-                <div className="shop-action">
-                  <QuantityBtn />
-                  <button className="btn solid-btn">Add to Cart</button>
-                  <button className="btn solid-btn">Buy Now</button>
-                </div>
+                </ProductScroll>
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
                 {isMobile ? (

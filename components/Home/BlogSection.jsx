@@ -26,6 +26,8 @@ export default function BlogSection() {
     slidesToShow: isMobile ? 1 : isTab ? 2 : 3,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
 
   const blogList = [
@@ -68,9 +70,9 @@ export default function BlogSection() {
                     <img src={post.img} width="100" height="100" alt="Blog" />
                   </picture>
                 </div>
+                <h2 className="blog-title">{post.title}</h2>
               </div>
               <div className="blog-content">
-                <h2 className="title">{post.title}</h2>
                 <p className="description">{post.description}</p>
               </div>
             </div>

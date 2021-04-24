@@ -12,7 +12,9 @@ const Slider = dynamic(() => import("react-slick"));
 // images
 
 import userImg1 from "../../assets/images/testimonial/user1.png?webp";
-import quoteImg from "../../assets/images/icons/quotes.svg";
+import quoteImg from "../../assets/images/icons/quotes.svg?include";
+
+import SvgIcon from "../utils/SvgIcon";
 
 export default function TestimonialSection() {
   const testimonialList = [
@@ -40,6 +42,8 @@ export default function TestimonialSection() {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
   return (
     <section className={`page-section testimonial-section`}>
@@ -48,7 +52,8 @@ export default function TestimonialSection() {
           <Col lg="8">
             <div className={`testimonial-wraper`}>
               <div className="quotes-icon">
-                <img width="100" height="100" src={quoteImg} alt="quotes" />
+                {/* <img width="100" height="100" src={quoteImg} alt="quotes" /> */}
+                <SvgIcon icon={quoteImg} />
               </div>
               <Slider {...sliderSettings} className={`testimonial-slider`}>
                 {testimonialList.map((testimonial, index) => (
