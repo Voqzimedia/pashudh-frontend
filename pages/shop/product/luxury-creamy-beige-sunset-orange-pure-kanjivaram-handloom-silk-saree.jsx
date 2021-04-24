@@ -7,9 +7,9 @@ const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
 );
 
-const ProductScroll = dynamic(() =>
-  import("../../../components/utils/ProductScroll")
-);
+// const ProductScroll = dynamic(() =>
+//   import("../../../components/utils/ProductScroll")
+// );
 
 import AppContext from "../../../context/AppContext";
 
@@ -90,7 +90,7 @@ export default function Product() {
 
             <Row className={`single-product-wrapper`}>
               <Col lg="6" className={`product-detail-wrapper`}>
-                <ProductScroll>
+                <div>
                   <article>
                     <div className="product-header">
                       <h1 className="product-name">Black Checked Saree</h1>
@@ -154,7 +154,7 @@ export default function Product() {
                     <button className="btn solid-btn">Add to Cart</button>
                     <button className="btn solid-btn">Buy Now</button>
                   </div>
-                </ProductScroll>
+                </div>
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
                 {isMobile ? (
