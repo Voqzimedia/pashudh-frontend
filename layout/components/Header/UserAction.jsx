@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 import { icons } from "feather-icons";
+import { OuterClick } from "react-outer-click";
 
 import AppContext from "../../../context/AppContext";
 
@@ -16,6 +17,7 @@ const AnimatePresence = dynamic(
 
 const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 const Menu = dynamic(() => import("./Menu"), { ssr: false });
+const SearchBox = dynamic(() => import("./SearchBox"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
 const CartList = dynamic(() => import("../../../components/Shop/CartList"));
 const WishList = dynamic(() => import("../../../components/Shop/WishList"));
@@ -29,16 +31,6 @@ export default function UserAction({ isMobile }) {
   const [modalLogin, setModalLogin] = useState(false);
   const [modalSignup, setModalSignup] = useState(false);
 
-  const toggleLogin = (e) => {
-    e.preventDefault();
-    setModalLogin(() => !modalLogin);
-  };
-
-  const toggleSignup = (e) => {
-    e.preventDefault();
-    setModalSignup(() => !modalSignup);
-  };
-
   const {
     isCartOpen,
     isWishlistOpen,
@@ -50,11 +42,26 @@ export default function UserAction({ isMobile }) {
     darkTheme,
   } = useContext(AppContext);
 
+  const toggleLogin = (e) => {
+    e.preventDefault();
+    setModalSignup(false);
+    setModalLogin(() => !modalLogin);
+  };
+
+  const toggleSignup = (e) => {
+    e.preventDefault();
+    setModalLogin(false);
+    setModalSignup(() => !modalSignup);
+  };
+
   const openCart = (event) => {
     event.preventDefault();
     setWishlistOpen(false);
     setMenuOpen(false);
     setUserOpen(false);
+    setModalLogin(false);
+    setModalSignup(false);
+
     isCartOpen ? setCartOpen(false) : setCartOpen(true);
   };
 
@@ -63,6 +70,8 @@ export default function UserAction({ isMobile }) {
     setCartOpen(false);
     setMenuOpen(false);
     setUserOpen(false);
+    setModalLogin(false);
+    setModalSignup(false);
     isWishlistOpen ? setWishlistOpen(false) : setWishlistOpen(true);
   };
 
@@ -71,6 +80,8 @@ export default function UserAction({ isMobile }) {
     setWishlistOpen(false);
     setCartOpen(false);
     setUserOpen(false);
+    setModalLogin(false);
+    setModalSignup(false);
     isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
   };
 
@@ -79,11 +90,29 @@ export default function UserAction({ isMobile }) {
     setWishlistOpen(false);
     setMenuOpen(false);
     setCartOpen(false);
+
     setUserOpen((prevState) => !prevState);
   };
+
+  const changeTheme = () => {
+    isMobile ? (isMenuOpen ? setMenuOpen(false) : setMenuOpen(true)) : null;
+    toggleTheme();
+    setWishlistOpen(false);
+    setCartOpen(false);
+    setUserOpen(false);
+    setModalLogin(false);
+    setModalSignup(false);
+  };
+
   const toggleSearch = (e) => {
     e.preventDefault();
     setSearchOpen((prevState) => !prevState);
+    setWishlistOpen(false);
+    setCartOpen(false);
+    setUserOpen(false);
+    setModalLogin(false);
+    setModalSignup(false);
+    setMenuOpen(false);
   };
 
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -92,6 +121,13 @@ export default function UserAction({ isMobile }) {
     initial: { opacity: 0, y: 100 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: 100 },
+    transition: { transition },
+  };
+
+  const searchBoxAnimation = {
+    initial: { opacity: 0, x: -100, scale: 0.5 },
+    animate: { opacity: 1, scale: 1, x: 0 },
+    exit: { opacity: 0, x: -100, scale: 0.5 },
     transition: { transition },
   };
 
@@ -105,7 +141,7 @@ export default function UserAction({ isMobile }) {
               animate="animate"
               initial="initial"
               transition="transition"
-              variants={mobileHeaderAnimation}
+              variants={searchBoxAnimation}
               className={`icon-wrapper`}
             >
               {isMobile ? (
@@ -175,21 +211,18 @@ export default function UserAction({ isMobile }) {
               ) : null}
             </motion.div>
           ) : (
-            <motion.div className="search-warper-mobile">
-              <div className="search-input">
-                <label htmlFor="searchBox"></label>
-                <input
-                  type="text"
-                  id={`searchBox`}
-                  name="search"
-                  placeholder={`Search`}
-                />
-                <button className="search-btn-icon" onClick={toggleSearch}>
-                  <div className="icon search-box-icon">
-                    <SvgIcon icon={icons.search.toSvg()} />
-                  </div>
-                </button>
-              </div>
+            <motion.div
+              exit="exit"
+              animate={{ scale: 1.03, x: 0 }}
+              initial="initial"
+              variants={searchBoxAnimation}
+              className="search-warper-mobile"
+            >
+              <SearchBox
+                isMobile={isMobile}
+                toggleSearch={toggleSearch}
+                isSearchOpen={isSearchOpen}
+              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -205,34 +238,36 @@ export default function UserAction({ isMobile }) {
               variants={mobileHeaderAnimation}
               className="user-panel"
             >
-              <div className="link-wrapper">
-                <a
-                  onClick={(e) => {
-                    toggleLogin(e);
-                    toggleUser(e);
-                  }}
-                  title={`login`}
-                  className="dropdown-item"
+              <OuterClick onOuterClick={() => setUserOpen(false)}>
+                <div className="link-wrapper">
+                  <a
+                    onClick={(e) => {
+                      toggleLogin(e);
+                      toggleUser(e);
+                    }}
+                    title={`login`}
+                    className="dropdown-item"
+                  >
+                    Login
+                  </a>
+                  <a
+                    onClick={(e) => {
+                      toggleSignup(e);
+                      toggleUser(e);
+                    }}
+                    title={`signup`}
+                    className="dropdown-item"
+                  >
+                    Signup
+                  </a>
+                </div>
+                <button
+                  className={`btn close-btn`}
+                  onClick={(e) => toggleUser(e)}
                 >
-                  Login
-                </a>
-                <a
-                  onClick={(e) => {
-                    toggleSignup(e);
-                    toggleUser(e);
-                  }}
-                  title={`signup`}
-                  className="dropdown-item"
-                >
-                  Signup
-                </a>
-              </div>
-              <button
-                className={`btn close-btn`}
-                onClick={(e) => toggleUser(e)}
-              >
-                <SvgIcon icon={icons.x.toSvg()} />
-              </button>
+                  <SvgIcon icon={icons.x.toSvg()} />
+                </button>
+              </OuterClick>
             </motion.div>
           ) : null
         ) : null}
@@ -302,7 +337,7 @@ export default function UserAction({ isMobile }) {
               id="themeSwitch"
               name="themeSwitch"
               className={`theme-switch`}
-              onChange={toggleTheme}
+              onChange={changeTheme}
               checked={darkTheme}
             />
           </div>

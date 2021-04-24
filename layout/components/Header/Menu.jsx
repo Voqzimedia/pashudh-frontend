@@ -61,32 +61,44 @@ export default function Menu() {
             <Nav className={isMobile ? "mobile-menu sub-menu" : ""}>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Couture</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Yards of Couture
+                  </a>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Eminence</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Yards of Eminence
+                  </a>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Luxury</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Yards of Luxury
+                  </a>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Elegance</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Yards of Elegance
+                  </a>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">The Shri Collection</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    The Shri Collection
+                  </a>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link href={`/shop`}>
-                  <a className="dropdown-item">Whole Six Yards</a>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Whole Six Yards
+                  </a>
                 </Link>
               </NavItem>
             </Nav>

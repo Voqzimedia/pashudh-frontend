@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Menu from "./Header/Menu";
 
 const UserAction = dynamic(() => import("./Header/UserAction"), { ssr: false });
+const SearchBox = dynamic(() => import("./Header/SearchBox"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
   ssr: false,
 });
@@ -45,19 +46,7 @@ export default function Header() {
             <Container>
               <div className="large-nav">
                 <div className="search-block">
-                  <div className="search-input">
-                    <label htmlFor="searchBox"></label>
-                    <input
-                      type="text"
-                      id={`searchBox`}
-                      name="search"
-                      placeholder={`Search`}
-                    />
-
-                    <div className="icon search-box-icon">
-                      <SvgIcon icon={icons.search.toSvg()} />
-                    </div>
-                  </div>
+                  <SearchBox />
                 </div>
                 <div className="menu-block">
                   <Menu />

@@ -17,6 +17,10 @@ body {
   &.dark {
     background: $base-primary-dark;
   }
+
+  &.ReactModal__Body--open {
+    overflow-y: hidden;
+  }
 }
 
 p {
