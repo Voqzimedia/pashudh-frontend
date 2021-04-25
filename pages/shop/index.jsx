@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, DropdownMenu } from "reactstrap";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { getCategories } from "../../helper/graphql/getCategories";
+import client from "../../helper/ApolloClient";
+
 import dynamic from "next/dynamic";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
@@ -10,91 +14,18 @@ import prodImg1 from "../../assets/images/products/grid/prod1.png?webp";
 import prodImg2 from "../../assets/images/products/grid/prod2.png?webp";
 import prodImg3 from "../../assets/images/products/grid/prod3.png?webp";
 
-export default function Shop() {
+const Shop = ({ products, categories, thisFillter }) => {
   const pageTitle = "Shop";
 
-  var cataList = [
-    {
-      title: "Yards of Couture",
-      slug: "youthful-yellows",
-    },
-    {
-      title: "Yards of Eminence",
-      slug: "youthful-yellows",
-    },
-    {
-      title: "Yards of Luxury",
-      slug: "youthful-yellows",
-    },
-    {
-      title: "Yards of Elegance",
-      slug: "youthful-yellows",
-    },
-    {
-      title: "The Shri Collection ",
-      subTitle: "Men's Silk Dhotis",
-      slug: "youthful-yellows",
-    },
-    {
-      title: "Whole Six Yards ",
-      subTitle: "All Products",
-      slug: "youthful-yellows",
-    },
-  ];
+  const [prodList, setProdList] = useState(products);
+  const [cataList, setCataList] = useState(categories);
+  const [filterCata, setFilterCata] = useState(thisFillter);
 
-  const prodList = [
-    {
-      name:
-        "Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk Saree",
-      price: "₹22,300",
-      img: prodImg1,
-      isSoldOut: false,
-    },
-    {
-      name: "Rich Burgundy – Rani Pink Pure Kanjivaram Silk Saree",
-      price: "₹35,900",
-      img: prodImg2,
-      isSoldOut: true,
-    },
-    {
-      name: "Bright Violet – Yellow Luxury Pure Kanjivaram Handloom Silk Saree",
-      price: "₹53,350",
-      img: prodImg3,
-      isSoldOut: false,
-    },
+  console.log({ products, categories, thisFillter });
 
-    {
-      name:
-        "Handwoven Milky Rose – Grey Beige Pure Kanjivaram Handllom Silk Saree",
-      price: "₹35,900",
-      img: prodImg2,
-      isSoldOut: true,
-    },
-    {
-      name: "Rich Turquoise- Grey Pure Kanjivaram Handloom Silk Saree",
-      price: "₹23,450",
-      img: prodImg1,
-      isSoldOut: false,
-    },
-    {
-      name:
-        "Rich Handwoven Kathiripoo Purple – Black Pure Kanjivaram Silk Saree",
-      price: "₹28,700",
-      img: prodImg3,
-      isSoldOut: false,
-    },
-  ];
-
-  const changeTab = (e) => {
-    let activeMenu = e.target;
-
-    document
-      ? document.querySelectorAll(".filter-item").forEach((menu) => {
-          menu.classList.remove("active");
-        })
-      : null;
-
-    activeMenu.classList.add("active");
+  const changeTab = (category) => {
+    // console.log(category);
+    setFilterCata(category);
   };
 
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -125,17 +56,23 @@ export default function Shop() {
           <Container className={`shop-filter`}>
             <div className={`filter-wrapper`}>
               {cataList.map((cata, index) => (
-                <a
-                  href="#"
-                  key={index}
-                  onClick={changeTab}
-                  className={`filter-item`}
-                >
-                  <p className="title">{cata.title}</p>
-                  {cata.subTitle && (
-                    <p className="sub-title">{cata.subTitle}</p>
-                  )}
-                </a>
+                <Link href={`/shop?catagory=${cata.slug}`} key={index}>
+                  <a
+                    onClick={() => changeTab(cata)}
+                    className={`filter-item ${
+                      filterCata
+                        ? filterCata.slug == cata.slug
+                          ? "active"
+                          : ""
+                        : ""
+                    }`}
+                  >
+                    <p className="title">{cata.title}</p>
+                    {cata.subTitle && (
+                      <p className="sub-title">{cata.subTitle}</p>
+                    )}
+                  </a>
+                </Link>
               ))}
             </div>
           </Container>
@@ -234,4 +171,75 @@ export default function Shop() {
       </section>
     </PageMotion>
   );
-}
+};
+
+Shop.getInitialProps = async (ctx) => {
+  const { data: categoriesData } = await client.query({
+    query: getCategories,
+  });
+
+  const jsonSearch = (query, data) => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].slug == query) {
+        return data[i];
+      }
+    }
+    return { query, data };
+  };
+
+  let slug = ctx.query.category;
+  let cataData = categoriesData?.categories ? categoriesData.categories : [];
+
+  const thisFillter = await jsonSearch(ctx.query.catagory, cataData);
+
+  const prodList = [
+    {
+      name:
+        "Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk Saree",
+      price: "₹22,300",
+      img: prodImg1,
+      isSoldOut: false,
+    },
+    {
+      name: "Rich Burgundy – Rani Pink Pure Kanjivaram Silk Saree",
+      price: "₹35,900",
+      img: prodImg2,
+      isSoldOut: true,
+    },
+    {
+      name: "Bright Violet – Yellow Luxury Pure Kanjivaram Handloom Silk Saree",
+      price: "₹53,350",
+      img: prodImg3,
+      isSoldOut: false,
+    },
+
+    {
+      name:
+        "Handwoven Milky Rose – Grey Beige Pure Kanjivaram Handllom Silk Saree",
+      price: "₹35,900",
+      img: prodImg2,
+      isSoldOut: true,
+    },
+    {
+      name: "Rich Turquoise- Grey Pure Kanjivaram Handloom Silk Saree",
+      price: "₹23,450",
+      img: prodImg1,
+      isSoldOut: false,
+    },
+    {
+      name:
+        "Rich Handwoven Kathiripoo Purple – Black Pure Kanjivaram Silk Saree",
+      price: "₹28,700",
+      img: prodImg3,
+      isSoldOut: false,
+    },
+  ];
+
+  return {
+    products: prodList,
+    categories: categoriesData?.categories ? categoriesData.categories : [],
+    thisFillter,
+  };
+};
+
+export default Shop;

@@ -1,15 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import "../styles/globals.scss";
+
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
-import SEO from "../seo.config";
-import Layout from "../layout";
+import { ApolloProvider } from "@apollo/client";
 import NextNprogress from "nextjs-progressbar";
-import { credits } from "../helper/credits";
 import App from "next/app";
-import AppContext from "../context/AppContext";
 import Cookie from "js-cookie";
+
+import SEO from "../seo.config";
+import client from "../helper/ApolloClient";
+import Layout from "../layout";
+import { credits } from "../helper/credits";
+import AppContext from "../context/AppContext";
 
 class MyApp extends App {
   state = {
@@ -42,7 +46,7 @@ class MyApp extends App {
     }
     if (token) {
       // authenticate the token on the server and place set user object
-      fetch("http://localhost:1337/users/me", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -195,9 +199,11 @@ class MyApp extends App {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className={`app-theme ${this.state.darkTheme ? "dark" : "light"}`}>
-          <Layout page={router.route}>
-            <Component {...pageProps} key={router.route} />
-          </Layout>
+          <ApolloProvider client={client}>
+            <Layout page={router.route}>
+              <Component {...pageProps} key={router.route} />
+            </Layout>
+          </ApolloProvider>
         </div>
       </AppContext.Provider>
     );

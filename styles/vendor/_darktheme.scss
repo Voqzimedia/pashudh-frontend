@@ -27,7 +27,8 @@
       .breadcrumb-item
       + .breadcrumb-item::before,
     .quantity-action .quantity-wrapper .quantity-inc,
-    .quantity-action .quantity-wrapper .quantity-dec {
+    .quantity-action .quantity-wrapper .quantity-dec,
+    .shop-body-section .shop-filter .filter-wrapper .filter-item .title {
       color: $base-primary-light;
     }
 
@@ -43,8 +44,14 @@
       color: $base-primary-dark;
     }
 
-    .newsletter .subscription-block .subscription-form input {
+    .newsletter .subscription-block .subscription-form input,
+    .shop-body-section .shop-filter .filter-wrapper .filter-item.active,
+    .shop-body-section .shop-filter .filter-wrapper .filter-item:hover {
       border-color: $base-primary-light;
+    }
+
+    .shop-body-section .shop-filter .filter-wrapper .filter-item {
+      border-color: $font-light3;
     }
 
     .category-section .category-item .seperator-right,

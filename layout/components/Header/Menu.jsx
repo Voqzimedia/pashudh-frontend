@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Nav, NavItem, Dropdown, DropdownMenu } from "reactstrap";
+import { useQuery } from "@apollo/client";
+import { getCategories } from "../../../helper/graphql/getCategories";
 
 import Link from "next/link";
 
@@ -7,6 +9,22 @@ import AppContext from "../../../context/AppContext";
 
 export default function Menu() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const [cataList, setCataList] = useState([]);
+
+  // Get Categories Data.
+  const {
+    loading: categoriesLoading,
+    error: categoriesError,
+    data: categoriesData,
+  } = useQuery(getCategories, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: () => {
+      setCataList(() =>
+        categoriesData?.categories ? categoriesData.categories : []
+      );
+    },
+  });
 
   const toggleA = (e) => {
     e.preventDefault();
@@ -59,48 +77,15 @@ export default function Menu() {
           </NavItem>
           {dropdownOpen ? (
             <Nav className={isMobile ? "mobile-menu sub-menu" : ""}>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    Yards of Couture
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    Yards of Eminence
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    Yards of Luxury
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    Yards of Elegance
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    The Shri Collection
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item" onClick={closeMenu}>
-                    Whole Six Yards
-                  </a>
-                </Link>
-              </NavItem>
+              {cataList.map((category, index) => (
+                <NavItem key={index}>
+                  <Link href={`/shop?catagory=${category.slug}`}>
+                    <a className="dropdown-item" onClick={closeMenu}>
+                      {category.title}
+                    </a>
+                  </Link>
+                </NavItem>
+              ))}
             </Nav>
           ) : null}
         </>
@@ -114,26 +99,11 @@ export default function Menu() {
             >
               Shop
               <DropdownMenu className={`subMenu`}>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Couture</a>
-                </Link>
-
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Eminence</a>
-                </Link>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Luxury</a>
-                </Link>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">Yards of Elegance</a>
-                </Link>
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">The Shri Collection</a>
-                </Link>
-
-                <Link href={`/shop`}>
-                  <a className="dropdown-item">Whole Six Yards</a>
-                </Link>
+                {cataList.map((category, index) => (
+                  <Link href={`/shop?catagory=${category.slug}`} key={index}>
+                    <a className="dropdown-item">{category.title}</a>
+                  </Link>
+                ))}
               </DropdownMenu>
             </a>
           </Link>
