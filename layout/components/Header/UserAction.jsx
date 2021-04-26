@@ -8,6 +8,8 @@ import { OuterClick } from "react-outer-click";
 
 import AppContext from "../../../context/AppContext";
 
+import { logout } from "../../../helper/auth";
+
 import { DropdownMenu, CustomInput, Modal, ModalBody } from "reactstrap";
 
 const AnimatePresence = dynamic(
@@ -28,30 +30,33 @@ export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
 
-  const [modalLogin, setModalLogin] = useState(false);
-  const [modalSignup, setModalSignup] = useState(false);
-
   const {
     isCartOpen,
     isWishlistOpen,
     isMenuOpen,
+    modalLogin,
+    modalSignup,
     setCartOpen,
     setWishlistOpen,
+    isAuthenticated,
     setMenuOpen,
+    setModalLogin,
+    setModalSignup,
     toggleTheme,
     darkTheme,
+    setUser,
   } = useContext(AppContext);
 
   const toggleLogin = (e) => {
     e.preventDefault();
     setModalSignup(false);
-    setModalLogin(() => !modalLogin);
+    modalLogin ? setModalLogin(false) : setModalLogin(true);
   };
 
   const toggleSignup = (e) => {
     e.preventDefault();
     setModalLogin(false);
-    setModalSignup(() => !modalSignup);
+    modalSignup ? setModalSignup(false) : setModalSignup(true);
   };
 
   const openCart = (event) => {
@@ -166,23 +171,49 @@ export default function UserAction({ isMobile }) {
                     <SvgIcon icon={icons.user.toSvg()} />
 
                     <DropdownMenu className={`subMenu`}>
-                      <a
-                        title={`login`}
-                        onClick={toggleLogin}
-                        className="dropdown-item"
-                      >
-                        Login
-                      </a>
-                      <a
-                        onClick={(e) => {
-                          toggleSignup(e);
-                          toggleUser(e);
-                        }}
-                        title={`signup`}
-                        className="dropdown-item"
-                      >
-                        Signup
-                      </a>
+                      {isAuthenticated ? (
+                        <>
+                          <a title={`Profile`} className="dropdown-item">
+                            Profile
+                          </a>
+                          <a title={`Order Lists`} className="dropdown-item">
+                            Order Lists
+                          </a>
+                          <a title={`Settings`} className="dropdown-item">
+                            Settings
+                          </a>
+                          <a
+                            title={`Logout`}
+                            onClick={() => {
+                              logout();
+                              setUser(null);
+                            }}
+                            className="dropdown-item"
+                          >
+                            Logout
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                          <a
+                            title={`login`}
+                            onClick={toggleLogin}
+                            className="dropdown-item"
+                          >
+                            Login
+                          </a>
+                          <a
+                            onClick={(e) => {
+                              toggleSignup(e);
+                              toggleUser(e);
+                            }}
+                            title={`signup`}
+                            className="dropdown-item"
+                          >
+                            Signup
+                          </a>
+                        </>
+                      )}
                     </DropdownMenu>
                   </div>
                 </div>
@@ -240,26 +271,52 @@ export default function UserAction({ isMobile }) {
             >
               <OuterClick onOuterClick={() => setUserOpen(false)}>
                 <div className="link-wrapper">
-                  <a
-                    onClick={(e) => {
-                      toggleLogin(e);
-                      toggleUser(e);
-                    }}
-                    title={`login`}
-                    className="dropdown-item"
-                  >
-                    Login
-                  </a>
-                  <a
-                    onClick={(e) => {
-                      toggleSignup(e);
-                      toggleUser(e);
-                    }}
-                    title={`signup`}
-                    className="dropdown-item"
-                  >
-                    Signup
-                  </a>
+                  {isAuthenticated ? (
+                    <>
+                      <a title={`Profile`} className="dropdown-item">
+                        Profile
+                      </a>
+                      <a title={`Order Lists`} className="dropdown-item">
+                        Order Lists
+                      </a>
+                      <a title={`Settings`} className="dropdown-item">
+                        Settings
+                      </a>
+                      <a
+                        title={`Logout`}
+                        onClick={() => {
+                          logout();
+                          setUser(null);
+                        }}
+                        className="dropdown-item"
+                      >
+                        Logout
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <a
+                        onClick={(e) => {
+                          toggleLogin(e);
+                          toggleUser(e);
+                        }}
+                        title={`login`}
+                        className="dropdown-item"
+                      >
+                        Login
+                      </a>
+                      <a
+                        onClick={(e) => {
+                          toggleSignup(e);
+                          toggleUser(e);
+                        }}
+                        title={`signup`}
+                        className="dropdown-item"
+                      >
+                        Signup
+                      </a>
+                    </>
+                  )}
                 </div>
                 <button
                   className={`btn close-btn`}
