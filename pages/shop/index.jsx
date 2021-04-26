@@ -3,7 +3,7 @@ import { Container, Row, Col, DropdownMenu } from "reactstrap";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
-import { getCategories } from "../../helper/graphql/getCategories";
+import { getCategories, getCategory } from "../../helper/graphql/getCategories";
 import client from "../../helper/ApolloClient";
 
 import dynamic from "next/dynamic";
@@ -14,19 +14,28 @@ import prodImg1 from "../../assets/images/products/grid/prod1.png?webp";
 import prodImg2 from "../../assets/images/products/grid/prod2.png?webp";
 import prodImg3 from "../../assets/images/products/grid/prod3.png?webp";
 
-const Shop = ({ products, categories, thisFillter }) => {
+const Shop = ({ products, categories, thisFillter, slug }) => {
   const pageTitle = "Shop";
 
   const [prodList, setProdList] = useState(products);
   const [cataList, setCataList] = useState(categories);
   const [filterCata, setFilterCata] = useState(thisFillter);
 
-  console.log({ products, categories, thisFillter });
-
   const changeTab = (category) => {
-    // console.log(category);
     setFilterCata(category);
+    refetch();
   };
+
+  // Get Categories Data.
+  const { loading, error, data, refetch } = useQuery(getCategory, {
+    notifyOnNetworkStatusChange: true,
+    variables: {
+      slug: filterCata.slug,
+    },
+    onCompleted: () => {
+      data?.categories.length > 0 ? setFilterCata(data.categories[0]) : null;
+    },
+  });
 
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
 
@@ -82,7 +91,9 @@ const Shop = ({ products, categories, thisFillter }) => {
                 <div className="content-header">
                   <p className="sub-title">Affordable Affluence</p>
                   <hr className="small gradient no-m" />
-                  <h2 className="title">Yards Of Luxury</h2>
+                  <h2 className="title">
+                    {filterCata.title ? filterCata.title : "Whole Six Yards"}
+                  </h2>
                 </div>
 
                 <p className="description">
@@ -123,47 +134,89 @@ const Shop = ({ products, categories, thisFillter }) => {
 
             <div className="product-grid">
               <Row>
-                {prodList.map((product, index) => (
-                  <Col md="4" key={index}>
-                    <motion.div
-                      whileHover="whileHover"
-                      animate="animate"
-                      initial="initial"
-                      variants={productImgMotion}
-                      transition="transition"
-                      key={index}
-                    >
-                      <Link
-                        href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
-                      >
-                        <a className="product-item">
-                          <motion.div className="image-holder">
-                            {product.isSoldOut && (
-                              <motion.div className="sold-out">
-                                <p>Sold Out</p>
-                              </motion.div>
-                            )}
+                {filterCata?.products
+                  ? filterCata.products.map((product, index) => (
+                      <Col md="4" key={index}>
+                        <motion.div
+                          whileHover="whileHover"
+                          animate="animate"
+                          initial="initial"
+                          variants={productImgMotion}
+                          transition="transition"
+                          key={index}
+                        >
+                          <Link
+                            href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
+                          >
+                            <a className="product-item">
+                              <motion.div className="image-holder">
+                                {product.StockDetails.isSoldOut && (
+                                  <motion.div className="sold-out">
+                                    <p>Sold Out</p>
+                                  </motion.div>
+                                )}
 
-                            <img
-                              width="100"
-                              height="100"
-                              src={product.img}
-                              alt={product.name}
-                            />
-                          </motion.div>
-                          <Row className="product-content-holder">
-                            <Col xs="9" className="no-pad">
-                              <p className="title">{product.name}</p>
-                            </Col>
-                            <Col xs="3" className="no-pad">
-                              <p className="price">{product.price}</p>
-                            </Col>
-                          </Row>
-                        </a>
-                      </Link>
-                    </motion.div>
-                  </Col>
-                ))}
+                                <img
+                                  width="100"
+                                  height="100"
+                                  src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                                  alt={product.name}
+                                />
+                              </motion.div>
+                              <Row className="product-content-holder">
+                                <Col xs="9" className="no-pad">
+                                  <p className="title">{product.name}</p>
+                                </Col>
+                                <Col xs="3" className="no-pad">
+                                  <p className="price">{product.price}</p>
+                                </Col>
+                              </Row>
+                            </a>
+                          </Link>
+                        </motion.div>
+                      </Col>
+                    ))
+                  : prodList.map((product, index) => (
+                      <Col md="4" key={index}>
+                        <motion.div
+                          whileHover="whileHover"
+                          animate="animate"
+                          initial="initial"
+                          variants={productImgMotion}
+                          transition="transition"
+                          key={index}
+                        >
+                          <Link
+                            href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
+                          >
+                            <a className="product-item">
+                              <motion.div className="image-holder">
+                                {product.isSoldOut && (
+                                  <motion.div className="sold-out">
+                                    <p>Sold Out</p>
+                                  </motion.div>
+                                )}
+
+                                <img
+                                  width="100"
+                                  height="100"
+                                  src={product.img}
+                                  alt={product.name}
+                                />
+                              </motion.div>
+                              <Row className="product-content-holder">
+                                <Col xs="9" className="no-pad">
+                                  <p className="title">{product.name}</p>
+                                </Col>
+                                <Col xs="3" className="no-pad">
+                                  <p className="price">{product.price}</p>
+                                </Col>
+                              </Row>
+                            </a>
+                          </Link>
+                        </motion.div>
+                      </Col>
+                    ))}
               </Row>
             </div>
           </Container>
@@ -178,19 +231,9 @@ Shop.getInitialProps = async (ctx) => {
     query: getCategories,
   });
 
-  const jsonSearch = (query, data) => {
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].slug == query) {
-        return data[i];
-      }
-    }
-    return { query, data };
-  };
+  let slug = ctx.query.catagory;
 
-  let slug = ctx.query.category;
-  let cataData = categoriesData?.categories ? categoriesData.categories : [];
-
-  const thisFillter = await jsonSearch(ctx.query.catagory, cataData);
+  // console.log({slug});
 
   const prodList = [
     {
@@ -235,11 +278,33 @@ Shop.getInitialProps = async (ctx) => {
     },
   ];
 
-  return {
-    products: prodList,
-    categories: categoriesData?.categories ? categoriesData.categories : [],
-    thisFillter,
-  };
+  try {
+    const { data: categoryData } = await client.query({
+      query: getCategory,
+      variables: {
+        slug: slug,
+      },
+    });
+    const thisFillter = slug
+      ? categoryData?.categories.length > 0
+        ? categoryData.categories[0]
+        : null
+      : null;
+
+    return {
+      products: prodList,
+      categories: categoriesData?.categories ? categoriesData.categories : [],
+      thisFillter,
+      slug,
+    };
+  } catch (err) {
+    return {
+      products: prodList,
+      categories: categoriesData?.categories ? categoriesData.categories : [],
+      thisFillter: null,
+      slug,
+    };
+  }
 };
 
 export default Shop;

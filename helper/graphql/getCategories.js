@@ -9,3 +9,28 @@ export const getCategories = gql`
     }
   }
 `;
+
+export const getCategory = gql`
+  query getCategory($slug: String!) {
+    categories(where: { slug: $slug }) {
+      id
+      title
+      slug
+      products {
+        id
+        name
+        image {
+          id
+          url
+          formats
+        }
+        StockDetails {
+          isSoldOut
+        }
+        content
+        price
+        slug
+      }
+    }
+  }
+`;
