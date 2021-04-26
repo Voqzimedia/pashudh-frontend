@@ -21,6 +21,8 @@ class MyApp extends App {
     isCartOpen: false,
     isWishlistOpen: false,
     isMenuOpen: false,
+    modalLogin: false,
+    modalSignup: false,
   };
 
   componentDidMount() {
@@ -82,6 +84,12 @@ class MyApp extends App {
   };
   setMenuOpen = (val) => {
     this.setState({ isMenuOpen: val });
+  };
+  setModalLogin = (val) => {
+    this.setState({ modalLogin: val });
+  };
+  setModalSignup = (val) => {
+    this.setState({ modalSignup: val });
   };
 
   toggleTheme = () => {
@@ -175,6 +183,8 @@ class MyApp extends App {
       isCartOpen: this.state.isCartOpen,
       isWishlistOpen: this.state.isWishlistOpen,
       isMenuOpen: this.state.isMenuOpen,
+      modalLogin: this.state.modalLogin,
+      modalSignup: this.state.modalSignup,
       setUser: this.setUser,
       addItem: this.addItem,
       removeItem: this.removeItem,
@@ -182,6 +192,8 @@ class MyApp extends App {
       setCartOpen: this.setCartOpen,
       setWishlistOpen: this.setWishlistOpen,
       setMenuOpen: this.setMenuOpen,
+      setModalLogin: this.setModalLogin,
+      setModalSignup: this.setModalSignup,
     };
 
     return (
