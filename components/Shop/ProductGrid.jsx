@@ -4,7 +4,9 @@ import Link from "next/link";
 
 import { Row, Col } from "reactstrap";
 
-export default function ProductGrid({ filterCata, prodList }) {
+import { currency } from "../../helper/functions";
+
+export default function ProductGrid({ prodList, filterCata }) {
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
 
   const productImgMotion = {
@@ -22,89 +24,45 @@ export default function ProductGrid({ filterCata, prodList }) {
   return (
     <div className="product-grid">
       <Row>
-        {filterCata?.products
-          ? filterCata.products.map((product, index) => (
-              <Col md="4" key={index}>
-                <motion.div
-                  whileHover="whileHover"
-                  animate="animate"
-                  initial="initial"
-                  variants={productImgMotion}
-                  transition="transition"
-                  key={index}
-                >
-                  <Link
-                    href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
-                  >
-                    <a className="product-item">
-                      <motion.div className="image-holder">
-                        {product.StockDetails.isSoldOut && (
-                          <motion.div className="sold-out">
-                            <p>Sold Out</p>
-                          </motion.div>
-                        )}
-
-                        <img
-                          width="100"
-                          height="100"
-                          src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
-                          alt={product.name}
-                        />
+        {prodList.map((product, index) => (
+          <Col md="4" key={index}>
+            <motion.div
+              whileHover="whileHover"
+              animate="animate"
+              initial="initial"
+              variants={productImgMotion}
+              transition="transition"
+              key={index}
+            >
+              <Link href={`/shop/${filterCata.slug}/${product.slug}`}>
+                <a className="product-item">
+                  <motion.div className="image-holder">
+                    {product.StockDetails.isSoldOut && (
+                      <motion.div className="sold-out">
+                        <p>Sold Out</p>
                       </motion.div>
-                      <Row className="product-content-holder">
-                        <Col xs="9" className="no-pad">
-                          <p className="title">{product.name}</p>
-                        </Col>
-                        <Col xs="3" className="no-pad">
-                          <p className="price">{product.price}</p>
-                        </Col>
-                      </Row>
-                    </a>
-                  </Link>
-                </motion.div>
-              </Col>
-            ))
-          : prodList.map((product, index) => (
-              <Col md="4" key={index}>
-                <motion.div
-                  whileHover="whileHover"
-                  animate="animate"
-                  initial="initial"
-                  variants={productImgMotion}
-                  transition="transition"
-                  key={index}
-                >
-                  <Link
-                    href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
-                  >
-                    <a className="product-item">
-                      <motion.div className="image-holder">
-                        {product.isSoldOut && (
-                          <motion.div className="sold-out">
-                            <p>Sold Out</p>
-                          </motion.div>
-                        )}
+                    )}
 
-                        <img
-                          width="100"
-                          height="100"
-                          src={product.img}
-                          alt={product.name}
-                        />
-                      </motion.div>
-                      <Row className="product-content-holder">
-                        <Col xs="9" className="no-pad">
-                          <p className="title">{product.name}</p>
-                        </Col>
-                        <Col xs="3" className="no-pad">
-                          <p className="price">{product.price}</p>
-                        </Col>
-                      </Row>
-                    </a>
-                  </Link>
-                </motion.div>
-              </Col>
-            ))}
+                    <img
+                      width="100"
+                      height="100"
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                      alt={product.name}
+                    />
+                  </motion.div>
+                  <Row className="product-content-holder">
+                    <Col xs="9" className="no-pad">
+                      <p className="title">{product.name}</p>
+                    </Col>
+                    <Col xs="3" className="no-pad">
+                      <p className="price">{currency.format(product.price)}</p>
+                    </Col>
+                  </Row>
+                </a>
+              </Link>
+            </motion.div>
+          </Col>
+        ))}
       </Row>
     </div>
   );

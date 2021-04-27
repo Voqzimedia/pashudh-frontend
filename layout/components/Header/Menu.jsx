@@ -79,7 +79,7 @@ export default function Menu() {
             <Nav className={isMobile ? "mobile-menu sub-menu" : ""}>
               {cataList.map((category, index) => (
                 <NavItem key={index}>
-                  <Link href={`/shop?catagory=${category.slug}`}>
+                  <Link href={`/shop/${category.slug}`}>
                     <a className="dropdown-item" onClick={closeMenu}>
                       {category.title}
                     </a>
@@ -91,22 +91,20 @@ export default function Menu() {
         </>
       ) : (
         <Dropdown nav inNavbar>
-          <Link href={`/shop`}>
-            <a
-              className={`nav-link dropdown-toggle menu-link has-subMenu ${
-                dropdownOpen ? "active" : ""
-              }`}
-            >
-              Shop
-              <DropdownMenu className={`subMenu`}>
-                {cataList.map((category, index) => (
-                  <Link href={`/shop?catagory=${category.slug}`} key={index}>
-                    <a className="dropdown-item">{category.title}</a>
-                  </Link>
-                ))}
-              </DropdownMenu>
-            </a>
-          </Link>
+          <a
+            className={`nav-link dropdown-toggle menu-link has-subMenu ${
+              dropdownOpen ? "active" : ""
+            }`}
+          >
+            Shop
+            <DropdownMenu className={`subMenu`}>
+              {cataList.map((category, index) => (
+                <Link href={`/shop/${category.slug}`} key={index}>
+                  <a className="dropdown-item">{category.title}</a>
+                </Link>
+              ))}
+            </DropdownMenu>
+          </a>
         </Dropdown>
       )}
       <NavItem>

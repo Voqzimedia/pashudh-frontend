@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import QuantityBtn from "./QuantityBtn";
 import CloseIcon from "../../assets/images/icons/x.svg?include";
 
 // images
@@ -18,7 +17,7 @@ export default function WishList() {
                 <img width="100" height="100" src={productImg} alt="Product" />
               </picture>
             </div>
-            {/* <div className="quantity">1</div> */}
+
             <button className={`close-btn btn`}>
               <div dangerouslySetInnerHTML={{ __html: CloseIcon }} />
             </button>
@@ -31,7 +30,6 @@ export default function WishList() {
               Saree
             </div>
             <div className="price">₹22,300</div>
-            {/* <QuantityBtn /> */}
           </div>
         </Col>
         <Col xs="12"></Col>

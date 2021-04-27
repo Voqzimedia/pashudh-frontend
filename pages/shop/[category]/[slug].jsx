@@ -1,28 +1,39 @@
 import React, { useContext } from "react";
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Link from "next/link";
+import { isEmpty } from "lodash";
+
+import { currency, camelToNormal } from "../../../helper/functions";
+
 import dynamic from "next/dynamic";
 
 const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
 );
 
-// const ProductScroll = dynamic(() =>
-//   import("../../../components/utils/ProductScroll")
-// );
+import {
+  getProduct,
+  getProductSlug,
+} from "../../../helper/graphql/getProducts";
+
+import {
+  getCategory,
+  getCategoriesPath,
+} from "../../../helper/graphql/getCategories";
+
+import client from "../../../helper/ApolloClient";
 
 import AppContext from "../../../context/AppContext";
 
-import QuantityBtn from "../../../components/Shop/QuantityBtn";
+import {
+  QuantityBtn,
+  BuyNow,
+  AddToCart,
+} from "../../../components/Shop/CartActions";
 
 import prodImg1 from "../../../assets/images/products/grid/prod1.png?webp";
 import prodImg2 from "../../../assets/images/products/grid/prod2.png?webp";
 import prodImg3 from "../../../assets/images/products/grid/prod3.png?webp";
-
-import pImg1 from "../../../assets/images/products/inner/img1.png?webp";
-import pImg2 from "../../../assets/images/products/inner/img2.png?webp";
-import pImg3 from "../../../assets/images/products/inner/img3.png?webp";
-import pImg4 from "../../../assets/images/products/inner/img4.png?webp";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -30,9 +41,11 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Slider = dynamic(() => import("react-slick"));
 
-export default function Product() {
+const Product = ({ product, category }) => {
   const { deviceWidth } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
+
+  // console.log({ product, category });
 
   const prodList = [
     {
@@ -56,8 +69,6 @@ export default function Product() {
     },
   ];
 
-  const productImgs = [pImg1, pImg2, pImg3, pImg4];
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -67,6 +78,19 @@ export default function Product() {
     arrows: false,
   };
 
+  const productDetails = [];
+
+  for (const [key, value] of Object.entries(product.ProductDetails)) {
+    key != "__typename"
+      ? productDetails.push({
+          name: camelToNormal(key),
+          value,
+        })
+      : null;
+  }
+
+  // console.log(productDetails);
+
   return (
     <PageMotion>
       <section className={`shop-section page-section`}>
@@ -75,16 +99,16 @@ export default function Product() {
             <div className="shop-breadcrumbs">
               <Breadcrumb className="breadcrumbs-holder">
                 <BreadcrumbItem>
-                  <Link href={`/shop`}>
+                  <Link href={`/shop/${category.slug}`}>
                     <a>Shop</a>
                   </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <Link href={`/shop`}>
-                    <a>Yards of luxury</a>
+                  <Link href={`/shop/${category.slug}`}>
+                    <a>{category.title}</a>
                   </Link>
                 </BreadcrumbItem>
-                <BreadcrumbItem active>Black checked saree</BreadcrumbItem>
+                <BreadcrumbItem active>{product.name}</BreadcrumbItem>
               </Breadcrumb>
             </div>
 
@@ -93,41 +117,20 @@ export default function Product() {
                 <div>
                   <article>
                     <div className="product-header">
-                      <h1 className="product-name">Black Checked Saree</h1>
-                      <p className="price">₹ 45,000</p>
+                      <h1 className="product-name">{product.name}</h1>
+                      <p className="price">{currency.format(product.price)}</p>
                     </div>
-                    <p className="description">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Sint excepturi assumenda voluptates nemo, perspiciatis
-                      atque repellat officiis aperiam illum quisquam! Fuga nam
-                      ipsam dolorem similique? Incidunt optio quod dolorem.
-                      Alias.
-                    </p>
+                    <p className="description">{product.content}</p>
                     <ul className="product-detail-list">
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>Details</b>
-                        </p>
-                        <p>Length 7.5 meters, Width 47 inches</p>
-                      </li>
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>Fabric</b>
-                        </p>
-                        <p>Handloom Cotton</p>
-                      </li>
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>Blouse Piece</b>
-                        </p>
-                        <p>Not Provided</p>
-                      </li>
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>How to wash</b>
-                        </p>
-                        <p>Hand wash in cold water, Medium heat iron</p>
-                      </li>
+                      {productDetails.map((detail, index) => (
+                        <li className="detail-items" key={index}>
+                          <p className="title">
+                            <b>{detail.name}</b>
+                          </p>
+                          <p>{detail.value}</p>
+                        </li>
+                      ))}
+
                       <li className="detail-items">
                         <p className="title">
                           <b>Note</b>
@@ -138,21 +141,12 @@ export default function Product() {
                           sarees.
                         </p>
                       </li>
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>Shipping</b>
-                        </p>
-                        <p>
-                          We ship within 2-3 business days from the date of
-                          order
-                        </p>
-                      </li>
                     </ul>
                   </article>
                   <div className="shop-action">
-                    <QuantityBtn />
-                    <button className="btn solid-btn">Add to Cart</button>
-                    <button className="btn solid-btn">Buy Now</button>
+                    <QuantityBtn product={product} />
+                    <AddToCart product={product} />
+                    <BuyNow product={product} />
                   </div>
                 </div>
               </Col>
@@ -160,13 +154,13 @@ export default function Product() {
                 {isMobile ? (
                   <div className="product-images-slider">
                     <Slider {...sliderSettings} className={`image-slider`}>
-                      {productImgs.map((images, index) => (
+                      {product.GalleryImgs.map((image, index) => (
                         <div className="image-holder" key={index}>
                           <picture>
                             <img
                               width="100"
                               height="100"
-                              src={images}
+                              src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
                               alt="Black Checked Saree"
                             />
                           </picture>
@@ -176,13 +170,13 @@ export default function Product() {
                   </div>
                 ) : (
                   <div className="product-images-holder">
-                    {productImgs.map((images, index) => (
+                    {product.GalleryImgs.map((image, index) => (
                       <div className="image-holder" key={index}>
                         <picture>
                           <img
                             width="100"
                             height="100"
-                            src={images}
+                            src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
                             alt="Black Checked Saree"
                           />
                         </picture>
@@ -239,4 +233,72 @@ export default function Product() {
       </section>
     </PageMotion>
   );
+};
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps(context) {
+  const {
+    params: { slug, category },
+  } = context;
+
+  const { data: categoryData } = await client.query({
+    query: getCategory,
+    variables: {
+      slug: category,
+    },
+  });
+
+  const { data: productData } = await client.query({
+    query: getProduct,
+    variables: {
+      slug: slug,
+    },
+  });
+
+  return {
+    props: {
+      product: productData?.products.length > 0 ? productData.products[0] : [],
+      category:
+        categoryData?.categories.length > 0 ? categoryData.categories[0] : [],
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 1, // In seconds
+  };
 }
+
+export async function getStaticPaths() {
+  const { data } = await client.query({
+    query: getProductSlug,
+  });
+
+  const { data: cataData } = await client.query({
+    query: getCategoriesPath,
+  });
+
+  const pathsData = [];
+
+  cataData?.categories &&
+    cataData?.categories.map((cate) => {
+      if (!isEmpty(cate?.slug)) {
+        data?.products &&
+          data?.products.map((product) => {
+            if (!isEmpty(product?.slug)) {
+              pathsData.push({
+                params: { slug: product?.slug, category: cate?.slug },
+              });
+            }
+          });
+      }
+    });
+
+  return {
+    paths: pathsData,
+    fallback: false,
+  };
+}
+
+export default Product;

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const getProductList = gql`
   query getProductList {
-    products {
+    products(limit: 9) {
       id
       name
       image {
@@ -31,7 +31,7 @@ export const getProductSlug = gql`
 
 export const getProduct = gql`
   query getProduct($slug: String!) {
-    products(where: { slug: $slug }) {
+    products(where: { slug: $slug }, limit: 9) {
       id
       name
       image {
@@ -46,6 +46,17 @@ export const getProduct = gql`
       }
       StockDetails {
         isSoldOut
+      }
+      ProductDetails {
+        Material
+        Fabric
+        Colours
+        Zari
+        SareeLength
+        Weight
+        BlousePiece
+        HowToWash
+        Shipping
       }
       content
       price

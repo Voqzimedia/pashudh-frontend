@@ -18,7 +18,7 @@ import AppContext from "../context/AppContext";
 class MyApp extends App {
   state = {
     user: null,
-    cart: { items: [], total: 0 },
+    cart: { items: [], total: 0, totalQuantity: 0 },
     darkTheme: false,
     width: undefined,
     height: undefined,
@@ -117,12 +117,13 @@ class MyApp extends App {
     if (!newItem) {
       //set quantity property to 1
       item.quantity = 1;
-      console.log(this.state.cart.total, item.price);
+      // console.log(this.state.cart.total, item.price);
       this.setState(
         {
           cart: {
             items: [...items, item],
             total: this.state.cart.total + item.price,
+            totalQuantity: this.state.cart.totalQuantity + item.quantity,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
@@ -137,6 +138,7 @@ class MyApp extends App {
                 : item
             ),
             total: this.state.cart.total + item.price,
+            totalQuantity: this.state.cart.totalQuantity + item.quantity,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)

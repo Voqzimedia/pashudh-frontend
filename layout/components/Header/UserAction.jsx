@@ -33,6 +33,7 @@ export default function UserAction({ isMobile }) {
   const {
     isCartOpen,
     isWishlistOpen,
+    cart,
     isMenuOpen,
     modalLogin,
     modalSignup,
@@ -221,8 +222,9 @@ export default function UserAction({ isMobile }) {
 
               <div onClick={(e) => openCart(e)} className="icon-item icon cart">
                 <SvgIcon icon={icons["shopping-cart"].toSvg()} />
-
-                <div className="cart-quantity">1</div>
+                {cart.totalQuantity ? (
+                  <div className="cart-quantity">{cart.totalQuantity}</div>
+                ) : null}
               </div>
               <div
                 title={`wishlist`}

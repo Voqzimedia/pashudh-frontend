@@ -10,6 +10,15 @@ export const getCategories = gql`
   }
 `;
 
+export const getCategoriesPath = gql`
+  query getCategories {
+    categories {
+      id
+      slug
+    }
+  }
+`;
+
 export const getCategory = gql`
   query getCategory($slug: String!) {
     categories(where: { slug: $slug }) {
