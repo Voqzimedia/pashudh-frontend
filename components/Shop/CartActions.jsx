@@ -3,18 +3,30 @@ import React, { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 
 export const QuantityBtn = ({ product }) => {
-  const [quantity, setQuantity] = useState(1);
+  const { cart, addItem, removeItem, setCartOpen } = useContext(AppContext);
 
-  // const { cart, addItem, removeItem } = useContext(AppContext);
+  const isInCart = (product) => {
+    return !!cart.items.find((item) => item.id === product.id);
+  };
+
+  var initQuantity = 0;
+  var cartProduct;
+
+  isInCart(product)
+    ? (cartProduct = cart.items.find((item) => item.id === product.id))
+    : null;
+
+  isInCart(product) ? (initQuantity = cartProduct.quantity) : null;
 
   const incrementHandler = () => {
     // cart.items.length < 100 ? addItem(product) : null;
-    quantity < 100 ? setQuantity(() => quantity + 1) : null;
+    initQuantity < 100 ? addItem(product) : null;
+    setCartOpen(true);
   };
 
   const decrementHandler = () => {
     // cart.items.length > 1 ? removeItem(product) : null;
-    quantity > 1 ? setQuantity(() => quantity - 1) : null;
+    initQuantity > 0 ? removeItem(product) : null;
   };
 
   return (
@@ -24,7 +36,7 @@ export const QuantityBtn = ({ product }) => {
           +
         </button>
         {/* {cart.items.length > 0 ? cart.items.length : 1} */}
-        {quantity}
+        {initQuantity}
         <button className={`quantity-dec btn`} onClick={decrementHandler}>
           -
         </button>
@@ -34,7 +46,7 @@ export const QuantityBtn = ({ product }) => {
 };
 
 export const AddToCart = ({ product }) => {
-  const { cart, addItem, removeItem, setCartOpen } = useContext(AppContext);
+  const { addItem, setCartOpen } = useContext(AppContext);
 
   return (
     <button

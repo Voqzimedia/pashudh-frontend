@@ -161,6 +161,7 @@ class MyApp extends App {
                 : item
             ),
             total: this.state.cart.total - item.price,
+            totalQuantity: this.state.cart.totalQuantity + item.quantity,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
@@ -171,7 +172,13 @@ class MyApp extends App {
 
       items.splice(index, 1);
       this.setState(
-        { cart: { items: items, total: this.state.cart.total - item.price } },
+        {
+          cart: {
+            items: items,
+            total: this.state.cart.total - item.price,
+            totalQuantity: this.state.cart.totalQuantity + item.quantity,
+          },
+        },
         () => Cookie.set("cart", this.state.cart.items)
       );
     }

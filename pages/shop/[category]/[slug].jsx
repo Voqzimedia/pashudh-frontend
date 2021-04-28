@@ -42,7 +42,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Slider = dynamic(() => import("react-slick"));
 
 const Product = ({ product, category }) => {
-  const { deviceWidth } = useContext(AppContext);
+  const { deviceWidth, cart } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
   // console.log({ product, category });
@@ -143,11 +143,19 @@ const Product = ({ product, category }) => {
                       </li>
                     </ul>
                   </article>
-                  <div className="shop-action">
-                    <QuantityBtn product={product} />
-                    <AddToCart product={product} />
-                    <BuyNow product={product} />
-                  </div>
+                  {product.StockDetails.isSoldOut ? (
+                    <div className="shop-action">
+                      <button className="btn solid-btn" disabled>
+                        SoldOut
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="shop-action">
+                      <QuantityBtn product={product} />
+                      <AddToCart product={product} />
+                      <BuyNow product={product} />
+                    </div>
+                  )}
                 </div>
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>

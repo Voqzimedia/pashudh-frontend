@@ -13,44 +13,48 @@ import productImg from "../../assets/images/products/prod1.jpg?webp";
 export default function CartList() {
   const { cart, setCartOpen } = useContext(AppContext);
 
-  console.log(cart);
+  const isInCart = (product) => {
+    return !!cart.items.find((item) => item.id === product.id);
+  };
 
   return (
     <div className="order-list">
-      {cart.items.map((product, index) => (
-        <Row className={`order-item`} key={index}>
-          <Col xs="4">
-            <div className="product-holder">
-              <div className="image-holder">
-                <picture>
-                  <img
-                    width="100"
-                    height="100"
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
-                    alt={product.name}
-                  />
-                </picture>
+      {cart.items.map((product, index) => {
+        return (
+          <Row className={`order-item`} key={index}>
+            <Col xs="4">
+              <div className="product-holder">
+                <div className="image-holder">
+                  <picture>
+                    <img
+                      width="100"
+                      height="100"
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                      alt={product.name}
+                    />
+                  </picture>
+                </div>
+                <div className="quantity">{product.quantity}</div>
+                <button
+                  className={`close-btn btn`}
+                  dangerouslySetInnerHTML={{ __html: icons.x.toSvg() }}
+                ></button>
               </div>
-              <div className="quantity">{product.quantity}</div>
-              <button
-                className={`close-btn btn`}
-                dangerouslySetInnerHTML={{ __html: icons.x.toSvg() }}
-              ></button>
-            </div>
-          </Col>
-          <Col xs="8">
-            <div className="product-details">
-              <div className="name">{product.name}</div>
-              <div className="price">
-                {currency.format(product.price)} X {product.quantity} ={" "}
-                {currency.format(product.price * product.quantity)}
+            </Col>
+            <Col xs="8">
+              <div className="product-details">
+                <div className="name">{product.name}</div>
+                <div className="price">
+                  {currency.format(product.price)} X {product.quantity} ={" "}
+                  {currency.format(product.price * product.quantity)}
+                </div>
+                <QuantityBtn product={product} />
               </div>
-              <QuantityBtn product={product} />
-            </div>
-          </Col>
-          <Col xs="12"></Col>
-        </Row>
-      ))}
+            </Col>
+            <Col xs="12"></Col>
+          </Row>
+        );
+      })}
 
       <div className="checkout-action">
         {cart.total > 0 ? (
