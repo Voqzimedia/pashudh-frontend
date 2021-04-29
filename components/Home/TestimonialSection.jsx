@@ -49,7 +49,7 @@ export default function TestimonialSection() {
     }
   );
 
-  console.log(testimonialList);
+  // console.log(testimonialList);
 
   return (
     <section className={`page-section testimonial-section`}>
