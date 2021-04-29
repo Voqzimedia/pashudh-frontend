@@ -102,6 +102,10 @@ a {
   @media only screen and (max-width: 500px) {
     position: relative;
   }
+
+  &.disabled {
+    position: relative;
+  }
 }
 
 .svgIcon.red {

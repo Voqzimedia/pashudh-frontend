@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import useWindowSize from "../../hooks/useWindowSize";
 
-import Footer from "../../layout/components/Footer";
+// import Footer from "../../layout/components/Footer";
 
 const SmoothScroll = ({ children }) => {
   // 1.
