@@ -130,7 +130,7 @@ class MyApp extends App {
           cart: {
             items: [...items, item],
             total: this.state.cart.total + item.price,
-            totalQuantity: this.state.cart.totalQuantity + item.quantity,
+            totalQuantity: this.state.cart.totalQuantity + 1,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
@@ -145,7 +145,7 @@ class MyApp extends App {
                 : item
             ),
             total: this.state.cart.total + item.price,
-            totalQuantity: this.state.cart.totalQuantity + item.quantity,
+            totalQuantity: this.state.cart.totalQuantity + 1,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
@@ -190,7 +190,7 @@ class MyApp extends App {
                 : item
             ),
             total: this.state.cart.total - item.price,
-            totalQuantity: this.state.cart.totalQuantity + item.quantity,
+            totalQuantity: this.state.cart.totalQuantity - 1,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
@@ -205,7 +205,7 @@ class MyApp extends App {
           cart: {
             items: items,
             total: this.state.cart.total - item.price,
-            totalQuantity: this.state.cart.totalQuantity + item.quantity,
+            totalQuantity: this.state.cart.totalQuantity - 1,
           },
         },
         () => Cookie.set("cart", this.state.cart.items)
