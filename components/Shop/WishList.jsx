@@ -1,39 +1,64 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col } from "reactstrap";
-import CloseIcon from "../../assets/images/icons/x.svg?include";
+import AppContext from "../../context/AppContext";
+import { icons } from "feather-icons";
+import Link from "next/link";
+
+import { currency } from "../../helper/functions";
 
 // images
 
 import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function WishList() {
+  const { wishlist, setWishlistOpen, deleteItemWishlist } = useContext(
+    AppContext
+  );
+
   return (
     <div className="order-list">
-      <Row className={`order-item`}>
-        <Col xs="4">
-          <div className="product-holder">
-            <div className="image-holder">
-              <picture>
-                <img width="100" height="100" src={productImg} alt="Product" />
-              </picture>
-            </div>
-
-            <button className={`close-btn btn`}>
-              <div dangerouslySetInnerHTML={{ __html: CloseIcon }} />
-            </button>
-          </div>
-        </Col>
-        <Col xs="8">
-          <div className="product-details">
-            <div className="name">
-              Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk
-              Saree
-            </div>
-            <div className="price">₹22,300</div>
-          </div>
-        </Col>
-        <Col xs="12"></Col>
-      </Row>
+      {wishlist.items.length > 0 ? (
+        wishlist.items.map((product, index) => {
+          return (
+            <Row className={`order-item`} key={index}>
+              <Col xs="4">
+                <div className="product-holder">
+                  <div className="image-holder">
+                    <picture>
+                      <img
+                        width="100"
+                        height="100"
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                        alt={product.name}
+                      />
+                    </picture>
+                  </div>
+                  <button
+                    className={`close-btn btn`}
+                    dangerouslySetInnerHTML={{ __html: icons.x.toSvg() }}
+                    onClick={() => deleteItemWishlist(product)}
+                  ></button>
+                </div>
+              </Col>
+              <Col xs="8">
+                <div className="product-details">
+                  <Link href={`/shop/whole-six-yards/${product.slug}`}>
+                    <a className="name">{product.name}</a>
+                  </Link>
+                  <div className="price">{currency.format(product.price)}</div>
+                </div>
+              </Col>
+              <Col xs="12"></Col>
+            </Row>
+          );
+        })
+      ) : (
+        <div className="emptyList">
+          <center>
+            <h5>No products in your wishlist</h5>
+          </center>
+        </div>
+      )}
     </div>
   );
 }

@@ -25,19 +25,23 @@ const CartList = dynamic(() => import("../../../components/Shop/CartList"));
 const WishList = dynamic(() => import("../../../components/Shop/WishList"));
 const LoginForm = dynamic(() => import("../../../components/User/LoginForm"));
 const SignupForm = dynamic(() => import("../../../components/User/SignupForm"));
+const Profile = dynamic(() => import("../../../components/User/Profile"));
 
 export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [isProfileOpen, setProfileOpen] = useState(false);
 
   const {
     isCartOpen,
+    isOrderOpen,
     isWishlistOpen,
     cart,
     isMenuOpen,
     modalLogin,
     modalSignup,
     setCartOpen,
+    setOrderOpen,
     setWishlistOpen,
     isAuthenticated,
     setMenuOpen,
@@ -51,13 +55,35 @@ export default function UserAction({ isMobile }) {
   const toggleLogin = (e) => {
     e.preventDefault();
     setModalSignup(false);
+    setProfileOpen(false);
+    setOrderOpen(false);
     modalLogin ? setModalLogin(false) : setModalLogin(true);
   };
 
   const toggleSignup = (e) => {
     e.preventDefault();
     setModalLogin(false);
+    setProfileOpen(false);
+    setOrderOpen(false);
     modalSignup ? setModalSignup(false) : setModalSignup(true);
+  };
+
+  const toggleProfile = (e) => {
+    e.preventDefault();
+    setModalLogin(false);
+    setModalSignup(false);
+    setUserOpen(false);
+    setOrderOpen(false);
+    isProfileOpen ? setProfileOpen(false) : setProfileOpen(true);
+  };
+
+  const toggleOrder = (e) => {
+    e.preventDefault();
+    setModalLogin(false);
+    setModalSignup(false);
+    setUserOpen(false);
+    setProfileOpen(false);
+    isOrderOpen ? setOrderOpen(false) : setOrderOpen(true);
   };
 
   const openCart = (event) => {
@@ -67,7 +93,8 @@ export default function UserAction({ isMobile }) {
     setUserOpen(false);
     setModalLogin(false);
     setModalSignup(false);
-
+    setProfileOpen(false);
+    setOrderOpen(false);
     isCartOpen ? setCartOpen(false) : setCartOpen(true);
   };
 
@@ -78,6 +105,8 @@ export default function UserAction({ isMobile }) {
     setUserOpen(false);
     setModalLogin(false);
     setModalSignup(false);
+    setProfileOpen(false);
+    setOrderOpen(false);
     isWishlistOpen ? setWishlistOpen(false) : setWishlistOpen(true);
   };
 
@@ -88,6 +117,8 @@ export default function UserAction({ isMobile }) {
     setUserOpen(false);
     setModalLogin(false);
     setModalSignup(false);
+    setProfileOpen(false);
+    setOrderOpen(false);
     isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
   };
 
@@ -174,7 +205,11 @@ export default function UserAction({ isMobile }) {
                     <DropdownMenu className={`subMenu`}>
                       {isAuthenticated ? (
                         <>
-                          <a title={`Profile`} className="dropdown-item">
+                          <a
+                            title={`Profile`}
+                            onClick={toggleProfile}
+                            className="dropdown-item"
+                          >
                             Profile
                           </a>
                           <a title={`Order Lists`} className="dropdown-item">
@@ -275,7 +310,11 @@ export default function UserAction({ isMobile }) {
                 <div className="link-wrapper">
                   {isAuthenticated ? (
                     <>
-                      <a title={`Profile`} className="dropdown-item">
+                      <a
+                        title={`Profile`}
+                        onClick={toggleProfile}
+                        className="dropdown-item"
+                      >
                         Profile
                       </a>
                       <a title={`Order Lists`} className="dropdown-item">
@@ -367,6 +406,16 @@ export default function UserAction({ isMobile }) {
           <LoginForm />
         </ModalBody>
       </Modal>
+      <Modal
+        isOpen={isProfileOpen}
+        toggle={toggleProfile}
+        className={"login-modal"}
+      >
+        <ModalBody>
+          <Profile />
+        </ModalBody>
+      </Modal>
+
       <Modal
         isOpen={modalSignup}
         toggle={toggleSignup}

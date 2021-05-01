@@ -11,7 +11,7 @@ import { currency } from "../../helper/functions";
 import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function CartList() {
-  const { cart, setCartOpen } = useContext(AppContext);
+  const { cart, setCartOpen, deleteItem } = useContext(AppContext);
 
   const isInCart = (product) => {
     return !!cart.items.find((item) => item.id === product.id);
@@ -38,6 +38,7 @@ export default function CartList() {
                 <button
                   className={`close-btn btn`}
                   dangerouslySetInnerHTML={{ __html: icons.x.toSvg() }}
+                  onClick={() => deleteItem(product)}
                 ></button>
               </div>
             </Col>

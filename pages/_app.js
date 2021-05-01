@@ -19,10 +19,12 @@ class MyApp extends App {
   state = {
     user: null,
     cart: { items: [], total: 0, totalQuantity: 0 },
+    wishlist: { items: [] },
     darkTheme: false,
     width: undefined,
     height: undefined,
     isCartOpen: false,
+    isOrderOpen: false,
     isWishlistOpen: false,
     isMenuOpen: false,
     modalLogin: false,
@@ -83,6 +85,11 @@ class MyApp extends App {
   setCartOpen = (val) => {
     this.setState({ isCartOpen: val });
   };
+
+  setOrderOpen = (val) => {
+    this.setState({ isOrderOpen: val });
+  };
+
   setWishlistOpen = (val) => {
     this.setState({ isWishlistOpen: val });
   };
@@ -146,6 +153,28 @@ class MyApp extends App {
     }
   };
 
+  deleteItem = (item) => {
+    let { items } = this.state.cart;
+    //check for item already in cart
+    //if not in cart, add item if item is found increase quanity ++
+    const newItem = items.find((i) => i.id === item.id);
+
+    const thisItems = [...this.state.cart.items];
+    const index = thisItems.findIndex((i) => i.id === newItem.id);
+
+    thisItems.splice(index, 1);
+    this.setState(
+      {
+        cart: {
+          items: thisItems,
+          total: this.state.cart.total - item.price * item.quantity,
+          totalQuantity: this.state.cart.totalQuantity - item.quantity,
+        },
+      },
+      () => Cookie.set("cart", this.state.cart.items)
+    );
+  };
+
   removeItem = (item) => {
     let { items } = this.state.cart;
     //check for item already in cart
@@ -184,6 +213,62 @@ class MyApp extends App {
     }
   };
 
+  addItemWishlist = (item) => {
+    let { items } = this.state.wishlist;
+    //check for item already in cart
+    //if not in cart, add item if item is found increase quanity ++
+    const newItem = items.find((i) => i.id === item.id);
+    // if item is not new, add to cart, set quantity to 1
+    if (!newItem) {
+      //set quantity property to 1
+      item.quantity = 1;
+      // console.log(this.state.cart.total, item.price);
+      this.setState(
+        {
+          wishlist: {
+            items: [...items, item],
+          },
+        },
+        () => Cookie.set("wishlist", this.state.wishlist.items)
+      );
+
+      () => console.log(this.state.wishlist.items);
+    } else {
+      this.setState(
+        {
+          wishlist: {
+            items: this.state.wishlist.items.map((item) =>
+              item.id === newItem.id
+                ? Object.assign({}, item, { quantity: item.quantity + 1 })
+                : item
+            ),
+          },
+        },
+        () => Cookie.set("wishlist", this.state.wishlist.items)
+      );
+    }
+  };
+
+  deleteItemWishlist = (item) => {
+    let { items } = this.state.wishlist;
+    //check for item already in wishlist
+    //if not in wishlist, add item if item is found increase quanity ++
+    const newItem = items.find((i) => i.id === item.id);
+
+    const thisItems = [...this.state.wishlist.items];
+    const index = thisItems.findIndex((i) => i.id === newItem.id);
+
+    thisItems.splice(index, 1);
+    this.setState(
+      {
+        wishlist: {
+          items: thisItems,
+        },
+      },
+      () => Cookie.set("wishlist", this.state.wishlist.items)
+    );
+  };
+
   render() {
     const { Component, pageProps, router } = this.props;
 
@@ -191,9 +276,11 @@ class MyApp extends App {
       user: this.state.user,
       isAuthenticated: !!this.state.user,
       cart: this.state.cart,
+      wishlist: this.state.wishlist,
       darkTheme: this.state.darkTheme,
       deviceWidth: this.state.width,
       isCartOpen: this.state.isCartOpen,
+      isOrderOpen: this.isOrderOpen,
       isWishlistOpen: this.state.isWishlistOpen,
       isMenuOpen: this.state.isMenuOpen,
       modalLogin: this.state.modalLogin,
@@ -201,8 +288,12 @@ class MyApp extends App {
       setUser: this.setUser,
       addItem: this.addItem,
       removeItem: this.removeItem,
+      deleteItem: this.deleteItem,
+      addItemWishlist: this.addItemWishlist,
+      deleteItemWishlist: this.deleteItemWishlist,
       toggleTheme: this.toggleTheme,
       setCartOpen: this.setCartOpen,
+      setOrderOpen: this.setOrderOpen,
       setWishlistOpen: this.setWishlistOpen,
       setMenuOpen: this.setMenuOpen,
       setModalLogin: this.setModalLogin,

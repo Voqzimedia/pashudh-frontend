@@ -27,10 +27,33 @@ const Shop = ({ products, categories, thisFillter }) => {
 
   const [prodList, setProdList] = useState(products);
   const [filterCata, setFilterCata] = useState(thisFillter);
+  const [filterSort, setFilterSort] = useState("id");
 
   const changeTab = (category) => {
     setFilterCata(category);
     refetchCata();
+  };
+
+  const sortProduct = (option) => {
+    switch (option) {
+      case "priceAsc":
+        setFilterSort("price:asc");
+
+        break;
+      case "priceDesc":
+        setFilterSort("price:desc");
+
+        break;
+      default:
+        setFilterSort("id:asc");
+    }
+
+    setTimeout(
+      function () {
+        refetchCata();
+      }.bind(this),
+      100
+    );
   };
 
   // Get Categories Data.
@@ -38,6 +61,7 @@ const Shop = ({ products, categories, thisFillter }) => {
     notifyOnNetworkStatusChange: true,
     variables: {
       slug: filterCata?.slug ? filterCata.slug : "whole-six-yards",
+      sort: filterSort,
     },
     onCompleted: () => {
       data?.categories.length > 0 ? setFilterCata(data.categories[0]) : null;
@@ -90,13 +114,19 @@ const Shop = ({ products, categories, thisFillter }) => {
               <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
                 Sort
                 <DropdownMenu className={`subMenu`}>
-                  <a href="#" className="dropdown-item">
+                  <a
+                    onClick={() => sortProduct("priceAsc")}
+                    className="dropdown-item"
+                  >
                     Price: Low to High
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a
+                    onClick={() => sortProduct("priceDesc")}
+                    className="dropdown-item"
+                  >
                     Price: High to Low
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a onClick={() => sortProduct()} className="dropdown-item">
                     Newest Arrivals
                   </a>
                 </DropdownMenu>
@@ -113,8 +143,13 @@ const Shop = ({ products, categories, thisFillter }) => {
                 </DropdownMenu>
               </div>
             </div>
-
-            <ProductGrid prodList={prodList} filterCata={filterCata} />
+            {loading ? (
+              <div>
+                <h1>Loading</h1>
+              </div>
+            ) : (
+              <ProductGrid prodList={prodList} filterCata={filterCata} />
+            )}
           </Container>
         </div>
       </section>

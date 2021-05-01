@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Link from "next/link";
 import { isEmpty } from "lodash";
+import { useQuery } from "@apollo/client";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -29,6 +30,7 @@ import {
   QuantityBtn,
   BuyNow,
   AddToCart,
+  AddWishlist,
 } from "../../../components/Shop/CartActions";
 
 import prodImg1 from "../../../assets/images/products/grid/prod1.png?webp";
@@ -45,7 +47,17 @@ const Product = ({ product, category }) => {
   const { deviceWidth, cart } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
+  const [thisProduct, setProduct] = useState(product);
+
+  const isInCart = (product) => {
+    return !!cart.items.find((item) => item.id === product.id);
+  };
+
   // console.log({ product, category });
+
+  useEffect(() => {
+    refetchProduct();
+  }, []);
 
   const prodList = [
     {
@@ -78,9 +90,29 @@ const Product = ({ product, category }) => {
     arrows: false,
   };
 
+  // Get Product Data.
+  const {
+    loading,
+    error,
+    data: productData,
+    refetch: refetchProduct,
+  } = useQuery(getProduct, {
+    notifyOnNetworkStatusChange: true,
+    variables: {
+      slug: product.slug,
+    },
+    onCompleted: () => {
+      setProduct(() =>
+        productData?.products.length > 0 ? productData.products[0] : []
+      );
+
+      // console.log({ productData, category });
+    },
+  });
+
   const productDetails = [];
 
-  for (const [key, value] of Object.entries(product.ProductDetails)) {
+  for (const [key, value] of Object.entries(thisProduct.ProductDetails)) {
     key != "__typename"
       ? productDetails.push({
           name: camelToNormal(key),
@@ -88,6 +120,8 @@ const Product = ({ product, category }) => {
         })
       : null;
   }
+
+  let actionProd = { ...thisProduct };
 
   // console.log(productDetails);
 
@@ -108,7 +142,7 @@ const Product = ({ product, category }) => {
                     <a>{category.title}</a>
                   </Link>
                 </BreadcrumbItem>
-                <BreadcrumbItem active>{product.name}</BreadcrumbItem>
+                <BreadcrumbItem active>{thisProduct.name}</BreadcrumbItem>
               </Breadcrumb>
             </div>
 
@@ -117,10 +151,12 @@ const Product = ({ product, category }) => {
                 <div>
                   <article>
                     <div className="product-header">
-                      <h1 className="product-name">{product.name}</h1>
-                      <p className="price">{currency.format(product.price)}</p>
+                      <h1 className="product-name">{thisProduct.name}</h1>
+                      <p className="price">
+                        {currency.format(thisProduct.price)}
+                      </p>
                     </div>
-                    <p className="description">{product.content}</p>
+                    <p className="description">{thisProduct.content}</p>
                     <ul className="product-detail-list">
                       {productDetails.map((detail, index) => (
                         <li className="detail-items" key={index}>
@@ -143,17 +179,31 @@ const Product = ({ product, category }) => {
                       </li>
                     </ul>
                   </article>
-                  {product.StockDetails.isSoldOut ? (
-                    <div className="shop-action">
-                      <button className="btn solid-btn" disabled>
-                        SoldOut
-                      </button>
-                    </div>
+                  {thisProduct.StockDetails.isSoldOut ? (
+                    <>
+                      <div className="shop-action ">
+                        <button
+                          className="btn solid-btn no-left-margin"
+                          disabled
+                        >
+                          SoldOut
+                        </button>
+                        <AddWishlist product={{ ...thisProduct }} />
+                      </div>
+                    </>
                   ) : (
                     <div className="shop-action">
-                      <QuantityBtn product={product} />
-                      <AddToCart product={product} />
-                      <BuyNow product={product} />
+                      {isInCart(thisProduct) ? (
+                        <QuantityBtn product={{ ...thisProduct }} />
+                      ) : null}
+
+                      <AddToCart
+                        product={{ ...thisProduct }}
+                        className={`${
+                          isInCart(thisProduct) ? "" : "no-left-margin"
+                        }`}
+                      />
+                      <AddWishlist product={{ ...thisProduct }} />
                     </div>
                   )}
                 </div>
@@ -162,7 +212,7 @@ const Product = ({ product, category }) => {
                 {isMobile ? (
                   <div className="product-images-slider">
                     <Slider {...sliderSettings} className={`image-slider`}>
-                      {product.GalleryImgs.map((image, index) => (
+                      {thisProduct.GalleryImgs.map((image, index) => (
                         <div className="image-holder" key={index}>
                           <picture>
                             <img
@@ -178,7 +228,7 @@ const Product = ({ product, category }) => {
                   </div>
                 ) : (
                   <div className="product-images-holder">
-                    {product.GalleryImgs.map((image, index) => (
+                    {thisProduct.GalleryImgs.map((image, index) => (
                       <div className="image-holder" key={index}>
                         <picture>
                           <img

@@ -45,18 +45,34 @@ export const QuantityBtn = ({ product }) => {
   );
 };
 
-export const AddToCart = ({ product }) => {
+export const AddToCart = ({ product, className }) => {
   const { addItem, setCartOpen } = useContext(AppContext);
 
   return (
     <button
-      className="btn solid-btn"
+      className={`btn solid-btn ${className ? className : ""}`}
       onClick={() => {
         addItem(product);
         setCartOpen(true);
       }}
     >
       Add to Cart
+    </button>
+  );
+};
+
+export const AddWishlist = ({ product, className }) => {
+  const { setWishlistOpen, addItemWishlist } = useContext(AppContext);
+
+  return (
+    <button
+      className={`btn solid-btn ${className ? className : ""}`}
+      onClick={() => {
+        setWishlistOpen(true);
+        addItemWishlist(product);
+      }}
+    >
+      Add to Wishlist
     </button>
   );
 };

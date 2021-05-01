@@ -178,6 +178,10 @@ article {
     font-weight: 200;
     box-shadow: none !important;
     margin: 0 10px;
+
+    &.no-left-margin {
+      margin-left: 0;
+    }
     @media only screen and (max-width: 500px) {
       font-size: 0.8rem;
     }

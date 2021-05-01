@@ -20,12 +20,12 @@ export const getCategoriesPath = gql`
 `;
 
 export const getCategory = gql`
-  query getCategory($slug: String!) {
+  query getCategory($slug: String!, $sort: String) {
     categories(where: { slug: $slug }) {
       id
       title
       slug
-      products {
+      products(sort: $sort) {
         id
         name
         image {
