@@ -3,6 +3,7 @@ import { Row, Col } from "reactstrap";
 import { QuantityBtn } from "./CartActions";
 import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
+import Link from "next/link";
 
 import { currency } from "../../helper/functions";
 
@@ -59,9 +60,11 @@ export default function CartList() {
 
       <div className="checkout-action">
         {cart.total > 0 ? (
-          <button className="btn solid-btn">
-            Checkout | {currency.format(cart.total)}
-          </button>
+          <Link href={`/shop/checkout`}>
+            <a className="btn solid-btn" onClick={() => setCartOpen(false)}>
+              Checkout | {currency.format(cart.total)}
+            </a>
+          </Link>
         ) : (
           <button className="btn solid-btn" onClick={() => setCartOpen(false)}>
             Continue Shoping

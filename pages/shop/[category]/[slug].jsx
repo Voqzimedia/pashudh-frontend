@@ -255,7 +255,7 @@ const Product = ({ product, category }) => {
                 {prodList.map((product, index) => (
                   <Col md="4" key={index}>
                     <Link
-                      href={`/shop/product/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
+                      href={`/shop/whole-six-yards/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
                     >
                       <a className="product-item">
                         <div className="image-holder">

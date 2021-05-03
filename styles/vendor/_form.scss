@@ -3,21 +3,33 @@
     label {
       display: none;
     }
+
+    &.lable-on {
+      label {
+        display: block;
+      }
+    }
     margin: 25px 0;
 
-    input,
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
     textarea,
     select {
       width: 100%;
       min-height: 50px;
       outline: none;
-    }
-
-    input,
-    textarea {
       padding: 10px 20px;
       border: 1px solid $font-light2;
       background-color: transparent;
+      appearance: none;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      width: 1rem;
+      height: 1rem;
     }
 
     .submit-btn {

@@ -39,12 +39,38 @@ class MyApp extends App {
 
     const token = Cookie.get("token");
     // restore cart from cookie, this could also be tracked in a db
-    const cart = Cookie.get("cart");
+    const cart = localStorage.getItem("cart");
+
+    const darkTheme = localStorage.getItem("darkTheme")
+      ? JSON.parse(localStorage.getItem("darkTheme"))
+      : false;
+
+    const wishlist = localStorage.getItem("wishlist")
+      ? JSON.parse(localStorage.getItem("wishlist"))
+      : [];
+
+    this.setState({
+      wishlist: {
+        items: wishlist,
+      },
+    });
+
+    this.setState({
+      darkTheme: darkTheme,
+    });
+
+    // console.log(this.state);
 
     if (typeof cart === "string" && cart !== "undefined") {
+      var totalQuantity = 0;
       JSON.parse(cart).forEach((item) => {
+        totalQuantity += item.quantity;
         this.setState({
-          cart: { items: JSON.parse(cart), total: item.price * item.quantity },
+          cart: {
+            items: JSON.parse(cart),
+            total: item.price * item.quantity,
+            totalQuantity: totalQuantity,
+          },
         });
       });
     }
@@ -113,6 +139,14 @@ class MyApp extends App {
           `${this.state.darkTheme ? "light" : "dark"}`
         )
       : null;
+
+    setTimeout(
+      () =>
+        typeof window !== "undefined"
+          ? localStorage.setItem("darkTheme", this.state.darkTheme)
+          : null,
+      100
+    );
   };
 
   addItem = (item) => {
@@ -125,30 +159,46 @@ class MyApp extends App {
       //set quantity property to 1
       item.quantity = 1;
       // console.log(this.state.cart.total, item.price);
-      this.setState(
-        {
-          cart: {
-            items: [...items, item],
-            total: this.state.cart.total + item.price,
-            totalQuantity: this.state.cart.totalQuantity + 1,
-          },
+      this.setState({
+        cart: {
+          items: [...items, item],
+          total: this.state.cart.total + item.price,
+          totalQuantity: this.state.cart.totalQuantity + 1,
         },
-        () => Cookie.set("cart", this.state.cart.items)
+      });
+
+      setTimeout(
+        () =>
+          typeof window !== "undefined"
+            ? localStorage.setItem(
+                "cart",
+                JSON.stringify(this.state.cart.items)
+              )
+            : null,
+        100
       );
     } else {
-      this.setState(
-        {
-          cart: {
-            items: this.state.cart.items.map((item) =>
-              item.id === newItem.id
-                ? Object.assign({}, item, { quantity: item.quantity + 1 })
-                : item
-            ),
-            total: this.state.cart.total + item.price,
-            totalQuantity: this.state.cart.totalQuantity + 1,
-          },
+      this.setState({
+        cart: {
+          items: this.state.cart.items.map((item) =>
+            item.id === newItem.id
+              ? Object.assign({}, item, { quantity: item.quantity + 1 })
+              : item
+          ),
+          total: this.state.cart.total + item.price,
+          totalQuantity: this.state.cart.totalQuantity + 1,
         },
-        () => Cookie.set("cart", this.state.cart.items)
+      });
+
+      setTimeout(
+        () =>
+          typeof window !== "undefined"
+            ? localStorage.setItem(
+                "cart",
+                JSON.stringify(this.state.cart.items)
+              )
+            : null,
+        100
       );
     }
   };
@@ -163,15 +213,20 @@ class MyApp extends App {
     const index = thisItems.findIndex((i) => i.id === newItem.id);
 
     thisItems.splice(index, 1);
-    this.setState(
-      {
-        cart: {
-          items: thisItems,
-          total: this.state.cart.total - item.price * item.quantity,
-          totalQuantity: this.state.cart.totalQuantity - item.quantity,
-        },
+    this.setState({
+      cart: {
+        items: thisItems,
+        total: this.state.cart.total - item.price * item.quantity,
+        totalQuantity: this.state.cart.totalQuantity - item.quantity,
       },
-      () => Cookie.set("cart", this.state.cart.items)
+    });
+
+    setTimeout(
+      () =>
+        typeof window !== "undefined"
+          ? localStorage.setItem("cart", JSON.stringify(this.state.cart.items))
+          : null,
+      100
     );
   };
 
@@ -195,6 +250,17 @@ class MyApp extends App {
         },
         () => Cookie.set("cart", this.state.cart.items)
       );
+
+      setTimeout(
+        () =>
+          typeof window !== "undefined"
+            ? localStorage.setItem(
+                "cart",
+                JSON.stringify(this.state.cart.items)
+              )
+            : null,
+        100
+      );
     } else {
       const items = [...this.state.cart.items];
       const index = items.findIndex((i) => i.id === newItem.id);
@@ -210,41 +276,41 @@ class MyApp extends App {
         },
         () => Cookie.set("cart", this.state.cart.items)
       );
+
+      setTimeout(
+        () =>
+          typeof window !== "undefined"
+            ? localStorage.setItem(
+                "cart",
+                JSON.stringify(this.state.cart.items)
+              )
+            : null,
+        100
+      );
     }
   };
 
   addItemWishlist = (item) => {
     let { items } = this.state.wishlist;
-    //check for item already in cart
-    //if not in cart, add item if item is found increase quanity ++
+
     const newItem = items.find((i) => i.id === item.id);
     // if item is not new, add to cart, set quantity to 1
     if (!newItem) {
-      //set quantity property to 1
-      item.quantity = 1;
-      // console.log(this.state.cart.total, item.price);
-      this.setState(
-        {
-          wishlist: {
-            items: [...items, item],
-          },
+      this.setState({
+        wishlist: {
+          items: [...items, item],
         },
-        () => Cookie.set("wishlist", this.state.wishlist.items)
-      );
+      });
 
-      () => console.log(this.state.wishlist.items);
-    } else {
-      this.setState(
-        {
-          wishlist: {
-            items: this.state.wishlist.items.map((item) =>
-              item.id === newItem.id
-                ? Object.assign({}, item, { quantity: item.quantity + 1 })
-                : item
-            ),
-          },
-        },
-        () => Cookie.set("wishlist", this.state.wishlist.items)
+      setTimeout(
+        () =>
+          typeof window !== "undefined"
+            ? localStorage.setItem(
+                "wishlist",
+                JSON.stringify(this.state.wishlist.items)
+              )
+            : null,
+        100
       );
     }
   };
@@ -259,13 +325,21 @@ class MyApp extends App {
     const index = thisItems.findIndex((i) => i.id === newItem.id);
 
     thisItems.splice(index, 1);
-    this.setState(
-      {
-        wishlist: {
-          items: thisItems,
-        },
+    this.setState({
+      wishlist: {
+        items: thisItems,
       },
-      () => Cookie.set("wishlist", this.state.wishlist.items)
+    });
+
+    setTimeout(
+      () =>
+        typeof window !== "undefined"
+          ? localStorage.setItem(
+              "wishlist",
+              JSON.stringify(this.state.wishlist.items)
+            )
+          : null,
+      100
     );
   };
 

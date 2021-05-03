@@ -15,7 +15,7 @@ const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
 });
 
 export default function Header() {
-  const { deviceWidth, toggleTheme } = useContext(AppContext);
+  const { deviceWidth, toggleTheme, darkTheme } = useContext(AppContext);
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
   const isMobile = deviceWidth < 500;
 
@@ -64,6 +64,7 @@ export default function Header() {
                     name="themeSwitch"
                     className={`theme-switch`}
                     onChange={toggleTheme}
+                    checked={darkTheme}
                   />
                 </div>
               </div>
