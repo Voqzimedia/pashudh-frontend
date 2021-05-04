@@ -19,18 +19,21 @@ export default function ExploreSection() {
       subTitle: "Spectrum Of Inspiration",
       img: exploreImg1,
       txt: "For the working woman, who is focussed and fabulous.",
+      slug: "modern-muse",
     },
     {
       title: "Fresh Heritage",
       subTitle: "Spectrum Of Inheritance",
       img: exploreImg2,
       txt: "For the modern-era brides, who are chic and enchanting.",
+      slug: "fresh-heritage",
     },
     {
       title: "Neoclassic Heirlooms",
       subTitle: "Spectrum Of Sophistication",
       img: exploreImg3,
       txt: "For the casual wearer, who is effortlessly unique and composed.",
+      slug: "neoclassic-heirlooms",
     },
   ];
 
@@ -73,7 +76,7 @@ export default function ExploreSection() {
                   )}
 
                   <p className="description">{explore.txt}</p>
-                  <Link href={`/shop`}>
+                  <Link href={`/shop/class/${explore.slug}`}>
                     <a className="shop-now btn">Shop Now</a>
                   </Link>
                 </div>

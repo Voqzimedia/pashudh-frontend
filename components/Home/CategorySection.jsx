@@ -24,6 +24,7 @@ export default function CategorySection() {
       slug: "brilliant-blues",
       longImg: img1Left,
       shortImg: img1Right,
+      slug: "brilliant-blues",
     },
     {
       title: "Radiant Reds",
@@ -31,6 +32,7 @@ export default function CategorySection() {
       slug: "radiant-reds",
       longImg: img2Left,
       shortImg: img2Right,
+      slug: "radiant-reds",
     },
     {
       title: "Youthful Yellows",
@@ -38,6 +40,7 @@ export default function CategorySection() {
       subTitle: "Shades Of Sunshine",
       longImg: img3Left,
       shortImg: img3Right,
+      slug: "youthful-yellows",
     },
   ];
 
@@ -94,7 +97,7 @@ export default function CategorySection() {
                         )}
                       </div>
                       <div className="action-holder">
-                        <Link href={`/shop`}>
+                        <Link href={`/shop/color/${category.slug}`}>
                           <a className="shop-now btn">Shop Now</a>
                         </Link>
                       </div>

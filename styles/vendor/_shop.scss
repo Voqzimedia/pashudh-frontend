@@ -152,6 +152,10 @@
       flex-wrap: wrap;
       justify-content: center;
 
+      &.full {
+        min-width: 90%;
+      }
+
       @media only screen and (max-width: 500px) {
         flex-wrap: nowrap;
         justify-content: flex-start;
@@ -167,6 +171,7 @@
         flex: 0 0 16.6%;
         opacity: 1;
         transition: all ease 0.5s;
+        background-color: $base-primary-light;
         @media only screen and (max-width: 500px) {
           flex: none;
         }
@@ -175,6 +180,10 @@
         &.active {
           border: 0.5px solid $base-secondary-light;
           transform: scale(1.03);
+        }
+
+        &.full {
+          flex: auto;
         }
 
         a {
@@ -221,6 +230,9 @@
         margin: auto;
         .breadcrumb-item {
           opacity: 0.5;
+          a {
+            cursor: pointer;
+          }
         }
 
         .breadcrumb-item.active {

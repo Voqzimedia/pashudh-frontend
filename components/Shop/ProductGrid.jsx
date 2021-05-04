@@ -6,7 +6,7 @@ import { Row, Col } from "reactstrap";
 
 import { currency } from "../../helper/functions";
 
-export default function ProductGrid({ prodList, filterCata }) {
+export default function ProductGrid({ prodList, filterCata, isInExpolre }) {
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
 
   const productImgMotion = {
@@ -34,7 +34,11 @@ export default function ProductGrid({ prodList, filterCata }) {
               transition="transition"
               key={index}
             >
-              <Link href={`/shop/${filterCata.slug}/${product.slug}`}>
+              <Link
+                href={`/shop/${
+                  isInExpolre ? "whole-six-yards" : filterCata.slug
+                }/${product.slug}`}
+              >
                 <a className="product-item">
                   <motion.div className="image-holder">
                     {product.StockDetails.isSoldOut && (

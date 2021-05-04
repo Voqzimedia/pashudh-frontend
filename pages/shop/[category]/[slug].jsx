@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
 
@@ -47,13 +48,15 @@ const Product = ({ product, category }) => {
   const { deviceWidth, cart } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
+  const router = useRouter();
+
+  // console.log(router);
+
   const [thisProduct, setProduct] = useState(product);
 
   const isInCart = (product) => {
     return !!cart.items.find((item) => item.id === product.id);
   };
-
-  // console.log({ product, category });
 
   useEffect(() => {
     refetchProduct();
@@ -133,9 +136,7 @@ const Product = ({ product, category }) => {
             <div className="shop-breadcrumbs">
               <Breadcrumb className="breadcrumbs-holder">
                 <BreadcrumbItem>
-                  <Link href={`/shop/${category.slug}`}>
-                    <a>Shop</a>
-                  </Link>
+                  <a onClick={() => router.back()}>Shop</a>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <Link href={`/shop/${category.slug}`}>
