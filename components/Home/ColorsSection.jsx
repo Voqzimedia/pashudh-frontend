@@ -12,19 +12,18 @@ import img2Right from "../../assets/images/category/img2Right.png?webp";
 import img3Left from "../../assets/images/category/img3Left.png?webp";
 import img3Right from "../../assets/images/category/img3Right.png?webp";
 
-export default function CategorySection() {
+export default function ColorsSection() {
   const { deviceWidth } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
-  const categoryList = [
+  const colorsList = [
     {
       title: "Brilliant Blues",
       subTitle: "Shades Of Sky",
       slug: "brilliant-blues",
       longImg: img1Left,
       shortImg: img1Right,
-      slug: "brilliant-blues",
     },
     {
       title: "Radiant Reds",
@@ -32,7 +31,6 @@ export default function CategorySection() {
       slug: "radiant-reds",
       longImg: img2Left,
       shortImg: img2Right,
-      slug: "radiant-reds",
     },
     {
       title: "Youthful Yellows",
@@ -40,17 +38,16 @@ export default function CategorySection() {
       subTitle: "Shades Of Sunshine",
       longImg: img3Left,
       shortImg: img3Right,
-      slug: "youthful-yellows",
     },
   ];
 
   return (
-    <section className={`page-section category-section`}>
+    <section className={`page-section colors-section`}>
       <Container>
-        {categoryList.map(
+        {colorsList.map(
           (category, intex) =>
             intex < 3 && (
-              <Row className={`category-item`} key={intex}>
+              <Row className={`colors-item`} key={intex}>
                 <div className="content-header">
                   {isMobile && (
                     <div className="content-holder">

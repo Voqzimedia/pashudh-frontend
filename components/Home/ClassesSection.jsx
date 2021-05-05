@@ -4,44 +4,44 @@ import Link from "next/link";
 
 import { Row, Col } from "reactstrap";
 
-import exploreImg1 from "../../assets/images/explore/001.png?webp";
-import exploreImg2 from "../../assets/images/explore/002.png?webp";
-import exploreImg3 from "../../assets/images/explore/003.png?webp";
+import classImg1 from "../../assets/images/explore/001.png?webp";
+import classImg2 from "../../assets/images/explore/002.png?webp";
+import classImg3 from "../../assets/images/explore/003.png?webp";
 
-export default function ExploreSection() {
+export default function ClassesSection() {
   const { deviceWidth } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
-  const exploreItems = [
+  const classesItems = [
     {
       title: "Modern Muse",
       subTitle: "Spectrum Of Inspiration",
-      img: exploreImg1,
+      img: classImg1,
       txt: "For the working woman, who is focussed and fabulous.",
       slug: "modern-muse",
     },
     {
       title: "Fresh Heritage",
       subTitle: "Spectrum Of Inheritance",
-      img: exploreImg2,
+      img: classImg2,
       txt: "For the modern-era brides, who are chic and enchanting.",
       slug: "fresh-heritage",
     },
     {
       title: "Neoclassic Heirlooms",
       subTitle: "Spectrum Of Sophistication",
-      img: exploreImg3,
+      img: classImg3,
       txt: "For the casual wearer, who is effortlessly unique and composed.",
       slug: "neoclassic-heirlooms",
     },
   ];
 
   return (
-    <section className={`page-section explore-section`}>
-      <div className="explore-holder">
-        {exploreItems.map((explore, index) => (
-          <Row className={`explore-item`} key={index}>
+    <section className={`page-section classes-section`}>
+      <div className="classes-holder">
+        {classesItems.map((explore, index) => (
+          <Row className={`classes-item`} key={index}>
             <Col lg="7">
               {isMobile && (
                 <div className="content-holder">

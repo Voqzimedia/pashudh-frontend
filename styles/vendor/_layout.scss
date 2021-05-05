@@ -148,8 +148,8 @@
   }
 }
 
-.explore-section {
-  .explore-holder {
+.classes-section {
+  .classes-holder {
     .img-holder {
       img {
         width: 100%;
@@ -163,7 +163,7 @@
       align-items: center;
     }
 
-    .explore-item {
+    .classes-item {
       padding: 25px 0;
       .content-warper {
         @media only screen and (max-width: 800px) {
@@ -376,7 +376,7 @@
   }
 }
 
-.category-section {
+.colors-section {
   .left-section,
   .right-section {
     height: 100%;
@@ -421,7 +421,7 @@
     }
   }
 
-  .category-item {
+  .colors-item {
     position: relative;
 
     @media only screen and (max-width: 500px) {
