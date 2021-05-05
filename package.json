@@ -6,9 +6,9 @@
     "dev": "next dev -p 3005 ",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
-    "start:local": "npm run build && next start",
     "export": "npm run build && next export",
-    "dev:host": "next dev -p 3005 -H"
+    "start:local": "next build && next start",
+    "start:production": "SET NODE_ENV=production & yarn start:local"
   },
   "dependencies": {
     "@apollo/client": "^3.3.15",
