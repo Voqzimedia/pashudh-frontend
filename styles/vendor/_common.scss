@@ -257,6 +257,12 @@ hr {
   display: none;
 }
 
+.product-skeleton {
+  svg {
+    width: 100% !important;
+  }
+}
+
 .image-holder {
   img {
     width: 100%;

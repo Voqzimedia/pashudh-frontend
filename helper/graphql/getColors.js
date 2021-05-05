@@ -11,12 +11,12 @@ export const getColors = gql`
 `;
 
 export const getColor = gql`
-  query getColor($slug: String!, $sort: String) {
+  query getColor($slug: String!, $sort: String, $limit: Int, $start: Int) {
     colors(where: { slug: $slug }) {
       id
       name
       slug
-      products(sort: $sort) {
+      products(sort: $sort, limit: $limit, start: $start) {
         id
         name
         image {

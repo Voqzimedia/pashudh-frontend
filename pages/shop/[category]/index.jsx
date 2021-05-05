@@ -22,6 +22,10 @@ const CatagoryFilter = dynamic(() =>
   import("../../../components/Shop/CatagoryFilter")
 );
 
+const ProductSkeleton = dynamic(() =>
+  import("../../../components/utils/ProductSkeleton")
+);
+
 const Shop = ({ products, categories, thisFillter }) => {
   const pageTitle = "Shop";
 
@@ -144,9 +148,7 @@ const Shop = ({ products, categories, thisFillter }) => {
               </div>
             </div>
             {loading ? (
-              <div>
-                <h1>Loading</h1>
-              </div>
+              <ProductSkeleton />
             ) : (
               <ProductGrid prodList={prodList} filterCata={filterCata} />
             )}

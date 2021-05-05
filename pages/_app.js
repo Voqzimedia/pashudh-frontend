@@ -363,7 +363,7 @@ class MyApp extends App {
       isMenuOpen: this.state.isMenuOpen,
       modalLogin: this.state.modalLogin,
       modalSignup: this.state.modalSignup,
-      searchQuery: this.searchQuery,
+      searchQuery: this.state.searchQuery,
       setSearchQuery: this.setSearchQuery,
       setUser: this.setUser,
       addItem: this.addItem,

@@ -1,8 +1,28 @@
 import { gql } from "@apollo/client";
 
 export const getProductList = gql`
-  query getProductList {
-    products(limit: 9) {
+  query getProductList($limit: Int, $start: Int) {
+    products(limit: $limit, start: $start) {
+      id
+      name
+      image {
+        id
+        url
+        formats
+      }
+      StockDetails {
+        isSoldOut
+      }
+      content
+      price
+      slug
+    }
+  }
+`;
+
+export const searchProduct = gql`
+  query searchProduct($query: String!, $limit: Int, $start: Int) {
+    products(where: { name_contains: $query }, limit: $limit, start: $start) {
       id
       name
       image {
