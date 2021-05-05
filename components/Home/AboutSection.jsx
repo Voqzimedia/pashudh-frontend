@@ -31,7 +31,7 @@ export default function AboutSection() {
                 <p>follow us</p>
               </div>
               <div className="action-holder">
-                <Link href={`/shop`}>
+                <Link href={`/shop/whole-six-yards`}>
                   <a className="shop-now btn">Shop Now</a>
                 </Link>
               </div>

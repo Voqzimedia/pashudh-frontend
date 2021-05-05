@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import { useQuery } from "@apollo/client";
 
 import { getTestimonials } from "../../helper/graphql/getTestimonials";
+import profileImg from "../../assets/images/avatar.jpg";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -14,7 +15,6 @@ const Slider = dynamic(() => import("react-slick"));
 
 // images
 
-import userImg1 from "../../assets/images/testimonial/user1.png?webp";
 import quoteImg from "../../assets/images/icons/quotes.svg?include";
 
 import SvgIcon from "../utils/SvgIcon";
@@ -75,7 +75,7 @@ export default function TestimonialSection() {
                                 testimonial?.User?.ProfilePic?.formats
                                   ?.thumbnail?.url
                                   ? `${process.env.NEXT_PUBLIC_API_URL}${testimonial.User.ProfilePic.formats.thumbnail.url}`
-                                  : userImg1
+                                  : profileImg
                               }
                               alt="User"
                             />
