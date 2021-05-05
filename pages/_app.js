@@ -29,6 +29,7 @@ class MyApp extends App {
     isMenuOpen: false,
     modalLogin: false,
     modalSignup: false,
+    searchQuery: "",
   };
 
   componentDidMount() {
@@ -127,6 +128,9 @@ class MyApp extends App {
   };
   setModalSignup = (val) => {
     this.setState({ modalSignup: val });
+  };
+  setSearchQuery = (val) => {
+    this.setState({ searchQuery: val });
   };
 
   toggleTheme = () => {
@@ -359,6 +363,8 @@ class MyApp extends App {
       isMenuOpen: this.state.isMenuOpen,
       modalLogin: this.state.modalLogin,
       modalSignup: this.state.modalSignup,
+      searchQuery: this.searchQuery,
+      setSearchQuery: this.setSearchQuery,
       setUser: this.setUser,
       addItem: this.addItem,
       removeItem: this.removeItem,

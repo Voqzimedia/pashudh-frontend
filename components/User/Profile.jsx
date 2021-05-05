@@ -8,7 +8,7 @@ export default function Profile() {
   const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, []);
 
   //   console.log(user);

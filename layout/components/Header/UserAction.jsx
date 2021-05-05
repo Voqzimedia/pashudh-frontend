@@ -21,16 +21,31 @@ const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 const Menu = dynamic(() => import("./Menu"), { ssr: false });
 const SearchBox = dynamic(() => import("./SearchBox"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
-const CartList = dynamic(() => import("../../../components/Shop/CartList"));
-const WishList = dynamic(() => import("../../../components/Shop/WishList"));
-const LoginForm = dynamic(() => import("../../../components/User/LoginForm"));
-const SignupForm = dynamic(() => import("../../../components/User/SignupForm"));
-const Profile = dynamic(() => import("../../../components/User/Profile"));
+const CartList = dynamic(() => import("../../../components/Shop/CartList"), {
+  ssr: false,
+});
+const WishList = dynamic(() => import("../../../components/Shop/WishList"), {
+  ssr: false,
+});
+const LoginForm = dynamic(() => import("../../../components/User/LoginForm"), {
+  ssr: false,
+});
+const SignupForm = dynamic(
+  () => import("../../../components/User/SignupForm"),
+  { ssr: false }
+);
+const Profile = dynamic(() => import("../../../components/User/Profile"), {
+  ssr: false,
+});
+const Settings = dynamic(() => import("../../../components/User/Settings"), {
+  ssr: false,
+});
 
 export default function UserAction({ isMobile }) {
   const [isUserOpen, setUserOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
+  const [isSettingOpen, setSettingOpen] = useState(false);
 
   const {
     isCartOpen,
@@ -75,6 +90,17 @@ export default function UserAction({ isMobile }) {
     setUserOpen(false);
     setOrderOpen(false);
     isProfileOpen ? setProfileOpen(false) : setProfileOpen(true);
+  };
+
+  const toggleSettings = (e) => {
+    e ? e.preventDefault() : null;
+    setModalLogin(false);
+    setModalSignup(false);
+    setUserOpen(false);
+    setOrderOpen(false);
+    setProfileOpen(false);
+
+    isSettingOpen ? setSettingOpen(false) : setSettingOpen(true);
   };
 
   const toggleOrder = (e) => {
@@ -215,7 +241,11 @@ export default function UserAction({ isMobile }) {
                           <a title={`Order Lists`} className="dropdown-item">
                             Order Lists
                           </a>
-                          <a title={`Settings`} className="dropdown-item">
+                          <a
+                            title={`Settings`}
+                            onClick={toggleSettings}
+                            className="dropdown-item"
+                          >
                             Settings
                           </a>
                           <a
@@ -320,7 +350,11 @@ export default function UserAction({ isMobile }) {
                       <a title={`Order Lists`} className="dropdown-item">
                         Order Lists
                       </a>
-                      <a title={`Settings`} className="dropdown-item">
+                      <a
+                        title={`Settings`}
+                        onClick={toggleSettings}
+                        className="dropdown-item"
+                      >
                         Settings
                       </a>
                       <a
@@ -413,6 +447,15 @@ export default function UserAction({ isMobile }) {
       >
         <ModalBody>
           <Profile />
+        </ModalBody>
+      </Modal>
+      <Modal
+        isOpen={isSettingOpen}
+        toggle={toggleSettings}
+        className={"login-modal"}
+      >
+        <ModalBody>
+          <Settings toggleSettings={toggleSettings} />
         </ModalBody>
       </Modal>
 

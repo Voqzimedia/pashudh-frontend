@@ -57,6 +57,35 @@ export const login = (identifier, password) => {
   });
 };
 
+export const changePassword = (id, password) => {
+  //prevent function from being ran on the server
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API_URL}/users/${id}/`,
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
 export const logout = () => {
   //remove token and user cookie
   Cookie.remove("token");
