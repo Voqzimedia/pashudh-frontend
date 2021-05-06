@@ -5,7 +5,16 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+
+export const STRIPE_PK =
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_42B2064C668798B5";
+
+export const getToken = () => {
+  const token = Cookie.get("token");
+  return token;
+};
 
 //register a new user
 export const registerUser = (username, email, password) => {

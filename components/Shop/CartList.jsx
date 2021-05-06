@@ -5,6 +5,8 @@ import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
 import Link from "next/link";
 
+import BuyButton from "../../components/Shop/BuyButton";
+
 import { currency } from "../../helper/functions";
 
 // images
@@ -60,11 +62,15 @@ export default function CartList() {
 
       <div className="checkout-action">
         {cart.total > 0 ? (
-          <Link href={`/shop/checkout`}>
-            <a className="btn solid-btn" onClick={() => setCartOpen(false)}>
-              Checkout | {currency.format(cart.total)}
-            </a>
-          </Link>
+          <>
+            <Link href={`/shop/checkout`}>
+              <a className="btn solid-btn" onClick={() => setCartOpen(false)}>
+                Checkout | {currency.format(cart.total)}
+              </a>
+            </Link>
+
+            {/* <BuyButton product={cart.items[0]} /> */}
+          </>
         ) : (
           <button className="btn solid-btn" onClick={() => setCartOpen(false)}>
             Continue Shoping

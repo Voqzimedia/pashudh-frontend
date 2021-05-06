@@ -9,6 +9,9 @@ const CheckoutForm = dynamic(() =>
   import("../../components/Shop/CheckoutForm")
 );
 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
 export default function Checkout() {
   const pageTitle = "Checkout";
   const { cart, deleteItem } = useContext(AppContext);
