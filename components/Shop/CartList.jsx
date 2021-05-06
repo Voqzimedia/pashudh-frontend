@@ -20,6 +20,8 @@ export default function CartList() {
     return !!cart.items.find((item) => item.id === product.id);
   };
 
+  console.log(cart);
+
   return (
     <div className="order-list">
       {cart.items.map((product, index) => {
