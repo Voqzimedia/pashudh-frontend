@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Row, Col } from "reactstrap";
 import { QuantityBtn } from "./CartActions";
 import { icons } from "feather-icons";
@@ -20,7 +20,7 @@ export default function CartList() {
     return !!cart.items.find((item) => item.id === product.id);
   };
 
-  console.log(cart);
+  // console.log(cart);
 
   return (
     <div className="order-list">

@@ -68,6 +68,47 @@
     }
   }
 
+  .order-bottom {
+    margin-top: 15px;
+    .price {
+      font-size: 1rem;
+      margin: 0;
+      span {
+        font-weight: 600;
+      }
+    }
+
+    .show-more {
+      cursor: pointer;
+    }
+  }
+  .order-details-more {
+    margin: 10px 0;
+    .tracking-details {
+      margin: 10px 0;
+      p {
+        margin: 5px 0;
+      }
+    }
+    p,
+    h6 {
+      margin: 0;
+    }
+  }
+
+  .order-header {
+    margin-bottom: 15px;
+    align-items: center;
+  }
+
+  .order-status {
+    padding: 2px 5px;
+    text-align: center;
+    text-transform: capitalize;
+    width: fit-content;
+    float: right;
+  }
+
   .checkout-action {
     position: absolute;
     bottom: 0;

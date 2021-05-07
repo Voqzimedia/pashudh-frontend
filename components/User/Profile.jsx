@@ -5,11 +5,11 @@ import Cookie from "js-cookie";
 import profileImg from "../../assets/images/avatar.jpg";
 
 export default function Profile() {
-  const { user, setUser } = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
   useEffect(() => {
     // console.log(user);
-  }, []);
+  }, [user]);
 
   //   console.log(user);
 

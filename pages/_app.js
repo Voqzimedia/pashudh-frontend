@@ -358,7 +358,7 @@ class MyApp extends App {
       darkTheme: this.state.darkTheme,
       deviceWidth: this.state.width,
       isCartOpen: this.state.isCartOpen,
-      isOrderOpen: this.isOrderOpen,
+      isOrderOpen: this.state.isOrderOpen,
       isWishlistOpen: this.state.isWishlistOpen,
       isMenuOpen: this.state.isMenuOpen,
       modalLogin: this.state.modalLogin,

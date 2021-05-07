@@ -80,3 +80,26 @@
     }
   }
 }
+
+body {
+  &.dark {
+    .slide-pane {
+      background: $base-primary-dark;
+      color: $base-primary-light;
+
+      .order-list .order-item .product-holder .close-btn {
+        background: $base-primary-light;
+        color: $base-primary-dark;
+      }
+
+      .solid-btn {
+        border: 1px solid;
+      }
+
+      .quantity-action .quantity-wrapper .quantity-inc,
+      .quantity-action .quantity-wrapper .quantity-dec {
+        color: $base-primary-light;
+      }
+    }
+  }
+}

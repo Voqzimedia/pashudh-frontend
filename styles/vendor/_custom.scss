@@ -10,3 +10,17 @@
   display: flex !important;
   align-items: center;
 }
+
+.slide-pane__content {
+  &::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 100px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px $base-secondary-light;
+    background: $base-primary-light;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $base-gradient;
+  }
+}

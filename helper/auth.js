@@ -17,14 +17,19 @@ export const getToken = () => {
 };
 
 //register a new user
-export const registerUser = (username, email, password) => {
+export const registerUser = (username, email, password, phone) => {
   //prevent function from being ran on the server
   if (typeof window === "undefined") {
     return;
   }
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/auth/local/register`, { username, email, password })
+      .post(`${API_URL}/auth/local/register`, {
+        username,
+        email,
+        password,
+        phone,
+      })
       .then((res) => {
         //set token response from Strapi for server validation
         Cookie.set("token", res.data.jwt);
@@ -85,6 +90,30 @@ export const changePassword = (id, password) => {
           },
         }
       )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const getOrders = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API_URL}/orders/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         resolve(res);
       })

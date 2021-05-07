@@ -27,6 +27,9 @@ const CartList = dynamic(() => import("../../../components/Shop/CartList"), {
 const WishList = dynamic(() => import("../../../components/Shop/WishList"), {
   ssr: false,
 });
+const OrderList = dynamic(() => import("../../../components/Shop/OrderList"), {
+  ssr: false,
+});
 const LoginForm = dynamic(() => import("../../../components/User/LoginForm"), {
   ssr: false,
 });
@@ -105,6 +108,7 @@ export default function UserAction({ isMobile }) {
 
   const toggleOrder = (e) => {
     e.preventDefault();
+    // console.log(isOrderOpen);
     setModalLogin(false);
     setModalSignup(false);
     setUserOpen(false);
@@ -238,7 +242,11 @@ export default function UserAction({ isMobile }) {
                           >
                             Profile
                           </a>
-                          <a title={`Order Lists`} className="dropdown-item">
+                          <a
+                            title={`Order Lists`}
+                            onClick={toggleOrder}
+                            className="dropdown-item"
+                          >
                             Order Lists
                           </a>
                           <a
@@ -347,7 +355,11 @@ export default function UserAction({ isMobile }) {
                       >
                         Profile
                       </a>
-                      <a title={`Order Lists`} className="dropdown-item">
+                      <a
+                        title={`Order Lists`}
+                        onClick={toggleOrder}
+                        className="dropdown-item"
+                      >
                         Order Lists
                       </a>
                       <a
@@ -435,6 +447,22 @@ export default function UserAction({ isMobile }) {
       >
         <WishList />
       </SlidingPane>
+
+      <SlidingPane
+        className="side-pane-wrapper"
+        overlayClassName="side-pane-overlay"
+        isOpen={isOrderOpen}
+        title="Your Order list"
+        width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+        onRequestClose={() => {
+          // triggered on "<" on left top click or on outside click
+          setOrderOpen(false);
+        }}
+      >
+        <OrderList />
+      </SlidingPane>
+
       <Modal isOpen={modalLogin} toggle={toggleLogin} className={"login-modal"}>
         <ModalBody>
           <LoginForm />

@@ -9,6 +9,8 @@ export default function SignupForm() {
     email: "",
     username: "",
     password: "",
+    ConfirmPassword: "",
+    phone: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -30,7 +32,12 @@ export default function SignupForm() {
     setLoading(true);
 
     data.ConfirmPassword == data.password
-      ? registerUser(data.username, data.email, data.ConfirmPassword)
+      ? registerUser(
+          data.username,
+          data.email,
+          data.ConfirmPassword,
+          data.phone
+        )
           .then((res) => {
             // set authed user in global context object
             setUser(res.data.user);
@@ -69,6 +76,16 @@ export default function SignupForm() {
                 type="text"
                 name="username"
                 id="name"
+                required
+                onChange={(event) => onChange(event)}
+              />
+            </div>
+            <div className="input-Holder">
+              <label htmlFor="phone">Phone number</label>
+              <input
+                type="number"
+                name="phone"
+                id="phone"
                 required
                 onChange={(event) => onChange(event)}
               />
