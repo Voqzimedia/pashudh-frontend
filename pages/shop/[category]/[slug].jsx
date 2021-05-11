@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
+import { motion } from "framer-motion";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -48,40 +49,25 @@ const Product = ({ product, category }) => {
   const { deviceWidth, cart } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
-  const router = useRouter();
-
-  // console.log(router);
-
+  const [relatedItems, setRelatedItems] = useState(category.products);
   const [thisProduct, setProduct] = useState(product);
 
-  const isInCart = (product) => {
-    return !!cart.items.find((item) => item.id === product.id);
+  const router = useRouter();
+  const productDetails = [];
+
+  const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
+
+  const productImgMotion = {
+    initial: { opacity: 0, ease: "easeOut", duration: 0.2, type: "tween" },
+    animate: { opacity: 1, ease: "easeOut", duration: 0.2, type: "tween" },
+    whileHover: {
+      scale: 1.05,
+      y: -5,
+    },
+    transition: {
+      transition,
+    },
   };
-
-  useEffect(() => {
-    refetchProduct();
-  }, []);
-
-  const prodList = [
-    {
-      name: "Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk Saree",
-      price: "₹22,300",
-      img: prodImg1,
-      isSoldOut: false,
-    },
-    {
-      name: "Rich Burgundy – Rani Pink Pure Kanjivaram Silk Saree",
-      price: "₹35,900",
-      img: prodImg2,
-      isSoldOut: true,
-    },
-    {
-      name: "Bright Violet – Yellow Luxury Pure Kanjivaram Handloom Silk Saree",
-      price: "₹53,350",
-      img: prodImg3,
-      isSoldOut: false,
-    },
-  ];
 
   const sliderSettings = {
     dots: true,
@@ -107,12 +93,26 @@ const Product = ({ product, category }) => {
       setProduct(() =>
         productData?.products.length > 0 ? productData.products[0] : []
       );
-
-      // console.log({ productData, category });
     },
   });
 
-  const productDetails = [];
+  const getrelatedItems = () => {
+    const productList = [];
+    category.products.map((thisProduct) =>
+      thisProduct.id != product.id ? productList.push(thisProduct) : null
+    );
+
+    return productList;
+  };
+
+  const isInCart = (product) => {
+    return !!cart.items.find((item) => item.id === product.id);
+  };
+
+  useEffect(() => {
+    refetchProduct();
+    setRelatedItems(() => getrelatedItems());
+  }, [category]);
 
   for (const [key, value] of Object.entries(thisProduct.ProductDetails)) {
     key != "__typename"
@@ -122,10 +122,6 @@ const Product = ({ product, category }) => {
         })
       : null;
   }
-
-  let actionProd = { ...thisProduct };
-
-  // console.log(productDetails);
 
   return (
     <PageMotion>
@@ -252,38 +248,50 @@ const Product = ({ product, category }) => {
             </center>
             <div className="product-grid">
               <Row>
-                {prodList.map((product, index) => (
-                  <Col md="4" key={index}>
-                    <Link
-                      href={`/shop/whole-six-yards/luxury-creamy-beige-sunset-orange-pure-kanjivaram-handloom-silk-saree`}
-                    >
-                      <a className="product-item">
-                        <div className="image-holder">
-                          {product.isSoldOut && (
-                            <div className="sold-out">
-                              <p>Sold Out</p>
-                            </div>
-                          )}
+                {relatedItems.map(
+                  (product, index) =>
+                    index < 3 && (
+                      <Col md="4" key={index}>
+                        <motion.div
+                          whileHover="whileHover"
+                          animate="animate"
+                          initial="initial"
+                          variants={productImgMotion}
+                          transition="transition"
+                          key={index}
+                        >
+                          <Link href={`/shop/${category.slug}/${product.slug}`}>
+                            <a className="product-item">
+                              <motion.div className="image-holder">
+                                {product.StockDetails.isSoldOut && (
+                                  <motion.div className="sold-out">
+                                    <p>Sold Out</p>
+                                  </motion.div>
+                                )}
 
-                          <img
-                            width="100"
-                            height="100"
-                            src={product.img}
-                            alt={product.name}
-                          />
-                        </div>
-                        <Row className="product-content-holder">
-                          <Col xs="9" className="no-pad">
-                            <p className="title">{product.name}</p>
-                          </Col>
-                          <Col xs="3" className="no-pad">
-                            <p className="price">{product.price}</p>
-                          </Col>
-                        </Row>
-                      </a>
-                    </Link>
-                  </Col>
-                ))}
+                                <img
+                                  width="100"
+                                  height="100"
+                                  src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                                  alt={product.name}
+                                />
+                              </motion.div>
+                              <Row className="product-content-holder">
+                                <Col xs="9" className="no-pad">
+                                  <p className="title">{product.name}</p>
+                                </Col>
+                                <Col xs="3" className="no-pad">
+                                  <p className="price">
+                                    {currency.format(product.price)}
+                                  </p>
+                                </Col>
+                              </Row>
+                            </a>
+                          </Link>
+                        </motion.div>
+                      </Col>
+                    )
+                )}
               </Row>
             </div>
           </Container>
