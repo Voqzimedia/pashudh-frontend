@@ -269,3 +269,11 @@ hr {
     height: auto;
   }
 }
+
+.stripe-card {
+  #card-element {
+    min-height: 50px;
+    padding: 10px 20px;
+    border: 1px solid #acacac;
+  }
+}

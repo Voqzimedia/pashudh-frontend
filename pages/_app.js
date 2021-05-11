@@ -153,6 +153,24 @@ class MyApp extends App {
     );
   };
 
+  clearCart = () => {
+    this.setState({
+      cart: {
+        items: [],
+        total: 0,
+        totalQuantity: 0,
+      },
+    });
+
+    setTimeout(
+      () =>
+        typeof window !== "undefined"
+          ? localStorage.setItem("cart", JSON.stringify([]))
+          : null,
+      100
+    );
+  };
+
   addItem = (item) => {
     let { items } = this.state.cart;
     //check for item already in cart
@@ -369,6 +387,7 @@ class MyApp extends App {
       addItem: this.addItem,
       removeItem: this.removeItem,
       deleteItem: this.deleteItem,
+      clearCart: this.clearCart,
       addItemWishlist: this.addItemWishlist,
       deleteItemWishlist: this.deleteItemWishlist,
       toggleTheme: this.toggleTheme,

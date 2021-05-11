@@ -37,7 +37,7 @@ export const registerUser = (username, email, password, phone) => {
         //resolve the promise to set loading to false in SignUp form
         resolve(res);
         //redirect back to home page for restaurance selection
-        Router.push("/");
+        // Router.push("/");
       })
       .catch((error) => {
         //reject the promise and pass the error object back to the form
@@ -62,7 +62,7 @@ export const login = (identifier, password) => {
         //resolve the promise to set loading to false in SignUp form
         resolve(res);
         //redirect back to home page for restaurance selection
-        Router.push("/");
+        // Router.push("/");
       })
       .catch((error) => {
         //reject the promise and pass the error object back to the form
@@ -161,4 +161,58 @@ export const withAuthSync = (Component) => {
   }
 
   return Wrapper;
+};
+
+export const productCheckout = (data) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URL}/orders/`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const paymentConfirm = (transactionId) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/orders/confirm/`,
+        { transactionId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
 };
