@@ -6,7 +6,6 @@ import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
 
 import { currency, camelToNormal } from "../../../helper/functions";
-import Image from "next/image";
 
 import dynamic from "next/dynamic";
 
@@ -216,7 +215,7 @@ const Product = ({ product, category }) => {
                       {thisProduct.GalleryImgs.map((image, index) => (
                         <div className="image-holder" key={index}>
                           <picture>
-                            <Image
+                            <img
                               width="100"
                               height="100"
                               src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
@@ -232,7 +231,7 @@ const Product = ({ product, category }) => {
                     {thisProduct.GalleryImgs.map((image, index) => (
                       <div className="image-holder" key={index}>
                         <picture>
-                          <Image
+                          <img
                             width="100"
                             height="100"
                             src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
