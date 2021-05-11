@@ -16,6 +16,9 @@ const nextConfig = withPWA({
   future: {
     webpack5: true,
   },
+  images: {
+    domains: ["192.168.225.105:1337"],
+  },
 });
 
 module.exports = withPlugins(

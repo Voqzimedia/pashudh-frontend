@@ -61,7 +61,12 @@ const Shop = ({ products, categories, thisFillter }) => {
   };
 
   // Get Categories Data.
-  const { loading, error, data, refetch: refetchCata } = useQuery(getCategory, {
+  const {
+    loading,
+    error,
+    data,
+    refetch: refetchCata,
+  } = useQuery(getCategory, {
     notifyOnNetworkStatusChange: true,
     variables: {
       slug: filterCata?.slug ? filterCata.slug : "whole-six-yards",

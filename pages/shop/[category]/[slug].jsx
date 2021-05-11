@@ -6,6 +6,7 @@ import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
 
 import { currency, camelToNormal } from "../../../helper/functions";
+import Image from "next/image";
 
 import dynamic from "next/dynamic";
 
@@ -64,8 +65,7 @@ const Product = ({ product, category }) => {
 
   const prodList = [
     {
-      name:
-        "Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk Saree",
+      name: "Luxury Creamy Beige – Sunset Orange Pure Kanjivaram Handloom Silk Saree",
       price: "₹22,300",
       img: prodImg1,
       isSoldOut: false,
@@ -216,7 +216,7 @@ const Product = ({ product, category }) => {
                       {thisProduct.GalleryImgs.map((image, index) => (
                         <div className="image-holder" key={index}>
                           <picture>
-                            <img
+                            <Image
                               width="100"
                               height="100"
                               src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
@@ -232,7 +232,7 @@ const Product = ({ product, category }) => {
                     {thisProduct.GalleryImgs.map((image, index) => (
                       <div className="image-holder" key={index}>
                         <picture>
-                          <img
+                          <Image
                             width="100"
                             height="100"
                             src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
