@@ -14,12 +14,18 @@ export default function SignupForm() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { setUser, modalSignup, setModalSignup } = useContext(AppContext);
+  const { setUser, modalSignup, setModalSignup, setModalLogin } =
+    useContext(AppContext);
 
   const onDismiss = () => setError(false);
 
   const toggleSignup = () => {
     modalSignup ? setModalSignup(false) : setModalSignup(true);
+  };
+
+  const toggleLogin = () => {
+    setModalSignup(false);
+    setModalLogin(true);
   };
 
   const onChange = (event) => {
@@ -124,6 +130,15 @@ export default function SignupForm() {
             <p>
               By continuing, you agree to Pashudh's <b>Terms of use</b> and{" "}
               <b>Privacy Policy</b>.
+            </p>
+
+            <p>
+              I already have a account{" "}
+              <b>
+                <a style={{ cursor: "pointer" }} onClick={toggleLogin}>
+                  Login
+                </a>
+              </b>
             </p>
 
             <Alert color="danger" isOpen={error} toggle={onDismiss}>

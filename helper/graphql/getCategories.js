@@ -2,10 +2,12 @@ import { gql } from "@apollo/client";
 
 export const getCategories = gql`
   query getCategories {
-    categories {
+    categories(sort: "id") {
       title
       subTitle
       slug
+      tagLine
+      description
     }
   }
 `;
@@ -21,10 +23,12 @@ export const getCategoriesPath = gql`
 
 export const getCategory = gql`
   query getCategory($slug: String!, $sort: String, $limit: Int, $start: Int) {
-    categories(where: { slug: $slug }) {
+    categories(where: { slug: $slug }, sort: "id") {
       id
       title
       slug
+      tagLine
+      description
       products(sort: $sort, limit: $limit, start: $start) {
         id
         name

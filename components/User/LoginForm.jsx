@@ -8,10 +8,16 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { setUser, setModalLogin, modalLogin } = useContext(AppContext);
+  const { setUser, setModalLogin, modalLogin, setModalSignup } =
+    useContext(AppContext);
 
   const toggleLogin = () => {
     modalLogin ? setModalLogin(false) : setModalLogin(true);
+  };
+
+  const toggleSignup = () => {
+    setModalSignup(true);
+    setModalLogin(false);
   };
 
   const onDismiss = () => setError(false);
@@ -65,6 +71,15 @@ export default function LoginForm() {
           <p>
             By continuing, you agree to Pashudh's <b>Terms of use</b> and{" "}
             <b>Privacy Policy</b>.
+          </p>
+
+          <p>
+            I don't have an account{" "}
+            <b>
+              <a style={{ cursor: "pointer" }} onClick={toggleSignup}>
+                Signup
+              </a>
+            </b>
           </p>
 
           <Alert color="danger" isOpen={error} toggle={onDismiss}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -6,8 +6,13 @@ import { checkOutDataFormater } from "../../helper/functions";
 import { productCheckout, paymentConfirm } from "../../helper/auth";
 import { OrderItem } from "../../components/Shop/OrderList";
 import { getCode } from "country-list";
+import AppContext from "../../context/AppContext";
 
 export default function CheckoutForm({ cart, clearCart }) {
+  const { user, setModalLogin } = useContext(AppContext);
+
+  // console.log(user);
+
   const [data, updateData] = useState({
     Email: "",
     FirstName: "",
@@ -284,9 +289,18 @@ export default function CheckoutForm({ cart, clearCart }) {
             )}
 
             <div className="input-Holder">
-              <button type="submit" className={`btn submit-btn`}>
-                Continue to shipping
-              </button>
+              {user ? (
+                <button type="submit" className={`btn submit-btn`}>
+                  Complete Payment
+                </button>
+              ) : (
+                <button
+                  className={`btn submit-btn`}
+                  onClick={() => setModalLogin(true)}
+                >
+                  Login / Signup to Continue
+                </button>
+              )}
             </div>
 
             {/* Show a success message upon completion */}

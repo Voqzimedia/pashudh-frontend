@@ -104,7 +104,11 @@ const Shop = ({ products, categories, thisFillter }) => {
             <div className="shop-title-header">
               <div className="content-holder">
                 <div className="content-header">
-                  <p className="sub-title">Affordable Affluence</p>
+                  <p className="sub-title">
+                    {filterCata?.tagLine
+                      ? filterCata.tagLine
+                      : "Affordable Affluence"}
+                  </p>
                   <hr className="small gradient no-m" />
                   <h2 className="title">
                     {filterCata?.title ? filterCata.title : "Whole Six Yards"}
@@ -112,9 +116,12 @@ const Shop = ({ products, categories, thisFillter }) => {
                 </div>
 
                 <p className="description">
-                  Description: Delightfully comfortable in both quality and
+                  Description :{" "}
+                  {filterCata?.description
+                    ? filterCata.description
+                    : `Delightfully comfortable in both quality and
                   price, these contemporary drapes will let you float in the lap
-                  of luxury.
+                  of luxury.`}
                 </p>
               </div>
             </div>
