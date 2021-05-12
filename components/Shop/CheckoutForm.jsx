@@ -294,12 +294,13 @@ export default function CheckoutForm({ cart, clearCart }) {
                   Complete Payment
                 </button>
               ) : (
-                <button
+                <a
+                  style={{ cursor: "pointer" }}
                   className={`btn submit-btn`}
                   onClick={() => setModalLogin(true)}
                 >
                   Login / Signup to Continue
-                </button>
+                </a>
               )}
             </div>
 
