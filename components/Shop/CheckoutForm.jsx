@@ -128,45 +128,46 @@ export default function CheckoutForm({ cart, clearCart }) {
 
   return (
     <fieldset disabled={processing || cart.items.length < 1 || succeeded}>
-      <div className="contact-info">
+      <form onSubmit={formSubmit}>
+        <div className="contact-info">
+          <div className={`from-container`}>
+            <div className="form-header">
+              <h2 className="form-title">Contact information</h2>
+            </div>
+            <div className="form-body">
+              <Row>
+                <Col lg="8" className="input-Holder">
+                  <label htmlFor="Email"> Email</label>
+                  <input
+                    type="email"
+                    name="Email"
+                    id="Email"
+                    placeholder={`Email`}
+                    onChange={(event) => onChange(event)}
+                    required
+                  />
+                </Col>
+
+                <Col lg="8" className="input-Holder lable-on">
+                  <label htmlFor="keepMe" className={`flex-align-center`}>
+                    <input
+                      type="checkbox"
+                      name={`keepMe`}
+                      onChange={(event) => onChange(event)}
+                      id={`keepMe`}
+                    />{" "}
+                    Keep me up to date on news and exclusive offers
+                  </label>
+                </Col>
+              </Row>
+            </div>
+          </div>
+        </div>
         <div className={`from-container`}>
           <div className="form-header">
-            <h2 className="form-title">Contact information</h2>
+            <h2 className="form-title">Shipping address</h2>
           </div>
           <div className="form-body">
-            <Row>
-              <Col lg="8" className="input-Holder">
-                <label htmlFor="Email"> Email</label>
-                <input
-                  type="email"
-                  name="Email"
-                  id="Email"
-                  placeholder={`Email`}
-                  onChange={(event) => onChange(event)}
-                />
-              </Col>
-
-              <Col lg="8" className="input-Holder lable-on">
-                <label htmlFor="keepMe" className={`flex-align-center`}>
-                  <input
-                    type="checkbox"
-                    name={`keepMe`}
-                    onChange={(event) => onChange(event)}
-                    id={`keepMe`}
-                  />{" "}
-                  Keep me up to date on news and exclusive offers
-                </label>
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </div>
-      <div className={`from-container`}>
-        <div className="form-header">
-          <h2 className="form-title">Shipping address</h2>
-        </div>
-        <div className="form-body">
-          <form onSubmit={formSubmit}>
             <Row>
               <Col lg="4" className="input-Holder">
                 <label htmlFor="Firstname"> First name</label>
@@ -208,6 +209,7 @@ export default function CheckoutForm({ cart, clearCart }) {
                   id="City"
                   placeholder={`City`}
                   onChange={(event) => onChange(event)}
+                  required
                 />
               </Col>
               <Col lg="8">
@@ -216,6 +218,7 @@ export default function CheckoutForm({ cart, clearCart }) {
                     <CountryDropdown
                       value={data.country}
                       onChange={(val) => updateData({ ...data, country: val })}
+                      required
                     />
                   </Col>
                   <Col lg="4" className="input-Holder">
@@ -223,6 +226,7 @@ export default function CheckoutForm({ cart, clearCart }) {
                       country={data.country}
                       value={data.region}
                       onChange={(val) => updateData({ ...data, region: val })}
+                      required
                     />
                   </Col>
                   <Col lg="4" className="input-Holder">
@@ -233,6 +237,7 @@ export default function CheckoutForm({ cart, clearCart }) {
                       id="PINcode"
                       placeholder={`PIN code`}
                       onChange={(event) => onChange(event)}
+                      required
                     />
                   </Col>
                 </Row>
@@ -246,6 +251,7 @@ export default function CheckoutForm({ cart, clearCart }) {
                   id="Phone"
                   placeholder={`Phone`}
                   onChange={(event) => onChange(event)}
+                  required
                 />
               </Col>
 
@@ -297,9 +303,9 @@ export default function CheckoutForm({ cart, clearCart }) {
                 </Col>
               </Row>
             )}
-          </form>
+          </div>
         </div>
-      </div>
+      </form>
     </fieldset>
   );
 }

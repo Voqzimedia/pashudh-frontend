@@ -196,6 +196,7 @@ export default function GiftCardForm({ giftCard }) {
                   id="City"
                   placeholder={`City`}
                   onChange={(event) => onChange(event)}
+                  required
                 />
               </Col>
               <Col lg="8">
@@ -204,6 +205,7 @@ export default function GiftCardForm({ giftCard }) {
                     <CountryDropdown
                       value={data.country}
                       onChange={(val) => updateData({ ...data, country: val })}
+                      required
                     />
                   </Col>
                   <Col lg="4" className="input-Holder">
@@ -211,6 +213,7 @@ export default function GiftCardForm({ giftCard }) {
                       country={data.country}
                       value={data.region}
                       onChange={(val) => updateData({ ...data, region: val })}
+                      required
                     />
                   </Col>
                   <Col lg="4" className="input-Holder">
@@ -221,6 +224,7 @@ export default function GiftCardForm({ giftCard }) {
                       id="PINcode"
                       placeholder={`PIN code`}
                       onChange={(event) => onChange(event)}
+                      required
                     />
                   </Col>
                 </Row>
@@ -234,6 +238,7 @@ export default function GiftCardForm({ giftCard }) {
                   id="Phone"
                   placeholder={`Phone`}
                   onChange={(event) => onChange(event)}
+                  required
                 />
               </Col>
 

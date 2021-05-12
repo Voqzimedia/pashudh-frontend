@@ -179,6 +179,7 @@ export default function OrderList() {
   const { user } = useContext(AppContext);
 
   const [orderlist, setOrderList] = useState(user ? user.orders : []);
+  const [error, setError] = useState(null);
 
   // console.log(orderlist);
 
