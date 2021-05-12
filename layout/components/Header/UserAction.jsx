@@ -30,6 +30,12 @@ const WishList = dynamic(() => import("../../../components/Shop/WishList"), {
 const OrderList = dynamic(() => import("../../../components/Shop/OrderList"), {
   ssr: false,
 });
+
+const PromoList = dynamic(
+  () =>
+    import("../../../components/Shop/OrderList").then((mod) => mod.PromoList),
+  { ssr: false }
+);
 const LoginForm = dynamic(() => import("../../../components/User/LoginForm"), {
   ssr: false,
 });
@@ -49,6 +55,7 @@ export default function UserAction({ isMobile }) {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isSettingOpen, setSettingOpen] = useState(false);
+  const [isPromoOpen, setPromoOpen] = useState(false);
 
   const {
     isCartOpen,
@@ -114,6 +121,17 @@ export default function UserAction({ isMobile }) {
     setUserOpen(false);
     setProfileOpen(false);
     isOrderOpen ? setOrderOpen(false) : setOrderOpen(true);
+  };
+
+  const togglePromo = (e) => {
+    e.preventDefault();
+    // console.log(isOrderOpen);
+    setModalLogin(false);
+    setModalSignup(false);
+    setUserOpen(false);
+    setProfileOpen(false);
+    setOrderOpen(false);
+    isPromoOpen ? setPromoOpen(false) : setPromoOpen(true);
   };
 
   const openCart = (event) => {
@@ -247,7 +265,14 @@ export default function UserAction({ isMobile }) {
                             onClick={toggleOrder}
                             className="dropdown-item"
                           >
-                            Order Lists
+                            My Orders
+                          </a>
+                          <a
+                            title={`Order Lists`}
+                            onClick={togglePromo}
+                            className="dropdown-item"
+                          >
+                            My Promos
                           </a>
                           <a
                             title={`Settings`}
@@ -360,7 +385,14 @@ export default function UserAction({ isMobile }) {
                         onClick={toggleOrder}
                         className="dropdown-item"
                       >
-                        Order Lists
+                        My Orders
+                      </a>
+                      <a
+                        title={`Order Lists`}
+                        onClick={togglePromo}
+                        className="dropdown-item"
+                      >
+                        My Promos
                       </a>
                       <a
                         title={`Settings`}
@@ -421,7 +453,7 @@ export default function UserAction({ isMobile }) {
         className="side-pane-wrapper"
         overlayClassName="side-pane-overlay"
         isOpen={isCartOpen}
-        title="Your Cart"
+        title="My Cart"
         width={`${isMobile ? "100vw" : "500px"}`}
         closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
         onRequestClose={() => {
@@ -437,7 +469,7 @@ export default function UserAction({ isMobile }) {
         className="side-pane-wrapper"
         overlayClassName="side-pane-overlay"
         isOpen={isWishlistOpen}
-        title="Your Wishlists"
+        title="My Wishlists"
         width={`${isMobile ? "100vw" : "500px"}`}
         closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
         onRequestClose={() => {
@@ -452,7 +484,7 @@ export default function UserAction({ isMobile }) {
         className="side-pane-wrapper"
         overlayClassName="side-pane-overlay"
         isOpen={isOrderOpen}
-        title="Your Order list"
+        title="My Orders"
         width={`${isMobile ? "100vw" : "500px"}`}
         closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
         onRequestClose={() => {
@@ -461,6 +493,20 @@ export default function UserAction({ isMobile }) {
         }}
       >
         <OrderList />
+      </SlidingPane>
+      <SlidingPane
+        className="side-pane-wrapper"
+        overlayClassName="side-pane-overlay"
+        isOpen={isPromoOpen}
+        title="My Promos"
+        width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+        onRequestClose={() => {
+          // triggered on "<" on left top click or on outside click
+          setPromoOpen(false);
+        }}
+      >
+        <PromoList />
       </SlidingPane>
 
       <Modal isOpen={modalLogin} toggle={toggleLogin} className={"login-modal"}>

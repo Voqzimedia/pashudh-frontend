@@ -285,6 +285,32 @@ hr {
   position: relative;
   font-weight: bold;
   background: #ffc107;
+  cursor: pointer;
+  .code {
+    position: relative;
+    width: 100%;
+    p {
+      margin: 0;
+      font-size: 1rem;
+    }
+    &.isblur {
+      p {
+        filter: blur(5px);
+      }
+      &::after {
+        display: block;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      width: max-content;
+      height: 100%;
+      top: 0;
+      display: none;
+      content: "Click to Reveal";
+    }
+  }
   .scissors {
     position: absolute;
     top: -12px;

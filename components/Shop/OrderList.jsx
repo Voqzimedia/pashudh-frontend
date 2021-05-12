@@ -88,12 +88,19 @@ export const OrderItem = ({ order }) => {
 };
 
 export const PromoItem = ({ promo }) => {
+  const [isShow, setShow] = useState(false);
+  const [isReveal, setReveal] = useState(false);
+
+  const toggleShow = () => {
+    isShow ? setShow(false) : setShow(true);
+  };
+
   return (
     <div className="order-item">
       <Row className="order-header">
         <Col xs="8">
           <h6 className="order-id">
-            {promo.giftcard.name} <span>#{promo.id}</span>
+            Promo Id <span>#{promo.id}</span>
           </h6>
         </Col>
         <Col xs="4">
@@ -114,10 +121,12 @@ export const PromoItem = ({ promo }) => {
         <Col md="8">
           <div className="product-holder">
             <div className="product-details">
-              <h3>Promo Code: </h3>
-              <div class="coupon">
+              <h5>Promo Code: </h5>
+              <div class="coupon" onClick={() => setReveal(true)}>
                 <span class="scissors">✂</span>
-                <span class="code">{promo.promoCode}</span>
+                <span class={`code ${isReveal ? "" : "isblur"} `}>
+                  <p>{promo.promoCode}</p>
+                </span>
               </div>
             </div>
           </div>
@@ -126,20 +135,41 @@ export const PromoItem = ({ promo }) => {
       <Row className="order-bottom">
         <Col md="8">
           <p className="price">
-            Total : <span>{currency.format(promo.promoPrice)}</span>
+            Worth : <span>{currency.format(promo.promoPrice)}</span>
           </p>
         </Col>
+        <Col md="4">
+          <a className="show-more" onClick={toggleShow}>
+            {isShow ? "View less" : "View Details"}
+          </a>
+        </Col>
       </Row>
-
-      <div className="order-details-more">
-        <div className={`transaction-details`}>
-          <p className="payment">
-            Payment Method : <span>Credit cards or Debit cards</span>
-          </p>
-          <p className="transaction-id">
-            Transaction ID # : <span>{promo.transactionId}</span>
-          </p>
+      {isShow && (
+        <div className="order-details-more">
+          <div className={`transaction-details`}>
+            <p className="payment">
+              Payment Method : <span>Credit cards or Debit cards</span>
+            </p>
+            <p className="transaction-id">
+              Transaction ID # : <span>{promo.transactionId}</span>
+            </p>
+          </div>
         </div>
+      )}
+    </div>
+  );
+};
+
+export const PromoList = () => {
+  const { user } = useContext(AppContext);
+  const [promoList, setPromoList] = useState(user ? user.promos : []);
+
+  return (
+    <div className="order-waraper">
+      <div className="order-list">
+        {promoList.map((promo, index) => (
+          <PromoItem promo={promo} key={index} />
+        ))}
       </div>
     </div>
   );
