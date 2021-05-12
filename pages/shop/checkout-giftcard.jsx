@@ -8,8 +8,8 @@ import client from "../../helper/ApolloClient";
 import { getGiftCard } from "../../helper/graphql/getGiftCards";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
-const CheckoutForm = dynamic(() =>
-  import("../../components/Shop/CheckoutForm")
+const GiftCardForm = dynamic(() =>
+  import("../../components/Shop/GiftCardForm")
 );
 
 import { Elements } from "@stripe/react-stripe-js";
@@ -22,6 +22,8 @@ const CheckoutGiftCard = ({ giftCard }) => {
   useEffect(() => {
     !giftCard ? router.push(`/gift-cards`) : null;
   }, [giftCard]);
+
+  const promise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
   return (
     <PageMotion>
@@ -68,7 +70,9 @@ const CheckoutGiftCard = ({ giftCard }) => {
               </div>
 
               <div className="checkout-form">
-                <CheckoutForm />
+                <Elements stripe={promise}>
+                  <GiftCardForm giftCard={giftCard} />
+                </Elements>
               </div>
             </div>
           </Container>

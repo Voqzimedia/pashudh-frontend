@@ -216,3 +216,57 @@ export const paymentConfirm = (transactionId) => {
       });
   });
 };
+
+export const promoCheckout = (data) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URL}/promos/`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const promoConfirm = (transactionId) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/promos/confirm/`,
+        { transactionId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};

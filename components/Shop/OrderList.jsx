@@ -87,6 +87,64 @@ export const OrderItem = ({ order }) => {
   );
 };
 
+export const PromoItem = ({ promo }) => {
+  return (
+    <div className="order-item">
+      <Row className="order-header">
+        <Col xs="8">
+          <h6 className="order-id">
+            {promo.giftcard.name} <span>#{promo.id}</span>
+          </h6>
+        </Col>
+        <Col xs="4">
+          <Alert
+            color={!promo.paid || promo.redeemed ? "danger" : "success"}
+            className={`order-status`}
+          >
+            {promo.paid
+              ? !promo.redeemed
+                ? "Available"
+                : " Already redeemed"
+              : "not Complete"}
+          </Alert>
+        </Col>
+      </Row>
+
+      <Row className={`cart-item`}>
+        <Col md="8">
+          <div className="product-holder">
+            <div className="product-details">
+              <h3>Promo Code: </h3>
+              <div class="coupon">
+                <span class="scissors">✂</span>
+                <span class="code">{promo.promoCode}</span>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row className="order-bottom">
+        <Col md="8">
+          <p className="price">
+            Total : <span>{currency.format(promo.promoPrice)}</span>
+          </p>
+        </Col>
+      </Row>
+
+      <div className="order-details-more">
+        <div className={`transaction-details`}>
+          <p className="payment">
+            Payment Method : <span>Credit cards or Debit cards</span>
+          </p>
+          <p className="transaction-id">
+            Transaction ID # : <span>{promo.transactionId}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function OrderList() {
   const { user } = useContext(AppContext);
 
