@@ -7,8 +7,9 @@ import AppContext from "../../context/AppContext";
 import { motion } from "framer-motion";
 
 import Menu from "./Header/Menu";
+import UserAction from "./Header/UserAction";
 
-const UserAction = dynamic(() => import("./Header/UserAction"), { ssr: false });
+// const UserAction = dynamic(() => import("./Header/UserAction"));
 const SearchBox = dynamic(() => import("./Header/SearchBox"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
   ssr: false,

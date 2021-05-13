@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 import dynamic from "next/dynamic";
 
@@ -7,20 +8,15 @@ import { icons } from "feather-icons";
 import { OuterClick } from "react-outer-click";
 
 import AppContext from "../../../context/AppContext";
+import SvgIcon from "../../../components/utils/SvgIcon";
 
 import { logout } from "../../../helper/auth";
 
 import { DropdownMenu, CustomInput, Modal, ModalBody } from "reactstrap";
 
-const AnimatePresence = dynamic(
-  () => import("framer-motion").then((mod) => mod.AnimatePresence),
-  { ssr: false }
-);
-
 const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 const Menu = dynamic(() => import("./Menu"), { ssr: false });
 const SearchBox = dynamic(() => import("./SearchBox"), { ssr: false });
-const SvgIcon = dynamic(() => import("../../../components/utils/SvgIcon"));
 const CartList = dynamic(() => import("../../../components/Shop/CartList"), {
   ssr: false,
 });
@@ -480,69 +476,81 @@ export default function UserAction({ isMobile }) {
         <WishList />
       </SlidingPane>
 
-      <SlidingPane
-        className="side-pane-wrapper"
-        overlayClassName="side-pane-overlay"
-        isOpen={isOrderOpen}
-        title="My Orders"
-        width={`${isMobile ? "100vw" : "500px"}`}
-        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
-        onRequestClose={() => {
-          // triggered on "<" on left top click or on outside click
-          setOrderOpen(false);
-        }}
-      >
-        <OrderList />
-      </SlidingPane>
-      <SlidingPane
-        className="side-pane-wrapper"
-        overlayClassName="side-pane-overlay"
-        isOpen={isPromoOpen}
-        title="My Promos"
-        width={`${isMobile ? "100vw" : "500px"}`}
-        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
-        onRequestClose={() => {
-          // triggered on "<" on left top click or on outside click
-          setPromoOpen(false);
-        }}
-      >
-        <PromoList />
-      </SlidingPane>
+      {!isAuthenticated ? (
+        <>
+          <Modal
+            isOpen={modalLogin}
+            toggle={toggleLogin}
+            className={"login-modal"}
+          >
+            <ModalBody>
+              <LoginForm />
+            </ModalBody>
+          </Modal>
+          <Modal
+            isOpen={modalSignup}
+            toggle={toggleSignup}
+            className={"login-modal"}
+          >
+            <ModalBody>
+              <SignupForm />
+            </ModalBody>
+          </Modal>
+        </>
+      ) : (
+        <>
+          <Modal
+            isOpen={isProfileOpen}
+            toggle={toggleProfile}
+            className={"login-modal"}
+          >
+            <ModalBody>
+              <Profile />
+            </ModalBody>
+          </Modal>
 
-      <Modal isOpen={modalLogin} toggle={toggleLogin} className={"login-modal"}>
-        <ModalBody>
-          <LoginForm />
-        </ModalBody>
-      </Modal>
-      <Modal
-        isOpen={isProfileOpen}
-        toggle={toggleProfile}
-        className={"login-modal"}
-      >
-        <ModalBody>
-          <Profile />
-        </ModalBody>
-      </Modal>
-      <Modal
-        isOpen={isSettingOpen}
-        toggle={toggleSettings}
-        className={"login-modal"}
-      >
-        <ModalBody>
-          <Settings toggleSettings={toggleSettings} />
-        </ModalBody>
-      </Modal>
+          <Modal
+            isOpen={isSettingOpen}
+            toggle={toggleSettings}
+            className={"login-modal"}
+          >
+            <ModalBody>
+              <Settings toggleSettings={toggleSettings} />
+            </ModalBody>
+          </Modal>
 
-      <Modal
-        isOpen={modalSignup}
-        toggle={toggleSignup}
-        className={"login-modal"}
-      >
-        <ModalBody>
-          <SignupForm />
-        </ModalBody>
-      </Modal>
-      {isMobile ? (
+          <SlidingPane
+            className="side-pane-wrapper"
+            overlayClassName="side-pane-overlay"
+            isOpen={isOrderOpen}
+            title="My Orders"
+            width={`${isMobile ? "100vw" : "500px"}`}
+            closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+            onRequestClose={() => {
+              // triggered on "<" on left top click or on outside click
+              setOrderOpen(false);
+            }}
+          >
+            <OrderList />
+          </SlidingPane>
+          <SlidingPane
+            className="side-pane-wrapper"
+            overlayClassName="side-pane-overlay"
+            isOpen={isPromoOpen}
+            title="My Promos"
+            width={`${isMobile ? "100vw" : "500px"}`}
+            closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+            onRequestClose={() => {
+              // triggered on "<" on left top click or on outside click
+              setPromoOpen(false);
+            }}
+          >
+            <PromoList />
+          </SlidingPane>
+        </>
+      )}
+
+      {isMobile && (
         <SlidingPane
           className="side-pane-wrapper nav-menu"
           closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
@@ -568,7 +576,7 @@ export default function UserAction({ isMobile }) {
           </div>
           <Menu />
         </SlidingPane>
-      ) : null}
+      )}
     </>
   );
 }

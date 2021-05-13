@@ -5,8 +5,6 @@ import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
 import Link from "next/link";
 
-import BuyButton from "../../components/Shop/BuyButton";
-
 import { currency } from "../../helper/functions";
 
 // images

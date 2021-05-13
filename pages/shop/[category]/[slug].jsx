@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
-import { motion } from "framer-motion";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -30,20 +29,16 @@ import AppContext from "../../../context/AppContext";
 
 import {
   QuantityBtn,
-  BuyNow,
   AddToCart,
   AddWishlist,
 } from "../../../components/Shop/CartActions";
 
-import prodImg1 from "../../../assets/images/products/grid/prod1.png?webp";
-import prodImg2 from "../../../assets/images/products/grid/prod2.png?webp";
-import prodImg3 from "../../../assets/images/products/grid/prod3.png?webp";
-
-// Import css files
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-const Slider = dynamic(() => import("react-slick"));
+const RelatedItems = dynamic(() =>
+  import("../../../components/Shop/RelatedItems")
+);
+const ProductShowcase = dynamic(() =>
+  import("../../../components/Shop/ProductShowcase")
+);
 
 const Product = ({ product, category }) => {
   const { deviceWidth, cart } = useContext(AppContext);
@@ -54,29 +49,6 @@ const Product = ({ product, category }) => {
 
   const router = useRouter();
   const productDetails = [];
-
-  const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
-
-  const productImgMotion = {
-    initial: { opacity: 0, ease: "easeOut", duration: 0.2, type: "tween" },
-    animate: { opacity: 1, ease: "easeOut", duration: 0.2, type: "tween" },
-    whileHover: {
-      scale: 1.05,
-      y: -5,
-    },
-    transition: {
-      transition,
-    },
-  };
-
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-  };
 
   // Get Product Data.
   const {
@@ -205,108 +177,15 @@ const Product = ({ product, category }) => {
                 </div>
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
-                {isMobile ? (
-                  <div className="product-images-slider">
-                    <Slider {...sliderSettings} className={`image-slider`}>
-                      {thisProduct.GalleryImgs.map((image, index) => (
-                        <div className="image-holder" key={index}>
-                          <picture>
-                            <img
-                              width="100"
-                              height="100"
-                              src={`${
-                                process.env.NODE_ENV === "development"
-                                  ? process.env.NEXT_PUBLIC_API_URL
-                                  : ""
-                              }${image.url}`}
-                              alt="Black Checked Saree"
-                            />
-                          </picture>
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
-                ) : (
-                  <div className="product-images-holder">
-                    {thisProduct.GalleryImgs.map((image, index) => (
-                      <div className="image-holder" key={index}>
-                        <picture>
-                          <img
-                            width="100"
-                            height="100"
-                            src={`${
-                              process.env.NODE_ENV === "development"
-                                ? process.env.NEXT_PUBLIC_API_URL
-                                : ""
-                            }${image.url}`}
-                            alt="Black Checked Saree"
-                          />
-                        </picture>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <ProductShowcase
+                  isMobile={isMobile}
+                  thisProduct={thisProduct}
+                />
               </Col>
             </Row>
           </Container>
 
-          <Container>
-            <center>
-              <h2 className={`grid-title`}>You May Also Like</h2>
-            </center>
-            <div className="product-grid">
-              <Row>
-                {relatedItems.map(
-                  (product, index) =>
-                    index < 3 && (
-                      <Col md="4" key={index}>
-                        <motion.div
-                          whileHover="whileHover"
-                          animate="animate"
-                          initial="initial"
-                          variants={productImgMotion}
-                          transition="transition"
-                          key={index}
-                        >
-                          <Link href={`/shop/${category.slug}/${product.slug}`}>
-                            <a className="product-item">
-                              <motion.div className="image-holder">
-                                {product.StockDetails.isSoldOut && (
-                                  <motion.div className="sold-out">
-                                    <p>Sold Out</p>
-                                  </motion.div>
-                                )}
-
-                                <img
-                                  width="100"
-                                  height="100"
-                                  src={`${
-                                    process.env.NODE_ENV === "development"
-                                      ? process.env.NEXT_PUBLIC_API_URL
-                                      : ""
-                                  }${product.image.url}`}
-                                  alt={product.name}
-                                />
-                              </motion.div>
-                              <Row className="product-content-holder">
-                                <Col xs="9" className="no-pad">
-                                  <p className="title">{product.name}</p>
-                                </Col>
-                                <Col xs="3" className="no-pad">
-                                  <p className="price">
-                                    {currency.format(product.price)}
-                                  </p>
-                                </Col>
-                              </Row>
-                            </a>
-                          </Link>
-                        </motion.div>
-                      </Col>
-                    )
-                )}
-              </Row>
-            </div>
-          </Container>
+          <RelatedItems relatedItems={relatedItems} category={category} />
         </div>
       </section>
     </PageMotion>
