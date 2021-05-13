@@ -34,7 +34,11 @@ export default function CartList() {
                     <img
                       width="100"
                       height="100"
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                      src={`${
+                        process.env.NODE_ENV === "development"
+                          ? process.env.NEXT_PUBLIC_API_URL
+                          : ""
+                      }${product.image.url}`}
                       alt={product.name}
                     />
                   </picture>

@@ -35,7 +35,11 @@ export default function Profile() {
 
   const [profilePic, setProfilePic] = useState(
     user?.ProfilePic?.formats?.thumbnail?.url
-      ? `${process.env.NEXT_PUBLIC_API_URL}${user.ProfilePic.formats.thumbnail.url}`
+      ? `${
+          process.env.NODE_ENV === "development"
+            ? process.env.NEXT_PUBLIC_API_URL
+            : ""
+        }${user.ProfilePic.formats.thumbnail.url}`
       : profileImg
   );
 

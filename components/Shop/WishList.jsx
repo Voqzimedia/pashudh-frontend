@@ -11,9 +11,8 @@ import { currency } from "../../helper/functions";
 import productImg from "../../assets/images/products/prod1.jpg?webp";
 
 export default function WishList() {
-  const { wishlist, setWishlistOpen, deleteItemWishlist } = useContext(
-    AppContext
-  );
+  const { wishlist, setWishlistOpen, deleteItemWishlist } =
+    useContext(AppContext);
 
   return (
     <div className="order-list">
@@ -28,7 +27,11 @@ export default function WishList() {
                       <img
                         width="100"
                         height="100"
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${product.image.url}`}
+                        src={`${
+                          process.env.NODE_ENV === "development"
+                            ? process.env.NEXT_PUBLIC_API_URL
+                            : ""
+                        }${product.image.url}`}
                         alt={product.name}
                       />
                     </picture>

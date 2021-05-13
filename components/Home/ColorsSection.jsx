@@ -94,7 +94,7 @@ export default function ColorsSection() {
                         )}
                       </div>
                       <div className="action-holder">
-                        <Link href={`/shop/color/${category.slug}`}>
+                        <Link href={`/shop/colors/${category.slug}`}>
                           <a className="shop-now btn">Shop Now</a>
                         </Link>
                       </div>

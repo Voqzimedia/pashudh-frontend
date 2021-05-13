@@ -38,16 +38,18 @@ export default function TestimonialSection() {
   };
 
   // Get Categories Data.
-  const { loading, error, data, refetch: fetchTestimonial } = useQuery(
-    getTestimonials,
-    {
-      notifyOnNetworkStatusChange: true,
+  const {
+    loading,
+    error,
+    data,
+    refetch: fetchTestimonial,
+  } = useQuery(getTestimonials, {
+    notifyOnNetworkStatusChange: true,
 
-      onCompleted: () => {
-        setTestimonial(() => (data?.testimonials ? data.testimonials : []));
-      },
-    }
-  );
+    onCompleted: () => {
+      setTestimonial(() => (data?.testimonials ? data.testimonials : []));
+    },
+  });
 
   // console.log(testimonialList);
 
@@ -74,7 +76,14 @@ export default function TestimonialSection() {
                               src={
                                 testimonial?.User?.ProfilePic?.formats
                                   ?.thumbnail?.url
-                                  ? `${process.env.NEXT_PUBLIC_API_URL}${testimonial.User.ProfilePic.formats.thumbnail.url}`
+                                  ? `${
+                                      process.env.NODE_ENV === "development"
+                                        ? process.env.NEXT_PUBLIC_API_URL
+                                        : ""
+                                    }${
+                                      testimonial.User.ProfilePic.formats
+                                        .thumbnail.url
+                                    }`
                                   : profileImg
                               }
                               alt="User"
