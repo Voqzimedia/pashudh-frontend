@@ -116,7 +116,6 @@ const Shop = ({ products, categories, thisFillter }) => {
                 </div>
 
                 <p className="description">
-                  Description :{" "}
                   {filterCata?.description
                     ? filterCata.description
                     : `Delightfully comfortable in both quality and

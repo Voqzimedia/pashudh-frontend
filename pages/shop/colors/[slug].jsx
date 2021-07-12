@@ -57,7 +57,12 @@ const Shop = ({ products, colors, thisFillter }) => {
   };
 
   // Get colors Data.
-  const { loading, error, data, refetch: refetchCata } = useQuery(getColor, {
+  const {
+    loading,
+    error,
+    data,
+    refetch: refetchCata,
+  } = useQuery(getColor, {
     notifyOnNetworkStatusChange: true,
     variables: {
       slug: filterCata?.slug ? filterCata.slug : "whole-six-yards",
@@ -104,9 +109,8 @@ const Shop = ({ products, colors, thisFillter }) => {
                 </div>
 
                 <p className="description">
-                  Description: Delightfully comfortable in both quality and
-                  price, these contemporary drapes will let you float in the lap
-                  of luxury.
+                  Delightfully comfortable in both quality and price, these
+                  contemporary drapes will let you float in the lap of luxury.
                 </p>
               </div>
             </div>
