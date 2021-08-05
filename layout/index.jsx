@@ -19,7 +19,7 @@ const Layout = (props) => {
     <>
       {isMobile ? <Header /> : null}
 
-      <SmoothScroll>
+      <div className="scroll-parent">
         {!isMobile ? <Header /> : null}
 
         <Tracker>
@@ -30,7 +30,7 @@ const Layout = (props) => {
         <NewsLetter />
 
         <Footer className={`hide`} />
-      </SmoothScroll>
+      </div>
       <Footer className={`parallax`} />
     </>
   );
