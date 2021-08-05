@@ -187,19 +187,21 @@
 
     .filter-wrapper {
       display: flex;
-      width: max-content;
+      width: fit-content;
       min-width: 100%;
+      flex-wrap: nowrap;
       align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 1rem;
 
       &.full {
         min-width: 90%;
       }
 
       @media only screen and (max-width: 500px) {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
+        padding: 1rem 0;
       }
 
       .filter-item {
@@ -209,7 +211,9 @@
         flex-direction: column;
         justify-content: center;
         border: 0.5px solid $light-gray;
-        flex: 0 0 16.6%;
+        width: 200px;
+        max-width: 85vw;
+        flex: none;
         opacity: 1;
         transition: all ease 0.5s;
         background-color: $base-primary-light;
