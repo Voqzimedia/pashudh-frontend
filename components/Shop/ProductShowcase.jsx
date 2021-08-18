@@ -4,7 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import dynamic from "next/dynamic";
 
 const Slider = dynamic(() => import("react-slick"));
-import ReactImageMagnify from "react-image-magnify";
+import { GlassMagnifier } from "react-image-magnifiers";
+// import ReactImageMagnify from "react-image-magnify";
 
 export default function ProductShowcase({ isMobile, thisProduct }) {
   const sliderSettings = {
@@ -42,7 +43,21 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
         <div className="product-images-holder">
           {thisProduct.GalleryImgs.map((image, index) => (
             <div className="image-holder" key={index}>
-              <ReactImageMagnify
+              <GlassMagnifier
+                imageSrc={`${
+                  process.env.NODE_ENV === "development"
+                    ? process.env.NEXT_PUBLIC_API_URL
+                    : ""
+                }${image.url}`}
+                imageAlt={thisProduct.name}
+                largeImageSrc={`${
+                  process.env.NODE_ENV === "development"
+                    ? process.env.NEXT_PUBLIC_API_URL
+                    : ""
+                }${image.url}`}
+                magnifierSize="50%"
+              />
+              {/* <ReactImageMagnify
                 {...{
                   smallImage: {
                     alt: thisProduct.name,
@@ -67,7 +82,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                   left: "auto",
                   right: "0",
                 }}
-              />
+              /> */}
               {/* <picture>
                 <img
                   width="100"
