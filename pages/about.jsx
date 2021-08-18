@@ -2,13 +2,57 @@ import { Container, Row, Col } from "reactstrap";
 import dynamic from "next/dynamic";
 
 const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
+const Slider = dynamic(() => import("react-slick"));
+
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import rocketIcon from "../assets/images/icons/rocket.svg?include";
 import badgeIcon from "../assets/images/icons/badge.svg?include";
 import threadIcon from "../assets/images/icons/thread.svg?include";
 
+const timelineList = [
+  {
+    year: "1950",
+    title: "Kanchi. K. Ethirajulu ",
+    subTitle: "(Weaver to Designer)",
+  },
+  {
+    year: "1976",
+    title: "Kanchi. K. E. Venkatachalam",
+    subTitle: "(Expansion of Business)",
+  },
+  {
+    year: "1976",
+    title: "K. V. Kumar",
+    subTitle: "(K. V. Kumar Silks)",
+  },
+  {
+    year: "2006",
+    title: "K. K. Rajkumar and K. K. Suresh Kumar",
+    subTitle: "(Managing Directors, K. V. Kumar Silks)",
+  },
+  {
+    year: "2017",
+    title: " Ms. Jeevitha Rajkumar and Ms. Vinodhini Suresh",
+    subTitle: "(Pashudh)",
+  },
+];
+
 export default function About() {
   const pageTitle = "About us";
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  };
 
   return (
     <PageMotion>
@@ -152,6 +196,90 @@ export default function About() {
               think of silk sarees.
             </p>
           </article>
+        </Container>
+      </section>
+      <section className={`timeline-section page-section`}>
+        <Container>
+          <center>
+            <Slider {...sliderSettings} className={`timeline-slider`}>
+              {timelineList.map((timeline, index) => (
+                <div className="about-timeline" key={index}>
+                  <div className="timeline">
+                    <h2 className="year">{timeline.year}</h2>
+                  </div>
+                  <div className="content">
+                    <h2>{timeline.title}</h2>
+                    <p>{timeline.subTitle}</p>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </center>
+        </Container>
+      </section>
+      <section className={`founder-section page-section`}>
+        <Container>
+          <center>
+            <div className="founder-wrapper">
+              <div className="founder">
+                <h2 className="title">Founder</h2>
+                <br />
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+
+                <p className="name">K.V. Kumar</p>
+              </div>
+            </div>
+          </center>
+        </Container>
+      </section>
+      <section className={`team-section page-section`}>
+        <Container>
+          <center>
+            <h2 className="title">Board of Directors and Designers</h2>
+            <br />
+            <div className="team-wrapper">
+              <div className="member">
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+                <div className="content">
+                  <h3>CEO </h3>
+                  <p className="name">Mrs. Jeevitha Rajkumar</p>
+                </div>
+              </div>
+              <div className="member">
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+                <div className="content">
+                  <p className="name">K.K. Rajkumar & K.K.Suresh kumar</p>
+                </div>
+              </div>
+              <div className="member">
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+                <div className="content">
+                  <h3>CMD </h3>
+                  <p className="name">Mrs. Vinodhini Sureshkumar</p>
+                </div>
+              </div>
+            </div>
+          </center>
         </Container>
       </section>
     </PageMotion>

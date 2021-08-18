@@ -744,3 +744,57 @@
     }
   }
 }
+
+.about-timeline {
+  max-width: 500px;
+  .timeline {
+    .year {
+      font-size: clamp(8rem, 7.0909rem + 2.4242vw, 10rem);
+      font-weight: 700;
+      color: #e4e4e4;
+    }
+  }
+}
+
+.founder-wrapper {
+  .founder {
+    .img-wrapper {
+      .placeHolder {
+        width: 386px;
+        height: 386px;
+        background: #e4e4e4 0% 0% no-repeat padding-box;
+        border-radius: 100%;
+        margin: 1rem;
+      }
+    }
+    .name {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.team-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .member {
+    margin: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    .img-wrapper {
+      .placeHolder {
+        width: 252px;
+        height: 252px;
+        background: #e4e4e4 0% 0% no-repeat padding-box;
+        border-radius: 100%;
+        margin: 1rem;
+      }
+    }
+    .name {
+      font-size: 1.2rem;
+    }
+  }
+}
