@@ -178,6 +178,10 @@
 
 .shop-body-section {
   margin-top: 100px;
+
+  @media only screen and (max-width: 800px) {
+    margin-top: 0;
+  }
   .shop-filter {
     overflow-x: scroll;
     padding: 5px;
@@ -224,7 +228,7 @@
         &:hover,
         &.active {
           border: 0.5px solid $base-secondary-light;
-          transform: scale(1.03);
+          // transform: scale(1.03);
         }
 
         &.full {
@@ -371,13 +375,14 @@
         border-bottom: 1px solid $font-light2;
         .product-name {
           @media only screen and (max-width: 500px) {
-            font-size: 2rem;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
           }
         }
         .price {
           font-size: 2rem;
           @media only screen and (max-width: 500px) {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
           }
         }
       }

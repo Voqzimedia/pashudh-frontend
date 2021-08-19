@@ -76,14 +76,7 @@ export default function TestimonialSection() {
                               src={
                                 testimonial?.User?.ProfilePic?.formats
                                   ?.thumbnail?.url
-                                  ? `${
-                                      process.env.NODE_ENV === "development"
-                                        ? process.env.NEXT_PUBLIC_API_URL
-                                        : ""
-                                    }${
-                                      testimonial.User.ProfilePic.formats
-                                        .thumbnail.url
-                                    }`
+                                  ? `${testimonial.User.ProfilePic.formats.thumbnail.url}`
                                   : profileImg
                               }
                               alt="User"

@@ -27,11 +27,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                   <img
                     width="100"
                     height="100"
-                    src={`${
-                      process.env.NODE_ENV === "development"
-                        ? process.env.NEXT_PUBLIC_API_URL
-                        : ""
-                    }${image.url}`}
+                    src={`${image.url}`}
                     alt="Black Checked Saree"
                   />
                 </picture>
@@ -44,17 +40,9 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
           {thisProduct.GalleryImgs.map((image, index) => (
             <div className="image-holder" key={index}>
               <GlassMagnifier
-                imageSrc={`${
-                  process.env.NODE_ENV === "development"
-                    ? process.env.NEXT_PUBLIC_API_URL
-                    : ""
-                }${image.url}`}
+                imageSrc={`${image.url}`}
                 imageAlt={thisProduct.name}
-                largeImageSrc={`${
-                  process.env.NODE_ENV === "development"
-                    ? process.env.NEXT_PUBLIC_API_URL
-                    : ""
-                }${image.url}`}
+                largeImageSrc={`${image.url}`}
                 magnifierSize="50%"
               />
               {/* <ReactImageMagnify
@@ -62,18 +50,10 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                   smallImage: {
                     alt: thisProduct.name,
                     isFluidWidth: true,
-                    src: `${
-                      process.env.NODE_ENV === "development"
-                        ? process.env.NEXT_PUBLIC_API_URL
-                        : ""
-                    }${image.url}`,
+                    src: `${image.url}`,
                   },
                   largeImage: {
-                    src: `${
-                      process.env.NODE_ENV === "development"
-                        ? process.env.NEXT_PUBLIC_API_URL
-                        : ""
-                    }${image.url}`,
+                    src: `${image.url}`,
                     width: 1200,
                     height: 1800,
                   },
@@ -87,11 +67,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                 <img
                   width="100"
                   height="100"
-                  src={`${
-                    process.env.NODE_ENV === "development"
-                      ? process.env.NEXT_PUBLIC_API_URL
-                      : ""
-                  }${image.url}`}
+                  src={`${image.url}`}
                   alt="Black Checked Saree"
                 />
               </picture> */}

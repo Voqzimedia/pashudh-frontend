@@ -13,6 +13,13 @@ const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
 );
 
+const Accordion = dynamic(() =>
+  import("../../../components/utils/accordion").then((mod) => mod.Accordion)
+);
+const AccordionItem = dynamic(() =>
+  import("../../../components/utils/accordion").then((mod) => mod.AccordionItem)
+);
+
 import {
   getProduct,
   getProductSlug,
@@ -125,27 +132,55 @@ const Product = ({ product, category }) => {
                       </p>
                     </div>
                     <p className="description">{thisProduct.content}</p>
-                    <ul className="product-detail-list">
-                      {productDetails.map((detail, index) => (
-                        <li className="detail-items" key={index}>
-                          <p className="title">
-                            <b>{detail.name}</b>
-                          </p>
-                          <p>{detail.value}</p>
-                        </li>
-                      ))}
+                    {isMobile ? (
+                      <Accordion atomic={true} className={`product-drop`}>
+                        <AccordionItem title={`Product Details`}>
+                          <ul className="product-detail-list">
+                            {productDetails.map((detail, index) => (
+                              <li className="detail-items" key={index}>
+                                <p className="title">
+                                  <b>{detail.name}</b>
+                                </p>
+                                <p>{detail.value}</p>
+                              </li>
+                            ))}
 
-                      <li className="detail-items">
-                        <p className="title">
-                          <b>Note</b>
-                        </p>
-                        <p>
-                          This is a handcrafted product. Small imperfections add
-                          to the unique charm and beauty of these handwoven
-                          sarees.
-                        </p>
-                      </li>
-                    </ul>
+                            <li className="detail-items">
+                              <p className="title">
+                                <b>Note</b>
+                              </p>
+                              <p>
+                                This is a handcrafted product. Small
+                                imperfections add to the unique charm and beauty
+                                of these handwoven sarees.
+                              </p>
+                            </li>
+                          </ul>
+                        </AccordionItem>
+                      </Accordion>
+                    ) : (
+                      <ul className="product-detail-list">
+                        {productDetails.map((detail, index) => (
+                          <li className="detail-items" key={index}>
+                            <p className="title">
+                              <b>{detail.name}</b>
+                            </p>
+                            <p>{detail.value}</p>
+                          </li>
+                        ))}
+
+                        <li className="detail-items">
+                          <p className="title">
+                            <b>Note</b>
+                          </p>
+                          <p>
+                            This is a handcrafted product. Small imperfections
+                            add to the unique charm and beauty of these
+                            handwoven sarees.
+                          </p>
+                        </li>
+                      </ul>
+                    )}
                   </article>
                   {thisProduct.StockDetails.isSoldOut ? (
                     <>

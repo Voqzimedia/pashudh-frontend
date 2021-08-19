@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 import dynamic from "next/dynamic";
 
@@ -226,12 +227,20 @@ export default function UserAction({ isMobile }) {
               className={`icon-wrapper`}
             >
               {isMobile ? (
-                <div
-                  onClick={(e) => toggleSearch(e)}
-                  className="icon-item icon"
-                >
-                  <SvgIcon icon={icons.search.toSvg()} />
-                </div>
+                <>
+                  <Link href={`/`}>
+                    <a className="icon-item icon">
+                      <SvgIcon icon={icons.home.toSvg()} />
+                    </a>
+                  </Link>
+
+                  <div
+                    onClick={(e) => toggleSearch(e)}
+                    className="icon-item icon"
+                  >
+                    <SvgIcon icon={icons.search.toSvg()} />
+                  </div>
+                </>
               ) : null}
 
               {isMobile ? (

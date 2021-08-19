@@ -190,7 +190,7 @@ header {
     .mobile-header {
       position: fixed;
       width: 100%;
-      bottom: 25px;
+      bottom: 1rem;
       z-index: 9999;
       .user-block {
         width: 90%;
@@ -218,7 +218,7 @@ header {
           background: $base-primary-light;
           box-shadow: 3px 1px 29px rgb(0 0 0 / 12%);
           border-radius: 5px;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
           padding: 15px 0;
           text-align: center;
           .close-btn {
