@@ -10,6 +10,11 @@
       border: none;
     }
 
+    header.mobile-head .top-bar {
+      background: $base-primary-dark;
+      border-color: #3a3a3a;
+    }
+
     .shop-now.btn,
     .slick-dots li.slick-active button:before,
     .slick-dots li button:before,

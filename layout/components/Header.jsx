@@ -3,11 +3,13 @@ import dynamic from "next/dynamic";
 import { Container, CustomInput } from "reactstrap";
 import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
+import { useRouter } from "next/router";
 
 import { motion } from "framer-motion";
 
 import Menu from "./Header/Menu";
 import UserAction from "./Header/UserAction";
+import Logo from "../../components/Logo";
 
 // const UserAction = dynamic(() => import("./Header/UserAction"));
 const SearchBox = dynamic(() => import("./Header/SearchBox"), { ssr: false });
@@ -33,8 +35,17 @@ export default function Header() {
     transition: { transition },
   };
 
+  const router = useRouter();
+
   return (
     <header className={isMobile ? "mobile-head" : ""}>
+      {isMobile && !(router?.route == "/") && (
+        <div className="top-bar">
+          <div className="logo">
+            <Logo isHeader={true} />
+          </div>
+        </div>
+      )}
       <div className="navbar-area">
         {!isMobile ? (
           <motion.div

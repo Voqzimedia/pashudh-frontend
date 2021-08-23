@@ -8,7 +8,7 @@ import LogoMobileImgDark from "../assets/images/logo/logo-mobile-white.svg";
 
 // import SvgIcon from "./utils/SvgIcon";
 
-export default function Logo() {
+export default function Logo({ isHeader }) {
   const { deviceWidth, darkTheme } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
@@ -17,7 +17,7 @@ export default function Logo() {
       <div className="logo-holder">
         <picture>
           {darkTheme ? (
-            isMobile ? (
+            isMobile && !isHeader ? (
               <img
                 src={LogoMobileImgDark}
                 width="100"
@@ -27,7 +27,7 @@ export default function Logo() {
             ) : (
               <img src={LogoImgDark} width="100" height="100" alt="logo" />
             )
-          ) : isMobile ? (
+          ) : isMobile && !isHeader ? (
             <img src={LogoMobileImg} width="100" height="100" alt="logo" />
           ) : (
             <img src={LogoImg} width="100" height="100" alt="logo" />

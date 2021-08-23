@@ -58,7 +58,7 @@ export default function ProductGrid({ prodList, filterCata, isInExpolre }) {
                     <Col xs="9" className="no-pad">
                       <p className="title">{product.name}</p>
                     </Col>
-                    <Col xs="3" className="no-pad">
+                    <Col xs="12" className="no-pad">
                       <p className="price">{currency.format(product.price)}</p>
                     </Col>
                   </Row>

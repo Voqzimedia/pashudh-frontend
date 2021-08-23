@@ -9,7 +9,8 @@ runtimeCaching[0].handler = "StaleWhileRevalidate";
 // next.js configuration
 const nextConfig = withPWA({
   pwa: {
-    disable: process.env.NODE_ENV === "development",
+    // disable: process.env.NODE_ENV === "development",
+    disable: true,
     dest: "public",
     runtimeCaching,
   },

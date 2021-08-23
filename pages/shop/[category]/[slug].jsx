@@ -107,19 +107,21 @@ const Product = ({ product, category }) => {
       <section className={`shop-section page-section`}>
         <div className="shop-body-section">
           <Container>
-            <div className="shop-breadcrumbs">
-              <Breadcrumb className="breadcrumbs-holder">
-                <BreadcrumbItem>
-                  <a onClick={() => router.back()}>Shop</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <Link href={`/shop/${category.slug}`}>
-                    <a>{category.title}</a>
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>{thisProduct.name}</BreadcrumbItem>
-              </Breadcrumb>
-            </div>
+            {!isMobile && (
+              <div className="shop-breadcrumbs">
+                <Breadcrumb className="breadcrumbs-holder">
+                  <BreadcrumbItem>
+                    <a onClick={() => router.back()}>Shop</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <Link href={`/shop/${category.slug}`}>
+                      <a>{category.title}</a>
+                    </Link>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>{thisProduct.name}</BreadcrumbItem>
+                </Breadcrumb>
+              </div>
+            )}
 
             <Row className={`single-product-wrapper`}>
               <Col lg="6" className={`product-detail-wrapper`}>
