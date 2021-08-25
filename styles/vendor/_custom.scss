@@ -40,3 +40,30 @@
     max-height: fit-content;
   }
 }
+
+.filter-wrapper {
+  .dropdown-toggle {
+    padding: 10px 15px;
+    border: 0.5px solid #f6f6f6;
+    margin: 1rem 0;
+    .subMenu {
+      width: 100%;
+      max-width: 95vw;
+      text-align: center;
+      padding: 0;
+      .filter-item {
+        padding: 10px 15px;
+        border: 0.5px solid #f6f6f6;
+      }
+    }
+  }
+}
+
+.dropdown-toggle {
+  &.right {
+    .subMenu {
+      right: 0;
+      left: auto;
+    }
+  }
+}

@@ -62,6 +62,7 @@ export default function About() {
             <h1 className="page-title" data-title={pageTitle}>
               {pageTitle}
             </h1>
+            <hr className="small gradient no-m" />
           </center>
           <Row className={`highlight-container`}>
             <Col md="4">
@@ -251,7 +252,29 @@ export default function About() {
                   <div className={`placeHolder`}></div>
                 </div>
                 <div className="content">
-                  <h3>CEO </h3>
+                  <p className="name">K.K. Rajkumar</p>
+                </div>
+              </div>
+              <div className="member">
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+                <div className="content">
+                  <p className="name"> K.K.Suresh kumar</p>
+                </div>
+              </div>
+              <div className="member">
+                <div className="img-wrapper">
+                  {/* <picture>
+                    <img src="" alt="" />
+                  </picture> */}
+                  <div className={`placeHolder`}></div>
+                </div>
+                <div className="content">
+                  {/* <h3>CEO </h3> */}
                   <p className="name">Mrs. Jeevitha Rajkumar</p>
                 </div>
               </div>
@@ -263,18 +286,7 @@ export default function About() {
                   <div className={`placeHolder`}></div>
                 </div>
                 <div className="content">
-                  <p className="name">K.K. Rajkumar & K.K.Suresh kumar</p>
-                </div>
-              </div>
-              <div className="member">
-                <div className="img-wrapper">
-                  {/* <picture>
-                    <img src="" alt="" />
-                  </picture> */}
-                  <div className={`placeHolder`}></div>
-                </div>
-                <div className="content">
-                  <h3>CMD </h3>
+                  {/* <h3>CMD </h3> */}
                   <p className="name">Mrs. Vinodhini Sureshkumar</p>
                 </div>
               </div>

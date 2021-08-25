@@ -21,6 +21,10 @@
         width: 100%;
         height: auto;
         min-width: 300px;
+        @media only screen and (max-width: 500px) {
+          min-width: 250px;
+          max-width: 250px;
+        }
       }
     }
   }
@@ -107,7 +111,7 @@
 
             @media only screen and (max-width: 500px) {
               margin-top: 25px;
-              height: auto;
+              // height: auto;
               object-fit: cover;
             }
           }
@@ -263,7 +267,7 @@
       box-shadow: 10px 10px 20px #0000000d;
       margin-bottom: 50px;
       .slick-dots {
-        bottom: -50px;
+        bottom: 20px;
       }
     }
     .testimonial-item {
@@ -437,10 +441,6 @@
       }
     }
 
-    .seperator-right,
-    .seperator-left {
-      border-color: $light-gray !important;
-    }
     .seperator-right {
       border-left: 0.5px solid;
       border-right: none;
@@ -449,6 +449,15 @@
     .seperator-left {
       border-right: 0.5px solid;
       border-left: none;
+    }
+
+    .seperator-right,
+    .seperator-left {
+      border-color: $light-gray !important;
+      @media only screen and (max-width: 500px) {
+        margin-top: 100px;
+        border: none !important;
+      }
     }
 
     &:nth-child(even) {
@@ -488,6 +497,7 @@
         background: url("/images/icons/swan.svg");
         background-size: cover;
         top: 55%;
+        display: none;
       }
     }
   }
@@ -527,6 +537,9 @@
   .highlight-container {
     margin: 50px 0;
     margin-top: 100px;
+    @media only screen and (max-width: 500px) {
+      display: none;
+    }
   }
   .highlight-wrapper {
     padding: 25px;
@@ -810,4 +823,8 @@
       font-size: 1.2rem;
     }
   }
+}
+
+.founder-section {
+  margin: 75px 0;
 }

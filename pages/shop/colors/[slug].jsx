@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, DropdownMenu } from "reactstrap";
 import { isEmpty } from "lodash";
 
@@ -7,6 +7,8 @@ import { getColor, getColors } from "../../../helper/graphql/getColors";
 import client from "../../../helper/ApolloClient";
 
 import dynamic from "next/dynamic";
+import { CatagoryFilterMobile } from "../../../components/Shop/CatagoryFilter";
+import AppContext from "../../../context/AppContext";
 
 const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
@@ -28,6 +30,10 @@ const Shop = ({ products, colors, thisFillter }) => {
   const [prodList, setProdList] = useState(products);
   const [filterCata, setFilterCata] = useState(thisFillter);
   const [filterSort, setFilterSort] = useState("id");
+
+  const { deviceWidth } = useContext(AppContext);
+
+  const isMobile = deviceWidth < 500;
 
   const changeTab = (category) => {
     setFilterCata(category);
@@ -89,14 +95,26 @@ const Shop = ({ products, colors, thisFillter }) => {
           </center>
         </Container>
         <div className="shop-body-section">
-          <Container className={`shop-filter`}>
-            <CatagoryFilter
-              cataList={colors}
-              changeTab={changeTab}
-              filterCata={filterCata}
-              exploreSlug={`color`}
-            />
-          </Container>
+          {isMobile ? (
+            <center>
+              <CatagoryFilterMobile
+                cataList={colors}
+                changeTab={changeTab}
+                filterCata={filterCata}
+                exploreSlug={`color`}
+              />
+            </center>
+          ) : (
+            <Container className={`shop-filter`}>
+              <CatagoryFilter
+                cataList={colors}
+                changeTab={changeTab}
+                filterCata={filterCata}
+                exploreSlug={`color`}
+              />
+            </Container>
+          )}
+
           <Container>
             <div className="shop-title-header">
               <div className="content-holder">

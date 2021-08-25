@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, DropdownMenu } from "reactstrap";
 import { isEmpty } from "lodash";
 
 import { useQuery } from "@apollo/client";
 import { getClass, getClasses } from "../../../helper/graphql/getClass";
 import client from "../../../helper/ApolloClient";
+import AppContext from "../../../context/AppContext";
 
 import dynamic from "next/dynamic";
+import { CatagoryFilterMobile } from "../../../components/Shop/CatagoryFilter";
 
 const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
@@ -28,6 +30,10 @@ const Shop = ({ products, classes, thisFillter }) => {
   const [prodList, setProdList] = useState(products);
   const [filterCata, setFilterCata] = useState(thisFillter);
   const [filterSort, setFilterSort] = useState("id");
+
+  const { deviceWidth } = useContext(AppContext);
+
+  const isMobile = deviceWidth < 500;
 
   const changeTab = (category) => {
     setFilterCata(category);
@@ -89,14 +95,26 @@ const Shop = ({ products, classes, thisFillter }) => {
           </center>
         </Container>
         <div className="shop-body-section">
-          <Container className={`shop-filter`}>
-            <CatagoryFilter
-              cataList={classes}
-              changeTab={changeTab}
-              filterCata={filterCata}
-              exploreSlug={`class`}
-            />
-          </Container>
+          {isMobile ? (
+            <center>
+              <CatagoryFilterMobile
+                cataList={classes}
+                changeTab={changeTab}
+                filterCata={filterCata}
+                exploreSlug={`class`}
+              />
+            </center>
+          ) : (
+            <Container className={`shop-filter`}>
+              <CatagoryFilter
+                cataList={classes}
+                changeTab={changeTab}
+                filterCata={filterCata}
+                exploreSlug={`class`}
+              />
+            </Container>
+          )}
+
           <Container>
             <div className="shop-title-header">
               <div className="content-holder">
@@ -116,7 +134,9 @@ const Shop = ({ products, classes, thisFillter }) => {
             </div>
 
             <div className="product-sort-holder">
-              <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
+              <div
+                className={`nav-link dropdown-toggle menu-link has-subMenu `}
+              >
                 Sort
                 <DropdownMenu className={`subMenu`}>
                   <a

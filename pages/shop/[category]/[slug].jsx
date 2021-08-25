@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
+import Sticky from "react-sticky-el";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -53,6 +54,7 @@ const Product = ({ product, category }) => {
 
   const [relatedItems, setRelatedItems] = useState(category.products);
   const [thisProduct, setProduct] = useState(product);
+  const [isFooterView, setIsFooterView] = useState(false);
 
   const router = useRouter();
   const productDetails = [];
@@ -93,6 +95,44 @@ const Product = ({ product, category }) => {
     setRelatedItems(() => getrelatedItems());
   }, [category]);
 
+  function elementInViewport(el) {
+    var top = el.offsetTop;
+    var left = el.offsetLeft;
+    var width = el.offsetWidth;
+    var height = el.offsetHeight;
+
+    while (el.offsetParent) {
+      el = el.offsetParent;
+      top += el.offsetTop;
+      left += el.offsetLeft;
+    }
+
+    return (
+      top < window.pageYOffset + window.innerHeight &&
+      left < window.pageXOffset + window.innerWidth &&
+      top + height > window.pageYOffset &&
+      left + width > window.pageXOffset
+    );
+  }
+
+  useEffect(() => {
+    const footer = document.querySelector(".related-items");
+
+    const isEnd = () => {
+      setIsFooterView(() => elementInViewport(footer));
+    };
+
+    if (!isMobile) {
+      document.addEventListener("scroll", isEnd, {
+        passive: true,
+      });
+    }
+
+    return () => {
+      document.removeEventListener("scroll", isEnd);
+    };
+  }, [isMobile]);
+
   for (const [key, value] of Object.entries(thisProduct.ProductDetails)) {
     key != "__typename"
       ? productDetails.push({
@@ -125,93 +165,183 @@ const Product = ({ product, category }) => {
 
             <Row className={`single-product-wrapper`}>
               <Col lg="6" className={`product-detail-wrapper`}>
-                <div>
-                  <article>
-                    <div className="product-header">
-                      <h1 className="product-name">{thisProduct.name}</h1>
-                      <p className="price">
-                        {currency.format(thisProduct.price)}
-                      </p>
-                    </div>
-                    <p className="description">{thisProduct.content}</p>
-                    {isMobile ? (
-                      <Accordion atomic={true} className={`product-drop`}>
-                        <AccordionItem title={`Product Details`}>
-                          <ul className="product-detail-list">
-                            {productDetails.map((detail, index) => (
-                              <li className="detail-items" key={index}>
+                {isMobile ? (
+                  <>
+                    <article>
+                      <div className="product-header">
+                        <h1 className="product-name">{thisProduct.name}</h1>
+                        <p className="price">
+                          {currency.format(thisProduct.price)}
+                        </p>
+                      </div>
+                      <p className="description">{thisProduct.content}</p>
+                      {isMobile ? (
+                        <Accordion atomic={true} className={`product-drop`}>
+                          <AccordionItem title={`Product Details`}>
+                            <ul className="product-detail-list">
+                              {productDetails.map((detail, index) => (
+                                <li className="detail-items" key={index}>
+                                  <p className="title">
+                                    <b>{detail.name}</b>
+                                  </p>
+                                  <p>{detail.value}</p>
+                                </li>
+                              ))}
+
+                              <li className="detail-items">
                                 <p className="title">
-                                  <b>{detail.name}</b>
+                                  <b>Note</b>
                                 </p>
-                                <p>{detail.value}</p>
+                                <p>
+                                  This is a handcrafted product. Small
+                                  imperfections add to the unique charm and
+                                  beauty of these handwoven sarees.
+                                </p>
                               </li>
-                            ))}
-
-                            <li className="detail-items">
+                            </ul>
+                          </AccordionItem>
+                        </Accordion>
+                      ) : (
+                        <ul className="product-detail-list">
+                          {productDetails.map((detail, index) => (
+                            <li className="detail-items" key={index}>
                               <p className="title">
-                                <b>Note</b>
+                                <b>{detail.name}</b>
                               </p>
-                              <p>
-                                This is a handcrafted product. Small
-                                imperfections add to the unique charm and beauty
-                                of these handwoven sarees.
-                              </p>
+                              <p>{detail.value}</p>
                             </li>
-                          </ul>
-                        </AccordionItem>
-                      </Accordion>
-                    ) : (
-                      <ul className="product-detail-list">
-                        {productDetails.map((detail, index) => (
-                          <li className="detail-items" key={index}>
-                            <p className="title">
-                              <b>{detail.name}</b>
-                            </p>
-                            <p>{detail.value}</p>
-                          </li>
-                        ))}
+                          ))}
 
-                        <li className="detail-items">
-                          <p className="title">
-                            <b>Note</b>
-                          </p>
-                          <p>
-                            This is a handcrafted product. Small imperfections
-                            add to the unique charm and beauty of these
-                            handwoven sarees.
-                          </p>
-                        </li>
-                      </ul>
-                    )}
-                  </article>
-                  {thisProduct.StockDetails.isSoldOut ? (
-                    <>
-                      <div className="shop-action ">
-                        <button
-                          className="btn solid-btn no-left-margin"
-                          disabled
-                        >
-                          SoldOut
-                        </button>
+                          <li className="detail-items">
+                            <p className="title">
+                              <b>Note</b>
+                            </p>
+                            <p>
+                              This is a handcrafted product. Small imperfections
+                              add to the unique charm and beauty of these
+                              handwoven sarees.
+                            </p>
+                          </li>
+                        </ul>
+                      )}
+                    </article>
+                    {thisProduct.StockDetails.isSoldOut ? (
+                      <>
+                        <div className="shop-action ">
+                          <button
+                            className="btn solid-btn no-left-margin"
+                            disabled
+                          >
+                            SoldOut
+                          </button>
+                          <AddWishlist product={{ ...thisProduct }} />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="shop-action">
+                        {isInCart(thisProduct) ? (
+                          <QuantityBtn product={{ ...thisProduct }} />
+                        ) : null}
+
+                        <AddToCart
+                          product={{ ...thisProduct }}
+                          className={`${
+                            isInCart(thisProduct) ? "" : "no-left-margin"
+                          }`}
+                        />
                         <AddWishlist product={{ ...thisProduct }} />
                       </div>
-                    </>
-                  ) : (
-                    <div className="shop-action">
-                      {isInCart(thisProduct) ? (
-                        <QuantityBtn product={{ ...thisProduct }} />
-                      ) : null}
+                    )}
+                  </>
+                ) : (
+                  <Sticky disabled={isFooterView}>
+                    <article>
+                      <div className="product-header">
+                        <h1 className="product-name">{thisProduct.name}</h1>
+                        <p className="price">
+                          {currency.format(thisProduct.price)}
+                        </p>
+                      </div>
+                      <p className="description">{thisProduct.content}</p>
+                      {isMobile ? (
+                        <Accordion atomic={true} className={`product-drop`}>
+                          <AccordionItem title={`Product Details`}>
+                            <ul className="product-detail-list">
+                              {productDetails.map((detail, index) => (
+                                <li className="detail-items" key={index}>
+                                  <p className="title">
+                                    <b>{detail.name}</b>
+                                  </p>
+                                  <p>{detail.value}</p>
+                                </li>
+                              ))}
 
-                      <AddToCart
-                        product={{ ...thisProduct }}
-                        className={`${
-                          isInCart(thisProduct) ? "" : "no-left-margin"
-                        }`}
-                      />
-                      <AddWishlist product={{ ...thisProduct }} />
-                    </div>
-                  )}
-                </div>
+                              <li className="detail-items">
+                                <p className="title">
+                                  <b>Note</b>
+                                </p>
+                                <p>
+                                  This is a handcrafted product. Small
+                                  imperfections add to the unique charm and
+                                  beauty of these handwoven sarees.
+                                </p>
+                              </li>
+                            </ul>
+                          </AccordionItem>
+                        </Accordion>
+                      ) : (
+                        <ul className="product-detail-list">
+                          {productDetails.map((detail, index) => (
+                            <li className="detail-items" key={index}>
+                              <p className="title">
+                                <b>{detail.name}</b>
+                              </p>
+                              <p>{detail.value}</p>
+                            </li>
+                          ))}
+
+                          <li className="detail-items">
+                            <p className="title">
+                              <b>Note</b>
+                            </p>
+                            <p>
+                              This is a handcrafted product. Small imperfections
+                              add to the unique charm and beauty of these
+                              handwoven sarees.
+                            </p>
+                          </li>
+                        </ul>
+                      )}
+                    </article>
+                    {thisProduct.StockDetails.isSoldOut ? (
+                      <>
+                        <div className="shop-action ">
+                          <button
+                            className="btn solid-btn no-left-margin"
+                            disabled
+                          >
+                            SoldOut
+                          </button>
+                          <AddWishlist product={{ ...thisProduct }} />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="shop-action">
+                        {isInCart(thisProduct) ? (
+                          <QuantityBtn product={{ ...thisProduct }} />
+                        ) : null}
+
+                        <AddToCart
+                          product={{ ...thisProduct }}
+                          className={`${
+                            isInCart(thisProduct) ? "" : "no-left-margin"
+                          }`}
+                        />
+                        <AddWishlist product={{ ...thisProduct }} />
+                      </div>
+                    )}
+                  </Sticky>
+                )}
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
                 <ProductShowcase
@@ -221,8 +351,9 @@ const Product = ({ product, category }) => {
               </Col>
             </Row>
           </Container>
-
-          <RelatedItems relatedItems={relatedItems} category={category} />
+          <div className="related-items">
+            <RelatedItems relatedItems={relatedItems} category={category} />
+          </div>
         </div>
       </section>
     </PageMotion>

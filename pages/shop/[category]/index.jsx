@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, DropdownMenu } from "reactstrap";
 import { isEmpty } from "lodash";
 
@@ -11,6 +11,8 @@ import {
 import client from "../../../helper/ApolloClient";
 
 import dynamic from "next/dynamic";
+import { CatagoryFilterMobile } from "../../../components/Shop/CatagoryFilter";
+import AppContext from "../../../context/AppContext";
 
 const PageMotion = dynamic(() =>
   import("../../../components/Motion/PageMotion")
@@ -37,6 +39,10 @@ const Shop = ({ products, categories, thisFillter }) => {
     setFilterCata(category);
     refetchCata();
   };
+
+  const { deviceWidth } = useContext(AppContext);
+
+  const isMobile = deviceWidth < 500;
 
   const sortProduct = (option) => {
     switch (option) {
@@ -93,13 +99,24 @@ const Shop = ({ products, categories, thisFillter }) => {
           </center>
         </Container>
         <div className="shop-body-section">
-          <Container className={`shop-filter`}>
-            <CatagoryFilter
-              cataList={categories}
-              changeTab={changeTab}
-              filterCata={filterCata}
-            />
-          </Container>
+          {isMobile ? (
+            <center>
+              <CatagoryFilterMobile
+                cataList={categories}
+                changeTab={changeTab}
+                filterCata={filterCata}
+              />
+            </center>
+          ) : (
+            <Container className={`shop-filter`}>
+              <CatagoryFilter
+                cataList={categories}
+                changeTab={changeTab}
+                filterCata={filterCata}
+              />
+            </Container>
+          )}
+
           <Container>
             <div className="shop-title-header">
               <div className="content-holder">
@@ -126,7 +143,22 @@ const Shop = ({ products, categories, thisFillter }) => {
             </div>
 
             <div className="product-sort-holder">
-              <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
+              <div
+                className={`nav-link dropdown-toggle menu-link has-subMenu `}
+              >
+                Filter
+                <DropdownMenu className={`subMenu`}>
+                  <a href="#" className="dropdown-item">
+                    Color
+                  </a>
+                  <a href="#" className="dropdown-item">
+                    Class
+                  </a>
+                </DropdownMenu>
+              </div>
+              <div
+                className={`nav-link dropdown-toggle menu-link has-subMenu right`}
+              >
                 Sort
                 <DropdownMenu className={`subMenu`}>
                   <a
@@ -143,17 +175,6 @@ const Shop = ({ products, categories, thisFillter }) => {
                   </a>
                   <a onClick={() => sortProduct()} className="dropdown-item">
                     Newest Arrivals
-                  </a>
-                </DropdownMenu>
-              </div>
-              <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
-                Filter
-                <DropdownMenu className={`subMenu`}>
-                  <a href="#" className="dropdown-item">
-                    Color
-                  </a>
-                  <a href="#" className="dropdown-item">
-                    Class
                   </a>
                 </DropdownMenu>
               </div>
