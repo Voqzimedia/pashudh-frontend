@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
-import Sticky from "react-sticky-el";
+// import Sticky from "react-sticky-el";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -254,7 +254,7 @@ const Product = ({ product, category }) => {
                     )}
                   </>
                 ) : (
-                  <Sticky disabled={isFooterView}>
+                  <>
                     <article>
                       <div className="product-header">
                         <h1 className="product-name">{thisProduct.name}</h1>
@@ -340,7 +340,7 @@ const Product = ({ product, category }) => {
                         <AddWishlist product={{ ...thisProduct }} />
                       </div>
                     )}
-                  </Sticky>
+                  </>
                 )}
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
