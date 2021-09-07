@@ -14,8 +14,18 @@ import client from "../helper/ApolloClient";
 import Layout from "../layout";
 import { credits } from "../helper/credits";
 import AppContext from "../context/AppContext";
+import { getCategories } from "../helper/graphql/getCategories";
 
 class MyApp extends App {
+  static async getInitialProps() {
+    const { data: categoriesData } = await client.query({
+      query: getCategories,
+    });
+    return {
+      categories: categoriesData?.categories ? categoriesData?.categories : [],
+    };
+  }
+
   state = {
     user: null,
     cart: { items: [], total: 0, totalQuantity: 0 },
@@ -366,7 +376,9 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps, router } = this.props;
+    const { Component, pageProps, router, categories } = this.props;
+
+    // console.log(categories);
 
     const AppProps = {
       user: this.state.user,
@@ -411,7 +423,7 @@ class MyApp extends App {
         </Head>
         <div className={`app-theme ${this.state.darkTheme ? "dark" : "light"}`}>
           <ApolloProvider client={client}>
-            <Layout page={router.route}>
+            <Layout page={router.route} categories={categories}>
               <Component {...pageProps} key={router.route} />
             </Layout>
           </ApolloProvider>

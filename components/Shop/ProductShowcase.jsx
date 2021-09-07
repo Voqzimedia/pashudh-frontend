@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 
 const Slider = dynamic(() => import("react-slick"));
 import { GlassMagnifier } from "react-image-magnifiers";
+
+import { imgUrlCheck } from "../../helper/functions";
 // import ReactImageMagnify from "react-image-magnify";
 
 export default function ProductShowcase({ isMobile, thisProduct }) {
@@ -27,7 +29,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                   <img
                     width="100"
                     height="100"
-                    src={`${image.url}`}
+                    src={`${imgUrlCheck(image.url)}`}
                     alt="Black Checked Saree"
                   />
                 </picture>
@@ -40,9 +42,9 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
           {thisProduct.GalleryImgs.map((image, index) => (
             <div className="image-holder" key={index}>
               <GlassMagnifier
-                imageSrc={`${image.url}`}
+                imageSrc={`${imgUrlCheck(image.url)}`}
                 imageAlt={thisProduct.name}
-                largeImageSrc={`${image.url}`}
+                largeImageSrc={`${imgUrlCheck(image.url)}`}
                 magnifierSize="50%"
               />
               {/* <ReactImageMagnify

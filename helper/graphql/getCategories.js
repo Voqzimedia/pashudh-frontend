@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const getCategories = gql`
   query getCategories {
-    categories(sort: "id") {
+    categories(sort: "priority") {
       title
       subTitle
       slug

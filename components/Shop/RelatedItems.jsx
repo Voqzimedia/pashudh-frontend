@@ -1,4 +1,4 @@
-import { currency } from "../../helper/functions";
+import { currency, imgUrlCheck } from "../../helper/functions";
 import { motion } from "framer-motion";
 import { Container, Row, Col } from "reactstrap";
 import Link from "next/link";
@@ -48,7 +48,7 @@ export default function RelatedItems({ relatedItems, category }) {
                           <img
                             width="100"
                             height="100"
-                            src={`${product.image.url}`}
+                            src={`${imgUrlCheck(product.image.url)}`}
                             alt={product.name}
                           />
                         </motion.div>

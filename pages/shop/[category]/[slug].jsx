@@ -115,23 +115,23 @@ const Product = ({ product, category }) => {
     );
   }
 
-  useEffect(() => {
-    const footer = document.querySelector(".related-items");
+  // useEffect(() => {
+  //   const footer = document.querySelector(".related-items");
 
-    const isEnd = () => {
-      setIsFooterView(() => elementInViewport(footer));
-    };
+  //   const isEnd = () => {
+  //     setIsFooterView(() => elementInViewport(footer));
+  //   };
 
-    if (!isMobile) {
-      document.addEventListener("scroll", isEnd, {
-        passive: true,
-      });
-    }
+  //   if (!isMobile) {
+  //     document.addEventListener("scroll", isEnd, {
+  //       passive: true,
+  //     });
+  //   }
 
-    return () => {
-      document.removeEventListener("scroll", isEnd);
-    };
-  }, [isMobile]);
+  //   return () => {
+  //     document.removeEventListener("scroll", isEnd);
+  //   };
+  // }, [isMobile]);
 
   for (const [key, value] of Object.entries(thisProduct.ProductDetails)) {
     key != "__typename"
@@ -169,10 +169,11 @@ const Product = ({ product, category }) => {
                   <>
                     <article>
                       <div className="product-header">
-                        <h1 className="product-name">{thisProduct.name}</h1>
+                        <h1 className="product-name">{thisProduct?.name}</h1>
                         <p className="price">
-                          {currency.format(thisProduct.price)}
+                          {currency.format(thisProduct?.price)}
                         </p>
+                        <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                       </div>
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (
@@ -261,6 +262,7 @@ const Product = ({ product, category }) => {
                         <p className="price">
                           {currency.format(thisProduct.price)}
                         </p>
+                        <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                       </div>
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (

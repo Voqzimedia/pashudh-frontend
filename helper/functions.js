@@ -12,6 +12,16 @@ export const camelToNormal = (text) => {
   }
 };
 
+export const imgUrlCheck = (url) => {
+  if (url) {
+    if (url.startsWith("http")) {
+      return url;
+    } else {
+      return `${process.env.NEXT_PUBLIC_API_URL}${url}`;
+    }
+  }
+};
+
 export const toBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();

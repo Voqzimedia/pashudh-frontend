@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Row, Col } from "reactstrap";
 
-import { currency } from "../../helper/functions";
+import { currency, imgUrlCheck } from "../../helper/functions";
 
 export default function ProductGrid({ prodList, filterCata, isInExpolre }) {
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -36,7 +36,11 @@ export default function ProductGrid({ prodList, filterCata, isInExpolre }) {
             >
               <Link
                 href={`/shop/${
-                  isInExpolre ? "whole-six-yards" : filterCata.slug
+                  isInExpolre
+                    ? "whole-six-yards"
+                    : filterCata?.slug
+                    ? filterCata?.slug
+                    : "whole-six-yards"
                 }/${product.slug}`}
               >
                 <a className="product-item">
@@ -50,7 +54,7 @@ export default function ProductGrid({ prodList, filterCata, isInExpolre }) {
                     <img
                       width="100"
                       height="100"
-                      src={`${product.image.url}`}
+                      src={`${imgUrlCheck(product.image.url)}`}
                       alt={product.name}
                     />
                   </motion.div>
