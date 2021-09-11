@@ -64,3 +64,28 @@ export const checkOutDataFormater = (data, cart) => {
     return null;
   }
 };
+
+export const buyBtnDataFormater = (cart) => {
+  if (cart) {
+    const cartItems = [];
+
+    cart.items.map((items) => {
+      var tempItem = {
+        id: items.id,
+        name: items.name,
+        price: items.price,
+        slug: items.slug,
+        quantity: items.quantity,
+      };
+      cartItems.push(tempItem);
+    });
+
+    var dataTemplate = {
+      cartItems: cartItems,
+    };
+
+    return dataTemplate;
+  } else {
+    return null;
+  }
+};

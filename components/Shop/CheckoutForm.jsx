@@ -1,7 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  PaymentRequestButtonElement,
+} from "@stripe/react-stripe-js";
 import { checkOutDataFormater } from "../../helper/functions";
 import { productCheckout, paymentConfirm } from "../../helper/auth";
 import { OrderItem } from "../../components/Shop/OrderList";
@@ -31,6 +36,7 @@ export default function CheckoutForm({ cart, clearCart }) {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [paymentRequest, setPaymentRequest] = useState(null);
   const [order, setOrder] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
@@ -100,6 +106,7 @@ export default function CheckoutForm({ cart, clearCart }) {
         // set authed User in global context to update header/app state
         // setClientSecret(() => res.data.client_secret);
         confirmPayment(res.data.client_secret);
+        setPaymentRequest(res?.data);
       })
       .catch((error) => {
         setError(error.response.data);
@@ -287,6 +294,10 @@ export default function CheckoutForm({ cart, clearCart }) {
                 {error}
               </div>
             )}
+
+            {/* {paymentRequest && (
+              <PaymentRequestButtonElement options={{ paymentRequest }} />
+            )} */}
 
             <div className="input-Holder">
               {user ? (

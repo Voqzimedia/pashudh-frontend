@@ -1,6 +1,11 @@
 import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
-import { API_URL, STRIPE_PK, getToken } from "../../helper/auth";
+import {
+  API_URL,
+  STRIPE_PK,
+  getToken,
+  productCheckout,
+} from "../../helper/auth";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
 
@@ -20,20 +25,23 @@ export default function BuyButton({ product }) {
     const token = await getToken();
     console.log("handleBuy token", token);
     e.preventDefault();
-    const res = await fetch(`${API_URL}/orders/`, {
-      method: "POST",
-      body: JSON.stringify({ product }),
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const session = await res.json();
-    console.log("session", session);
 
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+    productCheckout(product)
+      .then((res) => {
+        const { session } = res.data;
+        const result = stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+    // console.log("session", session);
+
+    // const result = await stripe.redirectToCheckout({
+    //   sessionId: session.id,
+    // });
   };
 
   return (

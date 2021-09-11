@@ -2,9 +2,10 @@ import { Container, Row, Col } from "reactstrap";
 import AppContext from "../../context/AppContext";
 import React, { useContext } from "react";
 import dynamic from "next/dynamic";
-import { currency } from "../../helper/functions";
+import { buyBtnDataFormater, currency } from "../../helper/functions";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
+const BuyButton = dynamic(() => import("../../components/Shop/BuyButton"));
 const CheckoutForm = dynamic(() =>
   import("../../components/Shop/CheckoutForm")
 );
@@ -107,6 +108,8 @@ export default function Checkout() {
                 </div>
               </>
             ) : null}
+
+            {/* <BuyButton product={buyBtnDataFormater(cart)} /> */}
 
             <div className="checkout-form">
               <Elements stripe={promise}>
