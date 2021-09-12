@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Row, Col, Alert } from "reactstrap";
 import AppContext from "../../context/AppContext";
-import { currency } from "../../helper/functions";
+import { currency, sortByProperty } from "../../helper/functions";
 import { getOrders } from "../../helper/auth";
 
 // images
@@ -14,6 +14,8 @@ export const OrderItem = ({ order }) => {
   const toggleShow = () => {
     isShow ? setShow(false) : setShow(true);
   };
+
+  console.log(order);
 
   return (
     <div className="order-item">
@@ -65,7 +67,24 @@ export const OrderItem = ({ order }) => {
             <p className="transaction-id">
               Transaction ID # : <span>{order.transactionId}</span>
             </p>
+            <br />
+            <p className="transaction-id">
+              Shipping address : <span>{order.address}</span>
+            </p>
           </div>
+
+          {order.promo && (
+            <div className="tracking-details">
+              <h6>Discount Details</h6>
+              <p className="tracking-name">
+                Promo Code Used: <span>{order.promo.promoCode}</span>
+              </p>
+              <p className="price">
+                Discounted Amount:{" "}
+                <span>{currency.format(order.promo.promoPrice)}</span>
+              </p>
+            </div>
+          )}
 
           {order.Shipping && (
             <div className="tracking-details">
@@ -163,6 +182,8 @@ export const PromoItem = ({ promo }) => {
 export const PromoList = () => {
   const { user } = useContext(AppContext);
   const [promoList, setPromoList] = useState(user ? user.promos : []);
+
+  promoList.sort(sortByProperty("redeemed"));
 
   return (
     <div className="order-waraper">

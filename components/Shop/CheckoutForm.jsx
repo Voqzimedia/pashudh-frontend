@@ -13,10 +13,10 @@ import { OrderItem } from "../../components/Shop/OrderList";
 import { getCode } from "country-list";
 import AppContext from "../../context/AppContext";
 
-export default function CheckoutForm({ cart, clearCart }) {
-  const { user, setModalLogin } = useContext(AppContext);
+const paymentGatewayList = ["Stripe", "Razorpay"];
 
-  // console.log(user);
+export default function CheckoutForm({ cart, clearCart, discount }) {
+  const { user, setModalLogin } = useContext(AppContext);
 
   const [data, updateData] = useState({
     Email: "",
@@ -30,16 +30,27 @@ export default function CheckoutForm({ cart, clearCart }) {
     Phone: "",
     keepMe: "off",
     saveMe: "off",
+    discount: discount,
   });
+
+  useEffect(() => {
+    updateData({ ...data, discount: discount });
+    return () => {
+      updateData({ ...data, discount: null });
+    };
+  }, [discount]);
+
+  // console.log(data);
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [paymentRequest, setPaymentRequest] = useState(null);
+  // const [paymentRequest, setPaymentRequest] = useState(null);
   const [order, setOrder] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const [paymentGateway, setPaymentGateway] = useState(null);
 
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
@@ -79,7 +90,7 @@ export default function CheckoutForm({ cart, clearCart }) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      paymentConfirm(payload.paymentIntent.id)
+      paymentConfirm(payload.paymentIntent.id, discount)
         .then((res) => {
           setError(null);
           setProcessing(false);
@@ -100,16 +111,20 @@ export default function CheckoutForm({ cart, clearCart }) {
 
     const checkoutData = checkOutDataFormater(data, cart);
 
+    // console.log(checkoutData)
+
     productCheckout(checkoutData)
       .then((res) => {
         setProcessing(false);
         // set authed User in global context to update header/app state
         // setClientSecret(() => res.data.client_secret);
-        confirmPayment(res.data.client_secret);
+        res?.data?.client_secret
+          ? confirmPayment(res?.data?.client_secret)
+          : null;
         setPaymentRequest(res?.data);
       })
       .catch((error) => {
-        setError(error.response.data);
+        setError(error?.response?.data);
         // console.log(error);
         setProcessing(false);
       });
@@ -137,6 +152,8 @@ export default function CheckoutForm({ cart, clearCart }) {
       },
     },
   };
+
+  console.log(order);
 
   return (
     <fieldset disabled={processing || cart.items.length < 1 || succeeded}>
@@ -180,140 +197,144 @@ export default function CheckoutForm({ cart, clearCart }) {
             <h2 className="form-title">Shipping address</h2>
           </div>
           <div className="form-body">
-            <Row>
-              <Col lg="4" className="input-Holder">
-                <label htmlFor="Firstname"> First name</label>
-                <input
-                  type="text"
-                  name="FirstName"
-                  id="Firstname"
-                  placeholder={`First name`}
-                  onChange={(event) => onChange(event)}
-                  required
-                />
-              </Col>
-              <Col lg="4" className="input-Holder">
-                <label htmlFor="Lastname"> Last name</label>
-                <input
-                  type="text"
-                  name="LastName"
-                  id="Lastname"
-                  placeholder={`Last name`}
-                  onChange={(event) => onChange(event)}
-                />
-              </Col>
-              <Col lg="8" className="input-Holder">
-                <label htmlFor="Address"> Address</label>
-                <input
-                  type="text"
-                  name="Address"
-                  id="Address"
-                  placeholder={`Address`}
-                  onChange={(event) => onChange(event)}
-                  required
-                />
-              </Col>
-              <Col lg="8" className="input-Holder">
-                <label htmlFor="City"> City</label>
-                <input
-                  type="text"
-                  name="City"
-                  id="City"
-                  placeholder={`City`}
-                  onChange={(event) => onChange(event)}
-                  required
-                />
-              </Col>
-              <Col lg="8">
+            {!order && (
+              <>
                 <Row>
                   <Col lg="4" className="input-Holder">
-                    <CountryDropdown
-                      value={data.country}
-                      onChange={(val) => updateData({ ...data, country: val })}
-                      required
-                    />
-                  </Col>
-                  <Col lg="4" className="input-Holder">
-                    <RegionDropdown
-                      country={data.country}
-                      value={data.region}
-                      onChange={(val) => updateData({ ...data, region: val })}
-                      required
-                    />
-                  </Col>
-                  <Col lg="4" className="input-Holder">
-                    <label htmlFor="PINcode"> PINcode</label>
+                    <label htmlFor="Firstname"> First name</label>
                     <input
                       type="text"
-                      name="PINcode"
-                      id="PINcode"
-                      placeholder={`PIN code`}
+                      name="FirstName"
+                      id="Firstname"
+                      placeholder={`First name`}
                       onChange={(event) => onChange(event)}
                       required
                     />
                   </Col>
+                  <Col lg="4" className="input-Holder">
+                    <label htmlFor="Lastname"> Last name</label>
+                    <input
+                      type="text"
+                      name="LastName"
+                      id="Lastname"
+                      placeholder={`Last name`}
+                      onChange={(event) => onChange(event)}
+                    />
+                  </Col>
+                  <Col lg="8" className="input-Holder">
+                    <label htmlFor="Address"> Address</label>
+                    <input
+                      type="text"
+                      name="Address"
+                      id="Address"
+                      placeholder={`Address`}
+                      onChange={(event) => onChange(event)}
+                      required
+                    />
+                  </Col>
+                  <Col lg="8" className="input-Holder">
+                    <label htmlFor="City"> City</label>
+                    <input
+                      type="text"
+                      name="City"
+                      id="City"
+                      placeholder={`City`}
+                      onChange={(event) => onChange(event)}
+                      required
+                    />
+                  </Col>
+                  <Col lg="8">
+                    <Row>
+                      <Col lg="4" className="input-Holder">
+                        <CountryDropdown
+                          value={data.country}
+                          onChange={(val) =>
+                            updateData({ ...data, country: val })
+                          }
+                          required
+                        />
+                      </Col>
+                      <Col lg="4" className="input-Holder">
+                        <RegionDropdown
+                          country={data.country}
+                          value={data.region}
+                          onChange={(val) =>
+                            updateData({ ...data, region: val })
+                          }
+                          required
+                        />
+                      </Col>
+                      <Col lg="4" className="input-Holder">
+                        <label htmlFor="PINcode"> PINcode</label>
+                        <input
+                          type="text"
+                          name="PINcode"
+                          id="PINcode"
+                          placeholder={`PIN code`}
+                          onChange={(event) => onChange(event)}
+                          required
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+
+                  <Col lg="8" className="input-Holder">
+                    <label htmlFor="Phone"> Phone</label>
+                    <input
+                      type="number"
+                      name="Phone"
+                      id="Phone"
+                      placeholder={`Phone`}
+                      onChange={(event) => onChange(event)}
+                      required
+                    />
+                  </Col>
+
+                  <Col lg="8" className="input-Holder lable-on">
+                    <label htmlFor="saveMe" className={`flex-align-center`}>
+                      <input
+                        type="checkbox"
+                        name={`saveMe`}
+                        onChange={(event) => onChange(event)}
+                        id={`saveMe`}
+                      />{" "}
+                      Save this information for next time
+                    </label>
+                  </Col>
+
+                  <Col lg="8" className="input-Holder stripe-card">
+                    <CardElement
+                      id="card-element"
+                      options={cardStyle}
+                      onChange={handleChange}
+                    />
+                  </Col>
                 </Row>
-              </Col>
 
-              <Col lg="8" className="input-Holder">
-                <label htmlFor="Phone"> Phone</label>
-                <input
-                  type="number"
-                  name="Phone"
-                  id="Phone"
-                  placeholder={`Phone`}
-                  onChange={(event) => onChange(event)}
-                  required
-                />
-              </Col>
+                {/* Show any error that happens when processing the payment */}
+                {error && (
+                  <div className="card-error" role="alert">
+                    {error}
+                  </div>
+                )}
 
-              <Col lg="8" className="input-Holder lable-on">
-                <label htmlFor="saveMe" className={`flex-align-center`}>
-                  <input
-                    type="checkbox"
-                    name={`saveMe`}
-                    onChange={(event) => onChange(event)}
-                    id={`saveMe`}
-                  />{" "}
-                  Save this information for next time
-                </label>
-              </Col>
-
-              <Col lg="8" className="input-Holder stripe-card">
-                <CardElement
-                  id="card-element"
-                  options={cardStyle}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-
-            {/* Show any error that happens when processing the payment */}
-            {error && (
-              <div className="card-error" role="alert">
-                {error}
-              </div>
+                <div className="input-Holder">
+                  {user ? (
+                    <button type="submit" className={`btn submit-btn`}>
+                      Complete Payment
+                    </button>
+                  ) : (
+                    <a
+                      style={{ cursor: "pointer" }}
+                      className={`btn submit-btn`}
+                      onClick={() => setModalLogin(true)}
+                    >
+                      Login / Signup to Continue
+                    </a>
+                  )}
+                </div>
+              </>
             )}
-
-            {/* {paymentRequest && (
-              <PaymentRequestButtonElement options={{ paymentRequest }} />
-            )} */}
-
-            <div className="input-Holder">
-              {user ? (
-                <button type="submit" className={`btn submit-btn`}>
-                  Complete Payment
-                </button>
-              ) : (
-                <a
-                  style={{ cursor: "pointer" }}
-                  className={`btn submit-btn`}
-                  onClick={() => setModalLogin(true)}
-                >
-                  Login / Signup to Continue
-                </a>
-              )}
-            </div>
 
             {/* Show a success message upon completion */}
             {succeeded && order && (

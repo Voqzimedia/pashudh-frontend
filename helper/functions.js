@@ -57,6 +57,8 @@ export const checkOutDataFormater = (data, cart) => {
       name: `${data.FirstName} ${data.LastName}`,
       email: data.Email,
       phone: data.Phone,
+      saveMe: data.saveMe,
+      discount: data.discount,
     };
 
     return dataTemplate;
@@ -88,4 +90,16 @@ export const buyBtnDataFormater = (cart) => {
   } else {
     return null;
   }
+};
+
+export const sortByProperty = (property) => {
+  if (!property) {
+    return null;
+  }
+  return function (a, b) {
+    if (a[property] > b[property]) return 1;
+    else if (a[property] < b[property]) return -1;
+
+    return 0;
+  };
 };

@@ -3,7 +3,7 @@ import AppContext from "../../context/AppContext";
 import { Alert } from "reactstrap";
 
 import { toBase64 } from "../../helper/functions";
-import { uploadImg, changeProfileImg } from "../../helper/auth";
+import { uploadImg, changeProfileImg, getUser } from "../../helper/auth";
 
 import { icons } from "feather-icons";
 
@@ -47,7 +47,7 @@ export default function Profile() {
   const onDismiss = () => setError(false);
 
   useEffect(() => {
-    // console.log(user);
+    getUser().then((res) => (res?.data ? setUser(res.data) : null));
   }, [user]);
 
   const onChange = async (e) => {
