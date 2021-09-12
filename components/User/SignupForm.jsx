@@ -1,8 +1,38 @@
 import React, { useState, useContext } from "react";
 
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 import AppContext from "../../context/AppContext";
 import { registerUser } from "../../helper/auth";
 import { Alert } from "reactstrap";
+
+import { icons } from "feather-icons";
+
+import SvgIcon from "../../components/utils/SvgIcon";
+
+export const PasswordEl = ({ name, onChange, id, required }) => {
+  const [isShow, setShow] = useState(false);
+
+  return (
+    <div className="password-holder">
+      <input
+        type={isShow ? "text" : "password"}
+        name={name}
+        id={id}
+        required={required}
+        onChange={(event) => onChange(event)}
+      />
+      <div className={`icon`} onClick={() => setShow(!isShow)}>
+        {isShow ? (
+          <SvgIcon icon={icons[`eye-off`].toSvg()} />
+        ) : (
+          <SvgIcon icon={icons[`eye`].toSvg()} />
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function SignupForm() {
   const [data, updateData] = useState({
@@ -16,6 +46,8 @@ export default function SignupForm() {
   const [error, setError] = useState(false);
   const { setUser, modalSignup, setModalSignup, setModalLogin } =
     useContext(AppContext);
+
+  // const [phoneNumber, setPhoneNumber] = useState();
 
   const onDismiss = () => setError(false);
 
@@ -87,13 +119,12 @@ export default function SignupForm() {
               />
             </div>
             <div className="input-Holder">
-              <label htmlFor="phone">Phone number</label>
-              <input
-                type="number"
-                name="phone"
-                id="phone"
-                required
-                onChange={(event) => onChange(event)}
+              {/* <label htmlFor="phone">Phone number</label> */}
+              <PhoneInput
+                placeholder="Enter phone number"
+                country="IND"
+                value={data.phone}
+                onChange={(value) => updateData({ ...data, phone: value })}
               />
             </div>
             <div className="input-Holder">
@@ -108,22 +139,20 @@ export default function SignupForm() {
             </div>
             <div className="input-Holder">
               <label htmlFor="password"> Password</label>
-              <input
-                type="password"
+              <PasswordEl
                 name="password"
                 id="password"
                 required
-                onChange={(event) => onChange(event)}
+                onChange={onChange}
               />
             </div>
             <div className="input-Holder">
               <label htmlFor="Confirm_password">Confirm Password</label>
-              <input
-                type="password"
+              <PasswordEl
                 name="ConfirmPassword"
                 id="Confirm_password"
                 required
-                onChange={(event) => onChange(event)}
+                onChange={onChange}
               />
             </div>
 
@@ -155,7 +184,7 @@ export default function SignupForm() {
 
             <div className="input-Holder">
               <center>
-                <button type="submit" className={`btn submit-btn`}>
+                <button type="submit" className={`btn shop-now`}>
                   {loading ? "Loading" : "Signup"}
                 </button>
               </center>

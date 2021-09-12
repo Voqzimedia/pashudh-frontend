@@ -1,19 +1,33 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  PaymentRequestButtonElement,
-} from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { checkOutDataFormater } from "../../helper/functions";
-import { productCheckout, paymentConfirm } from "../../helper/auth";
+import {
+  productCheckout,
+  paymentConfirm,
+  razorpayConfirm,
+} from "../../helper/auth";
 import { OrderItem } from "../../components/Shop/OrderList";
 import { getCode } from "country-list";
 import AppContext from "../../context/AppContext";
 
-const paymentGatewayList = ["Stripe", "Razorpay"];
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
+import stripeLogo from "../../assets/images/logo-stripe.png";
+import razorpayLogo from "../../assets/images/logo-razorpay.png";
+
+export const paymentGatewayList = [
+  {
+    name: "Stripe",
+    img: stripeLogo,
+  },
+  {
+    name: "Razorpay",
+    img: razorpayLogo,
+  },
+];
 
 export default function CheckoutForm({ cart, clearCart, discount }) {
   const { user, setModalLogin } = useContext(AppContext);
@@ -31,6 +45,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
     keepMe: "off",
     saveMe: "off",
     discount: discount,
+    paymentGateway: null,
   });
 
   useEffect(() => {
@@ -50,7 +65,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
   const [order, setOrder] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-  const [paymentGateway, setPaymentGateway] = useState(null);
+  // const [paymentGateway, setPaymentGateway] = useState(null);
 
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
@@ -66,7 +81,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
   const confirmPayment = async (clientSecret) => {
     setProcessing(true);
 
-    const checkoutData = checkOutDataFormater(data, cart);
+    // const checkoutData = checkOutDataFormater(data, cart);
 
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -92,17 +107,62 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
     } else {
       paymentConfirm(payload.paymentIntent.id, discount)
         .then((res) => {
-          setError(null);
-          setProcessing(false);
-          setSucceeded(true);
-          clearCart();
           setOrder(res.data);
+          setError(null);
+          clearCart();
+          setSucceeded(true);
+          setProcessing(false);
         })
         .catch((error) => {
           setError(error.response.data);
           setProcessing(false);
         });
     }
+  };
+
+  const displayRazorpay = (orderData) => {
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_ID,
+      currency: orderData.currency,
+      amount: orderData.amount.toString(),
+      order_id: orderData.id,
+      name: "Pashuth",
+      description: "Thank you for nothing. Please give us some money",
+      handler: function (response) {
+        // console.log(response);
+
+        razorpayConfirm(response, discount)
+          .then((res) => {
+            // console.log(res);
+
+            setOrder(res.data);
+            setError(null);
+            clearCart();
+            setSucceeded(true);
+            setProcessing(false);
+          })
+          .catch((error) => {
+            setError(error.response.data);
+            setProcessing(false);
+          });
+      },
+      modal: {
+        ondismiss: function () {
+          setProcessing(() => false);
+        },
+      },
+      prefill: {
+        email: data.Email,
+        contact: data.Phone,
+      },
+      theme: {
+        color: "#e4003f",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+    return paymentObject;
   };
 
   const formSubmit = (event) => {
@@ -118,10 +178,17 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
         setProcessing(false);
         // set authed User in global context to update header/app state
         // setClientSecret(() => res.data.client_secret);
-        res?.data?.client_secret
-          ? confirmPayment(res?.data?.client_secret)
-          : null;
-        setPaymentRequest(res?.data);
+
+        if (data.paymentGateway?.name == "Stripe") {
+          res?.data?.client_secret
+            ? confirmPayment(res?.data?.client_secret)
+            : null;
+          setPaymentRequest(res?.data);
+        } else {
+          res?.data?.order ? displayRazorpay(res?.data?.order) : null;
+        }
+
+        // console.log(res);
       })
       .catch((error) => {
         setError(error?.response?.data);
@@ -153,7 +220,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
     },
   };
 
-  console.log(order);
+  // console.log(order);
 
   return (
     <fieldset disabled={processing || cart.items.length < 1 || succeeded}>
@@ -280,14 +347,22 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
 
                   <Col lg="8" className="input-Holder">
                     <label htmlFor="Phone"> Phone</label>
-                    <input
+                    <PhoneInput
+                      placeholder="Enter phone number"
+                      country="IND"
+                      value={data.Phone}
+                      onChange={(value) =>
+                        updateData({ ...data, Phone: value })
+                      }
+                    />
+                    {/* <input
                       type="number"
                       name="Phone"
                       id="Phone"
                       placeholder={`Phone`}
                       onChange={(event) => onChange(event)}
                       required
-                    />
+                    /> */}
                   </Col>
 
                   <Col lg="8" className="input-Holder lable-on">
@@ -301,14 +376,45 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
                       Save this information for next time
                     </label>
                   </Col>
-
-                  <Col lg="8" className="input-Holder stripe-card">
-                    <CardElement
-                      id="card-element"
-                      options={cardStyle}
-                      onChange={handleChange}
-                    />
+                  <Col lg="8" className="input-Holder lable-on">
+                    <Row className="align-center justify-center">
+                      {paymentGatewayList.map((payment_Gateway, index) => {
+                        var isActive =
+                          payment_Gateway?.name == data.paymentGateway?.name;
+                        return (
+                          <Col
+                            lg="6"
+                            key={index}
+                            onClick={() =>
+                              updateData({
+                                ...data,
+                                paymentGateway: payment_Gateway,
+                              })
+                            }
+                          >
+                            <div
+                              className={`payment-gateway ${
+                                isActive ? "active" : ""
+                              }`}
+                            >
+                              <div className="img-holder">
+                                <img src={payment_Gateway.img} alt="Stripe" />
+                              </div>
+                            </div>
+                          </Col>
+                        );
+                      })}
+                    </Row>
                   </Col>
+                  {data.paymentGateway?.name == "Stripe" && (
+                    <Col lg="8" className="input-Holder stripe-card">
+                      <CardElement
+                        id="card-element"
+                        options={cardStyle}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                  )}
                 </Row>
 
                 {/* Show any error that happens when processing the payment */}
@@ -320,8 +426,14 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
 
                 <div className="input-Holder">
                   {user ? (
-                    <button type="submit" className={`btn submit-btn`}>
-                      Complete Payment
+                    <button
+                      type="submit"
+                      className={`btn submit-btn`}
+                      disabled={data.paymentGateway ? false : true}
+                    >
+                      {data.paymentGateway?.name == "Stripe"
+                        ? "Complete Payment"
+                        : "Proceed to Pay"}
                     </button>
                   ) : (
                     <a

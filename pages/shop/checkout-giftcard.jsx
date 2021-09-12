@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { currency } from "../../helper/functions";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import client from "../../helper/ApolloClient";
 import { getGiftCard } from "../../helper/graphql/getGiftCards";
@@ -49,6 +50,10 @@ const CheckoutGiftCard = () => {
 
   return (
     <PageMotion>
+      <Head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <meta name="robots" content="nofollow" />
+      </Head>
       <section className={`checkout-section page-section`}>
         {giftCard && (
           <Container>

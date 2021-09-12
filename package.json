@@ -54,6 +54,7 @@
     "react-ga": "^3.3.0",
     "react-image-magnifiers": "^1.4.0",
     "react-outer-click": "^3.5.0",
+    "react-phone-number-input": "^3.1.27",
     "react-slick": "^0.28.1",
     "react-sliding-pane": "^7.0.0",
     "react-sticky-el": "^2.0.9",

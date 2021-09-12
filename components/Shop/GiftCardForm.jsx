@@ -1,13 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { checkOutDataFormater } from "../../helper/functions";
-import { promoCheckout, promoConfirm } from "../../helper/auth";
-import { PromoItem } from "./OrderList";
+
+import {
+  promoRazorpayConfirm,
+  promoConfirm,
+  promoCheckout,
+} from "../../helper/auth";
+import { PromoItem } from "../../components/Shop/OrderList";
 import { getCode } from "country-list";
+import AppContext from "../../context/AppContext";
+
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
+import stripeLogo from "../../assets/images/logo-stripe.png";
+import razorpayLogo from "../../assets/images/logo-razorpay.png";
+
+export const paymentGatewayList = [
+  {
+    name: "Stripe",
+    img: stripeLogo,
+  },
+  {
+    name: "Razorpay",
+    img: razorpayLogo,
+  },
+];
 
 export default function GiftCardForm({ giftCard }) {
+  const { user, setModalLogin } = useContext(AppContext);
+
   const [data, updateData] = useState({
     Email: "",
     FirstName: "",
@@ -19,6 +43,7 @@ export default function GiftCardForm({ giftCard }) {
     region: "",
     Phone: "",
     saveMe: "off",
+    paymentGateway: null,
   });
 
   const [succeeded, setSucceeded] = useState(false);
@@ -69,16 +94,60 @@ export default function GiftCardForm({ giftCard }) {
     } else {
       promoConfirm(payload.paymentIntent.id)
         .then((res) => {
+          setOrder(res.data);
           setError(null);
           setProcessing(false);
           setSucceeded(true);
-          setOrder(res.data);
         })
         .catch((error) => {
-          setError(error.response.data);
+          setError(error?.response?.data);
           setProcessing(false);
         });
     }
+  };
+
+  const displayRazorpay = (orderData) => {
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_ID,
+      currency: orderData.currency,
+      amount: orderData.amount.toString(),
+      order_id: orderData.id,
+      name: "Pashuth",
+      description: "Thank you for nothing. Please give us some money",
+      handler: function (response) {
+        // console.log(response);
+
+        promoRazorpayConfirm(response)
+          .then((res) => {
+            // console.log(res);
+
+            setOrder(res.data);
+            setError(null);
+            setSucceeded(true);
+            setProcessing(false);
+          })
+          .catch((error) => {
+            setError(error.response.data);
+            setProcessing(false);
+          });
+      },
+      modal: {
+        ondismiss: function () {
+          setProcessing(() => false);
+        },
+      },
+      prefill: {
+        email: data.Email,
+        contact: data.Phone,
+      },
+      theme: {
+        color: "#e4003f",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+    return paymentObject;
   };
 
   const formSubmit = (event) => {
@@ -89,20 +158,32 @@ export default function GiftCardForm({ giftCard }) {
 
     // const checkoutData = checkOutDataFormater(data, cart);
 
-    promoCheckout({ giftcard: giftCard.slug, emailTo: data.Email })
+    promoCheckout({
+      giftcard: giftCard.slug,
+      emailTo: data.Email,
+      paymentGateway: data.paymentGateway,
+    })
       .then((res) => {
+        // console.log(res);
         setProcessing(false);
         // set authed User in global context to update header/app state
         // setClientSecret(() => res.data.client_secret);
-        confirmPayment(res.data.client_secret);
+        if (data.paymentGateway?.name == "Stripe") {
+          res?.data?.client_secret
+            ? confirmPayment(res?.data?.client_secret)
+            : null;
+          setPaymentRequest(res?.data);
+        } else {
+          res?.data?.order ? displayRazorpay(res?.data?.order) : null;
+        }
       })
       .catch((error) => {
-        setError(error.response.data);
+        setError(error?.response?.data);
         setProcessing(false);
       });
   };
 
-  console.log(order);
+  // console.log(order);
 
   const cardStyle = {
     hidePostalCode: true,
@@ -232,13 +313,11 @@ export default function GiftCardForm({ giftCard }) {
 
               <Col lg="8" className="input-Holder">
                 <label htmlFor="Phone"> Phone</label>
-                <input
-                  type="number"
-                  name="Phone"
-                  id="Phone"
-                  placeholder={`Phone`}
-                  onChange={(event) => onChange(event)}
-                  required
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  country="IND"
+                  value={data.Phone}
+                  onChange={(value) => updateData({ ...data, Phone: value })}
                 />
               </Col>
 
@@ -254,13 +333,45 @@ export default function GiftCardForm({ giftCard }) {
                 </label>
               </Col>
 
-              <Col lg="8" className="input-Holder stripe-card">
-                <CardElement
-                  id="card-element"
-                  options={cardStyle}
-                  onChange={handleChange}
-                />
+              <Col lg="8" className="input-Holder lable-on">
+                <Row className="align-center justify-center">
+                  {paymentGatewayList.map((payment_Gateway, index) => {
+                    var isActive =
+                      payment_Gateway?.name == data.paymentGateway?.name;
+                    return (
+                      <Col
+                        lg="6"
+                        key={index}
+                        onClick={() =>
+                          updateData({
+                            ...data,
+                            paymentGateway: payment_Gateway,
+                          })
+                        }
+                      >
+                        <div
+                          className={`payment-gateway ${
+                            isActive ? "active" : ""
+                          }`}
+                        >
+                          <div className="img-holder">
+                            <img src={payment_Gateway.img} alt="Stripe" />
+                          </div>
+                        </div>
+                      </Col>
+                    );
+                  })}
+                </Row>
               </Col>
+              {data.paymentGateway?.name == "Stripe" && (
+                <Col lg="8" className="input-Holder stripe-card">
+                  <CardElement
+                    id="card-element"
+                    options={cardStyle}
+                    onChange={handleChange}
+                  />
+                </Col>
+              )}
             </Row>
 
             {/* Show any error that happens when processing the payment */}
@@ -271,9 +382,25 @@ export default function GiftCardForm({ giftCard }) {
             )}
 
             <div className="input-Holder">
-              <button type="submit" className={`btn submit-btn`}>
-                Continue to shipping
-              </button>
+              {user ? (
+                <button
+                  type="submit"
+                  className={`btn submit-btn`}
+                  disabled={data.paymentGateway ? false : true}
+                >
+                  {data.paymentGateway?.name == "Stripe"
+                    ? "Complete Payment"
+                    : "Proceed to Pay"}
+                </button>
+              ) : (
+                <a
+                  style={{ cursor: "pointer" }}
+                  className={`btn submit-btn`}
+                  onClick={() => setModalLogin(true)}
+                >
+                  Login / Signup to Continue
+                </a>
+              )}
             </div>
 
             {/* Show a success message upon completion */}

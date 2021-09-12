@@ -2900,6 +2900,11 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
+country-flag-icons@^1.0.2:
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/country-flag-icons/-/country-flag-icons-1.4.10.tgz#3d440b14ff745caf755afb326398285ce2451bb6"
+  integrity sha512-4qngHBNB+k7IyXztHYVh0Nfo1SBwUX0ePksCQKntuuCHr/sNbzxtl1Oi0SDtov1q19HqJBzKdULEefYmafXmdg==
+
 country-list@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/country-list/-/country-list-2.2.0.tgz#e248338cafb97b2d86cf0784a25dceb4d52054d1"
@@ -4691,6 +4696,13 @@ ini@^1.3.4, ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
+input-format@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/input-format/-/input-format-0.3.6.tgz#b9b167dbd16435eb3c0012347964b230ea0024c8"
+  integrity sha512-SbUu43CDVV5GlC8Xi6NYBUoiU+tLpN/IMYyQl0mzSXDiU1w0ql8wpcwjDOFpaCVLySLoreLUimhI82IA5y42Pw==
+  dependencies:
+    prop-types "^15.7.2"
+
 into-stream@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/into-stream/-/into-stream-3.1.0.tgz#96fb0a936c12babd6ff1752a17d05616abd094c6"
@@ -5297,6 +5309,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
+
+libphonenumber-js@^1.9.26:
+  version "1.9.32"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.9.32.tgz#ec8048c7a9d7bb0ce282c5bccea2f945a056af29"
+  integrity sha512-sXuNLzTU/lNUZ78eWUi5JvqaHAhwBMuMT17613EjLZl/ejIoDe0EV225Xhw4vuZ6FcqkiwsF8qHcOyyn1dBEWQ==
 
 load-bmfont@^1.2.3, load-bmfont@^1.3.1, load-bmfont@^1.4.0:
   version "1.4.1"
@@ -6866,6 +6883,17 @@ react-outer-click@^3.5.0:
     prop-types "^15.7.2"
     use-composed-ref "^1.1.0"
     use-latest "^1.2.0"
+
+react-phone-number-input@^3.1.27:
+  version "3.1.27"
+  resolved "https://registry.yarnpkg.com/react-phone-number-input/-/react-phone-number-input-3.1.27.tgz#6499ced6602eacb475c58d7131be71a90cd471ce"
+  integrity sha512-+hFhQsdMAXm0k9mzC5hltcP2rglecf9ctyIL4UsGSJ09vNItlPCicC4UKQyM6vd2CF4PpsDsonjgyCU0yMcRtA==
+  dependencies:
+    classnames "^2.2.5"
+    country-flag-icons "^1.0.2"
+    input-format "^0.3.6"
+    libphonenumber-js "^1.9.26"
+    prop-types "^15.7.2"
 
 react-popper@^1.3.6:
   version "1.3.11"

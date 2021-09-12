@@ -62,7 +62,12 @@ export const OrderItem = ({ order }) => {
         <div className="order-details-more">
           <div className={`transaction-details`}>
             <p className="payment">
-              Payment Method : <span>Credit cards or Debit cards</span>
+              Payment Method :{" "}
+              <span>
+                {order?.paymentGateway
+                  ? order?.paymentGateway
+                  : "Credit cards or Debit cards"}
+              </span>
             </p>
             <p className="transaction-id">
               Transaction ID # : <span>{order.transactionId}</span>
@@ -167,7 +172,12 @@ export const PromoItem = ({ promo }) => {
         <div className="order-details-more">
           <div className={`transaction-details`}>
             <p className="payment">
-              Payment Method : <span>Credit cards or Debit cards</span>
+              Payment Method :
+              <span>
+                {promo?.paymentGateway
+                  ? promo?.paymentGateway
+                  : "Credit cards or Debit cards"}
+              </span>
             </p>
             <p className="transaction-id">
               Transaction ID # : <span>{promo.transactionId}</span>

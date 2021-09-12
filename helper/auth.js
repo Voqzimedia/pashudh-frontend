@@ -217,6 +217,36 @@ export const paymentConfirm = (transactionId, discount) => {
   });
 };
 
+export const razorpayConfirm = (transaction, discount) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/orders/confirmRazerpay/`,
+        { transaction, discount },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
 export const promoCheckout = (data) => {
   if (typeof window === "undefined") {
     return;
@@ -255,6 +285,36 @@ export const promoConfirm = (transactionId) => {
       .post(
         `${API_URL}/promos/confirm/`,
         { transactionId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const promoRazorpayConfirm = (transaction) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/promos/confirmRazerpay/`,
+        { transaction },
         {
           headers: {
             Authorization: `Bearer ${token}`,
