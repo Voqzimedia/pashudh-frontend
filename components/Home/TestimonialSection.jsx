@@ -18,6 +18,7 @@ const Slider = dynamic(() => import("react-slick"));
 import quoteImg from "../../assets/images/icons/quotes.svg?include";
 
 import SvgIcon from "../utils/SvgIcon";
+import { imgUrlCheck } from "../../helper/functions";
 
 export default function TestimonialSection() {
   const [testimonialList, setTestimonial] = useState([]);
@@ -76,7 +77,10 @@ export default function TestimonialSection() {
                               src={
                                 testimonial?.User?.ProfilePic?.formats
                                   ?.thumbnail?.url
-                                  ? `${testimonial.User.ProfilePic.formats.thumbnail.url}`
+                                  ? `${imgUrlCheck(
+                                      testimonial.User.ProfilePic.formats
+                                        .thumbnail.url
+                                    )}`
                                   : profileImg
                               }
                               alt="User"

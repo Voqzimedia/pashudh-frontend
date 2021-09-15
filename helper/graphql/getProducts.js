@@ -12,6 +12,7 @@ export const getProductList = gql`
       }
       StockDetails {
         isSoldOut
+        SKU
       }
       content
       price
@@ -32,6 +33,7 @@ export const searchProduct = gql`
       }
       StockDetails {
         isSoldOut
+        SKU
       }
       content
       price
@@ -49,6 +51,12 @@ export const getProductSlug = gql`
   }
 `;
 
+export const getProductsCount = gql`
+  query getProductsCount {
+    productsCount
+  }
+`;
+
 export const getProduct = gql`
   query getProduct($slug: String!) {
     products(where: { slug: $slug }, limit: 9) {
@@ -59,6 +67,9 @@ export const getProduct = gql`
         url
         formats
       }
+      categories {
+        slug
+      }
       GalleryImgs {
         id
         url
@@ -66,6 +77,7 @@ export const getProduct = gql`
       }
       StockDetails {
         isSoldOut
+        SKU
       }
       ProductDetails {
         Material
@@ -77,6 +89,45 @@ export const getProduct = gql`
         BlousePiece
         HowToWash
         Shipping
+      }
+      content
+      price
+      slug
+    }
+  }
+`;
+
+export const getProductByFilter = gql`
+  query getProductByFilter(
+    $limit: Int
+    $start: Int
+    $categories: [String]
+    $class: [String]
+    $color: [String]
+    $price: Int
+    $query: String
+  ) {
+    products(
+      limit: $limit
+      start: $start
+      where: {
+        classes: { slug_in: $class }
+        colors: { slug_in: $color }
+        categories: { slug_in: $categories }
+        price_lte: $price
+        name_contains: $query
+      }
+    ) {
+      id
+      name
+      image {
+        id
+        url
+        formats
+      }
+      StockDetails {
+        isSoldOut
+        SKU
       }
       content
       price

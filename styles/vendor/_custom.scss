@@ -67,3 +67,34 @@
     }
   }
 }
+
+.payment-gateway {
+  border: 1px solid;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  &.active {
+    &::after {
+      content: "\2713";
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      color: white;
+      background-color: #47800f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+  .img-holder {
+    max-width: 200px;
+    margin: auto;
+    img {
+      width: 100%;
+    }
+  }
+}

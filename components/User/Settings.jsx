@@ -2,6 +2,7 @@ import { Alert } from "reactstrap";
 import { useState, useContext } from "react";
 import { login, changePassword } from "../../helper/auth";
 import AppContext from "../../context/AppContext";
+import { PasswordEl } from "./SignupForm";
 
 export default function Settings({ toggleSettings }) {
   const [data, updateData] = useState({
@@ -94,32 +95,29 @@ export default function Settings({ toggleSettings }) {
           <fieldset disabled={loading}>
             <div className="input-Holder">
               <label htmlFor="password">Old Password</label>
-              <input
-                type="password"
+              <PasswordEl
                 name="password"
                 id="password"
                 required
-                onChange={(event) => onChange(event)}
+                onChange={onChange}
               />
             </div>
             <div className="input-Holder">
               <label htmlFor="new_password">New Password</label>
-              <input
-                type="password"
+              <PasswordEl
                 name="NewPassword"
-                required
                 id="new_password"
-                onChange={(event) => onChange(event)}
+                required
+                onChange={onChange}
               />
             </div>
             <div className="input-Holder">
               <label htmlFor="Confirm_password">Confirm Password</label>
-              <input
-                type="password"
+              <PasswordEl
                 name="ConfirmPassword"
-                required
                 id="Confirm_password"
-                onChange={(event) => onChange(event)}
+                required
+                onChange={onChange}
               />
             </div>
 

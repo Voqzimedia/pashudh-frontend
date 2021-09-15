@@ -289,11 +289,12 @@ hr {
   padding: 0.8em 1.2em;
   position: relative;
   font-weight: bold;
-  background: #ffc107;
+  background: $base-gradient;
   cursor: pointer;
   .code {
     position: relative;
     width: 100%;
+    color: $base-primary-light;
     p {
       margin: 0;
       font-size: 1rem;
@@ -321,4 +322,8 @@ hr {
     top: -12px;
     right: 0;
   }
+}
+
+.justify-center {
+  justify-content: center;
 }

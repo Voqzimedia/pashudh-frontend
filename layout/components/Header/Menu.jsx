@@ -7,10 +7,12 @@ import Link from "next/link";
 
 import AppContext from "../../../context/AppContext";
 
-export default function Menu() {
+export default function Menu({ categories }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const [cataList, setCataList] = useState([]);
+  const [cataList, setCataList] = useState(categories);
+
+  // console.log(categories);
 
   // Get Categories Data.
   const {

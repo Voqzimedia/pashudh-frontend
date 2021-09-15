@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 import { login } from "../../helper/auth";
 import { Alert } from "reactstrap";
+import { PasswordEl } from "./SignupForm";
 
 export default function LoginForm() {
   const [data, updateData] = useState({ identifier: "", password: "" });
@@ -59,12 +60,11 @@ export default function LoginForm() {
           </div>
           <div className="input-Holder">
             <label htmlFor="password"> Password</label>
-            <input
-              type="password"
+            <PasswordEl
               name="password"
               id="password"
               required
-              onChange={(event) => onChange(event)}
+              onChange={onChange}
             />
           </div>
 
@@ -97,11 +97,11 @@ export default function LoginForm() {
           <div className="input-Holder">
             <center>
               {loading ? (
-                <button disabled className={`btn submit-btn`}>
+                <button disabled className={`btn submit-btn `}>
                   Loading
                 </button>
               ) : (
-                <button type="submit" className={`btn submit-btn`}>
+                <button type="submit" className={`btn  submit-btn`}>
                   Login
                 </button>
               )}

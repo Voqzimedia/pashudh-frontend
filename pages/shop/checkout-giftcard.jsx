@@ -1,8 +1,9 @@
 import { Container, Row, Col } from "reactstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { currency } from "../../helper/functions";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import client from "../../helper/ApolloClient";
 import { getGiftCard } from "../../helper/graphql/getGiftCards";
@@ -15,18 +16,44 @@ const GiftCardForm = dynamic(() =>
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const CheckoutGiftCard = ({ giftCard }) => {
-  const pageTitle = "Gift Card Purchasing";
+const CheckoutGiftCard = () => {
+  const pageTitle = "Checkout";
+
+  const [giftCard, setGiftCard] = useState(null);
+
   const router = useRouter();
 
-  useEffect(() => {
-    !giftCard ? router.push(`/gift-cards`) : null;
-  }, [giftCard]);
+  // console.log(router);
+
+  useEffect(async () => {
+    const {
+      query: { giftCard },
+    } = router;
+
+    if (giftCard) {
+      const { data: giftcardsData } = await client.query({
+        query: getGiftCard,
+        variables: {
+          slug: giftCard,
+        },
+      });
+
+      giftcardsData?.giftcards.length > 0
+        ? setGiftCard(giftcardsData.giftcards[0])
+        : router.push("/gift-cards");
+
+      // console.log(giftcardsData);
+    }
+  }, [router]);
 
   const promise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
   return (
     <PageMotion>
+      <Head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <meta name="robots" content="nofollow" />
+      </Head>
       <section className={`checkout-section page-section`}>
         {giftCard && (
           <Container>
@@ -80,30 +107,6 @@ const CheckoutGiftCard = ({ giftCard }) => {
       </section>
     </PageMotion>
   );
-};
-
-CheckoutGiftCard.getInitialProps = async (context) => {
-  const {
-    query: { giftCard },
-  } = context;
-
-  if (giftCard) {
-    const { data: giftcardsData } = await client.query({
-      query: getGiftCard,
-      variables: {
-        slug: giftCard,
-      },
-    });
-
-    return {
-      giftCard:
-        giftcardsData?.giftcards.length > 0 ? giftcardsData.giftcards[0] : null,
-    };
-  } else {
-    return {
-      giftCard: null,
-    };
-  }
 };
 
 export default CheckoutGiftCard;

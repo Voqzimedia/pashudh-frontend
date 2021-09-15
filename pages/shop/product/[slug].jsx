@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { useQuery } from "@apollo/client";
-import Sticky from "react-sticky-el";
+// import Sticky from "react-sticky-el";
 
 import { currency, camelToNormal } from "../../../helper/functions";
 
@@ -115,23 +115,23 @@ const Product = ({ product, category }) => {
     );
   }
 
-  useEffect(() => {
-    const footer = document.querySelector(".related-items");
+  // useEffect(() => {
+  //   const footer = document.querySelector(".related-items");
 
-    const isEnd = () => {
-      setIsFooterView(() => elementInViewport(footer));
-    };
+  //   const isEnd = () => {
+  //     setIsFooterView(() => elementInViewport(footer));
+  //   };
 
-    if (!isMobile) {
-      document.addEventListener("scroll", isEnd, {
-        passive: true,
-      });
-    }
+  //   if (!isMobile) {
+  //     document.addEventListener("scroll", isEnd, {
+  //       passive: true,
+  //     });
+  //   }
 
-    return () => {
-      document.removeEventListener("scroll", isEnd);
-    };
-  }, [isMobile]);
+  //   return () => {
+  //     document.removeEventListener("scroll", isEnd);
+  //   };
+  // }, [isMobile]);
 
   for (const [key, value] of Object.entries(thisProduct.ProductDetails)) {
     key != "__typename"
@@ -169,10 +169,11 @@ const Product = ({ product, category }) => {
                   <>
                     <article>
                       <div className="product-header">
-                        <h1 className="product-name">{thisProduct.name}</h1>
+                        <h1 className="product-name">{thisProduct?.name}</h1>
                         <p className="price">
-                          {currency.format(thisProduct.price)}
+                          {currency.format(thisProduct?.price)}
                         </p>
+                        <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                       </div>
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (
@@ -254,13 +255,14 @@ const Product = ({ product, category }) => {
                     )}
                   </>
                 ) : (
-                  <Sticky disabled={isFooterView}>
+                  <>
                     <article>
                       <div className="product-header">
                         <h1 className="product-name">{thisProduct.name}</h1>
                         <p className="price">
                           {currency.format(thisProduct.price)}
                         </p>
+                        <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                       </div>
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (
@@ -340,7 +342,7 @@ const Product = ({ product, category }) => {
                         <AddWishlist product={{ ...thisProduct }} />
                       </div>
                     )}
-                  </Sticky>
+                  </>
                 )}
               </Col>
               <Col lg="6" className={`product-image-wrapper`}>
@@ -365,20 +367,20 @@ const Product = ({ product, category }) => {
 // revalidation is enabled and a new request comes in
 export async function getStaticProps(context) {
   const {
-    params: { slug, category },
+    params: { slug },
   } = context;
-
-  const { data: categoryData } = await client.query({
-    query: getCategory,
-    variables: {
-      slug: category,
-    },
-  });
 
   const { data: productData } = await client.query({
     query: getProduct,
     variables: {
       slug: slug,
+    },
+  });
+
+  const { data: categoryData } = await client.query({
+    query: getCategory,
+    variables: {
+      slug: productData?.products?.[0].categories?.[0]?.slug,
     },
   });
 
@@ -400,23 +402,12 @@ export async function getStaticPaths() {
     query: getProductSlug,
   });
 
-  const { data: cataData } = await client.query({
-    query: getCategoriesPath,
-  });
-
   const pathsData = [];
 
-  cataData?.categories &&
-    cataData?.categories.map((cate) => {
-      if (!isEmpty(cate?.slug)) {
-        data?.products &&
-          data?.products.map((product) => {
-            if (!isEmpty(product?.slug)) {
-              pathsData.push({
-                params: { slug: product?.slug, category: cate?.slug },
-              });
-            }
-          });
+  data?.products &&
+    data?.products.map((product) => {
+      if (!isEmpty(product?.slug)) {
+        pathsData.push({ params: { slug: product?.slug } });
       }
     });
 

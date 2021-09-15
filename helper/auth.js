@@ -187,7 +187,7 @@ export const productCheckout = (data) => {
   });
 };
 
-export const paymentConfirm = (transactionId) => {
+export const paymentConfirm = (transactionId, discount, useRedeemPoints) => {
   if (typeof window === "undefined") {
     return;
   }
@@ -200,7 +200,37 @@ export const paymentConfirm = (transactionId) => {
     axios
       .post(
         `${API_URL}/orders/confirm/`,
-        { transactionId },
+        { transactionId, discount, useRedeemPoints },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const razorpayConfirm = (transaction, discount, useRedeemPoints) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/orders/confirmRazerpay/`,
+        { transaction, discount, useRedeemPoints },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -271,6 +301,36 @@ export const promoConfirm = (transactionId) => {
   });
 };
 
+export const promoRazorpayConfirm = (transaction) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // console.log(transactionId);
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URL}/promos/confirmRazerpay/`,
+        { transaction },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
 export const uploadImg = (data) => {
   if (typeof window === "undefined") {
     return;
@@ -315,6 +375,56 @@ export const changeProfileImg = (id, ProfilePic) => {
           },
         }
       )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const getUser = () => {
+  //prevent function from being ran on the server
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API_URL}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
+  });
+};
+
+export const validatePromo = (code) => {
+  //prevent function from being ran on the server
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const token = Cookie.get("token");
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API_URL}/promos/validate/${code}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         resolve(res);
       })

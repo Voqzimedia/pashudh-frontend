@@ -17,10 +17,10 @@ const Layout = (props) => {
   const isMobile = deviceWidth < 500;
   return (
     <>
-      {isMobile ? <Header /> : null}
+      {isMobile ? <Header categories={props?.categories} /> : null}
 
       <div className="scroll-parent">
-        {!isMobile ? <Header /> : null}
+        {!isMobile ? <Header categories={props?.categories} /> : null}
 
         <Tracker>
           <main className={`page-main`}>

@@ -17,7 +17,7 @@ const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
   ssr: false,
 });
 
-export default function Header() {
+export default function Header({ categories }) {
   const { deviceWidth, toggleTheme, darkTheme } = useContext(AppContext);
   const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
   const isMobile = deviceWidth < 500;
@@ -61,7 +61,7 @@ export default function Header() {
                   <SearchBox />
                 </div>
                 <div className="menu-block">
-                  <Menu />
+                  <Menu categories={categories} />
                 </div>
 
                 <div className="user-block">
