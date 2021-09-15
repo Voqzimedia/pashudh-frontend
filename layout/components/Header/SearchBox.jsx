@@ -15,7 +15,7 @@ export default function SearchBox({ isMobile, toggleSearch, isSearchOpen }) {
   const { setSearchQuery } = useContext(AppContext);
 
   const goToSearch = () => {
-    router.route != "/shop/search" ? router.push(`/shop/search`) : null;
+    router.route != "/shop/search" ? router.push(`/shop`) : null;
   };
 
   useEffect(() => {

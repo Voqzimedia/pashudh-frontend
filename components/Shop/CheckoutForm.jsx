@@ -29,7 +29,12 @@ export const paymentGatewayList = [
   },
 ];
 
-export default function CheckoutForm({ cart, clearCart, discount }) {
+export default function CheckoutForm({
+  cart,
+  clearCart,
+  discount,
+  useRedeemPoints,
+}) {
   const { user, setModalLogin } = useContext(AppContext);
 
   const [data, updateData] = useState({
@@ -45,6 +50,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
     keepMe: "off",
     saveMe: "off",
     discount: discount,
+    useRedeemPoints: useRedeemPoints,
     paymentGateway: null,
   });
 
@@ -54,6 +60,13 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
       updateData({ ...data, discount: null });
     };
   }, [discount]);
+
+  useEffect(() => {
+    updateData({ ...data, useRedeemPoints: useRedeemPoints });
+    return () => {
+      updateData({ ...data, useRedeemPoints: false });
+    };
+  }, [useRedeemPoints]);
 
   // console.log(data);
 
@@ -105,7 +118,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      paymentConfirm(payload.paymentIntent.id, discount)
+      paymentConfirm(payload.paymentIntent.id, discount, useRedeemPoints)
         .then((res) => {
           setOrder(res.data);
           setError(null);
@@ -131,7 +144,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
       handler: function (response) {
         // console.log(response);
 
-        razorpayConfirm(response, discount)
+        razorpayConfirm(response, discount, useRedeemPoints)
           .then((res) => {
             // console.log(res);
 
@@ -171,7 +184,7 @@ export default function CheckoutForm({ cart, clearCart, discount }) {
 
     const checkoutData = checkOutDataFormater(data, cart);
 
-    // console.log(checkoutData)
+    console.log(checkoutData);
 
     productCheckout(checkoutData)
       .then((res) => {

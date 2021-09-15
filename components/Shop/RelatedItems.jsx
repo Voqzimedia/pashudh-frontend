@@ -36,7 +36,7 @@ export default function RelatedItems({ relatedItems, category }) {
                     transition="transition"
                     key={index}
                   >
-                    <Link href={`/shop/${category.slug}/${product.slug}`}>
+                    <Link href={`/shop/product/${product.slug}`}>
                       <a className="product-item">
                         <motion.div className="image-holder">
                           {product.StockDetails.isSoldOut && (

@@ -367,20 +367,20 @@ const Product = ({ product, category }) => {
 // revalidation is enabled and a new request comes in
 export async function getStaticProps(context) {
   const {
-    params: { slug, category },
+    params: { slug },
   } = context;
-
-  const { data: categoryData } = await client.query({
-    query: getCategory,
-    variables: {
-      slug: category,
-    },
-  });
 
   const { data: productData } = await client.query({
     query: getProduct,
     variables: {
       slug: slug,
+    },
+  });
+
+  const { data: categoryData } = await client.query({
+    query: getCategory,
+    variables: {
+      slug: productData?.products?.[0].categories?.[0]?.slug,
     },
   });
 
@@ -402,23 +402,12 @@ export async function getStaticPaths() {
     query: getProductSlug,
   });
 
-  const { data: cataData } = await client.query({
-    query: getCategoriesPath,
-  });
-
   const pathsData = [];
 
-  cataData?.categories &&
-    cataData?.categories.map((cate) => {
-      if (!isEmpty(cate?.slug)) {
-        data?.products &&
-          data?.products.map((product) => {
-            if (!isEmpty(product?.slug)) {
-              pathsData.push({
-                params: { slug: product?.slug, category: cate?.slug },
-              });
-            }
-          });
+  data?.products &&
+    data?.products.map((product) => {
+      if (!isEmpty(product?.slug)) {
+        pathsData.push({ params: { slug: product?.slug } });
       }
     });
 

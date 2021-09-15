@@ -51,6 +51,12 @@ export const getProductSlug = gql`
   }
 `;
 
+export const getProductsCount = gql`
+  query getProductsCount {
+    productsCount
+  }
+`;
+
 export const getProduct = gql`
   query getProduct($slug: String!) {
     products(where: { slug: $slug }, limit: 9) {
@@ -60,6 +66,9 @@ export const getProduct = gql`
         id
         url
         formats
+      }
+      categories {
+        slug
       }
       GalleryImgs {
         id

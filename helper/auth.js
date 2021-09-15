@@ -187,7 +187,7 @@ export const productCheckout = (data) => {
   });
 };
 
-export const paymentConfirm = (transactionId, discount) => {
+export const paymentConfirm = (transactionId, discount, useRedeemPoints) => {
   if (typeof window === "undefined") {
     return;
   }
@@ -200,7 +200,7 @@ export const paymentConfirm = (transactionId, discount) => {
     axios
       .post(
         `${API_URL}/orders/confirm/`,
-        { transactionId, discount },
+        { transactionId, discount, useRedeemPoints },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ export const paymentConfirm = (transactionId, discount) => {
   });
 };
 
-export const razorpayConfirm = (transaction, discount) => {
+export const razorpayConfirm = (transaction, discount, useRedeemPoints) => {
   if (typeof window === "undefined") {
     return;
   }
@@ -230,7 +230,7 @@ export const razorpayConfirm = (transaction, discount) => {
     axios
       .post(
         `${API_URL}/orders/confirmRazerpay/`,
-        { transaction, discount },
+        { transaction, discount, useRedeemPoints },
         {
           headers: {
             Authorization: `Bearer ${token}`,

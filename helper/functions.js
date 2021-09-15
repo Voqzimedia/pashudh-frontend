@@ -59,6 +59,7 @@ export const checkOutDataFormater = (data, cart) => {
       phone: data.Phone,
       saveMe: data.saveMe,
       discount: data.discount,
+      useRedeemPoints: data.useRedeemPoints,
       paymentGateway: data.paymentGateway?.name,
     };
 

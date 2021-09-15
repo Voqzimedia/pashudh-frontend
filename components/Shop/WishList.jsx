@@ -41,7 +41,7 @@ export default function WishList() {
               </Col>
               <Col xs="8">
                 <div className="product-details">
-                  <Link href={`/shop/whole-six-yards/${product.slug}`}>
+                  <Link href={`/shop/product/${product.slug}`}>
                     <a className="name">{product.name}</a>
                   </Link>
                   <div className="price">{currency.format(product.price)}</div>

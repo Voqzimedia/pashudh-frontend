@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo, useReducer } from "react";
 import { Container, DropdownMenu } from "reactstrap";
 import { isEmpty } from "lodash";
 
@@ -9,81 +9,157 @@ import {
   getCategoriesPath,
 } from "../../helper/graphql/getCategories";
 import client from "../../helper/ApolloClient";
+import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
 import { CatagoryFilterMobile } from "../../components/Shop/CatagoryFilter";
 import AppContext from "../../context/AppContext";
-import { getProductList } from "../../helper/graphql/getProducts";
+import {
+  getProductByFilter,
+  getProductList,
+  getProductsCount,
+} from "../../helper/graphql/getProducts";
+import ShopPagination from "../../components/Shop/ShopPagination";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
-const CatagoryFilter = dynamic(() =>
-  import("../../components/Shop/CatagoryFilter")
+const CatagoryFilterX = dynamic(() =>
+  import("../../components/Shop/CatagoryFilterX")
 );
 
 const ProductSkeleton = dynamic(() =>
   import("../../components/utils/ProductSkeleton")
 );
 
-const Shop = ({ products, categories }) => {
+export const initialFilter = {
+  categories: [],
+  class: [],
+  color: [],
+  price: null,
+  limit: 9,
+  start: 0,
+};
+
+export const FILTER_ACTIONS = {
+  CHANGE_CLASS: "changeClass",
+  CHANGE_COLOR: "changeColor",
+  CHANGE_PRICE: "changePrice",
+  CHANGE_CATEGORY: "changeCategory",
+  LOADMORE: "loadMore",
+  CLEAR: "clear",
+};
+
+export function filterReducer(state, action) {
+  switch (action.type) {
+    case FILTER_ACTIONS.CHANGE_CLASS:
+      return { ...state, class: action.class, start: 0 };
+    case FILTER_ACTIONS.CHANGE_COLOR:
+      return { ...state, color: action.color, start: 0 };
+    case FILTER_ACTIONS.CHANGE_PRICE:
+      return { ...state, price: action.price, start: 0 };
+    case FILTER_ACTIONS.LOADMORE:
+      return { ...state, start: action.start };
+    case FILTER_ACTIONS.CHANGE_CATEGORY:
+      return { ...state, categories: action.categories };
+    default:
+      throw new Error();
+  }
+}
+
+const Shop = ({ products, categories, productsCount }) => {
   const pageTitle = "Shop";
 
   const [prodList, setProdList] = useState(products);
   const [filterCata, setFilterCata] = useState(null);
   const [filterSort, setFilterSort] = useState("id");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const changeTab = (category) => {
-    setFilterCata(category);
-    refetchCata();
-  };
+  const [state, dispatch] = useReducer(filterReducer, initialFilter);
 
-  const { deviceWidth } = useContext(AppContext);
+  const { deviceWidth, searchQuery } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
-  const sortProduct = (option) => {
-    switch (option) {
-      case "priceAsc":
-        setFilterSort("price:asc");
+  const router = useRouter();
 
-        break;
-      case "priceDesc":
-        setFilterSort("price:desc");
+  const graphVariable = useMemo(() => {
+    let price = state.price ? state.price : null;
+    let categories = state.categories;
+    let thisClass = state.class;
+    let color = state.color;
+    let limit = state.limit;
+    let start = state.start;
+    let query = searchQuery != "" ? searchQuery : null;
 
-        break;
-      default:
-        setFilterSort("id:asc");
+    let variable = {};
+
+    if (price) {
+      variable = { ...variable, price };
+    }
+    if (limit) {
+      variable = { ...variable, limit };
+    }
+    if (query) {
+      variable = { ...variable, query };
     }
 
-    setTimeout(
-      function () {
-        refetchCata();
-      }.bind(this),
-      100
+    return { ...variable, categories, start, class: thisClass, color };
+  }, [state, searchQuery]);
+
+  const refetchCata = () => {
+    client
+      .query({
+        query: getProductByFilter,
+        variables: graphVariable,
+      })
+      .then(({ data }) => {
+        setProdList(() => data?.products);
+        setIsLoading(() => false);
+      });
+  };
+
+  useMemo(() => {
+    setIsLoading(() => true);
+    refetchCata();
+  }, [graphVariable]);
+
+  const nextPage = () => {
+    dispatch({
+      type: FILTER_ACTIONS.LOADMORE,
+      start: state.start + 9,
+    });
+    router.push(
+      {
+        pathname: router.route,
+        query: { start: state.start + 9 },
+      },
+      undefined,
+      { shallow: false }
     );
   };
 
-  //   Get Categories Data.
-  const {
-    loading,
-    error,
-    data,
-    refetch: refetchCata,
-  } = useQuery(getCategory, {
-    notifyOnNetworkStatusChange: true,
-    variables: {
-      slug: filterCata?.slug ? filterCata.slug : "whole-six-yards",
-      sort: filterSort,
-    },
-    onCompleted: () => {
-      data?.categories.length > 0 ? setFilterCata(data.categories[0]) : null;
-      data?.categories.length > 0
-        ? data.categories[0].products
-          ? console.log(data.categories[0].products)
-          : null
-        : null;
-    },
-  });
+  const previousPage = () => {
+    dispatch({
+      type: FILTER_ACTIONS.LOADMORE,
+      start: state.start - 9,
+    });
+    router.push(
+      {
+        pathname: router.route,
+        query: { start: state.start - 9 },
+      },
+      undefined,
+      { shallow: false }
+    );
+  };
+
+  const pageinationProps = {
+    productsCount,
+    state,
+    prodList,
+    nextPage,
+    previousPage,
+  };
 
   return (
     <PageMotion>
@@ -98,18 +174,18 @@ const Shop = ({ products, categories }) => {
         <div className="shop-body-section">
           {isMobile ? (
             <center>
-              <CatagoryFilterMobile
+              {/* <CatagoryFilterMobile
                 cataList={categories}
                 changeTab={changeTab}
                 filterCata={filterCata}
-              />
+              /> */}
             </center>
           ) : (
             <Container className={`shop-filter`}>
-              <CatagoryFilter
+              <CatagoryFilterX
                 cataList={categories}
-                changeTab={changeTab}
-                filterCata={filterCata}
+                dispatch={dispatch}
+                filterState={state}
               />
             </Container>
           )}
@@ -176,11 +252,13 @@ const Shop = ({ products, categories }) => {
                 </DropdownMenu>
               </div>
             </div>
-            {loading ? (
+            {isLoading ? (
               <ProductSkeleton />
             ) : (
-              <ProductGrid prodList={prodList} filterCata={filterCata} />
+              <ProductGrid prodList={prodList} />
             )}
+
+            <ShopPagination {...pageinationProps} />
           </Container>
         </div>
       </section>
@@ -197,16 +275,21 @@ export async function getStaticProps() {
   });
 
   const { data: productsData } = await client.query({
-    query: getProductList,
+    query: getProductByFilter,
     variables: {
       limit: 10,
     },
+  });
+
+  const { data: productsCount } = await client.query({
+    query: getProductsCount,
   });
 
   return {
     props: {
       products: productsData.products ? productsData?.products : [],
       categories: categoriesData?.categories ? categoriesData.categories : [],
+      productsCount: productsCount.productsCount,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in

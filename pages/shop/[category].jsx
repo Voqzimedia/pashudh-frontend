@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo, useReducer } from "react";
 import { Container, DropdownMenu } from "reactstrap";
 import { isEmpty } from "lodash";
 
@@ -7,86 +7,94 @@ import {
   getCategories,
   getCategory,
   getCategoriesPath,
-} from "../../../helper/graphql/getCategories";
-import client from "../../../helper/ApolloClient";
+} from "../../helper/graphql/getCategories";
+import client from "../../helper/ApolloClient";
 
 import dynamic from "next/dynamic";
-import { CatagoryFilterMobile } from "../../../components/Shop/CatagoryFilter";
-import AppContext from "../../../context/AppContext";
+import { CatagoryFilterMobile } from "../../components/Shop/CatagoryFilter";
+import AppContext from "../../context/AppContext";
+import {
+  getProductByFilter,
+  getProductList,
+} from "../../helper/graphql/getProducts";
+import { filterReducer, FILTER_ACTIONS, initialFilter } from ".";
 
-const PageMotion = dynamic(() =>
-  import("../../../components/Motion/PageMotion")
-);
-const ProductGrid = dynamic(() =>
-  import("../../../components/Shop/ProductGrid")
-);
-const CatagoryFilter = dynamic(() =>
-  import("../../../components/Shop/CatagoryFilter")
+const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
+const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
+const CatagoryFilterX = dynamic(() =>
+  import("../../components/Shop/CatagoryFilterX")
 );
 
 const ProductSkeleton = dynamic(() =>
-  import("../../../components/utils/ProductSkeleton")
+  import("../../components/utils/ProductSkeleton")
 );
 
-const Shop = ({ products, categories, thisFillter }) => {
+const CatagoryShop = ({ products, categories, thisFillter }) => {
   const pageTitle = "Shop";
 
   const [prodList, setProdList] = useState(products);
-  const [filterCata, setFilterCata] = useState(thisFillter);
-  const [filterSort, setFilterSort] = useState("id");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const changeTab = (category) => {
-    setFilterCata(category);
-    refetchCata();
+  const thisinitialFilter = {
+    ...initialFilter,
+    categories: thisFillter?.slug ? [thisFillter.slug] : [],
   };
 
-  const { deviceWidth } = useContext(AppContext);
+  const [state, dispatch] = useReducer(filterReducer, thisinitialFilter);
+
+  const { deviceWidth, searchQuery } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
 
-  const sortProduct = (option) => {
-    switch (option) {
-      case "priceAsc":
-        setFilterSort("price:asc");
+  const graphVariable = useMemo(() => {
+    let price = state.price ? state.price : null;
+    let categories = state.categories;
+    let thisClass = state.class;
+    let color = state.color;
+    let limit = state.limit;
+    let start = state.start;
+    let query = searchQuery != "" ? searchQuery : null;
 
-        break;
-      case "priceDesc":
-        setFilterSort("price:desc");
+    let variable = {};
 
-        break;
-      default:
-        setFilterSort("id:asc");
+    if (price) {
+      variable = { ...variable, price };
+    }
+    if (limit) {
+      variable = { ...variable, limit };
+    }
+    if (query) {
+      variable = { ...variable, query };
     }
 
-    setTimeout(
-      function () {
-        refetchCata();
-      }.bind(this),
-      100
-    );
+    return { ...variable, categories, start, class: thisClass, color };
+  }, [state, searchQuery]);
+
+  const refetchCata = () => {
+    client
+      .query({
+        query: getProductByFilter,
+        variables: graphVariable,
+      })
+      .then(({ data }) => {
+        setProdList(() => data?.products);
+        setIsLoading(() => false);
+      });
   };
 
-  // Get Categories Data.
-  const {
-    loading,
-    error,
-    data,
-    refetch: refetchCata,
-  } = useQuery(getCategory, {
-    notifyOnNetworkStatusChange: true,
-    variables: {
-      slug: filterCata?.slug ? filterCata.slug : "whole-six-yards",
-      sort: filterSort,
-    },
-    onCompleted: () => {
-      data?.categories.length > 0 ? setFilterCata(data.categories[0]) : null;
-      data?.categories.length > 0
-        ? data.categories[0].products
-          ? setProdList(data.categories[0].products)
-          : null
-        : null;
-    },
-  });
+  useMemo(() => {
+    setIsLoading(() => true);
+    refetchCata();
+  }, [graphVariable]);
+
+  useMemo(() => {
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_CATEGORY,
+      categories: thisFillter?.slug ? [thisFillter.slug] : [],
+    });
+  }, [thisFillter]);
+
+  // console.log(thisFillter);
 
   return (
     <PageMotion>
@@ -101,18 +109,18 @@ const Shop = ({ products, categories, thisFillter }) => {
         <div className="shop-body-section">
           {isMobile ? (
             <center>
-              <CatagoryFilterMobile
+              {/* <CatagoryFilterMobile
                 cataList={categories}
                 changeTab={changeTab}
-                filterCata={filterCata}
-              />
+                initialFilter?.categories?.[0]={initialFilter?.categories?.[0]}
+              /> */}
             </center>
           ) : (
             <Container className={`shop-filter`}>
-              <CatagoryFilter
+              <CatagoryFilterX
                 cataList={categories}
-                changeTab={changeTab}
-                filterCata={filterCata}
+                dispatch={dispatch}
+                filterState={state}
               />
             </Container>
           )}
@@ -122,19 +130,21 @@ const Shop = ({ products, categories, thisFillter }) => {
               <div className="content-holder">
                 <div className="content-header">
                   <p className="sub-title">
-                    {filterCata?.tagLine
-                      ? filterCata.tagLine
+                    {thisFillter?.tagLine
+                      ? thisFillter?.tagLine
                       : "Affordable Affluence"}
                   </p>
                   <hr className="small gradient no-m" />
                   <h2 className="title">
-                    {filterCata?.title ? filterCata.title : "Whole Six Yards"}
+                    {thisFillter?.title
+                      ? thisFillter?.title
+                      : "Whole Six Yards"}
                   </h2>
                 </div>
 
                 <p className="description">
-                  {filterCata?.description
-                    ? filterCata.description
+                  {thisFillter?.description
+                    ? thisFillter?.description
                     : `Delightfully comfortable in both quality and
                   price, these contemporary drapes will let you float in the lap
                   of luxury.`}
@@ -179,10 +189,10 @@ const Shop = ({ products, categories, thisFillter }) => {
                 </DropdownMenu>
               </div>
             </div>
-            {loading ? (
+            {isLoading ? (
               <ProductSkeleton />
             ) : (
-              <ProductGrid prodList={prodList} filterCata={filterCata} />
+              <ProductGrid prodList={prodList} />
             )}
           </Container>
         </div>
@@ -210,14 +220,16 @@ export async function getStaticProps(context) {
     },
   });
 
+  const { data: productsData } = await client.query({
+    query: getProductByFilter,
+    variables: {
+      limit: 10,
+    },
+  });
+
   return {
     props: {
-      products:
-        categoryData?.categories.length > 0
-          ? categoryData.categories[0].products
-            ? categoryData.categories[0].products
-            : []
-          : [],
+      products: productsData.products ? productsData?.products : [],
       categories: categoriesData?.categories ? categoriesData.categories : [],
       thisFillter:
         categoryData?.categories.length > 0 ? categoryData.categories[0] : null,
@@ -228,6 +240,8 @@ export async function getStaticProps(context) {
     revalidate: 1, // In seconds
   };
 }
+
+export default CatagoryShop;
 
 export async function getStaticPaths() {
   const { data } = await client.query({
@@ -248,5 +262,3 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-
-export default Shop;

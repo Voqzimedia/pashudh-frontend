@@ -17,9 +17,10 @@ import { validatePromo } from "../../helper/auth";
 
 export default function Checkout() {
   const pageTitle = "Checkout";
-  const { cart, clearCart } = useContext(AppContext);
+  const { cart, clearCart, user } = useContext(AppContext);
 
   const [discount, setDiscount] = useState(null);
+  const [useRedeemPoints, setRedeemPoints] = useState(false);
   const [discountField, setDiscountField] = useState(null);
   const [error, setError] = useState(false);
 
@@ -38,7 +39,7 @@ export default function Checkout() {
       });
   };
 
-  // console.log(discount);
+  // console.log(useRedeemPoints);
 
   return (
     <PageMotion>
@@ -160,6 +161,35 @@ export default function Checkout() {
                       )}
                     </Row>
                   </div>
+                  {user && (
+                    <div className="checkout-info form-body">
+                      <Row className="info-row">
+                        <Col md={`8`} className={`info`} xs="6">
+                          <p>Your Redeem Points : </p>
+                        </Col>
+                        <Col md={`4`} className={`info`} xs="6">
+                          <p>{user.redeemPoints} Pts</p>
+                        </Col>
+                        <Col lg="8" className="input-Holder lable-on">
+                          <label
+                            htmlFor="redeem"
+                            className={`flex-align-center`}
+                          >
+                            <input
+                              type="checkbox"
+                              name={`redeem`}
+                              onChange={(event) =>
+                                setRedeemPoints(event.target.checked)
+                              }
+                              checked={useRedeemPoints}
+                              id={`redeem`}
+                            />{" "}
+                            Use my Redeem Points
+                          </label>
+                        </Col>
+                      </Row>
+                    </div>
+                  )}
 
                   <div className="checkout-info">
                     <Row className="info-row">
@@ -176,7 +206,17 @@ export default function Checkout() {
                           <p>Discount : </p>
                         </Col>
                         <Col md={`4`} className={`info`} xs="6">
-                          <p>{currency.format(discount.price)}</p>
+                          <p>- {currency.format(discount.price)}</p>
+                        </Col>
+                      </Row>
+                    )}
+                    {useRedeemPoints && user && (
+                      <Row className="info-row">
+                        <Col md={`8`} className={`info`} xs="6">
+                          <p>{user.redeemPoints} Pts Used : </p>
+                        </Col>
+                        <Col md={`4`} className={`info`} xs="6">
+                          <p>- {currency.format(user.redeemPoints / 10)}</p>
                         </Col>
                       </Row>
                     )}
@@ -187,8 +227,21 @@ export default function Checkout() {
                         <p>Including taxes : </p>
                       </Col>
                       <Col md={`4`} className={`info`} xs="6">
-                        {discount ? (
+                        {discount && useRedeemPoints && user ? (
+                          <p>
+                            {currency.format(
+                              cart.total -
+                                (discount.price + user.redeemPoints / 10)
+                            )}
+                          </p>
+                        ) : discount ? (
                           <p>{currency.format(cart.total - discount.price)}</p>
+                        ) : useRedeemPoints && user ? (
+                          <p>
+                            {currency.format(
+                              cart.total - user.redeemPoints / 10
+                            )}
+                          </p>
                         ) : (
                           <p>{currency.format(cart.total)}</p>
                         )}
@@ -205,6 +258,7 @@ export default function Checkout() {
                   cart={cart}
                   clearCart={clearCart}
                   discount={discount}
+                  useRedeemPoints={useRedeemPoints}
                 />
               </div>
             </div>
