@@ -164,7 +164,7 @@ export const PromoItem = ({ promo }) => {
         </Col>
         <Col md="4">
           <a className="show-more" onClick={toggleShow}>
-            {isShow ? "View less" : "View Details"}
+            {isShow ? "View less" : "Track order"}
           </a>
         </Col>
       </Row>

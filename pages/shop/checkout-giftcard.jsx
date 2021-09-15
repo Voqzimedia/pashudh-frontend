@@ -17,7 +17,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 const CheckoutGiftCard = () => {
-  const pageTitle = "Gift Card Purchasing";
+  const pageTitle = "Checkout";
 
   const [giftCard, setGiftCard] = useState(null);
 
