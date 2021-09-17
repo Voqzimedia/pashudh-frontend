@@ -31,22 +31,26 @@ const timelineList = [
   {
     year: "1976",
     title: "Kanchi. K. E. Venkatachalam",
-    subTitle: "(Expansion of Business)",
+    subTitle:
+      "Exemplified the legacy of weaving with new techniques of merging new designs in silk sarees.",
   },
   {
     year: "1976",
     title: "K. V. Kumar",
-    subTitle: "(K. V. Kumar Silks)",
+    subTitle:
+      "Established the K V Kumar Silk Sarees and the foundation for a flourishing business.",
   },
   {
     year: "2006",
     title: "K. K. Rajkumar and K. K. Suresh Kumar",
-    subTitle: "(Managing Directors, K. V. Kumar Silks)",
+    subTitle:
+      "Researched and imbibed technologically innovative practices in the workings of the weaving factory, along with introducing new designs in keeping with the trends of the age.",
   },
   {
     year: "2017",
     title: " Ms. Jeevitha Rajkumar and Ms. Vinodhini Suresh",
-    subTitle: "(Pashudh)",
+    subTitle:
+      "Laid the keystone for Pashudh as the one-stop destination for women looking for Kanjivaram silk sarees in vogue.",
   },
 ];
 
