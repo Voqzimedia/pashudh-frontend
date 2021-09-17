@@ -50,12 +50,20 @@ header {
     @media only screen and (max-width: 500px) {
       padding: 0;
     }
+
+    .logo-block {
+      padding: 1rem 0;
+    }
     .large-nav {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      @media only screen and (max-width: 800px) {
-        flex-wrap: nowrap;
+      align-items: center;
+      @media only screen and (max-width: 1000px) {
+        justify-content: center;
+        .theme-block {
+          margin-left: 1rem;
+        }
       }
     }
     .theme-block,
@@ -71,14 +79,14 @@ header {
     }
 
     .search-block {
-      width: 25%;
+      width: 100%;
       justify-content: end;
-      @media only screen and (max-width: 1025px) {
-        width: 20%;
-      }
-      @media only screen and (max-width: 800px) {
-        display: none;
-      }
+      // @media only screen and (max-width: 1250px) {
+      //   width: 20%;
+      // }
+      // @media only screen and (max-width: 800px) {
+      //   display: none;
+      // }
       .search-input {
         position: relative;
         background: $light-gray 0% 0% no-repeat padding-box;
@@ -111,8 +119,12 @@ header {
     }
 
     .user-block {
-      width: 11%;
-
+      width: 15%;
+      position: relative;
+      z-index: 99;
+      // @media only screen and (max-width: 1000px) {
+      //   width: 11%;
+      // }
       a {
         color: $font-light3;
         opacity: 0.8;
@@ -164,7 +176,7 @@ header {
             height: 1.3rem;
             max-width: 1.3rem;
             max-height: 1.3rem;
-            @media only screen and (max-width: 800px) {
+            @media only screen and (max-width: 1000px) {
               width: 0.8rem;
               height: 0.8rem;
             }
@@ -288,6 +300,13 @@ header {
   .custom-switch {
     &.theme-switch {
       min-height: 2rem;
+      margin-left: 4.25rem;
+      @media only screen and (max-width: 800px) {
+        margin-left: 0;
+      }
+      @media only screen and (max-width: 500px) {
+        padding-left: 1.5rem;
+      }
       .custom-control-label {
         &::before {
           width: 3rem;

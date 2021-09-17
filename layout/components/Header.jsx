@@ -4,6 +4,7 @@ import { Container, CustomInput } from "reactstrap";
 import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { motion } from "framer-motion";
 
@@ -16,6 +17,9 @@ const SearchBox = dynamic(() => import("./Header/SearchBox"), { ssr: false });
 const SvgIcon = dynamic(() => import("../../components/utils/SvgIcon"), {
   ssr: false,
 });
+
+import miniLogo from "../../assets/images/mini-logo.svg";
+import miniLogoWhite from "../../assets/images/mini-logo-white.svg";
 
 export default function Header({ categories }) {
   const { deviceWidth, toggleTheme, darkTheme } = useContext(AppContext);
@@ -57,8 +61,16 @@ export default function Header({ categories }) {
           >
             <Container>
               <div className="large-nav">
-                <div className="search-block">
-                  <SearchBox />
+                <div className="logo-block">
+                  <Link href="/">
+                    <a className="logo-holder">
+                      {darkTheme ? (
+                        <img src={miniLogoWhite} alt="logo" />
+                      ) : (
+                        <img src={miniLogo} alt="logo" />
+                      )}
+                    </a>
+                  </Link>
                 </div>
                 <div className="menu-block">
                   <Menu categories={categories} />

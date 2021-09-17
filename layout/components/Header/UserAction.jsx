@@ -233,13 +233,6 @@ export default function UserAction({ isMobile }) {
                       <SvgIcon icon={icons.home.toSvg()} />
                     </a>
                   </Link>
-
-                  <div
-                    onClick={(e) => toggleSearch(e)}
-                    className="icon-item icon"
-                  >
-                    <SvgIcon icon={icons.search.toSvg()} />
-                  </div>
                 </>
               ) : null}
 
@@ -336,6 +329,9 @@ export default function UserAction({ isMobile }) {
               >
                 <SvgIcon icon={icons.heart.toSvg()} />
               </div>
+              <div onClick={(e) => toggleSearch(e)} className="icon-item icon">
+                <SvgIcon icon={icons.search.toSvg()} />
+              </div>
               {isMobile ? (
                 <div
                   title={`menu`}
@@ -352,7 +348,9 @@ export default function UserAction({ isMobile }) {
               animate={{ scale: 1.03, x: 0 }}
               initial="initial"
               variants={searchBoxAnimation}
-              className="search-warper-mobile"
+              className={`${
+                isMobile ? "search-warper-mobile" : "search-block"
+              }`}
             >
               <SearchBox
                 isMobile={isMobile}

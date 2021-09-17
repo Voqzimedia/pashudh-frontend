@@ -234,6 +234,10 @@ hr {
     background: $base-gradient;
   }
 
+  &.white {
+    background-color: $base-primary-light;
+  }
+
   &.no-m {
     margin: 0;
   }
