@@ -25,6 +25,10 @@
       border: 1px solid $font-light2;
       background-color: transparent;
       appearance: none;
+
+      &#gift-card {
+        appearance: auto;
+      }
     }
 
     input[type="checkbox"] {

@@ -8,6 +8,11 @@ export const getGiftCards = gql`
       slug
       price
       description
+      img {
+        id
+        url
+        formats
+      }
     }
   }
 `;
@@ -29,6 +34,11 @@ export const getGiftCard = gql`
       slug
       price
       description
+      img {
+        id
+        url
+        formats
+      }
     }
   }
 `;
