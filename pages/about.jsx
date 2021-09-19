@@ -12,14 +12,14 @@ import "slick-carousel/slick/slick-theme.css";
 // import badgeIcon from "../assets/images/icons/badge.svg?include";
 // import threadIcon from "../assets/images/icons/thread.svg?include";
 
-import backDrop from "../assets/images/about/backDrop.png?jpg";
-import about1 from "../assets/images/about/about1.png?jpg";
-import about2 from "../assets/images/about/about2.png?jpg";
-import founder1 from "../assets/images/about/founder1.png?jpg";
-import founder2 from "../assets/images/about/founder2.png?jpg";
-import founder3 from "../assets/images/about/founder3.png?jpg";
-import founder4 from "../assets/images/about/founder4.png?jpg";
-import founder5 from "../assets/images/about/founder5.png?jpg";
+import backDrop from "../assets/images/about/backDrop.png?webp";
+import about1 from "../assets/images/about/about1.png?webp";
+import about2 from "../assets/images/about/about2.png?webp";
+import founder1 from "../assets/images/about/founder1.png?webp";
+import founder2 from "../assets/images/about/founder2.png?webp";
+import founder3 from "../assets/images/about/founder3.png?webp";
+import founder4 from "../assets/images/about/founder4.png?webp";
+import founder5 from "../assets/images/about/founder5.png?webp";
 
 const timelineList = [
   {
