@@ -2,7 +2,11 @@ import { Container, Row, Col, Alert } from "reactstrap";
 import AppContext from "../../context/AppContext";
 import React, { useContext, useState } from "react";
 import dynamic from "next/dynamic";
-import { buyBtnDataFormater, currency } from "../../helper/functions";
+import {
+  buyBtnDataFormater,
+  currency,
+  imgUrlCheck,
+} from "../../helper/functions";
 import Head from "next/head";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
@@ -67,7 +71,7 @@ export default function Checkout() {
                                   <img
                                     width="100"
                                     height="100"
-                                    src={`${product.image.url}`}
+                                    src={`${imgUrlCheck(product.image.url)}`}
                                     alt={product.name}
                                   />
                                 </picture>

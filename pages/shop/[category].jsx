@@ -11,7 +11,7 @@ import {
 import client from "../../helper/ApolloClient";
 
 import dynamic from "next/dynamic";
-import { CatagoryFilterMobile } from "../../components/Shop/CatagoryFilter";
+import { CatagoryFilterMobile } from "../../components/Shop/CatagoryFilterX";
 import AppContext from "../../context/AppContext";
 import {
   getProductByFilter,
@@ -109,20 +109,26 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
         <div className="shop-body-section">
           {isMobile ? (
             <center>
-              {/* <CatagoryFilterMobile
-                cataList={categories}
-                changeTab={changeTab}
-                initialFilter?.categories?.[0]={initialFilter?.categories?.[0]}
-              /> */}
-            </center>
-          ) : (
-            <Container className={`shop-filter`}>
-              <CatagoryFilterX
+              <CatagoryFilterMobile
                 cataList={categories}
                 dispatch={dispatch}
                 filterState={state}
               />
-            </Container>
+            </center>
+          ) : (
+            <center>
+              {/* <CatagoryFilterX
+                cataList={categories}
+                dispatch={dispatch}
+                filterState={state}
+              /> */}
+
+              <CatagoryFilterMobile
+                cataList={categories}
+                dispatch={dispatch}
+                filterState={state}
+              />
+            </center>
           )}
 
           <Container>

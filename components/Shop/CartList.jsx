@@ -5,7 +5,7 @@ import { icons } from "feather-icons";
 import AppContext from "../../context/AppContext";
 import Link from "next/link";
 
-import { currency } from "../../helper/functions";
+import { currency, imgUrlCheck } from "../../helper/functions";
 
 // images
 
@@ -32,7 +32,7 @@ export default function CartList() {
                     <img
                       width="100"
                       height="100"
-                      src={`${product.image.url}`}
+                      src={`${imgUrlCheck(product.image.url)}`}
                       alt={product.name}
                     />
                   </picture>

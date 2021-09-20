@@ -1,29 +1,47 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Link from "next/link";
 
 import { getGiftCards } from "../helper/graphql/getGiftCards";
 import { currency, imgUrlCheck } from "../helper/functions";
 
+import AppContext from "../context/AppContext";
+import { icons } from "feather-icons";
+
 import client from "../helper/ApolloClient";
+import Sticky from "react-stickynode";
 
 import dynamic from "next/dynamic";
+import { AddToCartGiftCard } from "../components/Shop/CartActions";
+import SvgIcon from "../components/utils/SvgIcon";
 
 const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 const Logo = dynamic(() => import("../components/Logo"));
 
 export default function GiftCards({ giftCards }) {
-  const pageTitle = "Gift cards";
+  const pageTitle = "Pashudh Gift Cards";
 
   const [selectedGiftCard, setSelectedGiftCard] = useState(giftCards[0]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { cartGiftCard, deviceWidth, deleteItemGiftCard } =
+    useContext(AppContext);
+
+  const isMobile = deviceWidth < 800;
+
+  // console.log(cartGiftCard);
+
   const onGiftCardSelect = (event) => {
     // console.log(event.target.value);
+    setIsLoading(true);
+
     let thisGiftCard = giftCards?.find(
       (item) => item.slug === event.target.value
     );
 
     thisGiftCard ? setSelectedGiftCard(thisGiftCard) : null;
+    setIsLoading(false);
   };
 
   return (
@@ -54,13 +72,60 @@ export default function GiftCards({ giftCards }) {
                   </select>
                 </div>
                 <div className="input-Holder">
-                  <button className="btn submit-btn">Add to Cart</button>
+                  <AddToCartGiftCard
+                    giftCard={selectedGiftCard}
+                    className={`no-left-margin`}
+                    isLoading={isLoading}
+                  />
+                  {/* <button className="btn submit-btn">Add to Cart</button> */}
                 </div>
+                {cartGiftCard?.items?.length > 0 && (
+                  <div className="cart-holder">
+                    <Row className="git-card-cart">
+                      <Col lg="12">
+                        <h4 className="section-title content-title">
+                          Cart Details
+                        </h4>
+                        <br />
+                      </Col>
+                      {cartGiftCard?.items?.map((giftCard, index) => (
+                        <Col md="6" key={index} className={`gift-card-holder`}>
+                          <div className="gift-card">
+                            <div className="gift-card-img">
+                              <div className="image-holder">
+                                <picture>
+                                  <img
+                                    src={imgUrlCheck(giftCard?.img?.url)}
+                                    alt="gift"
+                                  />
+                                </picture>
+                              </div>
+                            </div>
+                            <div className="quantity">{giftCard.quantity}</div>
+                            <button
+                              className={`close-btn btn`}
+                              onClick={() => deleteItemGiftCard(giftCard)}
+                            >
+                              <SvgIcon icon={icons.x.toSvg()} />
+                            </button>
+                          </div>
+                        </Col>
+                      ))}
+
+                      <Col lg="12">
+                        <br />
+                        <Link href={`/shop/checkout-giftcard`}>
+                          <a className="btn solid-btn no-left-margin">
+                            Checkout | {currency.format(cartGiftCard.total)}
+                          </a>
+                        </Link>
+                      </Col>
+                    </Row>
+                  </div>
+                )}
+
                 <br />
                 <div className="content-holder">
-                  <h2 className="section-title content-title">
-                    Pashudh Gift Cards
-                  </h2>
                   <p>
                     Smart and sophisticated, Pashudh Gift Cards are the perfect
                     present to give your loved ones so they can choose from our
@@ -83,15 +148,11 @@ export default function GiftCards({ giftCards }) {
                     Ordering Pashudh Gift Card
                   </h4>
                   <p>
-                    Go to our Digital Gift Card page, select your preferred Gift
+                    Go to our Pashudh Gift Card page, select your preferred Gift
                     Card denomination, type the e-mail id of the recipient you
                     want to gift the card to, and add it to your cart.
                   </p>
-                  <p>
-                    Once you have finished adding any other products that you
-                    may have wanted to purchase from our website, proceed to the
-                    checkout page.
-                  </p>
+                  <p>Once you have finished proceed to the checkout page.</p>
                   <p>
                     On our checkout page, make sure you cross-check the
                     denomination and e-mail id of the recipient before
@@ -99,7 +160,7 @@ export default function GiftCards({ giftCards }) {
                   </p>
                 </div>
                 <br />
-                <div className="content-holder">
+                <div className="content-holder ">
                   <h4 className="section-title content-title">
                     Redeeming the Pashudh Gift Card
                   </h4>
@@ -133,7 +194,7 @@ export default function GiftCards({ giftCards }) {
                   </p>
                 </div>
                 <br />
-                <div className="content-holder">
+                <div className="content-holder end-stick">
                   <h4 className="section-title content-title">
                     Terms & Conditions
                   </h4>
@@ -141,7 +202,7 @@ export default function GiftCards({ giftCards }) {
                     A few points to note when opting for Pashudh Gift Cards -
                   </p>
                   <p>
-                    The digital Gift Cards are paperless and viable only for
+                    The Pashudh Gift Cards are paperless and viable only for
                     online transactions through our website. There will be no
                     processing charges while redeeming the value of the Gift
                     Cards. Those receiving our e-mail containing the Gift Cards
@@ -169,16 +230,19 @@ export default function GiftCards({ giftCards }) {
               </div>
             </Col>
             <Col lg="6" className="gift-card-right">
-              <div className="gift-card-img">
-                <div className="image-holder">
-                  <picture>
-                    <img
-                      src={imgUrlCheck(selectedGiftCard?.img?.url)}
-                      alt="gift"
-                    />
-                  </picture>
+              <Sticky bottomBoundary=".end-stick" enabled={!isMobile}>
+                <div className="gift-card-img">
+                  <div className="image-holder">
+                    <picture>
+                      <img
+                        src={imgUrlCheck(selectedGiftCard?.img?.url)}
+                        alt="gift"
+                      />
+                    </picture>
+                  </div>
                 </div>
-              </div>
+              </Sticky>
+              ;
             </Col>
           </Row>
         </Container>

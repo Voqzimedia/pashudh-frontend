@@ -177,7 +177,7 @@
 }
 
 .shop-body-section {
-  margin-top: 100px;
+  margin-top: 50px;
 
   @media only screen and (max-width: 800px) {
     margin-top: 0;
@@ -494,6 +494,51 @@
       .contact-info {
         padding: 5px 0;
         margin: 25px 0;
+      }
+    }
+  }
+}
+
+.git-card-cart {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  .gift-card-holder {
+    .gift-card {
+      position: relative;
+      width: 80%;
+      margin: 1rem;
+      .quantity {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        color: $base-primary-light;
+        border-radius: 100%;
+        top: -8%;
+        right: -8%;
+        background: $base-gradient;
+        justify-content: center;
+      }
+
+      .close-btn {
+        box-shadow: none !important;
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        color: $base-primary-light;
+        border-radius: 100%;
+        top: -8%;
+        left: -8%;
+        background: $base-secondary-light;
+        justify-content: center;
+        svg {
+          width: 0.8rem;
+        }
       }
     }
   }
