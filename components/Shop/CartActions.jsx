@@ -1,6 +1,9 @@
 import React, { useState, useContext } from "react";
 
 import AppContext from "../../context/AppContext";
+import { icons } from "feather-icons";
+
+import SvgIcon from "../utils/SvgIcon";
 
 export const QuantityBtn = ({ product }) => {
   const { cart, addItem, removeItem, setCartOpen } = useContext(AppContext);
@@ -45,7 +48,7 @@ export const QuantityBtn = ({ product }) => {
   );
 };
 
-export const AddToCart = ({ product, className }) => {
+export const AddToCart = ({ product, className, isMini }) => {
   const { addItem, setCartOpen } = useContext(AppContext);
 
   return (
@@ -56,7 +59,11 @@ export const AddToCart = ({ product, className }) => {
         setCartOpen(true);
       }}
     >
-      Add to Cart
+      {isMini ? (
+        <SvgIcon icon={icons["shopping-cart"].toSvg()} />
+      ) : (
+        " Add to Cart"
+      )}
     </button>
   );
 };

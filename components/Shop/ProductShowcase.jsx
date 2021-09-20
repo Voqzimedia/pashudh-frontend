@@ -16,7 +16,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false,
+    arrows: true,
   };
   return (
     <>

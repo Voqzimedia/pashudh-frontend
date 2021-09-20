@@ -173,7 +173,18 @@ const Product = ({ product, category }) => {
                         <p className="price">
                           {currency.format(thisProduct?.price)}
                         </p>
-                        <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
+                        <div className="header-bottom">
+                          <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
+                          {isMobile && (
+                            <AddToCart
+                              product={{ ...thisProduct }}
+                              className={`${
+                                isInCart(thisProduct) ? "" : "no-left-margin"
+                              } isMini`}
+                              isMini={true}
+                            />
+                          )}
+                        </div>
                       </div>
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (

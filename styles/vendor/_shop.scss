@@ -373,6 +373,7 @@
         padding-bottom: 15px;
         margin-bottom: 10px;
         border-bottom: 1px solid $font-light2;
+        position: relative;
         .product-name {
           @media only screen and (max-width: 500px) {
             font-size: 1.2rem;
@@ -383,6 +384,16 @@
           font-size: 2rem;
           @media only screen and (max-width: 500px) {
             font-size: 1.2rem;
+          }
+        }
+
+        .header-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &.btn {
+            padding: 1rem;
+            border-radius: 15px;
           }
         }
       }
@@ -433,6 +444,9 @@
     }
 
     .product-image-wrapper {
+      @media only screen and (max-width: 500px) {
+        padding: 0 !important;
+      }
       .product-images-slider {
         margin: 25px 0;
       }

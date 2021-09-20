@@ -17,7 +17,14 @@ export default function GiftCards({ giftCards }) {
 
   const [selectedGiftCard, setSelectedGiftCard] = useState(giftCards[0]);
 
-  // console.log(giftCards);
+  const onGiftCardSelect = (event) => {
+    // console.log(event.target.value);
+    let thisGiftCard = giftCards?.find(
+      (item) => item.slug === event.target.value
+    );
+
+    thisGiftCard ? setSelectedGiftCard(thisGiftCard) : null;
+  };
 
   return (
     <PageMotion>
@@ -28,21 +35,26 @@ export default function GiftCards({ giftCards }) {
               {pageTitle}
             </h1>
           </center>
-          <Row className={`gift-card-container`}>
-            <Col md="6" className="gift-card-left">
+          <Row className={`gift-card-container invers-mobile`}>
+            <Col lg="6" className="gift-card-left">
               <div className="form-body">
                 <div className="input-Holder">
-                  <select name="gift-card" id="gift-card">
+                  <select
+                    name="gift-card"
+                    id="gift-card"
+                    value={selectedGiftCard?.slug}
+                    onChange={onGiftCardSelect}
+                  >
                     <option value="">Denominations</option>
                     {giftCards?.map((giftCard, index) => (
-                      <option value={giftCard?.slug}>
+                      <option value={giftCard?.slug} key={index}>
                         {currency.format(giftCard?.price)}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="input-Holder">
-                  <button class="btn submit-btn">Add to Cart</button>
+                  <button className="btn submit-btn">Add to Cart</button>
                 </div>
                 <br />
                 <div className="content-holder">
@@ -156,7 +168,7 @@ export default function GiftCards({ giftCards }) {
                 </div>
               </div>
             </Col>
-            <Col md="6" className="gift-card-right">
+            <Col lg="6" className="gift-card-right">
               <div className="gift-card-img">
                 <div className="image-holder">
                   <picture>
