@@ -77,8 +77,8 @@ export default function GiftCards({ giftCards }) {
                 </div>
                 <br />
                 <div className="content-holder">
-                  <h2 className="section-title content-title">How to use -</h2>
-                  <br />
+                  {/* <h2 className="section-title content-title">How to use -</h2>
+                  <br /> */}
                   <h4 className="section-title content-title">
                     Ordering Pashudh Gift Card
                   </h4>
