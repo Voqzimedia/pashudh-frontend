@@ -23,36 +23,64 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
     <>
       {isMobile ? (
         <div className="product-images-slider">
-          <Slider {...sliderSettings} className={`image-slider`}>
-            {thisProduct.GalleryImgs.map((image, index) => (
-              <div className="image-holder" key={index}>
-                <picture>
+          {thisProduct?.gallery ? (
+            <Slider {...sliderSettings} className={`image-slider`}>
+              {thisProduct?.gallery?.main && (
+                <div className="image-holder">
                   <img
-                    width="100"
-                    height="100"
-                    src={`${imgUrlCheck(image.url)}`}
-                    alt="Black Checked Saree"
+                    src={`${imgUrlCheck(thisProduct?.gallery?.main?.url)}`}
+                    alt={`${thisProduct?.name}${thisProduct?.gallery?.main?.id}`}
                   />
-                </picture>
-              </div>
-            ))}
-          </Slider>
+                </div>
+              )}
+              {thisProduct?.gallery?.pallu && (
+                <div className="image-holder">
+                  <img
+                    src={`${imgUrlCheck(thisProduct?.gallery?.pallu?.url)}`}
+                    alt={`${thisProduct?.name}${thisProduct?.gallery?.pallu?.id}`}
+                  />
+                </div>
+              )}
+              {thisProduct?.gallery?.border && (
+                <div className="image-holder">
+                  <img
+                    src={`${imgUrlCheck(thisProduct?.gallery?.border?.url)}`}
+                    alt={`${thisProduct?.name}${thisProduct?.gallery?.border?.id}`}
+                  />
+                </div>
+              )}
+              {thisProduct?.gallery?.blouse && (
+                <div className="image-holder">
+                  <img
+                    src={`${imgUrlCheck(thisProduct?.gallery?.blouse?.url)}`}
+                    alt={`${thisProduct?.name}${thisProduct?.gallery?.blouse?.id}`}
+                  />
+                </div>
+              )}
+            </Slider>
+          ) : (
+            <Slider {...sliderSettings} className={`image-slider`}>
+              {thisProduct.GalleryImgs.map((image, index) => (
+                <div className="image-holder" key={index}>
+                  <picture>
+                    <img
+                      width="100"
+                      height="100"
+                      src={`${imgUrlCheck(image.url)}`}
+                      alt={`${thisProduct?.name}${image?.id}`}
+                    />
+                  </picture>
+                </div>
+              ))}
+            </Slider>
+          )}
         </div>
       ) : (
         <div className="product-images-holder">
-          {/* {thisProduct.GalleryImgs.map((image, index) => (
-            <div className="image-holder" key={index}>
-              <GlassMagnifier
-                imageSrc={`${imgUrlCheck(image.url)}`}
-                imageAlt={thisProduct.name}
-                largeImageSrc={`${imgUrlCheck(image.url)}`}
-                magnifierSize="50%"
-              />
-            </div>
-          ))} */}
           <ProductGallery
-            GalleryImgs={thisProduct.GalleryImgs}
-            product={thisProduct.name}
+            GalleryImgs={thisProduct?.GalleryImgs}
+            product={thisProduct?.name}
+            gallery={thisProduct?.gallery}
           />
         </div>
       )}

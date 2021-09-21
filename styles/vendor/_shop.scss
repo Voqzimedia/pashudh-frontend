@@ -479,6 +479,32 @@
           .thumb {
             flex: 0 0 50%;
             cursor: pointer;
+            position: relative;
+            .title {
+              text-align: center;
+              width: 100%;
+              padding: 1rem;
+              background-color: $base-primary-light;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              transition: all ease-in-out 0.5s;
+              transform: translate(0, 100%);
+              opacity: 0;
+              visibility: hidden;
+              p {
+                font-size: 1rem;
+              }
+            }
+            &:hover {
+              opacity: 0.8;
+
+              .title {
+                transform: translate(0, 0);
+                visibility: visible;
+                opacity: 0.8;
+              }
+            }
           }
         }
       }
