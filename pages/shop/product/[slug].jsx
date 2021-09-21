@@ -40,6 +40,7 @@ import {
   AddToCart,
   AddWishlist,
 } from "../../../components/Shop/CartActions";
+import BackBtn from "../../../components/utils/BackBtn";
 
 const RelatedItems = dynamic(() =>
   import("../../../components/Shop/RelatedItems")
@@ -147,8 +148,11 @@ const Product = ({ product, category }) => {
       <section className={`shop-section page-section`}>
         <div className="shop-body-section">
           <Container>
-            {!isMobile && (
-              <div className="shop-breadcrumbs">
+            <div className="shop-breadcrumbs">
+              <div className="go-back">
+                <BackBtn> Go Back </BackBtn>
+              </div>
+              {!isMobile && (
                 <Breadcrumb className="breadcrumbs-holder">
                   <BreadcrumbItem>
                     <a onClick={() => router.back()}>Shop</a>
@@ -160,8 +164,8 @@ const Product = ({ product, category }) => {
                   </BreadcrumbItem>
                   <BreadcrumbItem active>{thisProduct.name}</BreadcrumbItem>
                 </Breadcrumb>
-              </div>
-            )}
+              )}
+            </div>
 
             <Row className={`single-product-wrapper`}>
               <Col lg="6" className={`product-detail-wrapper`}>

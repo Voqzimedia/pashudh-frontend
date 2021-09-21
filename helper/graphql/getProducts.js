@@ -75,6 +75,28 @@ export const getProduct = gql`
         url
         formats
       }
+      gallery {
+        main {
+          id
+          url
+          formats
+        }
+        pallu {
+          id
+          url
+          formats
+        }
+        border {
+          id
+          url
+          formats
+        }
+        blouse {
+          id
+          url
+          formats
+        }
+      }
       StockDetails {
         isSoldOut
         SKU

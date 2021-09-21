@@ -7,6 +7,7 @@ const Slider = dynamic(() => import("react-slick"));
 import { GlassMagnifier } from "react-image-magnifiers";
 
 import { imgUrlCheck } from "../../helper/functions";
+import ProductGallery from "../utils/ProductGallery";
 // import ReactImageMagnify from "react-image-magnify";
 
 export default function ProductShowcase({ isMobile, thisProduct }) {
@@ -39,7 +40,7 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
         </div>
       ) : (
         <div className="product-images-holder">
-          {thisProduct.GalleryImgs.map((image, index) => (
+          {/* {thisProduct.GalleryImgs.map((image, index) => (
             <div className="image-holder" key={index}>
               <GlassMagnifier
                 imageSrc={`${imgUrlCheck(image.url)}`}
@@ -47,34 +48,12 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
                 largeImageSrc={`${imgUrlCheck(image.url)}`}
                 magnifierSize="50%"
               />
-              {/* <ReactImageMagnify
-                {...{
-                  smallImage: {
-                    alt: thisProduct.name,
-                    isFluidWidth: true,
-                    src: `${image.url}`,
-                  },
-                  largeImage: {
-                    src: `${image.url}`,
-                    width: 1200,
-                    height: 1800,
-                  },
-                }}
-                enlargedImageContainerStyle={{
-                  left: "auto",
-                  right: "0",
-                }}
-              /> */}
-              {/* <picture>
-                <img
-                  width="100"
-                  height="100"
-                  src={`${image.url}`}
-                  alt="Black Checked Saree"
-                />
-              </picture> */}
             </div>
-          ))}
+          ))} */}
+          <ProductGallery
+            GalleryImgs={thisProduct.GalleryImgs}
+            product={thisProduct.name}
+          />
         </div>
       )}
     </>

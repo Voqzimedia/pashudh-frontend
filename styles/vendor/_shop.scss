@@ -271,12 +271,19 @@
     @media only screen and (max-width: 500px) {
       font-size: 0.8rem;
     }
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    .go-back {
+      flex: 1;
+    }
     .breadcrumbs-holder {
+      flex: 2;
+      text-align: right;
+      justify-content: flex-end;
       .breadcrumb {
         background-color: transparent;
         color: $base-secondary-light;
-        width: fit-content;
-        margin: auto;
         .breadcrumb-item {
           opacity: 0.5;
           a {
@@ -367,6 +374,7 @@
         text-align: left;
         p {
           margin: 0;
+          flex: 1;
         }
       }
       .product-header {
@@ -410,8 +418,9 @@
 
       .product-detail-list {
         .detail-items {
-          padding: 20px 0;
+          padding: 1rem 0;
           border-bottom: 1px solid $light-gray;
+          display: flex;
         }
       }
 
@@ -456,11 +465,20 @@
         flex-wrap: wrap;
         .image-holder {
           width: 100%;
-          flex: 0 0 50%;
+          // flex: 0 0 50%;
           padding: 10px;
-          &:first-child,
-          &:last-child {
-            flex: 0 0 100%;
+          // &:first-child,
+          // &:last-child {
+          //   flex: 0 0 100%;
+          // }
+        }
+
+        .thumbnail-holder {
+          display: flex;
+          flex-wrap: wrap;
+          .thumb {
+            flex: 0 0 50%;
+            cursor: pointer;
           }
         }
       }
