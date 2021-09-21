@@ -284,6 +284,7 @@
       .breadcrumb {
         background-color: transparent;
         color: $base-secondary-light;
+        justify-content: flex-end;
         .breadcrumb-item {
           opacity: 0.5;
           a {
