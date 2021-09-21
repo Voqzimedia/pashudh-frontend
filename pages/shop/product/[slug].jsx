@@ -180,6 +180,8 @@ const Product = ({ product, category }) => {
                         <div className="header-bottom">
                           <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                           {isMobile && thisProduct.StockDetails.isSoldOut ? (
+                            <button disabled={true}>Sold Out</button>
+                          ) : (
                             <AddToCart
                               product={{ ...thisProduct }}
                               className={`${
@@ -187,8 +189,6 @@ const Product = ({ product, category }) => {
                               } isMini`}
                               isMini={true}
                             />
-                          ) : (
-                            <button disabled={true}>Sold Out</button>
                           )}
                         </div>
                       </div>
