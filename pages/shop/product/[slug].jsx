@@ -193,7 +193,7 @@ const Product = ({ product, category }) => {
                       <p className="description">{thisProduct.content}</p>
                       {isMobile ? (
                         <Accordion atomic={true} className={`product-drop`}>
-                          <AccordionItem title={`Product Details`}>
+                          <AccordionItem title={`Specifications`}>
                             <ul className="product-detail-list">
                               {productDetails.map((detail, index) => (
                                 <li className="detail-items" key={index}>

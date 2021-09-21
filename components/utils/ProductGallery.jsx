@@ -47,7 +47,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
                 />
               </div>
               <div className="title">
-                <p>Saree pallu</p>
+                <p>Pallu</p>
               </div>
             </div>
           )}
@@ -62,7 +62,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
                 />
               </div>
               <div className="title">
-                <p>Saree border</p>
+                <p>Border</p>
               </div>
             </div>
           )}
@@ -77,7 +77,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
                 />
               </div>
               <div className="title">
-                <p>Saree blouse</p>
+                <p>Blouse</p>
               </div>
             </div>
           )}

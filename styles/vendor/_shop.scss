@@ -422,6 +422,9 @@
           padding: 1rem 0;
           border-bottom: 1px solid $light-gray;
           display: flex;
+          @media only screen and (max-width: 500px) {
+            flex-direction: column;
+          }
         }
       }
 

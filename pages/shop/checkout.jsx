@@ -135,7 +135,7 @@ export default function Checkout() {
                           <Col md="8" className={`input-Holder`}>
                             <input
                               type="text"
-                              placeholder={`Discount code`}
+                              placeholder={`Gift Card Code`}
                               onChange={(e) =>
                                 setDiscountField(e?.target?.value)
                               }

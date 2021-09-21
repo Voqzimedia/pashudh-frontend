@@ -124,13 +124,13 @@
       height: 25px;
       border-radius: 100%;
       z-index: 9;
-      background: $base-gradient !important;
+      // background: $base-gradient !important;
     }
 
     .slick-prev:before,
     .slick-next:before {
-      font-family: $base-font;
-      font-size: 15px;
+      // font-family: $base-font;
+      font-size: 20px;
     }
   }
 }
