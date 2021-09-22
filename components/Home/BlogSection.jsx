@@ -60,6 +60,15 @@ export default function BlogSection() {
   return (
     <section className={`page-section blog-section`}>
       <Container>
+        <div className="content-header">
+          <div className="content-holder">
+            <center>
+              <p className="sub-title">Blogs</p>
+              <hr className="small gradient no-m" />
+              <h2 className="title">Silken Symphonies</h2>
+            </center>
+          </div>
+        </div>
         <Slider {...sliderSettings} className={`blog-slider`}>
           {blogList.map((post, index) => (
             <div className="blog-wrapper" key={index}>
