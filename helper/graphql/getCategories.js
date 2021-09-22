@@ -8,6 +8,11 @@ export const getCategories = gql`
       slug
       tagLine
       description
+      img {
+        id
+        url
+        formats
+      }
     }
   }
 `;

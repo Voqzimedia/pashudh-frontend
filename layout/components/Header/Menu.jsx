@@ -100,7 +100,7 @@ export default function Menu({ categories }) {
         </>
       ) : (
         <Dropdown nav inNavbar>
-          <Link href={`/shop`}>
+          <Link href={`/shop/categories`}>
             <a
               className={`nav-link dropdown-toggle menu-link has-subMenu ${
                 dropdownOpen ? "active" : ""
