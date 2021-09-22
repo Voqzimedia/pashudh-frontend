@@ -88,25 +88,34 @@ export default function Menu({ categories }) {
                   </Link>
                 </NavItem>
               ))}
+              <NavItem>
+                <Link href={`/shop`}>
+                  <a className="dropdown-item" onClick={closeMenu}>
+                    Shop all
+                  </a>
+                </Link>
+              </NavItem>
             </Nav>
           ) : null}
         </>
       ) : (
         <Dropdown nav inNavbar>
-          <a
-            className={`nav-link dropdown-toggle menu-link has-subMenu ${
-              dropdownOpen ? "active" : ""
-            }`}
-          >
-            Shop
-            <DropdownMenu className={`subMenu`}>
-              {cataList.map((category, index) => (
-                <Link href={`/shop/${category.slug}`} key={index}>
-                  <a className="dropdown-item">{category.title}</a>
-                </Link>
-              ))}
-            </DropdownMenu>
-          </a>
+          <Link href={`/shop`}>
+            <a
+              className={`nav-link dropdown-toggle menu-link has-subMenu ${
+                dropdownOpen ? "active" : ""
+              }`}
+            >
+              Shop
+              <DropdownMenu className={`subMenu`}>
+                {cataList.map((category, index) => (
+                  <Link href={`/shop/${category.slug}`} key={index}>
+                    <a className="dropdown-item">{category.title}</a>
+                  </Link>
+                ))}
+              </DropdownMenu>
+            </a>
+          </Link>
         </Dropdown>
       )}
       <NavItem>

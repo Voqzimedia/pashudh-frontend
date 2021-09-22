@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Container, DropdownMenu } from "reactstrap";
+import {
+  Container,
+  DropdownMenu,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+} from "reactstrap";
 import Link from "next/link";
 import { FILTER_ACTIONS } from "../../pages/shop";
 
@@ -9,36 +15,49 @@ export const CatagoryFilterMobile = ({ cataList, dispatch, filterState }) => {
     (cata) => cata.slug === filterState?.categories?.[0]
   );
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = (e) => {
+    e.preventDefault();
+    setDropdownOpen((prevState) => !prevState);
+  };
+
   // console.log({ filterState, cataList, thisCata });
 
   return (
     <Container>
       <div className={`filter-wrapper mobile`}>
-        <div className={`nav-link dropdown-toggle menu-link has-subMenu`}>
-          {thisCata.title
-            ? thisCata.title
-            : thisCata.name
-            ? thisCata.name
-            : "name"}
+        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} nav>
+          <DropdownToggle nav caret>
+            {thisCata?.title
+              ? thisCata?.title
+              : thisCata?.name
+              ? thisCata?.name
+              : "Select Category"}
+          </DropdownToggle>
 
-          <DropdownMenu className={`subMenu`}>
-            {cataList.map((cata, index) => (
-              <Link href={`/shop/${cata.slug}`} key={index}>
-                <a
-                  onClick={() =>
-                    dispatch({
-                      type: FILTER_ACTIONS.CHANGE_CATEGORY,
-                      categories: cata?.slug ? [cata.slug] : [],
-                    })
-                  }
-                  className={`filter-item dropdown-item`}
-                >
-                  {cata.title ? cata.title : cata.name ? cata.name : "name"}
-                </a>
-              </Link>
-            ))}
-          </DropdownMenu>
-        </div>
+          {dropdownOpen && (
+            <DropdownMenu className="subMenu">
+              {cataList.map((cata, index) => (
+                <DropdownItem key={index}>
+                  <Link href={`/shop/${cata.slug}`}>
+                    <a
+                      onClick={() =>
+                        dispatch({
+                          type: FILTER_ACTIONS.CHANGE_CATEGORY,
+                          categories: cata?.slug ? [cata.slug] : [],
+                        })
+                      }
+                      className={`filter-item`}
+                    >
+                      {cata.title ? cata.title : cata.name ? cata.name : "name"}
+                    </a>
+                  </Link>
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          )}
+        </Dropdown>
       </div>
     </Container>
   );

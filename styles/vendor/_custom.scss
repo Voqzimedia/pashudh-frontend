@@ -42,19 +42,22 @@
 }
 
 .filter-wrapper {
+  .dropdown {
+    list-style: none;
+  }
   .dropdown-toggle {
     padding: 10px 15px;
     border: 0.5px solid #f6f6f6;
     margin: 1rem 0;
-    .subMenu {
-      width: 100%;
-      max-width: 95vw;
-      text-align: center;
-      padding: 0;
-      .filter-item {
-        padding: 10px 15px;
-        border: 0.5px solid #f6f6f6;
-      }
+  }
+  .subMenu {
+    width: 100%;
+    max-width: 95vw;
+    text-align: center;
+    padding: 0;
+    .dropdown-item {
+      padding: 10px 15px;
+      border: 0.5px solid #f6f6f6;
     }
   }
 }
@@ -95,6 +98,17 @@
     margin: auto;
     img {
       width: 100%;
+    }
+  }
+}
+
+.product-images-slider {
+  .slick-slide {
+    img {
+      @media only screen and (max-width: 500px) {
+        height: 70vh;
+        object-fit: cover;
+      }
     }
   }
 }

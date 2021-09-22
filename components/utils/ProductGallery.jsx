@@ -27,7 +27,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
             <div className="thumb" onClick={() => setMainImg(gallery?.main)}>
               <div className="image-holder">
                 <img
-                  src={`${imgUrlCheck(gallery?.main?.formats?.thumbnail?.url)}`}
+                  src={`${imgUrlCheck(gallery?.main?.formats?.small?.url)}`}
                   alt={`${product}${gallery?.main?.id}`}
                 />
               </div>
@@ -40,9 +40,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
             <div className="thumb" onClick={() => setMainImg(gallery?.pallu)}>
               <div className="image-holder">
                 <img
-                  src={`${imgUrlCheck(
-                    gallery?.pallu?.formats?.thumbnail?.url
-                  )}`}
+                  src={`${imgUrlCheck(gallery?.pallu?.formats?.small?.url)}`}
                   alt={`${product}${gallery?.pallu?.id}`}
                 />
               </div>
@@ -55,9 +53,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
             <div className="thumb" onClick={() => setMainImg(gallery?.border)}>
               <div className="image-holder">
                 <img
-                  src={`${imgUrlCheck(
-                    gallery?.border?.formats?.thumbnail?.url
-                  )}`}
+                  src={`${imgUrlCheck(gallery?.border?.formats?.small?.url)}`}
                   alt={`${product}${gallery?.border?.id}`}
                 />
               </div>
@@ -70,9 +66,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
             <div className="thumb" onClick={() => setMainImg(gallery?.blouse)}>
               <div className="image-holder">
                 <img
-                  src={`${imgUrlCheck(
-                    gallery?.blouse?.formats?.thumbnail?.url
-                  )}`}
+                  src={`${imgUrlCheck(gallery?.blouse?.formats?.small?.url)}`}
                   alt={`${product}${gallery?.blouse?.id}`}
                 />
               </div>
@@ -92,7 +86,7 @@ const ProductGallery = ({ GalleryImgs, product, gallery }) => {
             >
               <div className="image-holder">
                 <img
-                  src={`${imgUrlCheck(image?.formats?.thumbnail?.url)}`}
+                  src={`${imgUrlCheck(image?.formats?.small?.url)}`}
                   alt={`${product}${image?.id}`}
                 />
               </div>
