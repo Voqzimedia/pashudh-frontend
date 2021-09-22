@@ -32,6 +32,8 @@ export const paymentGatewayList = [
 export default function GiftCardForm({ giftCard }) {
   const { user, setModalLogin } = useContext(AppContext);
 
+  // console.log(giftCard);
+
   const [data, updateData] = useState({
     Email: "",
     FirstName: "",
@@ -159,7 +161,7 @@ export default function GiftCardForm({ giftCard }) {
     // const checkoutData = checkOutDataFormater(data, cart);
 
     promoCheckout({
-      giftcard: giftCard.slug,
+      giftcard: giftCard?.items,
       emailTo: data.Email,
       paymentGateway: data.paymentGateway,
     })
@@ -207,7 +209,7 @@ export default function GiftCardForm({ giftCard }) {
   };
 
   return (
-    <fieldset disabled={processing || !giftCard || succeeded}>
+    <fieldset disabled={processing || !giftCard?.items || succeeded}>
       <form onSubmit={formSubmit}>
         <div className="contact-info">
           <div className={`from-container`}>

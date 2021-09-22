@@ -110,7 +110,7 @@ const CheckoutGiftCard = () => {
 
               <div className="checkout-form">
                 <Elements stripe={promise}>
-                  <GiftCardForm giftCard={giftCard} />
+                  <GiftCardForm giftCard={cartGiftCard} />
                 </Elements>
               </div>
             </div>

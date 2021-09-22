@@ -63,7 +63,7 @@ export default function BlogSection() {
         <div className="content-header">
           <div className="content-holder">
             <center>
-              <p className="sub-title">Blogs</p>
+              <p className="sub-title">Blog</p>
               <hr className="small gradient no-m" />
               <h2 className="title">Silken Symphonies</h2>
             </center>

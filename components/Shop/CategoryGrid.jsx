@@ -21,7 +21,7 @@ export default function CategoryGrid({ categories }) {
     },
   };
 
-  console.log(categories);
+  // console.log(categories);
 
   return (
     <div className="product-grid">
@@ -49,7 +49,7 @@ export default function CategoryGrid({ categories }) {
                   <Row className="product-content-holder">
                     <Col xs="12" className="no-pad">
                       <center>
-                        <h4 className="title">{category.title}</h4>
+                        <h5 className="title">{category.title}</h5>
                       </center>
                     </Col>
                   </Row>

@@ -184,7 +184,7 @@ export default function CheckoutForm({
 
     const checkoutData = checkOutDataFormater(data, cart);
 
-    console.log(checkoutData);
+    // console.log(checkoutData);
 
     productCheckout(checkoutData)
       .then((res) => {
