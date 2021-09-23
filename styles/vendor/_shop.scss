@@ -365,6 +365,10 @@
         margin: 25px 0;
       }
 
+      @media only screen and (max-width: 500px) {
+        margin-top: 0;
+      }
+
       .product-scroller {
         height: 100%;
       }
@@ -383,6 +387,21 @@
         margin-bottom: 10px;
         border-bottom: 1px solid $font-light2;
         position: relative;
+        @media only screen and (max-width: 500px) {
+          .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            .product-name {
+              flex: 3;
+              margin: 0;
+            }
+            .price {
+              flex: 1;
+            }
+          }
+        }
         .product-name {
           @media only screen and (max-width: 500px) {
             font-size: 1.2rem;

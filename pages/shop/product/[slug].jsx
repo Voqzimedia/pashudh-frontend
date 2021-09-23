@@ -174,10 +174,13 @@ const Product = ({ product, category }) => {
                   <>
                     <article>
                       <div className="product-header">
-                        <h1 className="product-name">{thisProduct?.name}</h1>
-                        <p className="price">
-                          {currency.format(thisProduct?.price)}
-                        </p>
+                        <div className="header-top">
+                          <h1 className="product-name">{thisProduct?.name}</h1>
+                          <p className="price">
+                            {currency.format(thisProduct?.price)}
+                          </p>
+                        </div>
+
                         <div className="header-bottom">
                           <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
                           {isMobile && thisProduct.StockDetails.isSoldOut ? (

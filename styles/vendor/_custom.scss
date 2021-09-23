@@ -146,6 +146,14 @@
       // font-family: $base-font;
       font-size: 20px;
     }
+
+    .slick-dots {
+      bottom: 25px;
+      li button:before,
+      li.slick-active button:before {
+        color: $base-primary-light;
+      }
+    }
   }
 }
 
@@ -154,9 +162,11 @@
 }
 
 .single-shop-section {
-  margin-top: 0 !important;
-  .product-images-slider {
-    margin-top: 20px !important;
+  @media only screen and (max-width: 500px) {
+    margin-top: 0 !important;
+    .product-images-slider {
+      margin-top: 20px !important;
+    }
   }
 }
 

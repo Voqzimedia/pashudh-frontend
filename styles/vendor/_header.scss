@@ -226,12 +226,12 @@ header {
     .mobile-header {
       position: fixed;
       width: 100%;
-      bottom: 1rem;
+      bottom: 0;
       z-index: 9999;
       .user-block {
-        width: 90%;
+        width: 100%;
         box-shadow: 3px 1px 29px rgb(0 0 0 / 12%);
-        border-radius: 5px;
+        // border-radius: 5px;
         margin: auto;
         background-color: $base-primary-light;
         position: relative;
