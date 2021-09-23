@@ -106,7 +106,7 @@
   .slick-slide {
     img {
       @media only screen and (max-width: 500px) {
-        height: 70vh;
+        height: 65vh;
         object-fit: cover;
       }
     }
@@ -151,4 +151,17 @@
 
 .no-padding {
   padding: 0;
+}
+
+.single-shop-section {
+  margin-top: 0 !important;
+  .product-images-slider {
+    margin-top: 20px !important;
+  }
+}
+
+.pagination-holder {
+  .pagination {
+    justify-content: space-between;
+  }
 }

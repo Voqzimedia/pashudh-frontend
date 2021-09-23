@@ -145,7 +145,7 @@ const Product = ({ product, category }) => {
 
   return (
     <PageMotion>
-      <section className={`shop-section page-section`}>
+      <section className={`shop-section page-section single-shop-section`}>
         <div className="shop-body-section">
           <Container className={`${isMobile ? "no-padding" : ""}`}>
             {!isMobile && (
