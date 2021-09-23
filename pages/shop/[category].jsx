@@ -128,6 +128,15 @@ const CatagoryShop = ({ products, categories, thisFillter, count }) => {
   }, [graphVariable]);
 
   useMemo(() => {
+    router?.query?.start
+      ? dispatch({
+          type: FILTER_ACTIONS.LOADMORE,
+          start: parseInt(router?.query?.start),
+        })
+      : null;
+  }, [router]);
+
+  useMemo(() => {
     dispatch({
       type: FILTER_ACTIONS.CHANGE_CATEGORY,
       categories: thisFillter?.slug ? [thisFillter.slug] : [],

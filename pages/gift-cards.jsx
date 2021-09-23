@@ -242,7 +242,6 @@ export default function GiftCards({ giftCards }) {
                   </div>
                 </div>
               </Sticky>
-              ;
             </Col>
           </Row>
         </Container>

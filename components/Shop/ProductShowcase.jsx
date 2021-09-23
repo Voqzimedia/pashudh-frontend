@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import dynamic from "next/dynamic";
 
 const Slider = dynamic(() => import("react-slick"));
-import { GlassMagnifier } from "react-image-magnifiers";
+// import { GlassMagnifier } from "react-image-magnifiers";
 
 import { imgUrlCheck } from "../../helper/functions";
 import ProductGallery from "../utils/ProductGallery";

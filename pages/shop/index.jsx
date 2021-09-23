@@ -166,6 +166,15 @@ const Shop = ({ products, categories, count }) => {
     refetchCata();
   }, [graphVariable]);
 
+  useMemo(() => {
+    router?.query?.start
+      ? dispatch({
+          type: FILTER_ACTIONS.LOADMORE,
+          start: parseInt(router?.query?.start),
+        })
+      : null;
+  }, [router]);
+
   const nextPage = () => {
     dispatch({
       type: FILTER_ACTIONS.LOADMORE,
