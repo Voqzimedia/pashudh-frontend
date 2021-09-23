@@ -16,8 +16,11 @@ import AppContext from "../../context/AppContext";
 import {
   getProductByFilter,
   getProductList,
+  getProductsCount,
 } from "../../helper/graphql/getProducts";
 import { filterReducer, FILTER_ACTIONS, initialFilter } from ".";
+import ShopPagination from "../../components/Shop/ShopPagination";
+import { useRouter } from "next/router";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
@@ -29,10 +32,14 @@ const ProductSkeleton = dynamic(() =>
   import("../../components/utils/ProductSkeleton")
 );
 
-const CatagoryShop = ({ products, categories, thisFillter }) => {
+const CatagoryShop = ({ products, categories, thisFillter, count }) => {
   const pageTitle = "Shop";
 
+  const router = useRouter();
+
   const [prodList, setProdList] = useState(products);
+  const [productsCount, setProductsCount] = useState(count);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const thisinitialFilter = {
@@ -53,6 +60,7 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
     let color = state.color;
     let limit = state.limit;
     let start = state.start;
+    let sort = state.sort;
     let query = searchQuery != "" ? searchQuery : null;
 
     let variable = {};
@@ -67,7 +75,28 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
       variable = { ...variable, query };
     }
 
-    return { ...variable, categories, start, class: thisClass, color };
+    return { ...variable, categories, start, class: thisClass, color, sort };
+  }, [state, searchQuery]);
+
+  const countVariable = useMemo(() => {
+    let price = state.price ? state.price : null;
+    let categories = state.categories.length > 0 ? state.categories : null;
+    let thisClass = state.class.length > 0 ? state.class : null;
+    let color = state.color.length > 0 ? state.color : null;
+
+    let query = searchQuery != "" ? searchQuery : null;
+
+    let variable = {};
+
+    if (price) {
+      variable = { ...variable, price };
+    }
+
+    if (query) {
+      variable = { ...variable, query };
+    }
+
+    return { ...variable, categories, class: thisClass, color };
   }, [state, searchQuery]);
 
   const refetchCata = () => {
@@ -78,6 +107,17 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
       })
       .then(({ data }) => {
         setProdList(() => data?.products);
+        setIsLoading(() => false);
+      });
+
+    client
+      .query({
+        query: getProductsCount,
+        variables: countVariable,
+      })
+      .then(({ data }) => {
+        // console.log(data, countVariable);
+        setProductsCount(() => data?.productsConnection?.aggregate?.count);
         setIsLoading(() => false);
       });
   };
@@ -95,6 +135,44 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
   }, [thisFillter]);
 
   // console.log(thisFillter);
+
+  const nextPage = () => {
+    dispatch({
+      type: FILTER_ACTIONS.LOADMORE,
+      start: state.start + 9,
+    });
+    router.push(
+      {
+        pathname: router.route,
+        query: { start: state.start + 9, category: thisFillter.slug },
+      },
+      undefined,
+      { shallow: false }
+    );
+  };
+
+  const previousPage = () => {
+    dispatch({
+      type: FILTER_ACTIONS.LOADMORE,
+      start: state.start - 9,
+    });
+    router.push(
+      {
+        pathname: router.route,
+        query: { start: state.start - 9, category: thisFillter.slug },
+      },
+      undefined,
+      { shallow: false }
+    );
+  };
+
+  const pageinationProps = {
+    productsCount,
+    state,
+    prodList,
+    nextPage,
+    previousPage,
+  };
 
   return (
     <PageMotion>
@@ -178,18 +256,33 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
                 Sort
                 <DropdownMenu className={`subMenu`}>
                   <a
-                    onClick={() => sortProduct("priceAsc")}
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTPRICEASC,
+                      })
+                    }
                     className="dropdown-item"
                   >
                     Price: Low to High
                   </a>
                   <a
-                    onClick={() => sortProduct("priceDesc")}
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTPRICEDESC,
+                      })
+                    }
                     className="dropdown-item"
                   >
                     Price: High to Low
                   </a>
-                  <a onClick={() => sortProduct()} className="dropdown-item">
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTID,
+                      })
+                    }
+                    className="dropdown-item"
+                  >
                     Newest Arrivals
                   </a>
                 </DropdownMenu>
@@ -198,7 +291,10 @@ const CatagoryShop = ({ products, categories, thisFillter }) => {
             {isLoading ? (
               <ProductSkeleton />
             ) : (
-              <ProductGrid prodList={prodList} />
+              <>
+                <ProductGrid prodList={prodList} />
+                <ShopPagination {...pageinationProps} />
+              </>
             )}
           </Container>
         </div>
@@ -233,12 +329,22 @@ export async function getStaticProps(context) {
     },
   });
 
+  const { data: productsCount } = await client.query({
+    query: getProductsCount,
+    variables: {
+      categories: [category],
+    },
+  });
+
   return {
     props: {
       products: productsData.products ? productsData?.products : [],
       categories: categoriesData?.categories ? categoriesData.categories : [],
       thisFillter:
         categoryData?.categories.length > 0 ? categoryData.categories[0] : null,
+      count: productsCount?.productsConnection?.aggregate?.count
+        ? productsCount?.productsConnection?.aggregate?.count
+        : 0,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in

@@ -52,8 +52,26 @@ export const getProductSlug = gql`
 `;
 
 export const getProductsCount = gql`
-  query getProductsCount {
-    productsCount
+  query productCount(
+    $categories: [String]
+    $class: [String]
+    $color: [String]
+    $price: Int
+    $query: String
+  ) {
+    productsConnection(
+      where: {
+        classes: { slug_in: $class }
+        colors: { slug_in: $color }
+        categories: { slug_in: $categories }
+        price_lte: $price
+        name_contains: $query
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 
@@ -128,6 +146,7 @@ export const getProductByFilter = gql`
     $color: [String]
     $price: Int
     $query: String
+    $sort: String
   ) {
     products(
       limit: $limit
@@ -139,6 +158,7 @@ export const getProductByFilter = gql`
         price_lte: $price
         name_contains: $query
       }
+      sort: $sort
     ) {
       id
       name

@@ -42,12 +42,13 @@
 }
 
 .filter-wrapper {
+  max-width: 300px;
   .dropdown {
     list-style: none;
   }
   .dropdown-toggle {
     padding: 10px 15px;
-    border: 0.5px solid #f6f6f6;
+    border: 0.5px solid #dadada;
     margin: 1rem 0;
   }
   .subMenu {

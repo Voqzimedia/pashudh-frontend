@@ -38,6 +38,7 @@ export const initialFilter = {
   price: null,
   limit: 9,
   start: 0,
+  sort: "id:asc",
 };
 
 export const FILTER_ACTIONS = {
@@ -46,6 +47,9 @@ export const FILTER_ACTIONS = {
   CHANGE_PRICE: "changePrice",
   CHANGE_CATEGORY: "changeCategory",
   LOADMORE: "loadMore",
+  SORTPRICEASC: "sortShopAsc",
+  SORTPRICEDESC: "sortShopDesc",
+  SORTID: "sortID",
   CLEAR: "clear",
 };
 
@@ -61,17 +65,23 @@ export function filterReducer(state, action) {
       return { ...state, start: action.start };
     case FILTER_ACTIONS.CHANGE_CATEGORY:
       return { ...state, categories: action.categories };
+    case FILTER_ACTIONS.SORTPRICEASC:
+      return { ...state, sort: "price:asc" };
+    case FILTER_ACTIONS.SORTPRICEDESC:
+      return { ...state, sort: "price:desc" };
+    case FILTER_ACTIONS.SORTID:
+      return { ...state, sort: "id:desc" };
     default:
       throw new Error();
   }
 }
 
-const Shop = ({ products, categories, productsCount }) => {
+const Shop = ({ products, categories, count }) => {
   const pageTitle = "Shop";
 
   const [prodList, setProdList] = useState(products);
+  const [productsCount, setProductsCount] = useState(count);
   const [filterCata, setFilterCata] = useState(null);
-  const [filterSort, setFilterSort] = useState("id");
   const [isLoading, setIsLoading] = useState(false);
 
   const [state, dispatch] = useReducer(filterReducer, initialFilter);
@@ -89,6 +99,7 @@ const Shop = ({ products, categories, productsCount }) => {
     let color = state.color;
     let limit = state.limit;
     let start = state.start;
+    let sort = state.sort;
     let query = searchQuery != "" ? searchQuery : null;
 
     let variable = {};
@@ -103,7 +114,28 @@ const Shop = ({ products, categories, productsCount }) => {
       variable = { ...variable, query };
     }
 
-    return { ...variable, categories, start, class: thisClass, color };
+    return { ...variable, categories, start, class: thisClass, color, sort };
+  }, [state, searchQuery]);
+
+  const countVariable = useMemo(() => {
+    let price = state.price ? state.price : null;
+    let categories = state.categories.length > 0 ? state.categories : null;
+    let thisClass = state.class.length > 0 ? state.class : null;
+    let color = state.color.length > 0 ? state.color : null;
+
+    let query = searchQuery != "" ? searchQuery : null;
+
+    let variable = {};
+
+    if (price) {
+      variable = { ...variable, price };
+    }
+
+    if (query) {
+      variable = { ...variable, query };
+    }
+
+    return { ...variable, categories, class: thisClass, color };
   }, [state, searchQuery]);
 
   const refetchCata = () => {
@@ -114,6 +146,17 @@ const Shop = ({ products, categories, productsCount }) => {
       })
       .then(({ data }) => {
         setProdList(() => data?.products);
+        setIsLoading(() => false);
+      });
+
+    client
+      .query({
+        query: getProductsCount,
+        variables: countVariable,
+      })
+      .then(({ data }) => {
+        // console.log(data, countVariable);
+        setProductsCount(() => data?.productsConnection?.aggregate?.count);
         setIsLoading(() => false);
       });
   };
@@ -200,23 +243,14 @@ const Shop = ({ products, categories, productsCount }) => {
             <div className="shop-title-header">
               <div className="content-holder">
                 <div className="content-header">
-                  <p className="sub-title">
-                    {filterCata?.tagLine
-                      ? filterCata.tagLine
-                      : "Affordable Affluence"}
-                  </p>
+                  <p className="sub-title">Affordable Affluence</p>
                   <hr className="small gradient no-m" />
-                  <h2 className="title">
-                    {filterCata?.title ? filterCata.title : "Whole Six Yards"}
-                  </h2>
+                  <h2 className="title">Whole Six Yards</h2>
                 </div>
 
                 <p className="description">
-                  {filterCata?.description
-                    ? filterCata.description
-                    : `Delightfully comfortable in both quality and
-                  price, these contemporary drapes will let you float in the lap
-                  of luxury.`}
+                  Delightfully comfortable in both quality and price, these
+                  contemporary drapes will let you float in the lap of luxury.
                 </p>
               </div>
             </div>
@@ -241,18 +275,33 @@ const Shop = ({ products, categories, productsCount }) => {
                 Sort
                 <DropdownMenu className={`subMenu`}>
                   <a
-                    onClick={() => sortProduct("priceAsc")}
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTPRICEASC,
+                      })
+                    }
                     className="dropdown-item"
                   >
                     Price: Low to High
                   </a>
                   <a
-                    onClick={() => sortProduct("priceDesc")}
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTPRICEDESC,
+                      })
+                    }
                     className="dropdown-item"
                   >
                     Price: High to Low
                   </a>
-                  <a onClick={() => sortProduct()} className="dropdown-item">
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORTID,
+                      })
+                    }
+                    className="dropdown-item"
+                  >
                     Newest Arrivals
                   </a>
                 </DropdownMenu>
@@ -261,10 +310,11 @@ const Shop = ({ products, categories, productsCount }) => {
             {isLoading ? (
               <ProductSkeleton />
             ) : (
-              <ProductGrid prodList={prodList} />
+              <>
+                <ProductGrid prodList={prodList} />
+                <ShopPagination {...pageinationProps} />
+              </>
             )}
-
-            <ShopPagination {...pageinationProps} />
           </Container>
         </div>
       </section>
@@ -295,7 +345,9 @@ export async function getStaticProps() {
     props: {
       products: productsData.products ? productsData?.products : [],
       categories: categoriesData?.categories ? categoriesData.categories : [],
-      productsCount: productsCount.productsCount,
+      count: productsCount?.productsConnection?.aggregate?.count
+        ? productsCount?.productsConnection?.aggregate?.count
+        : 0,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
