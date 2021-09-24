@@ -21,6 +21,13 @@ import {
 import { filterReducer, FILTER_ACTIONS, initialFilter } from ".";
 import ShopPagination from "../../components/Shop/ShopPagination";
 import { useRouter } from "next/router";
+import SvgIcon from "../../components/utils/SvgIcon";
+import { icons } from "feather-icons";
+import ProductFilter from "../../components/Shop/ProductFilter";
+import { getClasses } from "../../helper/graphql/getClass";
+import { getColors } from "../../helper/graphql/getColors";
+
+const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
@@ -32,7 +39,14 @@ const ProductSkeleton = dynamic(() =>
   import("../../components/utils/ProductSkeleton")
 );
 
-const CatagoryShop = ({ products, categories, thisFillter, count }) => {
+const CatagoryShop = ({
+  products,
+  categories,
+  thisFillter,
+  count,
+  colors,
+  classes,
+}) => {
   const pageTitle = "Shop";
 
   const router = useRouter();
@@ -41,10 +55,15 @@ const CatagoryShop = ({ products, categories, thisFillter, count }) => {
   const [productsCount, setProductsCount] = useState(count);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isFilterOpen, setFilterOpen] = useState(false);
 
   const thisinitialFilter = {
     ...initialFilter,
     categories: thisFillter?.slug ? [thisFillter.slug] : [],
+  };
+
+  const filterModelHandle = () => {
+    setFilterOpen(() => !isFilterOpen);
   };
 
   const [state, dispatch] = useReducer(filterReducer, thisinitialFilter);
@@ -183,6 +202,14 @@ const CatagoryShop = ({ products, categories, thisFillter, count }) => {
     previousPage,
   };
 
+  const filterProps = {
+    state,
+    dispatch,
+    categories,
+    colors,
+    classes,
+  };
+
   return (
     <PageMotion>
       <section className={`shop-section page-section`}>
@@ -246,19 +273,17 @@ const CatagoryShop = ({ products, categories, thisFillter, count }) => {
             </div>
 
             <div className="product-sort-holder">
-              <div
-                className={`nav-link dropdown-toggle menu-link has-subMenu `}
-              >
-                Filter
-                <DropdownMenu className={`subMenu`}>
-                  <a href="#" className="dropdown-item">
-                    Color
-                  </a>
-                  <a href="#" className="dropdown-item">
-                    Class
-                  </a>
-                </DropdownMenu>
+              <div className="product-filter">
+                <button
+                  className="btn"
+                  onClick={() =>
+                    filterModelHandle ? filterModelHandle() : null
+                  }
+                >
+                  Filter <SvgIcon icon={icons["filter"].toSvg()} />
+                </button>
               </div>
+
               <div
                 className={`nav-link dropdown-toggle menu-link has-subMenu right`}
               >
@@ -308,6 +333,21 @@ const CatagoryShop = ({ products, categories, thisFillter, count }) => {
           </Container>
         </div>
       </section>
+      <SlidingPane
+        className="side-pane-wrapper"
+        overlayClassName="side-pane-overlay"
+        isOpen={isFilterOpen}
+        from="left"
+        title="Filters"
+        width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+        onRequestClose={() => {
+          // triggered on "<" on left top click or on outside click
+          setFilterOpen(false);
+        }}
+      >
+        <ProductFilter {...filterProps} />
+      </SlidingPane>
     </PageMotion>
   );
 };
@@ -329,6 +369,14 @@ export async function getStaticProps(context) {
     variables: {
       slug: category,
     },
+  });
+
+  const { data: colorsData } = await client.query({
+    query: getColors,
+  });
+
+  const { data: ClassData } = await client.query({
+    query: getClasses,
   });
 
   const { data: productsData } = await client.query({
@@ -354,6 +402,8 @@ export async function getStaticProps(context) {
       count: productsCount?.productsConnection?.aggregate?.count
         ? productsCount?.productsConnection?.aggregate?.count
         : 0,
+      colors: colorsData?.colors ? colorsData?.colors : [],
+      classes: ClassData?.classes ? ClassData?.classes : [],
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in

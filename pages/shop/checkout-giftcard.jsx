@@ -66,7 +66,7 @@ const CheckoutGiftCard = () => {
                     <Col md="6" xs="6">
                       <div className="product-details">
                         <div className="name">
-                          Pashuth {currency.format(giftCard.price)} Gift Card{" "}
+                          Pashudh {currency.format(giftCard.price)} Gift Card{" "}
                         </div>
                         <div className="price">
                           {currency.format(giftCard.price)} X{" "}

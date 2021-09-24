@@ -20,12 +20,20 @@ import {
   getProductsCount,
 } from "../../helper/graphql/getProducts";
 import ShopPagination from "../../components/Shop/ShopPagination";
+import SvgIcon from "../../components/utils/SvgIcon";
+import { icons } from "feather-icons";
+import ProductFilter from "../../components/Shop/ProductFilter";
+import { getColors } from "../../helper/graphql/getColors";
+import { getClasses } from "../../helper/graphql/getClass";
+import { arrayRemove } from "../../helper/functions";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
 const CatagoryFilterX = dynamic(() =>
   import("../../components/Shop/CatagoryFilterX")
 );
+
+const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 
 const ProductSkeleton = dynamic(() =>
   import("../../components/utils/ProductSkeleton")
@@ -42,10 +50,16 @@ export const initialFilter = {
 };
 
 export const FILTER_ACTIONS = {
-  CHANGE_CLASS: "changeClass",
-  CHANGE_COLOR: "changeColor",
   CHANGE_PRICE: "changePrice",
   CHANGE_CATEGORY: "changeCategory",
+  REMOVE_CATEGORY: "removeCategory",
+  ADD_CATEGORY: "addCategory",
+  CHANGE_CLASS: "changeClass",
+  REMOVE_CLASS: "removeClass",
+  ADD_CLASS: "addClass",
+  CHANGE_COLOR: "changeColor",
+  REMOVE_COLOR: "removeColor",
+  ADD_COLOR: "addColor",
   LOADMORE: "loadMore",
   SORTPRICEASC: "sortShopAsc",
   SORTPRICEDESC: "sortShopDesc",
@@ -56,15 +70,70 @@ export const FILTER_ACTIONS = {
 export function filterReducer(state, action) {
   switch (action.type) {
     case FILTER_ACTIONS.CHANGE_CLASS:
-      return { ...state, class: action.class, start: 0 };
+      return {
+        ...state,
+        class: action.class,
+        start: 0,
+      };
+    case FILTER_ACTIONS.ADD_CLASS:
+      state.class.push(action.class);
+      return {
+        ...state,
+        class: state.class,
+        start: 0,
+      };
+    case FILTER_ACTIONS.REMOVE_CLASS:
+      let newClass = arrayRemove(state.class, action.class);
+      return {
+        ...state,
+        class: newClass,
+        start: 0,
+      };
     case FILTER_ACTIONS.CHANGE_COLOR:
-      return { ...state, color: action.color, start: 0 };
+      return {
+        ...state,
+        color: action.color,
+        start: 0,
+      };
+    case FILTER_ACTIONS.ADD_COLOR:
+      state.color.push(action.color);
+      return {
+        ...state,
+        color: state.color,
+        start: 0,
+      };
+    case FILTER_ACTIONS.REMOVE_COLOR:
+      let newColor = arrayRemove(state.color, action.color);
+      return {
+        ...state,
+        color: newColor,
+        start: 0,
+      };
+    case FILTER_ACTIONS.CHANGE_CATEGORY:
+      return {
+        ...state,
+        categories: action.categories,
+        start: 0,
+      };
+    case FILTER_ACTIONS.ADD_CATEGORY:
+      state.categories.push(action.category);
+      return {
+        ...state,
+        categories: state.categories,
+        start: 0,
+      };
+    case FILTER_ACTIONS.REMOVE_CATEGORY:
+      let newCata = arrayRemove(state.categories, action.category);
+      return {
+        ...state,
+        categories: newCata,
+        start: 0,
+      };
     case FILTER_ACTIONS.CHANGE_PRICE:
       return { ...state, price: action.price, start: 0 };
     case FILTER_ACTIONS.LOADMORE:
       return { ...state, start: action.start };
-    case FILTER_ACTIONS.CHANGE_CATEGORY:
-      return { ...state, categories: action.categories };
+
     case FILTER_ACTIONS.SORTPRICEASC:
       return { ...state, sort: "price:asc" };
     case FILTER_ACTIONS.SORTPRICEDESC:
@@ -76,12 +145,13 @@ export function filterReducer(state, action) {
   }
 }
 
-const Shop = ({ products, categories, count }) => {
+const Shop = ({ products, categories, count, colors, classes }) => {
   const pageTitle = "Shop";
 
   const [prodList, setProdList] = useState(products);
   const [productsCount, setProductsCount] = useState(count);
-  const [filterCata, setFilterCata] = useState(null);
+  const [isFilterOpen, setFilterOpen] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [state, dispatch] = useReducer(filterReducer, initialFilter);
@@ -91,6 +161,10 @@ const Shop = ({ products, categories, count }) => {
   const isMobile = deviceWidth < 500;
 
   const router = useRouter();
+
+  const filterModelHandle = () => {
+    setFilterOpen(() => !isFilterOpen);
+  };
 
   const graphVariable = useMemo(() => {
     let price = state.price ? state.price : null;
@@ -213,6 +287,14 @@ const Shop = ({ products, categories, count }) => {
     previousPage,
   };
 
+  const filterProps = {
+    state,
+    dispatch,
+    categories,
+    colors,
+    classes,
+  };
+
   return (
     <PageMotion>
       <section className={`shop-section page-section`}>
@@ -265,18 +347,15 @@ const Shop = ({ products, categories, count }) => {
             </div>
 
             <div className="product-sort-holder">
-              <div
-                className={`nav-link dropdown-toggle menu-link has-subMenu `}
-              >
-                Filter
-                <DropdownMenu className={`subMenu`}>
-                  <a href="#" className="dropdown-item">
-                    Color
-                  </a>
-                  <a href="#" className="dropdown-item">
-                    Class
-                  </a>
-                </DropdownMenu>
+              <div className="product-filter">
+                <button
+                  className="btn"
+                  onClick={() =>
+                    filterModelHandle ? filterModelHandle() : null
+                  }
+                >
+                  Filter <SvgIcon icon={icons["filter"].toSvg()} />
+                </button>
               </div>
               <div
                 className={`nav-link dropdown-toggle menu-link has-subMenu right`}
@@ -327,6 +406,21 @@ const Shop = ({ products, categories, count }) => {
           </Container>
         </div>
       </section>
+      <SlidingPane
+        className="side-pane-wrapper"
+        overlayClassName="side-pane-overlay"
+        isOpen={isFilterOpen}
+        from="left"
+        title="Filters"
+        width={`${isMobile ? "100vw" : "500px"}`}
+        closeIcon={<SvgIcon icon={icons.x.toSvg()} />}
+        onRequestClose={() => {
+          // triggered on "<" on left top click or on outside click
+          setFilterOpen(false);
+        }}
+      >
+        <ProductFilter {...filterProps} />
+      </SlidingPane>
     </PageMotion>
   );
 };
@@ -346,6 +440,14 @@ export async function getStaticProps() {
     },
   });
 
+  const { data: colorsData } = await client.query({
+    query: getColors,
+  });
+
+  const { data: ClassData } = await client.query({
+    query: getClasses,
+  });
+
   const { data: productsCount } = await client.query({
     query: getProductsCount,
   });
@@ -357,6 +459,8 @@ export async function getStaticProps() {
       count: productsCount?.productsConnection?.aggregate?.count
         ? productsCount?.productsConnection?.aggregate?.count
         : 0,
+      colors: colorsData?.colors ? colorsData?.colors : [],
+      classes: ClassData?.classes ? ClassData?.classes : [],
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in

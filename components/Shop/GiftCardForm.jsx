@@ -114,7 +114,7 @@ export default function GiftCardForm({ giftCard }) {
       currency: orderData.currency,
       amount: orderData.amount.toString(),
       order_id: orderData.id,
-      name: "Pashuth",
+      name: "Pashudh",
       description: "Thank you for nothing. Please give us some money",
       handler: function (response) {
         // console.log(response);

@@ -314,6 +314,23 @@
     a {
       color: inherit;
     }
+
+    .product-filter {
+      .btn {
+        display: flex;
+        padding-left: 0;
+        outline: none;
+        box-shadow: none;
+        .svgIcon {
+          margin: 0 0.5rem;
+          svg {
+            stroke-width: 1px;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
   }
 
   .grid-title {
@@ -608,6 +625,38 @@
           width: 0.8rem;
         }
       }
+    }
+  }
+}
+
+.product-filter-holder {
+  .filter-block {
+    margin: 1rem 0;
+    .filter-title {
+      font-size: 1.3rem;
+    }
+    .filter-item {
+      cursor: pointer;
+      margin: 0.5rem 0;
+    }
+  }
+
+  .filter-status {
+    .filter-tag {
+      display: flex;
+      margin: 0.5rem 0;
+      .cata {
+        margin-left: 1rem;
+      }
+    }
+    button {
+      background: $base-gradient;
+      margin: 0 1rem;
+      border: none;
+      color: $base-primary-light;
+      border-radius: 100%;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 }
