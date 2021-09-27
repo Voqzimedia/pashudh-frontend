@@ -20,10 +20,6 @@ import razorpayLogo from "../../assets/images/logo-razorpay.png";
 
 export const paymentGatewayList = [
   {
-    name: "Stripe",
-    img: stripeLogo,
-  },
-  {
     name: "Razorpay",
     img: razorpayLogo,
   },
@@ -73,64 +69,11 @@ export default function CheckoutForm({
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  // const [paymentRequest, setPaymentRequest] = useState(null);
-  const [order, setOrder] = useState(null);
-  const stripe = useStripe();
-  const elements = useElements();
-  // const [paymentGateway, setPaymentGateway] = useState(null);
 
-  const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
-    setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
-  };
+  const [order, setOrder] = useState(null);
 
   const onChange = (event) => {
     updateData({ ...data, [event.target.name]: event.target.value });
-  };
-
-  const confirmPayment = async (clientSecret) => {
-    setProcessing(true);
-
-    // const checkoutData = checkOutDataFormater(data, cart);
-
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          address: {
-            city: data.City,
-            country: getCode(data.country),
-            line1: data.Address,
-            postal_code: data.PINcode,
-            state: data.region,
-          },
-          email: data.Email,
-          name: `${data.FirstName} ${data.LastName}`,
-          phone: data.Phone,
-        },
-      },
-    });
-
-    if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
-    } else {
-      paymentConfirm(payload.paymentIntent.id, discount, useRedeemPoints)
-        .then((res) => {
-          setOrder(res.data);
-          setError(null);
-          clearCart();
-          setSucceeded(true);
-          setProcessing(false);
-        })
-        .catch((error) => {
-          setError(error.response.data);
-          setProcessing(false);
-        });
-    }
   };
 
   const displayRazorpay = (orderData) => {
@@ -192,13 +135,10 @@ export default function CheckoutForm({
         // set authed User in global context to update header/app state
         // setClientSecret(() => res.data.client_secret);
 
-        if (data.paymentGateway?.name == "Stripe") {
-          res?.data?.client_secret
-            ? confirmPayment(res?.data?.client_secret)
-            : null;
-          setPaymentRequest(res?.data);
-        } else {
+        if (data.paymentGateway?.name == "Razorpay") {
           res?.data?.order ? displayRazorpay(res?.data?.order) : null;
+        } else {
+          console.log("COD");
         }
 
         // console.log(res);
@@ -209,31 +149,6 @@ export default function CheckoutForm({
         setProcessing(false);
       });
   };
-
-  // console.log(order);
-
-  const cardStyle = {
-    hidePostalCode: true,
-    style: {
-      base: {
-        color: "#212529",
-        fontFamily: "Arial, Poppins",
-        fontSmoothing: "antialiased",
-        padding: "5",
-        lineHeight: "40px",
-        fontSize: "1rem",
-        "::placeholder": {
-          color: "#212529",
-        },
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a",
-      },
-    },
-  };
-
-  // console.log(order);
 
   return (
     <fieldset disabled={processing || cart.items.length < 1 || succeeded}>
@@ -368,14 +283,6 @@ export default function CheckoutForm({
                         updateData({ ...data, Phone: value })
                       }
                     />
-                    {/* <input
-                      type="number"
-                      name="Phone"
-                      id="Phone"
-                      placeholder={`Phone`}
-                      onChange={(event) => onChange(event)}
-                      required
-                    /> */}
                   </Col>
 
                   <Col lg="8" className="input-Holder lable-on">
@@ -390,7 +297,7 @@ export default function CheckoutForm({
                     </label>
                   </Col>
                   <Col lg="8" className="input-Holder lable-on">
-                    <Row className="align-center justify-center">
+                    <Row className="align-center">
                       {paymentGatewayList.map((payment_Gateway, index) => {
                         var isActive =
                           payment_Gateway?.name == data.paymentGateway?.name;
@@ -419,15 +326,6 @@ export default function CheckoutForm({
                       })}
                     </Row>
                   </Col>
-                  {data.paymentGateway?.name == "Stripe" && (
-                    <Col lg="8" className="input-Holder stripe-card">
-                      <CardElement
-                        id="card-element"
-                        options={cardStyle}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  )}
                 </Row>
 
                 {/* Show any error that happens when processing the payment */}

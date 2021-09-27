@@ -112,7 +112,8 @@ export default function Checkout() {
                           <Col md="8" className={`input-Holder`}>
                             <div className="product-details">
                               <h5>
-                                Promo Code applied: ({discount.giftcard}){" "}
+                                Promo Code applied: (
+                                {currency.format(discount.price)}){" "}
                               </h5>
                               <div className="coupon">
                                 <span className="code  ">

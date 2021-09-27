@@ -37,7 +37,7 @@ export default function ProductGrid({ prodList }) {
               <Link href={`/shop/product/${product.slug}`}>
                 <a className="product-item">
                   <motion.div className="image-holder">
-                    {product.StockDetails.isSoldOut && (
+                    {product.isSoldOut && (
                       <motion.div className="sold-out">
                         <p>Sold Out</p>
                       </motion.div>

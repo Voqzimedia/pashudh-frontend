@@ -21,7 +21,7 @@ export default function Home() {
       <HighlightSection />
       <ClassesSection />
       <ColorsSection />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <BlogSection />
     </PageMotion>
   );

@@ -45,9 +45,11 @@ export default function Header({ categories }) {
     <header className={isMobile ? "mobile-head" : ""}>
       {isMobile && !(router?.route == "/") && (
         <div className="top-bar">
-          <div className="logo">
-            <Logo isHeader={true} />
-          </div>
+          <Link href="/">
+            <a className="logo">
+              <Logo isHeader={true} />
+            </a>
+          </Link>
         </div>
       )}
       <div className="navbar-area">

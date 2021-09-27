@@ -1,22 +1,15 @@
 import React, { useState, useContext, useMemo, useReducer } from "react";
 import { Container, DropdownMenu } from "reactstrap";
-import { isEmpty } from "lodash";
 
-import { useQuery } from "@apollo/client";
-import {
-  getCategories,
-  getCategory,
-  getCategoriesPath,
-} from "../../helper/graphql/getCategories";
+import { getCategories } from "../../helper/graphql/getCategories";
 import client from "../../helper/ApolloClient";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
-import { CatagoryFilterMobile } from "../../components/Shop/CatagoryFilterX";
+
 import AppContext from "../../context/AppContext";
 import {
   getProductByFilter,
-  getProductList,
   getProductsCount,
 } from "../../helper/graphql/getProducts";
 import ShopPagination from "../../components/Shop/ShopPagination";
@@ -29,9 +22,6 @@ import { arrayRemove } from "../../helper/functions";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const ProductGrid = dynamic(() => import("../../components/Shop/ProductGrid"));
-const CatagoryFilterX = dynamic(() =>
-  import("../../components/Shop/CatagoryFilterX")
-);
 
 const SlidingPane = dynamic(() => import("react-sliding-pane"), { ssr: false });
 
@@ -44,6 +34,8 @@ export const initialFilter = {
   class: [],
   color: [],
   price: null,
+  priceMax: null,
+  isSoldOut: null,
   limit: 9,
   start: 0,
   sort: "id:asc",
@@ -51,7 +43,9 @@ export const initialFilter = {
 
 export const FILTER_ACTIONS = {
   CHANGE_PRICE: "changePrice",
+  CHANGE_PRICEMAX: "changePriceMax",
   CHANGE_CATEGORY: "changeCategory",
+  SELECT_UNSOLD: "selectUnsold",
   REMOVE_CATEGORY: "removeCategory",
   ADD_CATEGORY: "addCategory",
   CHANGE_CLASS: "changeClass",
@@ -68,6 +62,8 @@ export const FILTER_ACTIONS = {
 };
 
 export function filterReducer(state, action) {
+  // console.log(router);
+
   switch (action.type) {
     case FILTER_ACTIONS.CHANGE_CLASS:
       return {
@@ -131,6 +127,10 @@ export function filterReducer(state, action) {
       };
     case FILTER_ACTIONS.CHANGE_PRICE:
       return { ...state, price: action.price, start: 0 };
+    case FILTER_ACTIONS.CHANGE_PRICEMAX:
+      return { ...state, priceMax: action.priceMax, start: 0 };
+    case FILTER_ACTIONS.SELECT_UNSOLD:
+      return { ...state, isSoldOut: action.isSoldOut, start: 0 };
     case FILTER_ACTIONS.LOADMORE:
       return { ...state, start: action.start };
 
@@ -168,6 +168,8 @@ const Shop = ({ products, categories, count, colors, classes }) => {
 
   const graphVariable = useMemo(() => {
     let price = state.price ? state.price : null;
+    let priceMax = state.priceMax ? state.priceMax : null;
+    let isSoldOut = state.isSoldOut != null ? state.isSoldOut : null;
     let categories = state.categories;
     let thisClass = state.class;
     let color = state.color;
@@ -181,6 +183,12 @@ const Shop = ({ products, categories, count, colors, classes }) => {
     if (price) {
       variable = { ...variable, price };
     }
+    if (priceMax) {
+      variable = { ...variable, priceMax };
+    }
+    if (isSoldOut != null) {
+      variable = { ...variable, isSoldOut };
+    }
     if (limit) {
       variable = { ...variable, limit };
     }
@@ -193,6 +201,8 @@ const Shop = ({ products, categories, count, colors, classes }) => {
 
   const countVariable = useMemo(() => {
     let price = state.price ? state.price : null;
+    let priceMax = state.priceMax ? state.priceMax : null;
+    let isSoldOut = state.isSoldOut != null ? state.isSoldOut : null;
     let categories = state.categories.length > 0 ? state.categories : null;
     let thisClass = state.class.length > 0 ? state.class : null;
     let color = state.color.length > 0 ? state.color : null;
@@ -204,6 +214,14 @@ const Shop = ({ products, categories, count, colors, classes }) => {
     if (price) {
       variable = { ...variable, price };
     }
+    if (priceMax) {
+      variable = { ...variable, priceMax };
+    }
+
+    // console.log(isSoldOut == null);
+    if (isSoldOut != null) {
+      variable = { ...variable, isSoldOut };
+    }
 
     if (query) {
       variable = { ...variable, query };
@@ -211,6 +229,8 @@ const Shop = ({ products, categories, count, colors, classes }) => {
 
     return { ...variable, categories, class: thisClass, color };
   }, [state, searchQuery]);
+
+  // console.log({ state, graphVariable });
 
   const refetchCata = () => {
     client
@@ -298,38 +318,14 @@ const Shop = ({ products, categories, count, colors, classes }) => {
   return (
     <PageMotion>
       <section className={`shop-section page-section`}>
-        <Container>
+        {/* <Container>
           <center>
             <h1 className="page-title" data-title={pageTitle}>
               {pageTitle}
             </h1>
           </center>
-        </Container>
+        </Container> */}
         <div className="shop-body-section">
-          {isMobile ? (
-            <center>
-              <CatagoryFilterMobile
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              />
-            </center>
-          ) : (
-            <center>
-              {/* <CatagoryFilterX
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              /> */}
-
-              <CatagoryFilterMobile
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              />
-            </center>
-          )}
-
           <Container>
             <div className="shop-title-header">
               <div className="content-holder">

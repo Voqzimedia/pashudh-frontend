@@ -2,34 +2,44 @@ import { gql } from "@apollo/client";
 
 export const getClasses = gql`
   query getClasses {
-    classes {
+    classes(sort: "priority") {
       id
-      name
+      title
+      slug
+      description
+      tagLine
+      subTitle
+      img {
+        id
+        url
+        formats
+      }
+    }
+  }
+`;
+
+export const getClassesPath = gql`
+  query getClasses {
+    classes(sort: "priority") {
+      id
       slug
     }
   }
 `;
 
 export const getClass = gql`
-  query getClass($slug: String!, $sort: String, $limit: Int, $start: Int) {
+  query getClass($slug: String!) {
     classes(where: { slug: $slug }) {
       id
-      name
+      title
       slug
-      products(sort: $sort, limit: $limit, start: $start) {
+      description
+      tagLine
+      subTitle
+      img {
         id
-        name
-        image {
-          id
-          url
-          formats
-        }
-        StockDetails {
-          isSoldOut
-        }
-        content
-        price
-        slug
+        url
+        formats
       }
     }
   }

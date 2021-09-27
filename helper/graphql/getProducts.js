@@ -10,8 +10,9 @@ export const getProductList = gql`
         url
         formats
       }
+      isSoldOut
       StockDetails {
-        isSoldOut
+        Stock
         SKU
       }
       content
@@ -31,8 +32,9 @@ export const searchProduct = gql`
         url
         formats
       }
+      isSoldOut
       StockDetails {
-        isSoldOut
+        Stock
         SKU
       }
       content
@@ -115,8 +117,9 @@ export const getProduct = gql`
           formats
         }
       }
+      isSoldOut
       StockDetails {
-        isSoldOut
+        Stock
         SKU
       }
       ProductDetails {
@@ -145,8 +148,10 @@ export const getProductByFilter = gql`
     $class: [String]
     $color: [String]
     $price: Int
+    $priceMax: Int
     $query: String
     $sort: String
+    $isSoldOut: Boolean
   ) {
     products(
       limit: $limit
@@ -156,7 +161,9 @@ export const getProductByFilter = gql`
         colors: { slug_in: $color }
         categories: { slug_in: $categories }
         price_lte: $price
+        price_gte: $priceMax
         name_contains: $query
+        isSoldOut: $isSoldOut
       }
       sort: $sort
     ) {
@@ -167,8 +174,9 @@ export const getProductByFilter = gql`
         url
         formats
       }
+      isSoldOut
       StockDetails {
-        isSoldOut
+        Stock
         SKU
       }
       content

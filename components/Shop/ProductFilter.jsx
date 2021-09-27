@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
 import { camelToNormal, makeTitle } from "../../helper/functions";
@@ -23,6 +24,47 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
 
   const { searchQuery } = useContext(AppContext);
 
+  const router = useRouter();
+
+  const filterRoutePush = (query) => {
+    // console.log(router);
+
+    var thisQuery = Object.assign(router.query, query);
+
+    router.push(
+      {
+        pathname: router.route,
+        query: thisQuery,
+      },
+      undefined,
+      { shallow: false }
+    );
+  };
+
+  const categoryHandler = (cata) => {
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_CATEGORY,
+      categories: cata?.slug ? [cata.slug] : [],
+    });
+    filterRoutePush({ category: cata?.slug });
+  };
+
+  const classHandler = (cata) => {
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_CLASS,
+      class: cata?.slug ? [cata.slug] : [],
+    });
+    filterRoutePush({ class: cata?.slug });
+  };
+
+  const colorHandler = (color) => {
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_COLOR,
+      color: color?.slug ? [color.slug] : [],
+    });
+    filterRoutePush({ color: color?.slug });
+  };
+
   return (
     <div className={"product-filter-holder"}>
       <div className="filter-status">
@@ -30,6 +72,7 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
           state?.class?.length > 0 ||
           state?.color?.length > 0 ||
           searchQuery !== "" ||
+          (state.isSoldOut != null) !== "" ||
           state?.price) && (
           <>
             <h4 className="filter-status-title">Applied filters</h4>
@@ -42,6 +85,21 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
                       dispatch({
                         type: FILTER_ACTIONS.CHANGE_PRICE,
                         price: null,
+                      })
+                    }
+                  >
+                    X
+                  </button>
+                </div>
+              )}
+              {state.isSoldOut != null && (
+                <div className="filter-tag price">
+                  <div>Availability : UnSold</div>
+                  <button
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SELECT_UNSOLD,
+                        isSoldOut: null,
                       })
                     }
                   >
@@ -122,7 +180,17 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
       <div className="filter-block">
         <h3 className="filter-title">Availability</h3>
 
-        <div className="filter-item">UnSold</div>
+        <div
+          className="filter-item"
+          onClick={() =>
+            dispatch({
+              type: FILTER_ACTIONS.SELECT_UNSOLD,
+              isSoldOut: false,
+            })
+          }
+        >
+          UnSold
+        </div>
       </div>
       <div className="filter-block">
         <h3 className="filter-title">Categories</h3>
@@ -130,12 +198,7 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
           <div
             className="filter-item"
             key={index}
-            onClick={() =>
-              dispatch({
-                type: FILTER_ACTIONS.CHANGE_CATEGORY,
-                categories: cata?.slug ? [cata.slug] : [],
-              })
-            }
+            onClick={() => categoryHandler(cata)}
           >
             {cata.title}
           </div>
@@ -147,14 +210,9 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
           <div
             className="filter-item"
             key={index}
-            onClick={() =>
-              dispatch({
-                type: FILTER_ACTIONS.CHANGE_CLASS,
-                class: cata?.slug ? [cata.slug] : [],
-              })
-            }
+            onClick={() => classHandler(cata)}
           >
-            {cata.name}
+            {cata.title}
           </div>
         ))}
       </div>
@@ -164,14 +222,9 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
           <div
             className="filter-item"
             key={index}
-            onClick={() =>
-              dispatch({
-                type: FILTER_ACTIONS.CHANGE_COLOR,
-                color: color?.slug ? [color.slug] : [],
-              })
-            }
+            onClick={() => colorHandler(color)}
           >
-            {color.name}
+            {color.title}
           </div>
         ))}
       </div>

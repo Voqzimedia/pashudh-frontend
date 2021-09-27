@@ -15,25 +15,26 @@ export default function ClassesSection() {
 
   const classesItems = [
     {
-      title: "Modern Muse",
-      subTitle: "Spectrum Of Inspiration",
-      img: classImg1,
-      txt: "For the working woman, who is focussed and fabulous.",
-      slug: "modern-muse",
-    },
-    {
       title: "Fresh Heritage",
       subTitle: "Spectrum Of Inheritance",
       img: classImg2,
-      txt: "For the modern-era brides, who are chic and enchanting.",
+      tagLine: "For the modern-era brides, who are chic and enchanting.",
       slug: "fresh-heritage",
     },
     {
       title: "Neoclassic Heirlooms",
       subTitle: "Spectrum Of Sophistication",
       img: classImg3,
-      txt: "For the casual wearer, who is effortlessly unique and composed.",
+      tagLine:
+        "For the casual wearer, who is effortlessly unique and composed.",
       slug: "neoclassic-heirlooms",
+    },
+    {
+      title: "Modern Muse",
+      subTitle: "Spectrum Of Inspiration",
+      img: classImg1,
+      tagLine: "For the working woman, who is focussed and fabulous.",
+      slug: "modern-muse",
     },
   ];
 
@@ -75,7 +76,7 @@ export default function ClassesSection() {
                     </div>
                   )}
 
-                  <p className="description">{explore.txt}</p>
+                  <p className="description">{explore.tagLine}</p>
                   <Link href={`/shop/class/${explore.slug}`}>
                     <a className="shop-now btn">Shop Now</a>
                   </Link>

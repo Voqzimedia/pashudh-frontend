@@ -28,10 +28,17 @@
       }
     }
   }
+
+  @media only screen and (max-width: 500px) {
+    height: auto;
+  }
 }
 
 .highlight-section {
   margin-top: 100px;
+  @media only screen and (max-width: 500px) {
+    margin-top: 50px;
+  }
   .highlight-container {
     background: $light-gray2;
 
@@ -110,8 +117,8 @@
             object-fit: cover;
 
             @media only screen and (max-width: 500px) {
-              margin-top: 25px;
-              // height: auto;
+              // margin-top: 25px;
+              height: auto;
               object-fit: cover;
             }
           }
@@ -239,6 +246,9 @@
     margin-bottom: 0.5rem;
     margin-top: 0;
     font-weight: 500;
+    @media only screen and (max-width: 800px) {
+      font-size: 0.7rem;
+    }
   }
   .description {
     font-size: 1rem;
@@ -386,7 +396,7 @@
     height: 100%;
     padding: 25px 35px;
     @media only screen and (max-width: 500px) {
-      padding: 12px;
+      padding: 5px;
     }
   }
 
@@ -455,7 +465,7 @@
     .seperator-left {
       border-color: $light-gray !important;
       @media only screen and (max-width: 500px) {
-        margin-top: 100px;
+        // margin-top: 100px;
         border: none !important;
       }
     }

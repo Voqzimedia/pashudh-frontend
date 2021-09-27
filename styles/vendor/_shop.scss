@@ -176,6 +176,26 @@
   }
 }
 
+.quantity-holder {
+  margin: 10px;
+  @media only screen and (max-width: 800px) {
+    margin: 10px 0;
+  }
+  .quantity-action {
+    display: flex;
+    .quantity-wrapper {
+      flex: 1;
+      min-width: 50%;
+      justify-content: space-between;
+      .quantity-inc,
+      .quantity-dec {
+        box-shadow: none !important;
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
 .shop-body-section {
   margin-top: 50px;
 
@@ -344,7 +364,7 @@
         position: relative;
         .sold-out {
           position: absolute;
-          writing-mode: vertical-lr;
+          // writing-mode: vertical-lr;
           padding: 10px;
           background-color: $base-primary-light;
           color: $base-secondary-light;
@@ -474,6 +494,11 @@
             margin: 10px 0;
           }
         }
+
+        .product-btn {
+          flex: 1;
+        }
+
         .quantity-action {
           .quantity-wrapper {
             height: 100%;

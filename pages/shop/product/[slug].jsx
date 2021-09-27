@@ -183,7 +183,7 @@ const Product = ({ product, category }) => {
 
                         <div className="header-bottom">
                           <p>SKU : {thisProduct?.StockDetails?.SKU}</p>
-                          {isMobile && thisProduct.StockDetails.isSoldOut ? (
+                          {isMobile && thisProduct.isSoldOut ? (
                             <button disabled={true}>Sold Out</button>
                           ) : (
                             <AddToCart
@@ -247,7 +247,7 @@ const Product = ({ product, category }) => {
                         </ul>
                       )}
                     </article>
-                    {thisProduct.StockDetails.isSoldOut ? (
+                    {thisProduct.isSoldOut ? (
                       <>
                         <div className="shop-action ">
                           <button
@@ -260,19 +260,22 @@ const Product = ({ product, category }) => {
                         </div>
                       </>
                     ) : (
-                      <div className="shop-action">
-                        {isInCart(thisProduct) ? (
-                          <QuantityBtn product={{ ...thisProduct }} />
-                        ) : null}
-
-                        <AddToCart
-                          product={{ ...thisProduct }}
-                          className={`${
-                            isInCart(thisProduct) ? "" : "no-left-margin"
-                          }`}
-                        />
-                        <AddWishlist product={{ ...thisProduct }} />
-                      </div>
+                      <>
+                        <div className="quantity-holder">
+                          {isInCart(thisProduct) ? (
+                            <QuantityBtn product={{ ...thisProduct }} />
+                          ) : null}
+                        </div>
+                        <div className="shop-action">
+                          <AddToCart
+                            product={{ ...thisProduct }}
+                            className={`${
+                              isInCart(thisProduct) ? "" : "no-left-margin"
+                            }`}
+                          />
+                          <AddWishlist product={{ ...thisProduct }} />
+                        </div>
+                      </>
                     )}
                   </>
                 ) : (
@@ -336,7 +339,7 @@ const Product = ({ product, category }) => {
                         </ul>
                       )}
                     </article>
-                    {thisProduct.StockDetails.isSoldOut ? (
+                    {thisProduct.isSoldOut ? (
                       <>
                         <div className="shop-action ">
                           <button
@@ -349,19 +352,23 @@ const Product = ({ product, category }) => {
                         </div>
                       </>
                     ) : (
-                      <div className="shop-action">
-                        {isInCart(thisProduct) ? (
-                          <QuantityBtn product={{ ...thisProduct }} />
-                        ) : null}
-
-                        <AddToCart
-                          product={{ ...thisProduct }}
-                          className={`${
-                            isInCart(thisProduct) ? "" : "no-left-margin"
-                          }`}
-                        />
-                        <AddWishlist product={{ ...thisProduct }} />
-                      </div>
+                      <>
+                        <div className="quantity-holder">
+                          {isInCart(thisProduct) ? (
+                            <QuantityBtn product={{ ...thisProduct }} />
+                          ) : null}
+                        </div>
+                        <div className="shop-action">
+                          <AddToCart
+                            product={{ ...thisProduct }}
+                            className="product-btn"
+                          />
+                          <AddWishlist
+                            product={{ ...thisProduct }}
+                            className="product-btn"
+                          />
+                        </div>
+                      </>
                     )}
                   </>
                 )}

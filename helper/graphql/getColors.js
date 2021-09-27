@@ -2,34 +2,54 @@ import { gql } from "@apollo/client";
 
 export const getColors = gql`
   query getColors {
-    colors {
+    colors(sort: "priority") {
       id
-      name
+      title
+      slug
+      description
+      tagLine
+      subTitle
+      longImg {
+        id
+        url
+        formats
+      }
+      shortImg {
+        id
+        url
+        formats
+      }
+    }
+  }
+`;
+
+export const getColorsPath = gql`
+  query getColors {
+    colors(sort: "priority") {
+      id
       slug
     }
   }
 `;
 
 export const getColor = gql`
-  query getColor($slug: String!, $sort: String, $limit: Int, $start: Int) {
+  query getColor($slug: String!) {
     colors(where: { slug: $slug }) {
       id
-      name
+      title
       slug
-      products(sort: $sort, limit: $limit, start: $start) {
+      description
+      tagLine
+      subTitle
+      longImg {
         id
-        name
-        image {
-          id
-          url
-          formats
-        }
-        StockDetails {
-          isSoldOut
-        }
-        content
-        price
-        slug
+        url
+        formats
+      }
+      shortImg {
+        id
+        url
+        formats
       }
     }
   }

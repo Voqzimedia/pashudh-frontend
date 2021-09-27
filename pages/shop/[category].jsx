@@ -213,38 +213,14 @@ const CatagoryShop = ({
   return (
     <PageMotion>
       <section className={`shop-section page-section`}>
-        <Container>
+        {/* <Container>
           <center>
             <h1 className="page-title" data-title={pageTitle}>
               {pageTitle}
             </h1>
           </center>
-        </Container>
+        </Container> */}
         <div className="shop-body-section">
-          {isMobile ? (
-            <center>
-              <CatagoryFilterMobile
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              />
-            </center>
-          ) : (
-            <center>
-              {/* <CatagoryFilterX
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              /> */}
-
-              <CatagoryFilterMobile
-                cataList={categories}
-                dispatch={dispatch}
-                filterState={state}
-              />
-            </center>
-          )}
-
           <Container>
             <div className="shop-title-header">
               <div className="content-holder">
