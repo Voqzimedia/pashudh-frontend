@@ -160,8 +160,8 @@ export const getProductByFilter = gql`
         classes: { slug_in: $class }
         colors: { slug_in: $color }
         categories: { slug_in: $categories }
-        price_lte: $price
-        price_gte: $priceMax
+        price_lte: $priceMax
+        price_gte: $price
         name_contains: $query
         isSoldOut: $isSoldOut
       }

@@ -17,12 +17,10 @@ import PhoneInput from "react-phone-number-input";
 
 import stripeLogo from "../../assets/images/logo-stripe.png";
 import razorpayLogo from "../../assets/images/logo-razorpay.png";
+import giftCardImg from "../../assets/images/giftCard.png";
+import { currency } from "../../helper/functions";
 
 export const paymentGatewayList = [
-  {
-    name: "Stripe",
-    img: stripeLogo,
-  },
   {
     name: "Razorpay",
     img: razorpayLogo,
@@ -51,61 +49,11 @@ export default function GiftCardForm({ giftCard }) {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  const [order, setOrder] = useState(null);
-  const stripe = useStripe();
-  const elements = useElements();
 
-  const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
-    setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
-  };
+  const [order, setOrder] = useState(null);
 
   const onChange = (event) => {
     updateData({ ...data, [event.target.name]: event.target.value });
-  };
-
-  const confirmPayment = async (clientSecret) => {
-    setProcessing(true);
-
-    // const checkoutData = checkOutDataFormater(data, cart);
-
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          address: {
-            city: data.City,
-            country: getCode(data.country),
-            line1: data.Address,
-            postal_code: data.PINcode,
-            state: data.region,
-          },
-          email: data.Email,
-          name: `${data.FirstName} ${data.LastName}`,
-          phone: data.Phone,
-        },
-      },
-    });
-
-    if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
-    } else {
-      promoConfirm(payload.paymentIntent.id)
-        .then((res) => {
-          setOrder(res.data);
-          setError(null);
-          setProcessing(false);
-          setSucceeded(true);
-        })
-        .catch((error) => {
-          setError(error?.response?.data);
-          setProcessing(false);
-        });
-    }
   };
 
   const displayRazorpay = (orderData) => {
@@ -161,22 +109,18 @@ export default function GiftCardForm({ giftCard }) {
     // const checkoutData = checkOutDataFormater(data, cart);
 
     promoCheckout({
-      giftcard: giftCard?.items,
+      giftcard: giftCard,
       emailTo: data.Email,
       paymentGateway: data.paymentGateway,
     })
       .then((res) => {
         // console.log(res);
         setProcessing(false);
-        // set authed User in global context to update header/app state
-        // setClientSecret(() => res.data.client_secret);
-        if (data.paymentGateway?.name == "Stripe") {
-          res?.data?.client_secret
-            ? confirmPayment(res?.data?.client_secret)
-            : null;
-          setPaymentRequest(res?.data);
-        } else {
+
+        if (data.paymentGateway?.name == "Razorpay") {
           res?.data?.order ? displayRazorpay(res?.data?.order) : null;
+        } else {
+          console.log("COD");
         }
       })
       .catch((error) => {
@@ -185,31 +129,8 @@ export default function GiftCardForm({ giftCard }) {
       });
   };
 
-  // console.log(order);
-
-  const cardStyle = {
-    hidePostalCode: true,
-    style: {
-      base: {
-        color: "#212529",
-        fontFamily: "Arial, Poppins",
-        fontSmoothing: "antialiased",
-        padding: "5",
-        lineHeight: "40px",
-        fontSize: "1rem",
-        "::placeholder": {
-          color: "#212529",
-        },
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a",
-      },
-    },
-  };
-
   return (
-    <fieldset disabled={processing || !giftCard?.items || succeeded}>
+    <fieldset disabled={processing || !giftCard?.total > 0 || succeeded}>
       <form onSubmit={formSubmit}>
         <div className="contact-info">
           <div className={`from-container`}>
@@ -336,7 +257,7 @@ export default function GiftCardForm({ giftCard }) {
               </Col>
 
               <Col lg="8" className="input-Holder lable-on">
-                <Row className="align-center justify-center">
+                <Row>
                   {paymentGatewayList.map((payment_Gateway, index) => {
                     var isActive =
                       payment_Gateway?.name == data.paymentGateway?.name;
@@ -357,7 +278,7 @@ export default function GiftCardForm({ giftCard }) {
                           }`}
                         >
                           <div className="img-holder">
-                            <img src={payment_Gateway.img} alt="Stripe" />
+                            <img src={payment_Gateway.img} alt="Payment" />
                           </div>
                         </div>
                       </Col>
@@ -365,15 +286,6 @@ export default function GiftCardForm({ giftCard }) {
                   })}
                 </Row>
               </Col>
-              {data.paymentGateway?.name == "Stripe" && (
-                <Col lg="8" className="input-Holder stripe-card">
-                  <CardElement
-                    id="card-element"
-                    options={cardStyle}
-                    onChange={handleChange}
-                  />
-                </Col>
-              )}
             </Row>
 
             {/* Show any error that happens when processing the payment */}
@@ -409,12 +321,33 @@ export default function GiftCardForm({ giftCard }) {
             {succeeded && order && (
               <Row className="order-waraper">
                 <Col
-                  lg="8"
+                  md="6"
                   className="order-list"
                   style={{
                     minHeight: "auto",
                   }}
                 >
+                  <div className="gift-card-img" style={{ margin: "2rem 0" }}>
+                    <div className="image-holder">
+                      <picture>
+                        <img src={giftCardImg} alt="gift" />
+                      </picture>
+                    </div>
+                    <div className="price-holder">
+                      {order?.promoPrice > 0
+                        ? currency.format(order?.promoPrice)
+                        : ""}
+                    </div>
+
+                    <div className="promo-holder">
+                      <div className="coupon">
+                        <span className="code  ">
+                          <p>{order?.promoCode ? order?.promoCode : ""}</p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                   <PromoItem promo={order} />
                 </Col>
               </Row>

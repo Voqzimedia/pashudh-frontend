@@ -118,9 +118,42 @@
   @media only screen and (max-width: 800px) {
     flex-direction: column-reverse;
   }
+}
 
-  .gift-card-img {
-    filter: drop-shadow(0px 3px 3px rgb(0 0 0 / 75%));
+.gift-card-img {
+  filter: drop-shadow(0px 3px 3px rgb(0 0 0 / 75%));
+  position: relative;
+  margin-bottom: 3rem;
+  .price-holder {
+    position: absolute;
+
+    top: 1rem;
+    right: 2rem;
+    font-size: 2rem;
+    color: $base-primary-light;
+    @media only screen and (max-width: 800px) {
+      font-size: 1rem;
+    }
+  }
+  .promo-holder {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    width: 100%;
+    .coupon {
+      width: 100%;
+      text-align: center;
+      border: none;
+      background: $base-primary-light;
+
+      .code {
+        color: $base-secondary-light;
+        text-transform: uppercase;
+        p {
+          user-select: text;
+        }
+      }
+    }
   }
 }
 

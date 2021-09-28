@@ -53,7 +53,7 @@ const Product = ({ product, category }) => {
   const { deviceWidth, cart } = useContext(AppContext);
   const isMobile = deviceWidth < 500;
 
-  const [relatedItems, setRelatedItems] = useState(category.products);
+  const [relatedItems, setRelatedItems] = useState(null);
   const [thisProduct, setProduct] = useState(product);
   const [isFooterView, setIsFooterView] = useState(false);
 
@@ -80,9 +80,9 @@ const Product = ({ product, category }) => {
 
   const getrelatedItems = () => {
     const productList = [];
-    category.products.map((thisProduct) =>
-      thisProduct.id != product.id ? productList.push(thisProduct) : null
-    );
+    // category.products.map((thisProduct) =>
+    //   thisProduct.id != product.id ? productList.push(thisProduct) : null
+    // );
 
     return productList;
   };
@@ -382,7 +382,9 @@ const Product = ({ product, category }) => {
             </Row>
           </Container>
           <div className="related-items">
-            <RelatedItems relatedItems={relatedItems} category={category} />
+            {relatedItems && (
+              <RelatedItems relatedItems={relatedItems} category={category} />
+            )}
           </div>
         </div>
       </section>

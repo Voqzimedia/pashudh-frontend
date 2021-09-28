@@ -68,22 +68,6 @@ export const AddToCart = ({ product, className, isMini }) => {
   );
 };
 
-export const AddToCartGiftCard = ({ giftCard, className, isLoading }) => {
-  const { addItemGiftCard } = useContext(AppContext);
-
-  return (
-    <button
-      className={`btn solid-btn ${className ? className : ""}`}
-      onClick={() => {
-        addItemGiftCard(giftCard);
-      }}
-      disabled={isLoading}
-    >
-      Add to Cart
-    </button>
-  );
-};
-
 export const AddWishlist = ({ product, className }) => {
   const { setWishlistOpen, addItemWishlist } = useContext(AppContext);
 

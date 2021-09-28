@@ -6,12 +6,13 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 import client from "../../helper/ApolloClient";
-import { getGiftCard } from "../../helper/graphql/getGiftCards";
 
 const PageMotion = dynamic(() => import("../../components/Motion/PageMotion"));
 const GiftCardForm = dynamic(() =>
   import("../../components/Shop/GiftCardForm")
 );
+
+import giftCardImg from "../../assets/images/giftCard.png";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -20,10 +21,9 @@ import AppContext from "../../context/AppContext";
 const CheckoutGiftCard = () => {
   const pageTitle = "Checkout";
 
-  const [giftCard, setGiftCard] = useState(null);
+  // const [giftCard, setGiftCard] = useState("");
 
-  const { cartGiftCard, deviceWidth, deleteItemGiftCard } =
-    useContext(AppContext);
+  const { deviceWidth, giftCard } = useContext(AppContext);
 
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const CheckoutGiftCard = () => {
         <meta name="robots" content="nofollow" />
       </Head>
       <section className={`checkout-section page-section`}>
-        {cartGiftCard?.items?.length > 0 && (
+        {giftCard && (
           <Container>
             <h1 className="page-title" data-title={pageTitle}>
               {pageTitle}
@@ -46,46 +46,22 @@ const CheckoutGiftCard = () => {
 
             <div className={`checkout-body`}>
               <div className="order-list checkout-cart">
-                {cartGiftCard?.items?.map((giftCard, index) => (
-                  <Row className={`order-item`} key={index}>
-                    <Col md="2" xs="6">
-                      <div className="product-holder">
-                        <div className="image-holder">
-                          <picture>
-                            <img
-                              width="100"
-                              height="100"
-                              src={`${imgUrlCheck(giftCard.img.url)}`}
-                              alt={giftCard.name}
-                            />
-                          </picture>
-                        </div>
-                        <div className="quantity">{giftCard.quantity}</div>
+                <Row>
+                  <Col md="6">
+                    <div className="gift-card-img">
+                      <div className="image-holder">
+                        <picture>
+                          <img src={giftCardImg} alt="gift" />
+                        </picture>
                       </div>
-                    </Col>
-                    <Col md="6" xs="6">
-                      <div className="product-details">
-                        <div className="name">
-                          Pashudh {currency.format(giftCard.price)} Gift Card{" "}
-                        </div>
-                        <div className="price">
-                          {currency.format(giftCard.price)} X{" "}
-                          {giftCard.quantity}
-                        </div>
+                      <div className="price-holder">
+                        {giftCard?.total > 0
+                          ? currency.format(giftCard?.total)
+                          : ""}
                       </div>
-                    </Col>
-                    <Col
-                      md={{ size: 4, offset: 0 }}
-                      xs={{ size: 6, offset: 6 }}
-                    >
-                      <div className="product-details">
-                        <div className="price">
-                          {currency.format(giftCard.price * giftCard.quantity)}
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                ))}
+                    </div>
+                  </Col>
+                </Row>
               </div>
 
               <div className="checkout-info">
@@ -94,7 +70,7 @@ const CheckoutGiftCard = () => {
                     <p>Subtotal : </p>
                   </Col>
                   <Col md={`4`} className={`info`} xs="6">
-                    <p>{currency.format(cartGiftCard.total)}</p>
+                    <p>{currency.format(giftCard.total)}</p>
                   </Col>
                 </Row>
                 <Row className="info-row">
@@ -103,14 +79,14 @@ const CheckoutGiftCard = () => {
                     <p>Including taxes : </p>
                   </Col>
                   <Col md={`4`} className={`info`} xs="6">
-                    <p>{currency.format(cartGiftCard.total)}</p>
+                    <p>{currency.format(giftCard.total)}</p>
                   </Col>
                 </Row>
               </div>
 
               <div className="checkout-form">
                 <Elements stripe={promise}>
-                  <GiftCardForm giftCard={cartGiftCard} />
+                  <GiftCardForm giftCard={giftCard} />
                 </Elements>
               </div>
             </div>

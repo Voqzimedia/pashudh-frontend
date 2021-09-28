@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Link from "next/link";
 
-import { getGiftCards } from "../helper/graphql/getGiftCards";
 import { currency, imgUrlCheck } from "../helper/functions";
 
 import AppContext from "../context/AppContext";
@@ -12,35 +11,54 @@ import client from "../helper/ApolloClient";
 import Sticky from "react-stickynode";
 
 import dynamic from "next/dynamic";
-import { AddToCartGiftCard } from "../components/Shop/CartActions";
 import SvgIcon from "../components/utils/SvgIcon";
+
+import giftCardImg from "../assets/images/giftCard.png";
 
 const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 const Logo = dynamic(() => import("../components/Logo"));
 
-export default function GiftCards({ giftCards }) {
+const giftCardsList = [
+  {
+    id: "1",
+    price: 5000,
+  },
+  {
+    id: "2",
+    price: 10000,
+  },
+  {
+    id: "3",
+    price: 20000,
+  },
+];
+
+export default function GiftCards() {
   const pageTitle = "Pashudh Gift Cards";
 
-  const [selectedGiftCard, setSelectedGiftCard] = useState(giftCards[0]);
+  const [selectedGiftCard, setSelectedGiftCard] = useState(giftCardsList[0]);
+
+  // console.log(giftCards);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { cartGiftCard, deviceWidth, deleteItemGiftCard } =
-    useContext(AppContext);
+  const { deviceWidth, giftCard, addGiftCard } = useContext(AppContext);
 
   const isMobile = deviceWidth < 800;
 
-  // console.log(cartGiftCard);
+  // console.log(giftCard);
 
   const onGiftCardSelect = (event) => {
     // console.log(event.target.value);
     setIsLoading(true);
 
-    let thisGiftCard = giftCards?.find(
-      (item) => item.slug === event.target.value
+    let thisGiftCard = giftCardsList?.find(
+      (item) => item.id === event.target.value
     );
 
     thisGiftCard ? setSelectedGiftCard(thisGiftCard) : null;
+    thisGiftCard ? addGiftCard(thisGiftCard.price) : null;
+
     setIsLoading(false);
   };
 
@@ -60,69 +78,21 @@ export default function GiftCards({ giftCards }) {
                   <select
                     name="gift-card"
                     id="gift-card"
-                    value={selectedGiftCard?.slug}
+                    value={selectedGiftCard?.id}
                     onChange={onGiftCardSelect}
                   >
-                    <option value="">Denominations</option>
-                    {giftCards?.map((giftCard, index) => (
-                      <option value={giftCard?.slug} key={index}>
+                    {giftCardsList?.map((giftCard, index) => (
+                      <option value={giftCard?.id} key={index}>
                         {currency.format(giftCard?.price)}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="input-Holder">
-                  <AddToCartGiftCard
-                    giftCard={selectedGiftCard}
-                    className={`no-left-margin`}
-                    isLoading={isLoading}
-                  />
-                  {/* <button className="btn submit-btn">Add to Cart</button> */}
+                  <Link href={`/shop/checkout-giftcard`}>
+                    <a className="btn submit-btn">Checkout</a>
+                  </Link>
                 </div>
-                {cartGiftCard?.items?.length > 0 && (
-                  <div className="cart-holder">
-                    <Row className="git-card-cart">
-                      <Col lg="12">
-                        <h4 className="section-title content-title">
-                          Cart Details
-                        </h4>
-                        <br />
-                      </Col>
-                      {cartGiftCard?.items?.map((giftCard, index) => (
-                        <Col md="6" key={index} className={`gift-card-holder`}>
-                          <div className="gift-card">
-                            <div className="gift-card-img">
-                              <div className="image-holder">
-                                <picture>
-                                  <img
-                                    src={imgUrlCheck(giftCard?.img?.url)}
-                                    alt="gift"
-                                  />
-                                </picture>
-                              </div>
-                            </div>
-                            <div className="quantity">{giftCard.quantity}</div>
-                            <button
-                              className={`close-btn btn`}
-                              onClick={() => deleteItemGiftCard(giftCard)}
-                            >
-                              <SvgIcon icon={icons.x.toSvg()} />
-                            </button>
-                          </div>
-                        </Col>
-                      ))}
-
-                      <Col lg="12">
-                        <br />
-                        <Link href={`/shop/checkout-giftcard`}>
-                          <a className="btn solid-btn no-left-margin">
-                            Checkout | {currency.format(cartGiftCard.total)}
-                          </a>
-                        </Link>
-                      </Col>
-                    </Row>
-                  </div>
-                )}
 
                 <br />
                 <div className="content-holder">
@@ -234,11 +204,13 @@ export default function GiftCards({ giftCards }) {
                 <div className="gift-card-img">
                   <div className="image-holder">
                     <picture>
-                      <img
-                        src={imgUrlCheck(selectedGiftCard?.img?.url)}
-                        alt="gift"
-                      />
+                      <img src={giftCardImg} alt="gift" />
                     </picture>
+                  </div>
+                  <div className="price-holder">
+                    {giftCard?.total > 0
+                      ? currency.format(giftCard?.total)
+                      : ""}
                   </div>
                 </div>
               </Sticky>
@@ -248,23 +220,4 @@ export default function GiftCards({ giftCards }) {
       </section>
     </PageMotion>
   );
-}
-
-// This function gets called at build time on server-side.
-// It may be called again, on a serverless function, if
-// revalidation is enabled and a new request comes in
-export async function getStaticProps(context) {
-  const { data: giftcardsData } = await client.query({
-    query: getGiftCards,
-  });
-
-  return {
-    props: {
-      giftCards: giftcardsData?.giftcards ? giftcardsData.giftcards : [],
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every second
-    revalidate: 1, // In seconds
-  };
 }

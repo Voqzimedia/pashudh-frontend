@@ -172,7 +172,7 @@ export const PromoItem = ({ promo }) => {
         <div className="order-details-more">
           <div className={`transaction-details`}>
             <p className="payment">
-              Payment Method :
+              Payment Method :{" "}
               <span>
                 {promo?.paymentGateway
                   ? promo?.paymentGateway

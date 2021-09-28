@@ -29,7 +29,7 @@ class MyApp extends App {
   state = {
     user: null,
     cart: { items: [], total: 0, totalQuantity: 0 },
-    cartGiftCard: { items: [], total: 0, totalQuantity: 0 },
+    giftCard: { total: 0 },
     wishlist: { items: [] },
     darkTheme: false,
     width: undefined,
@@ -81,20 +81,6 @@ class MyApp extends App {
         this.setState({
           cart: {
             items: JSON.parse(cart),
-            total: item.price * item.quantity,
-            totalQuantity: totalQuantity,
-          },
-        });
-      });
-    }
-
-    if (typeof cartGiftCard === "string" && cartGiftCard !== "undefined") {
-      var totalQuantity = 0;
-      JSON.parse(cartGiftCard).forEach((item) => {
-        totalQuantity += item.quantity;
-        this.setState({
-          cartGiftCard: {
-            items: JSON.parse(cartGiftCard),
             total: item.price * item.quantity,
             totalQuantity: totalQuantity,
           },
@@ -339,178 +325,12 @@ class MyApp extends App {
     }
   };
 
-  clearCartGiftCard = () => {
-    this.setState({
-      cartGiftCard: {
-        items: [],
-        total: 0,
-        totalQuantity: 0,
-      },
-    });
-
-    setTimeout(
-      () =>
-        typeof window !== "undefined"
-          ? localStorage.setItem("cartGiftCard", JSON.stringify([]))
-          : null,
-      100
-    );
+  addGiftCard = (total) => {
+    this.setState({ giftCard: { total: total } });
   };
 
-  addItemGiftCard = (item) => {
-    let { items } = this.state.cartGiftCard;
-    //check for item already in cart
-    //if not in cart, add item if item is found increase quanity ++
-    const newItem = items.find((i) => i.id === item.id);
-    // if item is not new, add to cart, set quantity to 1
-    if (!newItem) {
-      //set quantity property to 1
-      item.quantity = 1;
-      // console.log(this.state.cart.total, item.price);
-      this.setState({
-        cartGiftCard: {
-          items: [...items, item],
-          total: this.state.cartGiftCard.total + item.price,
-          totalQuantity: this.state.cartGiftCard.totalQuantity + 1,
-        },
-      });
-
-      setTimeout(
-        () =>
-          typeof window !== "undefined"
-            ? localStorage.setItem(
-                "cartGiftCard",
-                JSON.stringify(this.state.cartGiftCard.items)
-              )
-            : null,
-        100
-      );
-    } else {
-      // console.log({
-      //   cartGiftCard: {
-      //     items: this.state.cartGiftCard.items.map((item) =>
-      //       item.id === newItem.id
-      //         ? Object.assign({}, item, { quantity: item.quantity + 1 })
-      //         : item
-      //     ),
-      //     total: this.state.cartGiftCard.total + item.price,
-      //     totalQuantity: this.state.cartGiftCard.totalQuantity + 1,
-      //   },
-      // });
-
-      this.setState({
-        cartGiftCard: {
-          items: this.state.cartGiftCard.items.map((item) =>
-            item.id === newItem.id
-              ? Object.assign({}, item, { quantity: item.quantity + 1 })
-              : item
-          ),
-          total: this.state.cartGiftCard.total + item.price,
-          totalQuantity: this.state.cartGiftCard.totalQuantity + 1,
-        },
-      });
-
-      setTimeout(
-        () =>
-          typeof window !== "undefined"
-            ? localStorage.setItem(
-                "cartGiftCard",
-                JSON.stringify(this.state.cartGiftCard.items)
-              )
-            : null,
-        100
-      );
-    }
-  };
-
-  deleteItemGiftCard = (item) => {
-    let { items } = this.state.cartGiftCard;
-    //check for item already in cart
-    //if not in cart, add item if item is found increase quanity ++
-    const newItem = items.find((i) => i.id === item.id);
-
-    const thisItems = [...this.state.cartGiftCard.items];
-    const index = thisItems.findIndex((i) => i.id === newItem.id);
-
-    thisItems.splice(index, 1);
-    this.setState({
-      cartGiftCard: {
-        items: thisItems,
-        total: this.state.cartGiftCard.total - item.price * item.quantity,
-        totalQuantity: this.state.cartGiftCard.totalQuantity - item.quantity,
-      },
-    });
-
-    setTimeout(
-      () =>
-        typeof window !== "undefined"
-          ? localStorage.setItem(
-              "cartGiftCard",
-              JSON.stringify(this.state.cartGiftCard.items)
-            )
-          : null,
-      100
-    );
-  };
-
-  removeItemGiftCard = (item) => {
-    let { items } = this.state.cartGiftCard;
-    //check for item already in cart
-    //if not in cart, add item if item is found increase quanity ++
-    const newItem = items.find((i) => i.id === item.id);
-    if (newItem.quantity > 1) {
-      this.setState(
-        {
-          cartGiftCard: {
-            items: this.state.cartGiftCard.items.map((item) =>
-              item.id === newItem.id
-                ? Object.assign({}, item, { quantity: item.quantity - 1 })
-                : item
-            ),
-            total: this.state.cartGiftCard.total - item.price,
-            totalQuantity: this.state.cartGiftCard.totalQuantity - 1,
-          },
-        },
-        () => Cookie.set("cartGiftCard", this.state.cartGiftCard.items)
-      );
-
-      setTimeout(
-        () =>
-          typeof window !== "undefined"
-            ? localStorage.setItem(
-                "cartGiftCard",
-                JSON.stringify(this.state.cartGiftCard.items)
-              )
-            : null,
-        100
-      );
-    } else {
-      const items = [...this.state.cartGiftCard.items];
-      const index = items.findIndex((i) => i.id === newItem.id);
-
-      items.splice(index, 1);
-      this.setState(
-        {
-          cartGiftCard: {
-            items: items,
-            total: this.state.cartGiftCard.total - item.price,
-            totalQuantity: this.state.cartGiftCard.totalQuantity - 1,
-          },
-        },
-        () => Cookie.set("cartGiftCard", this.state.cartGiftCard.items)
-      );
-
-      setTimeout(
-        () =>
-          typeof window !== "undefined"
-            ? localStorage.setItem(
-                "cartGiftCard",
-                JSON.stringify(this.state.cartGiftCard.items)
-              )
-            : null,
-        100
-      );
-    }
+  deleteGiftCard = () => {
+    this.setState({ giftCard: { total: 0 } });
   };
 
   addItemWishlist = (item) => {
@@ -575,7 +395,7 @@ class MyApp extends App {
       user: this.state.user,
       isAuthenticated: !!this.state.user,
       cart: this.state.cart,
-      cartGiftCard: this.state.cartGiftCard,
+      giftCard: this.state.giftCard,
       wishlist: this.state.wishlist,
       darkTheme: this.state.darkTheme,
       deviceWidth: this.state.width,
@@ -592,10 +412,8 @@ class MyApp extends App {
       removeItem: this.removeItem,
       deleteItem: this.deleteItem,
       clearCart: this.clearCart,
-      addItemGiftCard: this.addItemGiftCard,
-      removeItemGiftCard: this.removeItemGiftCard,
-      deleteItemGiftCard: this.deleteItemGiftCard,
-      clearCartGiftCard: this.clearCartGiftCard,
+      addGiftCard: this.addGiftCard,
+      deleteGiftCard: this.deleteGiftCard,
       addItemWishlist: this.addItemWishlist,
       deleteItemWishlist: this.deleteItemWishlist,
       toggleTheme: this.toggleTheme,

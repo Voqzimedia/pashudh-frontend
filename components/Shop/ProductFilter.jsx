@@ -1,21 +1,29 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
-import { camelToNormal, makeTitle } from "../../helper/functions";
+import { camelToNormal, currency, makeTitle } from "../../helper/functions";
 import { FILTER_ACTIONS } from "../../pages/shop";
 
 const priceLists = [
   {
     name: "Rs.15000 to Rs.30000",
+    min: 15000,
+    max: 30000,
   },
   {
     name: "Rs.30000 to Rs.60000",
+    min: 30000,
+    max: 60000,
   },
   {
     name: "Rs.5000 to Rs.15000",
+    min: 5000,
+    max: 15000,
   },
   {
     name: "Rs.60000 & up",
+    min: 60000,
+    max: null,
   },
 ];
 
@@ -65,6 +73,15 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
     filterRoutePush({ color: color?.slug });
   };
 
+  const priceHandler = ({ min, max }) => {
+    console.log({ min, max });
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_PRICE,
+      max,
+      min,
+    });
+  };
+
   return (
     <div className={"product-filter-holder"}>
       <div className="filter-status">
@@ -79,12 +96,14 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
             <div className="list-filter">
               {state.price && (
                 <div className="filter-tag price">
-                  <div>Price : {currency.format(state.price)}</div>
+                  <div>
+                    Price : {currency.format(state.price)} To{" "}
+                    {state.priceMax ? currency.format(state.priceMax) : "Up"}
+                  </div>
                   <button
                     onClick={() =>
                       dispatch({
-                        type: FILTER_ACTIONS.CHANGE_PRICE,
-                        price: null,
+                        type: FILTER_ACTIONS.CLEAR_PRICE,
                       })
                     }
                   >
@@ -231,7 +250,11 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
       <div className="filter-block">
         <h3 className="filter-title">Price</h3>
         {priceLists.map((price, index) => (
-          <div className="filter-item" key={index}>
+          <div
+            onClick={() => priceHandler({ min: price.min, max: price.max })}
+            className="filter-item"
+            key={index}
+          >
             {price.name}
           </div>
         ))}

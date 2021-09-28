@@ -44,6 +44,7 @@ export const initialFilter = {
 export const FILTER_ACTIONS = {
   CHANGE_PRICE: "changePrice",
   CHANGE_PRICEMAX: "changePriceMax",
+  CLEAR_PRICE: "clearPrice",
   CHANGE_CATEGORY: "changeCategory",
   SELECT_UNSOLD: "selectUnsold",
   REMOVE_CATEGORY: "removeCategory",
@@ -126,9 +127,10 @@ export function filterReducer(state, action) {
         start: 0,
       };
     case FILTER_ACTIONS.CHANGE_PRICE:
-      return { ...state, price: action.price, start: 0 };
-    case FILTER_ACTIONS.CHANGE_PRICEMAX:
-      return { ...state, priceMax: action.priceMax, start: 0 };
+      return { ...state, price: action.min, priceMax: action.max, start: 0 };
+
+    case FILTER_ACTIONS.CLEAR_PRICE:
+      return { ...state, priceMax: null, price: null, start: 0 };
     case FILTER_ACTIONS.SELECT_UNSOLD:
       return { ...state, isSoldOut: action.isSoldOut, start: 0 };
     case FILTER_ACTIONS.LOADMORE:
