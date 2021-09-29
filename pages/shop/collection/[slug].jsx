@@ -71,6 +71,9 @@ const ClassShop = ({
 
   const graphVariable = useMemo(() => {
     let price = state.price ? state.price : null;
+    let thisFor = state.thisFor ? state.thisFor : null;
+    let priceMax = state.priceMax ? state.priceMax : null;
+    let isSoldOut = state.isSoldOut != null ? state.isSoldOut : null;
     let categories = state.categories;
     let thisClass = state.class;
     let color = state.color;
@@ -84,6 +87,15 @@ const ClassShop = ({
     if (price) {
       variable = { ...variable, price };
     }
+    if (thisFor) {
+      variable = { ...variable, thisFor };
+    }
+    if (priceMax) {
+      variable = { ...variable, priceMax };
+    }
+    if (isSoldOut != null) {
+      variable = { ...variable, isSoldOut };
+    }
     if (limit) {
       variable = { ...variable, limit };
     }
@@ -95,10 +107,12 @@ const ClassShop = ({
   }, [state, searchQuery]);
 
   const countVariable = useMemo(() => {
-    let price = state?.price ? state.price : null;
-    let categories = state?.categories?.length > 0 ? state.categories : null;
-    let thisClass = state?.class?.length > 0 ? state.class : null;
-    let color = state?.color?.length > 0 ? state.color : null;
+    let price = state.price ? state.price : null;
+    let priceMax = state.priceMax ? state.priceMax : null;
+    let isSoldOut = state.isSoldOut != null ? state.isSoldOut : null;
+    let categories = state.categories.length > 0 ? state.categories : null;
+    let thisClass = state.class.length > 0 ? state.class : null;
+    let color = state.color.length > 0 ? state.color : null;
 
     let query = searchQuery != "" ? searchQuery : null;
 
@@ -106,6 +120,14 @@ const ClassShop = ({
 
     if (price) {
       variable = { ...variable, price };
+    }
+    if (priceMax) {
+      variable = { ...variable, priceMax };
+    }
+
+    // console.log(isSoldOut == null);
+    if (isSoldOut != null) {
+      variable = { ...variable, isSoldOut };
     }
 
     if (query) {

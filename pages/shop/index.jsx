@@ -36,6 +36,7 @@ export const initialFilter = {
   price: null,
   priceMax: null,
   isSoldOut: null,
+  thisFor: null,
   limit: 9,
   start: 0,
   sort: "id:asc",
@@ -46,6 +47,7 @@ export const FILTER_ACTIONS = {
   CHANGE_PRICEMAX: "changePriceMax",
   CLEAR_PRICE: "clearPrice",
   CHANGE_CATEGORY: "changeCategory",
+  CHANGE_FOR: "changeFor",
   SELECT_UNSOLD: "selectUnsold",
   REMOVE_CATEGORY: "removeCategory",
   ADD_CATEGORY: "addCategory",
@@ -133,6 +135,8 @@ export function filterReducer(state, action) {
       return { ...state, priceMax: null, price: null, start: 0 };
     case FILTER_ACTIONS.SELECT_UNSOLD:
       return { ...state, isSoldOut: action.isSoldOut, start: 0 };
+    case FILTER_ACTIONS.CHANGE_FOR:
+      return { ...state, thisFor: action.thisFor, start: 0 };
     case FILTER_ACTIONS.LOADMORE:
       return { ...state, start: action.start };
 
@@ -170,6 +174,7 @@ const Shop = ({ products, categories, count, colors, classes }) => {
 
   const graphVariable = useMemo(() => {
     let price = state.price ? state.price : null;
+    let thisFor = state.thisFor ? state.thisFor : null;
     let priceMax = state.priceMax ? state.priceMax : null;
     let isSoldOut = state.isSoldOut != null ? state.isSoldOut : null;
     let categories = state.categories;
@@ -184,6 +189,9 @@ const Shop = ({ products, categories, count, colors, classes }) => {
 
     if (price) {
       variable = { ...variable, price };
+    }
+    if (thisFor) {
+      variable = { ...variable, thisFor };
     }
     if (priceMax) {
       variable = { ...variable, priceMax };

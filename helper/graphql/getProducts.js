@@ -60,14 +60,20 @@ export const getProductsCount = gql`
     $color: [String]
     $price: Int
     $query: String
+    $isSoldOut: Boolean
+    $thisFor: String
+    $priceMax: Int
   ) {
     productsConnection(
       where: {
         classes: { slug_in: $class }
         colors: { slug_in: $color }
         categories: { slug_in: $categories }
-        price_lte: $price
+        price_lte: $priceMax
+        price_gte: $price
         name_contains: $query
+        isSoldOut: $isSoldOut
+        thisFor: $thisFor
       }
     ) {
       aggregate {
@@ -152,6 +158,7 @@ export const getProductByFilter = gql`
     $query: String
     $sort: String
     $isSoldOut: Boolean
+    $thisFor: String
   ) {
     products(
       limit: $limit
@@ -164,6 +171,7 @@ export const getProductByFilter = gql`
         price_gte: $price
         name_contains: $query
         isSoldOut: $isSoldOut
+        thisFor: $thisFor
       }
       sort: $sort
     ) {

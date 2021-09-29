@@ -4,6 +4,8 @@ import AppContext from "../../context/AppContext";
 import { camelToNormal, currency, makeTitle } from "../../helper/functions";
 import { FILTER_ACTIONS } from "../../pages/shop";
 
+const thisForList = ["Women", "Men", "Kids"];
+
 const priceLists = [
   {
     name: "Rs.15000 to Rs.30000",
@@ -57,12 +59,20 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
     filterRoutePush({ category: cata?.slug });
   };
 
+  const forHandler = (thisFor) => {
+    dispatch({
+      type: FILTER_ACTIONS.CHANGE_FOR,
+      thisFor: thisFor ? thisFor : null,
+    });
+    filterRoutePush({ thisFor: thisFor });
+  };
+
   const classHandler = (cata) => {
     dispatch({
       type: FILTER_ACTIONS.CHANGE_CLASS,
       class: cata?.slug ? [cata.slug] : [],
     });
-    filterRoutePush({ class: cata?.slug });
+    filterRoutePush({ collection: cata?.slug });
   };
 
   const colorHandler = (color) => {
@@ -74,7 +84,7 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
   };
 
   const priceHandler = ({ min, max }) => {
-    console.log({ min, max });
+    // console.log({ min, max });
     dispatch({
       type: FILTER_ACTIONS.CHANGE_PRICE,
       max,
@@ -88,8 +98,9 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
         {(state?.categories?.length > 0 ||
           state?.class?.length > 0 ||
           state?.color?.length > 0 ||
+          state?.thisFor ||
           searchQuery !== "" ||
-          (state.isSoldOut != null) !== "" ||
+          state.isSoldOut != null ||
           state?.price) && (
           <>
             <h4 className="filter-status-title">Applied filters</h4>
@@ -104,6 +115,21 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
                     onClick={() =>
                       dispatch({
                         type: FILTER_ACTIONS.CLEAR_PRICE,
+                      })
+                    }
+                  >
+                    X
+                  </button>
+                </div>
+              )}
+              {state.thisFor && (
+                <div className="filter-tag price">
+                  <div>For : {state.thisFor}</div>
+                  <button
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.CHANGE_FOR,
+                        thisFor: null,
                       })
                     }
                   >
@@ -174,7 +200,7 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
               )}
               {state?.class?.length > 0 && (
                 <div className="filter-tag categories">
-                  <div>Class : </div>
+                  <div>Collections : </div>
                   {state?.class?.map((item, index) => (
                     <div className="cata" key={index}>
                       {makeTitle(item)}{" "}
@@ -196,20 +222,18 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
           </>
         )}
       </div>
-      <div className="filter-block">
-        <h3 className="filter-title">Availability</h3>
 
-        <div
-          className="filter-item"
-          onClick={() =>
-            dispatch({
-              type: FILTER_ACTIONS.SELECT_UNSOLD,
-              isSoldOut: false,
-            })
-          }
-        >
-          UnSold
-        </div>
+      <div className="filter-block">
+        <h3 className="filter-title">For</h3>
+        {thisForList.map((item, index) => (
+          <div
+            className="filter-item"
+            key={index}
+            onClick={() => forHandler(item)}
+          >
+            {item}
+          </div>
+        ))}
       </div>
       <div className="filter-block">
         <h3 className="filter-title">Categories</h3>
@@ -224,7 +248,7 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Classes</h3>
+        <h3 className="filter-title">Collections</h3>
         {classes.map((cata, index) => (
           <div
             className="filter-item"
@@ -258,6 +282,32 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
             {price.name}
           </div>
         ))}
+      </div>
+      <div className="filter-block">
+        <h3 className="filter-title">Availability</h3>
+
+        <div
+          className="filter-item"
+          onClick={() =>
+            dispatch({
+              type: FILTER_ACTIONS.SELECT_UNSOLD,
+              isSoldOut: false,
+            })
+          }
+        >
+          UnSold
+        </div>
+        <div
+          className="filter-item"
+          onClick={() =>
+            dispatch({
+              type: FILTER_ACTIONS.SELECT_UNSOLD,
+              isSoldOut: true,
+            })
+          }
+        >
+          Sold
+        </div>
       </div>
     </div>
   );

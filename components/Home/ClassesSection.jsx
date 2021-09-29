@@ -77,7 +77,7 @@ export default function ClassesSection() {
                   )}
 
                   <p className="description">{explore.tagLine}</p>
-                  <Link href={`/shop/class/${explore.slug}`}>
+                  <Link href={`/shop/collection/${explore.slug}`}>
                     <a className="shop-now btn">Shop Now</a>
                   </Link>
                 </div>

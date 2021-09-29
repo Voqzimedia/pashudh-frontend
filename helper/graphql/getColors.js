@@ -6,19 +6,6 @@ export const getColors = gql`
       id
       title
       slug
-      description
-      tagLine
-      subTitle
-      longImg {
-        id
-        url
-        formats
-      }
-      shortImg {
-        id
-        url
-        formats
-      }
     }
   }
 `;
@@ -38,19 +25,6 @@ export const getColor = gql`
       id
       title
       slug
-      description
-      tagLine
-      subTitle
-      longImg {
-        id
-        url
-        formats
-      }
-      shortImg {
-        id
-        url
-        formats
-      }
     }
   }
 `;

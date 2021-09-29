@@ -5,6 +5,7 @@ import AppContext from "../context/AppContext";
 import Tracker from "./seoWraper";
 import SmoothScroll from "../components/utils/SmoothScroll";
 import { AnimatePresence } from "framer-motion";
+import WhatsappChat from "../components/utils/WhatsappChat";
 
 //Componets
 const Footer = dynamic(() => import("./components/Footer"));
@@ -32,6 +33,7 @@ const Layout = (props) => {
         <Footer className={`hide`} />
       </div>
       <Footer className={`parallax`} />
+      <WhatsappChat />
     </>
   );
 };
