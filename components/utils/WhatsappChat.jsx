@@ -5,7 +5,7 @@ const WhatsappChat = () => {
         <div
           type="floating"
           className="Window__WindowComponent-sc-1wwhwms-1 TtJKd"
-          style={{ opacity: 0 }}
+          style={{ opacity: 0, visibility: "hidden" }}
         >
           <div
             role="button"
