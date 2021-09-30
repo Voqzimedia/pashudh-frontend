@@ -9,7 +9,7 @@ const WhatsappChat = () => {
         >
           <div
             role="button"
-            tabindex="0"
+            tabIndex="0"
             className="Close__Component-sc-9nuxpx-0 cVxowP"
           ></div>
           <div className="Header__Component-sc-5nh99s-0 jSshWG">

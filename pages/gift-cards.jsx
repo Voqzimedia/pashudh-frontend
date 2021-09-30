@@ -18,20 +18,7 @@ import giftCardImg from "../assets/images/giftCard.png";
 const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 const Logo = dynamic(() => import("../components/Logo"));
 
-const giftCardsList = [
-  {
-    id: "1",
-    price: 5000,
-  },
-  {
-    id: "2",
-    price: 10000,
-  },
-  {
-    id: "3",
-    price: 20000,
-  },
-];
+const giftCardsList = [5000, 10000, 20000];
 
 export default function GiftCards() {
   const pageTitle = "Pashudh Gift Cards";
@@ -52,15 +39,23 @@ export default function GiftCards() {
     // console.log(event.target.value);
     setIsLoading(true);
 
-    let thisGiftCard = giftCardsList?.find(
-      (item) => item.id === event.target.value
-    );
-
-    thisGiftCard ? setSelectedGiftCard(thisGiftCard) : null;
-    thisGiftCard ? addGiftCard(thisGiftCard.price) : null;
+    setSelectedGiftCard(event.target.value);
+    addGiftCard(event.target.value);
 
     setIsLoading(false);
   };
+
+  function validate(event) {
+    event.target.value = valBetween(
+      event.target.value,
+      event.target.min,
+      event.target.max
+    );
+  }
+
+  function valBetween(v, min, max) {
+    return Math.min(max, Math.max(min, v));
+  }
 
   return (
     <PageMotion>
@@ -74,7 +69,13 @@ export default function GiftCards() {
           <Row className={`gift-card-container invers-mobile`}>
             <Col lg="6" className="gift-card-left">
               <div className="form-body">
+                <h4 className="section-title content-title">
+                  Select your Gift Card Amount
+                </h4>
                 <div className="input-Holder">
+                  <label htmlFor="gift-card">
+                    Select your Gift Card Amount
+                  </label>
                   <select
                     name="gift-card"
                     id="gift-card"
@@ -82,16 +83,44 @@ export default function GiftCards() {
                     onChange={onGiftCardSelect}
                   >
                     {giftCardsList?.map((giftCard, index) => (
-                      <option value={giftCard?.id} key={index}>
-                        {currency.format(giftCard?.price)}
+                      <option value={giftCard} key={index}>
+                        {currency.format(giftCard)}
                       </option>
                     ))}
                   </select>
                 </div>
+
+                <center>
+                  <p>Or</p>
+                </center>
+
+                <h4 className="section-title content-title">
+                  Enter your Gift Card Amount
+                </h4>
                 <div className="input-Holder">
-                  <Link href={`/shop/checkout-giftcard`}>
-                    <a className="btn submit-btn">Checkout</a>
-                  </Link>
+                  <label htmlFor="gift-card-txt">
+                    Enter your Gift Card Amount
+                  </label>
+                  <input
+                    type="number"
+                    name="gift-card"
+                    id="gift-card-txt"
+                    onChange={onGiftCardSelect}
+                    min="0"
+                    max="80000"
+                    onKeyUp={validate}
+                  />
+                </div>
+                <div className="input-Holder">
+                  {giftCard?.total > 4000 ? (
+                    <Link href={`/shop/checkout-giftcard`}>
+                      <a className="btn submit-btn">Checkout</a>
+                    </Link>
+                  ) : (
+                    <button className="btn submit-btn" disabled={true}>
+                      Checkout
+                    </button>
+                  )}
                 </div>
 
                 <br />

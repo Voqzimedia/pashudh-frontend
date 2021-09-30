@@ -227,7 +227,7 @@ header {
       position: fixed;
       width: 100%;
       bottom: 0;
-      z-index: 9999;
+      z-index: 99999999;
       .user-block {
         width: 100%;
         box-shadow: 3px 1px 29px rgb(0 0 0 / 12%);
@@ -258,6 +258,9 @@ header {
           margin-bottom: 5px;
           padding: 15px 0;
           text-align: center;
+          @media only screen and (max-width: 600px) {
+            width: 90%;
+          }
           .close-btn {
             box-shadow: none !important;
             position: absolute;

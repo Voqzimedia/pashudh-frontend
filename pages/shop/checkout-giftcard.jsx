@@ -38,7 +38,7 @@ const CheckoutGiftCard = () => {
         <meta name="robots" content="nofollow" />
       </Head>
       <section className={`checkout-section page-section`}>
-        {giftCard && (
+        {giftCard?.total > 0 && (
           <Container>
             <h1 className="page-title" data-title={pageTitle}>
               {pageTitle}

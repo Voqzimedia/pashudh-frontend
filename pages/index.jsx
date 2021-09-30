@@ -13,6 +13,7 @@ const TestimonialSection = dynamic(() =>
 );
 const BlogSection = dynamic(() => import("../components/Home/BlogSection"));
 const ColorsSection = dynamic(() => import("../components/Home/ColorsSection"));
+const ImpactSection = dynamic(() => import("../components/Home/ImpactSection"));
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <HighlightSection />
       <ClassesSection />
       <ColorsSection />
+      <ImpactSection />
       {/* <TestimonialSection /> */}
       <BlogSection />
     </PageMotion>
