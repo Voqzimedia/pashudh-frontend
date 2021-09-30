@@ -219,8 +219,8 @@ export default function GiftCards() {
                     before the final checkout.
                   </p>
                   <p>
-                    The validity of our Gift Cards will last for a period of 6
-                    months from the date of issue.
+                    The validity of our Gift Cards will last for a period of 1
+                    year from the date of issue.
                   </p>
                   <p>
                     The value of the Gift Cards cannot be exchanged for cash.
