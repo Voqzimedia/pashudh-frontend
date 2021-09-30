@@ -33,7 +33,14 @@
       + .breadcrumb-item::before,
     .quantity-action .quantity-wrapper .quantity-inc,
     .quantity-action .quantity-wrapper .quantity-dec,
-    .shop-body-section .shop-filter .filter-wrapper .filter-item .title {
+    .shop-body-section .shop-filter .filter-wrapper .filter-item .title,
+    .form-body .input-Holder input[type="text"],
+    .form-body .input-Holder input[type="number"],
+    .form-body .input-Holder input[type="email"],
+    .form-body .input-Holder input[type="password"],
+    .form-body .input-Holder textarea,
+    .form-body .input-Holder .PhoneInputInput,
+    .form-body .input-Holder select {
       color: $base-primary-light;
     }
 
