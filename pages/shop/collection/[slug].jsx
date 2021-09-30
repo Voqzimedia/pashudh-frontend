@@ -287,7 +287,41 @@ const ClassShop = ({
                   <a
                     onClick={() =>
                       dispatch({
-                        type: FILTER_ACTIONS.SORTPRICEASC,
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "id:desc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Featured
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "name:asc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Alphabetically: A to Z
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "name:desc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Alphabetically: Z to A
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "price:asc",
                       })
                     }
                     className="dropdown-item"
@@ -297,22 +331,13 @@ const ClassShop = ({
                   <a
                     onClick={() =>
                       dispatch({
-                        type: FILTER_ACTIONS.SORTPRICEDESC,
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "price:desc",
                       })
                     }
                     className="dropdown-item"
                   >
                     Price: High to Low
-                  </a>
-                  <a
-                    onClick={() =>
-                      dispatch({
-                        type: FILTER_ACTIONS.SORTID,
-                      })
-                    }
-                    className="dropdown-item"
-                  >
-                    Newest Arrivals
                   </a>
                 </DropdownMenu>
               </div>
