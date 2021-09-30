@@ -58,9 +58,8 @@ export const FILTER_ACTIONS = {
   REMOVE_COLOR: "removeColor",
   ADD_COLOR: "addColor",
   LOADMORE: "loadMore",
-  SORTPRICEASC: "sortShopAsc",
-  SORTPRICEDESC: "sortShopDesc",
-  SORTID: "sortID",
+  SORT: "sortShop",
+
   CLEAR: "clear",
 };
 
@@ -140,12 +139,9 @@ export function filterReducer(state, action) {
     case FILTER_ACTIONS.LOADMORE:
       return { ...state, start: action.start };
 
-    case FILTER_ACTIONS.SORTPRICEASC:
-      return { ...state, sort: "price:asc" };
-    case FILTER_ACTIONS.SORTPRICEDESC:
-      return { ...state, sort: "price:desc" };
-    case FILTER_ACTIONS.SORTID:
-      return { ...state, sort: "id:desc" };
+    case FILTER_ACTIONS.SORT:
+      return { ...state, sort: action.sort };
+
     default:
       throw new Error();
   }
@@ -371,7 +367,41 @@ const Shop = ({ products, categories, count, colors, classes }) => {
                   <a
                     onClick={() =>
                       dispatch({
-                        type: FILTER_ACTIONS.SORTPRICEASC,
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "id:desc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Featured
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "name:asc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Alphabetically: A to Z
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "name:desc",
+                      })
+                    }
+                    className="dropdown-item"
+                  >
+                    Alphabetically: Z to A
+                  </a>
+                  <a
+                    onClick={() =>
+                      dispatch({
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "price:asc",
                       })
                     }
                     className="dropdown-item"
@@ -381,22 +411,13 @@ const Shop = ({ products, categories, count, colors, classes }) => {
                   <a
                     onClick={() =>
                       dispatch({
-                        type: FILTER_ACTIONS.SORTPRICEDESC,
+                        type: FILTER_ACTIONS.SORT,
+                        sort: "price:desc",
                       })
                     }
                     className="dropdown-item"
                   >
                     Price: High to Low
-                  </a>
-                  <a
-                    onClick={() =>
-                      dispatch({
-                        type: FILTER_ACTIONS.SORTID,
-                      })
-                    }
-                    className="dropdown-item"
-                  >
-                    Newest Arrivals
                   </a>
                 </DropdownMenu>
               </div>

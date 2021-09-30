@@ -224,67 +224,81 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
       </div>
 
       <div className="filter-block">
-        <h3 className="filter-title">For</h3>
+        <h5 className="filter-title">For</h5>
         {thisForList.map((item, index) => (
           <div
             className="filter-item"
             key={index}
             onClick={() => forHandler(item)}
           >
-            {item}
+            <input type="radio" name={`For`} id={`${item}${index}`} />
+            <label htmlFor={`${item}${index}`}>{item}</label>
           </div>
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Categories</h3>
+        <h5 className="filter-title">Categories</h5>
+
         {categories.map((cata, index) => (
           <div
             className="filter-item"
             key={index}
             onClick={() => categoryHandler(cata)}
           >
-            {cata.title}
+            <input
+              type="radio"
+              name={`Categories`}
+              id={`${cata.title}${index}`}
+            />
+            <label htmlFor={`${cata.title}${index}`}>{cata.title}</label>
           </div>
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Collections</h3>
+        <h5 className="filter-title">Collections</h5>
         {classes.map((cata, index) => (
           <div
             className="filter-item"
             key={index}
             onClick={() => classHandler(cata)}
           >
-            {cata.title}
+            <input
+              type="radio"
+              name={`Collections`}
+              id={`${cata.title}${index}`}
+            />
+            <label htmlFor={`${cata.title}${index}`}>{cata.title}</label>
           </div>
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Colors</h3>
+        <h5 className="filter-title">Colors</h5>
         {colors.map((color, index) => (
           <div
             className="filter-item"
             key={index}
             onClick={() => colorHandler(color)}
           >
-            {color.title}
+            <input type="radio" name={`Colors`} id={`${color.title}${index}`} />
+            <label htmlFor={`${color.title}${index}`}>{color.title}</label>
           </div>
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Price</h3>
+        <h5 className="filter-title">Price</h5>
         {priceLists.map((price, index) => (
           <div
             onClick={() => priceHandler({ min: price.min, max: price.max })}
             className="filter-item"
             key={index}
           >
-            {price.name}
+            <input type="radio" name={`Price`} id={`${price.name}${index}`} />
+            <label htmlFor={`${price.name}${index}`}>{price.name}</label>
           </div>
         ))}
       </div>
       <div className="filter-block">
-        <h3 className="filter-title">Availability</h3>
+        <h5 className="filter-title">Availability</h5>
 
         <div
           className="filter-item"
@@ -295,7 +309,8 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
             })
           }
         >
-          UnSold
+          <input type="radio" name={`For`} id={`UnSold`} />
+          <label htmlFor={`UnSold`}>UnSold</label>
         </div>
         <div
           className="filter-item"
@@ -306,7 +321,8 @@ const ProductFilter = ({ state, dispatch, categories, colors, classes }) => {
             })
           }
         >
-          Sold
+          <input type="radio" name={`Availability`} id={`Sold`} />
+          <label htmlFor={`Sold`}>Sold</label>
         </div>
       </div>
     </div>

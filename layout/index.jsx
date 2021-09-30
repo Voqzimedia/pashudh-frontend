@@ -34,6 +34,7 @@ const Layout = (props) => {
       </div>
       <Footer className={`parallax`} />
       <WhatsappChat />
+      <div class="elfsight-app-f503cfd1-2fb1-42c7-9c63-2fb2072cacdd"></div>
     </>
   );
 };
