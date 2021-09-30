@@ -2,7 +2,7 @@ const WhatsappChat = () => {
   return (
     <div className="eapp-whatsapp-chat-root-layout-component">
       <div type="floating" className="Window__Component-sc-1wwhwms-0 caFLbO">
-        <div
+        {/* <div
           type="floating"
           className="Window__WindowComponent-sc-1wwhwms-1 TtJKd"
           style={{ opacity: 0, visibility: "hidden" }}
@@ -74,7 +74,7 @@ const WhatsappChat = () => {
               Start Chat
             </span>
           </a>
-        </div>
+        </div> */}
         <div
           role="button"
           tabindex="0"
