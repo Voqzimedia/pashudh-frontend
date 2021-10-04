@@ -6,7 +6,7 @@ const WhatsappChat = () => {
           role="button"
           href="https://api.whatsapp.com/send?phone=919003395998"
           title="WhatsApp"
-          tabindex="0"
+          tabIndex="0"
           type="bubble"
           className="Bubble__BubbleComponent-sc-13azvyr-3 gqTMHp"
         >
