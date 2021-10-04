@@ -109,7 +109,7 @@ export const getOrders = () => {
 
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API_URL}/orders/`, {
+      .get(`${API_URL}/my/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -170,12 +170,16 @@ export const productCheckout = (data) => {
 
   const token = Cookie.get("token");
 
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : null;
+
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/orders/`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      .post(`${API_URL}/orders/checkout`, data, {
+        headers,
       })
       .then((res) => {
         resolve(res);
@@ -196,15 +200,19 @@ export const paymentConfirm = (transactionId, discount, useRedeemPoints) => {
 
   const token = Cookie.get("token");
 
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : null;
+
   return new Promise((resolve, reject) => {
     axios
       .post(
         `${API_URL}/orders/confirm/`,
         { transactionId, discount, useRedeemPoints },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers,
         }
       )
       .then((res) => {
@@ -226,15 +234,19 @@ export const razorpayConfirm = (transaction, discount, useRedeemPoints) => {
 
   const token = Cookie.get("token");
 
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : null;
+
   return new Promise((resolve, reject) => {
     axios
       .post(
         `${API_URL}/orders/confirmRazerpay/`,
         { transaction, discount, useRedeemPoints },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers,
         }
       )
       .then((res) => {

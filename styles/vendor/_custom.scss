@@ -77,6 +77,14 @@
   border-radius: 15px;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  p {
+    margin: 0;
+  }
+
   &.active {
     &::after {
       content: "\2713";
@@ -207,5 +215,47 @@
 .pagination-holder {
   .pagination {
     justify-content: space-between;
+  }
+}
+
+.our-silk-route-section {
+  @media only screen and (max-width: 500px) {
+    article {
+      p {
+        font-size: 0.8rem;
+        text-align: justify;
+      }
+    }
+  }
+}
+
+.founder-section {
+  @media only screen and (max-width: 500px) {
+    .founder {
+      .title {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.timeline-section {
+  @media only screen and (max-width: 500px) {
+    article {
+      p {
+        font-size: 0.8rem;
+        text-align: justify;
+      }
+    }
+  }
+}
+
+.team-section {
+  @media only screen and (max-width: 500px) {
+    .title {
+      font-size: 1.8rem;
+      text-transform: uppercase;
+    }
   }
 }

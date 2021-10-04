@@ -15,8 +15,8 @@ import AppContext from "../../context/AppContext";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
-import stripeLogo from "../../assets/images/logo-stripe.png";
-import razorpayLogo from "../../assets/images/logo-razorpay.png";
+// import stripeLogo from "../../assets/images/logo-stripe.png";
+import razorpayLogo from "../../assets/images/payment.svg";
 
 export const paymentGatewayList = [
   {
@@ -47,7 +47,7 @@ export default function CheckoutForm({
     saveMe: "off",
     discount: discount,
     useRedeemPoints: useRedeemPoints,
-    paymentGateway: null,
+    paymentGateway: paymentGatewayList[0],
   });
 
   useEffect(() => {
@@ -189,7 +189,9 @@ export default function CheckoutForm({
         </div>
         <div className={`from-container`}>
           <div className="form-header">
-            <h2 className="form-title">Shipping address</h2>
+            <h2 className="form-title">
+              {order ? "Order Details" : "Shipping address"}
+            </h2>
           </div>
           <div className="form-body">
             {!order && (
@@ -303,7 +305,7 @@ export default function CheckoutForm({
                           payment_Gateway?.name == data.paymentGateway?.name;
                         return (
                           <Col
-                            lg="6"
+                            lg="12"
                             key={index}
                             onClick={() =>
                               updateData({
@@ -317,6 +319,10 @@ export default function CheckoutForm({
                                 isActive ? "active" : ""
                               }`}
                             >
+                              <p className="content-holder">
+                                Pay securely by Credit or Debit card or Internet
+                                Banking through Razorpay.
+                              </p>
                               <div className="img-holder">
                                 <img src={payment_Gateway.img} alt="Stripe" />
                               </div>
@@ -354,6 +360,16 @@ export default function CheckoutForm({
                     >
                       Login / Signup to Continue
                     </a>
+                  )}
+
+                  {!user && (
+                    <button
+                      type="submit"
+                      className={`btn submit-btn`}
+                      disabled={data.paymentGateway ? false : true}
+                    >
+                      Complete as a Guest
+                    </button>
                   )}
                 </div>
               </>

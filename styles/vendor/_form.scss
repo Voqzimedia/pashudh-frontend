@@ -45,6 +45,10 @@
       font-size: 1.2rem;
       font-weight: 200;
       box-shadow: none !important;
+
+      &:first-child {
+        margin-right: 1rem;
+      }
     }
   }
 

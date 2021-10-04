@@ -82,6 +82,9 @@ export default function Checkout() {
                           <Col md="6" xs="6">
                             <div className="product-details">
                               <div className="name">{product.name}</div>
+                              <div className="sku">
+                                SKU: {product?.StockDetails?.SKU}
+                              </div>
                               <div className="price">
                                 {currency.format(product.price)} X{" "}
                                 {product.quantity}
@@ -205,6 +208,14 @@ export default function Checkout() {
                         <p>{currency.format(cart.total)}</p>
                       </Col>
                     </Row>
+                    <Row className="info-row">
+                      <Col md={`8`} className={`info`} xs="6">
+                        <p>Shipping : </p>
+                      </Col>
+                      <Col md={`4`} className={`info`} xs="6">
+                        <p>Free shipping</p>
+                      </Col>
+                    </Row>
                     {discount && (
                       <Row className="info-row">
                         <Col md={`8`} className={`info`} xs="6">
@@ -229,7 +240,7 @@ export default function Checkout() {
                     <Row className="info-row">
                       <Col md={`8`} className={`info`} xs="6">
                         <h4>Total</h4>
-                        <p>Including taxes : </p>
+                        <p>Including Tax 18% IGST estimated for India : </p>
                       </Col>
                       <Col md={`4`} className={`info`} xs="6">
                         {discount && useRedeemPoints && user ? (
@@ -237,18 +248,26 @@ export default function Checkout() {
                             {currency.format(
                               cart.total -
                                 (discount.price + user.redeemPoints / 10)
-                            )}
+                            )}{" "}
+                            {/* (includes 18% IGST estimated for India) */}
                           </p>
                         ) : discount ? (
-                          <p>{currency.format(cart.total - discount.price)}</p>
+                          <p>
+                            {currency.format(cart.total - discount.price)}{" "}
+                            {/* (includes 18% IGST estimated for India) */}
+                          </p>
                         ) : useRedeemPoints && user ? (
                           <p>
                             {currency.format(
                               cart.total - user.redeemPoints / 10
-                            )}
+                            )}{" "}
+                            {/* (includes 18% IGST estimated for India) */}
                           </p>
                         ) : (
-                          <p>{currency.format(cart.total)}</p>
+                          <p>
+                            {currency.format(cart.total)}
+                            {/* (includes 18% IGST estimated for India) */}
+                          </p>
                         )}
                       </Col>
                     </Row>
