@@ -259,3 +259,39 @@
     }
   }
 }
+
+.bottom-overlay {
+  &.slide-pane-overlay {
+    z-index: 99999999;
+    display: flex;
+  }
+}
+
+.bottom-pane {
+  &.slide-pane_from_bottom {
+    height: auto;
+    margin-top: auto;
+    p {
+      font-size: 1rem;
+    }
+  }
+  .slide-pane__header {
+    flex-direction: row-reverse;
+    border: none;
+  }
+
+  .form-body .input-Holder .submit-btn {
+    min-width: 250px;
+    font-size: 0.8rem;
+  }
+
+  .slide-pane__close {
+    .svgIcon {
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        stroke: #000000;
+      }
+    }
+  }
+}

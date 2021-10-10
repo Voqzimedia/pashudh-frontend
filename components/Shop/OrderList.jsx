@@ -146,9 +146,9 @@ export const PromoItem = ({ promo }) => {
           <div className="product-holder">
             <div className="product-details">
               <h5>Promo Code: </h5>
-              <div class="coupon" onClick={() => setReveal(true)}>
-                <span class="scissors">✂</span>
-                <span class={`code ${isReveal ? "" : "isblur"} `}>
+              <div className="coupon" onClick={() => setReveal(true)}>
+                <span className="scissors">✂</span>
+                <span className={`code ${isReveal ? "" : "isblur"} `}>
                   <p>{promo.promoCode}</p>
                 </span>
               </div>
