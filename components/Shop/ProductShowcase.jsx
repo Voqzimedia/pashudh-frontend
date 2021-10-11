@@ -13,6 +13,7 @@ import ProductGallery from "../utils/ProductGallery";
 import { useState } from "react";
 import SvgIcon from "../utils/SvgIcon";
 import { icons } from "feather-icons";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import ReactImageMagnify from "react-image-magnify";
 
 export const FullBtn = ({ openFull, img }) => {
@@ -120,18 +121,25 @@ export default function ProductShowcase({ isMobile, thisProduct }) {
           )}
           <div className="full-screen-holder">
             <FullScreen handle={handle}>
-              <div className="full-screen-inner">
-                <div className="full-header">
-                  <button className="btn close" onClick={() => handle.exit()}>
-                    <SvgIcon icon={icons.x.toSvg()} />
-                  </button>
+              <TransformWrapper>
+                <div className="full-screen-inner">
+                  <div className="full-header">
+                    <button className="btn close" onClick={() => handle.exit()}>
+                      <SvgIcon icon={icons.x.toSvg()} />
+                    </button>
+                  </div>
+                  <TransformComponent>
+                    <div className="image-hoolder">
+                      <picture>
+                        <img
+                          src={`${imgUrlCheck(fullScreenImg.url)}`}
+                          alt="full"
+                        />
+                      </picture>
+                    </div>
+                  </TransformComponent>
                 </div>
-                <div className="image-hoolder">
-                  <picture>
-                    <img src={`${imgUrlCheck(fullScreenImg.url)}`} alt="full" />
-                  </picture>
-                </div>
-              </div>
+              </TransformWrapper>
             </FullScreen>
           </div>
         </div>
