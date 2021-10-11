@@ -295,3 +295,42 @@
     }
   }
 }
+
+.full-screen-holder {
+  .fullscreen {
+    display: none;
+    position: relative;
+    &.fullscreen-enabled {
+      display: flex;
+      background-color: $base-primary-light;
+      align-items: center;
+    }
+    .image-hoolder {
+      img {
+        width: 100%;
+      }
+    }
+
+    .full-header {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
+
+.product-images-slider {
+  .image-holder {
+    position: relative;
+    .full-screen-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      .svgIcon {
+        svg {
+          stroke: $base-primary-light;
+        }
+      }
+    }
+  }
+}
