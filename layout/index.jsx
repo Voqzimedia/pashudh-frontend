@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 import AppContext from "../context/AppContext";
@@ -9,6 +9,8 @@ import WhatsappChat from "../components/utils/WhatsappChat";
 import SvgIcon from "../components/utils/SvgIcon";
 import { icons } from "feather-icons";
 import ReactSlidingPane from "react-sliding-pane";
+
+import { useRouter } from "next/router";
 
 //Componets
 const Footer = dynamic(() => import("./components/Footer"));
@@ -38,6 +40,15 @@ const Layout = (props) => {
     setPopUpOpened(false);
     modalSignup ? setModalSignup(false) : setModalSignup(true);
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    !(router.route == "/") ? setPopUpOpened(() => false) : null;
+    return () => {
+      setPopUpOpened(() => false);
+    };
+  }, []);
 
   return (
     <>
