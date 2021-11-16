@@ -41,7 +41,7 @@ While the bridal Kanjeevaram will set you a class apart in itself, the bridal lo
 
 **Tip #5**
 
-![Tip 5](/public/images/post/5.jpg "Tip 5")
+![Tip 5](/images/post/5.jpg "Tip 5")
 
 While the Kanjeevaram saree is usually non-embellished, there’s no one stopping you from going for an intricately designed and contrasting blouse! It is your day, and everyone’s eyes will be on you! A personalized blouse will be an absolute stunner. It has always been a trendsetter and also something that your better half would be thrilled to see. There are other styles such as a modern blouse, a peplum blouse, a puff-sleeved blouse, and many more that a bride can have her pick from.
 
