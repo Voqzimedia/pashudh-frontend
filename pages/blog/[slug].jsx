@@ -50,7 +50,7 @@ const Blog = ({ post }) => {
                 <article>
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: post?.html?.replace("/public", ""),
+                      __html: post?.html,
                     }}
                   />
                 </article>
