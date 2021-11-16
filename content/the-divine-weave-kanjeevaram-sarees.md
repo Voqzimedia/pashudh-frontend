@@ -5,11 +5,13 @@ description: There is no discourse that gets complete without mentioning the
   preferred weave of the Gods, has a vibrant history through the ages of time.
 date: 2021-11-16T08:36:04.454Z
 thumbnail: /public/images/post/the-divine-weave.png
+image: /public/images/post/the-divine-weave.png
 tags:
   - Pashudh
 categories:
   - Pashudh
 ---
+
 <!--StartFragment-->
 
 There is no discourse that gets complete without mentioning the queen of silks – the Kanjeevaram saree. This saree, known for being the best preferred weave of the Gods, has a vibrant history through the ages of time. Initially weaved as a means of recording temple stories through a philosophy of designs and patterns, the Kanjeevaram saree was originally 9 yards long, but now, is 6 yards long with gold or silver zari.
