@@ -4,8 +4,8 @@ description: With the right care, your silk saree can last generations in all
   its glory. We bring you some hacks that your grandma will vouch for and some
   that will be news to her. Read on to know more!
 date: 2021-11-16T09:40:32.719Z
-thumbnail: /public/images/post/blog-3.png
-image: /public/images/post/blog-3.png
+thumbnail: /images/post/blog-3.png
+image: /images/post/blog-3.png
 tags:
   - Pashudh
 categories:
