@@ -5,7 +5,7 @@ description: There is no discourse that gets complete without mentioning the
   preferred weave of the Gods, has a vibrant history through the ages of time.
 date: 2021-11-16T08:36:04.454Z
 thumbnail: /images/post/350x521-1-.jpg
-image: /images/post/1080x1080-1.jpg
+image: /images/post/1080x1080-0.jpg
 tags:
   - Pashudh
 categories:
@@ -19,9 +19,15 @@ According to the Myths
 
 Once upon a time, there was a celebrated Sage Markanda, who was fabled to know all the tastes of the Gods. He weaved this silk from the Lotus fibre. Centuries later, his progenies settled in the quaint town of Kanchipuram, Tamil Nadu. The weave comprises the thread called &#39;pattu-nool&#39; from Karnataka, and the zari came from Surat. It was then a weave that is a family affair – one needs more than two hands to wind the thread through the beam. A classic handwoven saree takes anywhere from 5 to 20 days with full 8 hours of work each day.
 
+![Myths](/images/post/1080x1080-0.jpg "Myths")
+
+
+
 According to History
 
 It was during the medieval times, during Rajaraja Chola&#39;s period of rule, that silk was established as a trade. Expert weavers were called in, and from Andhra Pradesh came the Devangas and Saligars, who settled in Kanjeevaram. This movement of migration is still known for being the biggest in the 15th century.
+
+![History](/images/post/1080x1080-1.jpg "History")
 
 The Making
 
@@ -30,6 +36,8 @@ A special weaving technique that uses three singular threads of silk yarn along 
 The Designs
 
 Motifs and patterns dominate the designs of the Kanjeevaram saree, with pallu and the body being weaved as different stretches of fabric. The pallu is in a strikingly different color from the body, and then joined through a zig-zag pattern called the &#39;Korvai&#39; joint. The designs are inspired by scriptures and art from the temples of Kanchipuram, while motifs like the conch shell, temple border, horizontal stripes, mango, small checks, peacock, large checks, Neli rings, or Vaira Oosi (diamond needles) make up the patterns.
+
+![Designs](/images/post/1080x1080-2.jpg "Designs")
 
 Did you know?
 
