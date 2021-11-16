@@ -4,7 +4,7 @@ description: You want to be the centre of attraction on your special day, but
   not for the wrong reasons. Here are a few pointers to keep in mind while
   choosing a Kanjeevaram pattu saree for your wedding day
 date: 2021-11-16T09:07:23.896Z
-thumbnail: /public/images/post/350x521.jpg
+thumbnail: /images/post/350x521.jpg
 image: /images/post/4.jpg
 tags:
   - Pashudh
