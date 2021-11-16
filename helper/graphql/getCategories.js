@@ -39,6 +39,23 @@ export const getCategory = gql`
         url
         formats
       }
+      products(limit: 5) {
+        id
+        name
+        image {
+          id
+          url
+          formats
+        }
+        isSoldOut
+        StockDetails {
+          Stock
+          SKU
+        }
+        content
+        price
+        slug
+      }
     }
   }
 `;

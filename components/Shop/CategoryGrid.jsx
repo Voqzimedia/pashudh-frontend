@@ -36,20 +36,20 @@ export default function CategoryGrid({ categories }) {
               transition="transition"
               key={index}
             >
-              <Link href={`/shop/${category.slug}`}>
+              <Link href={`/shop/${category?.slug}`}>
                 <a className="product-item">
                   <motion.div className="image-holder">
                     <img
                       width="100"
                       height="100"
-                      src={`${imgUrlCheck(category.img.url)}`}
-                      alt={category.title}
+                      src={`${imgUrlCheck(category?.img?.url)}`}
+                      alt={category?.title}
                     />
                   </motion.div>
                   <Row className="product-content-holder">
                     <Col xs="12" className="no-pad">
                       <center>
-                        <h5 className="title">{category.title}</h5>
+                        <h5 className="title">{category?.title}</h5>
                       </center>
                     </Col>
                   </Row>
