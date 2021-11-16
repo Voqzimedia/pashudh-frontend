@@ -29,7 +29,7 @@ export const importBlogPosts = async () => {
 };
 
 export default function Home({ postsList }) {
-  console.log(postsList);
+  // console.log(postsList);
 
   return (
     <PageMotion>

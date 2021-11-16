@@ -35,7 +35,7 @@ const BlogGrid = ({ data: post }) => {
           <img
             width="100"
             height="100"
-            src={post?.attributes?.thumbnail}
+            src={post?.attributes?.image}
             alt={post?.attributes?.title}
           />
 
