@@ -52,10 +52,7 @@ export default function BlogSection({ posts }) {
                     <div className="image-holder">
                       <picture>
                         <img
-                          src={post?.attributes?.thumbnail?.replace(
-                            "/public",
-                            ""
-                          )}
+                          src={post?.attributes?.thumbnail}
                           width="100"
                           height="100"
                           alt="Blog"

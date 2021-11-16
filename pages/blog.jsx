@@ -9,14 +9,6 @@ import dynamic from "next/dynamic";
 
 const PageMotion = dynamic(() => import("../components/Motion/PageMotion"));
 
-// Images
-
-import blogImg1 from "../assets/images/blog/full/img1.png?webp";
-import blogImg2 from "../assets/images/blog/full/img2.png?webp";
-import blogImg3 from "../assets/images/blog/full/img3.png?webp";
-import blogImg4 from "../assets/images/blog/full/img4.png?webp";
-import blogImg5 from "../assets/images/blog/full/img5.png?webp";
-import blogImg6 from "../assets/images/blog/full/img6.png?webp";
 import moment from "moment";
 import Link from "next/link";
 
@@ -34,6 +26,8 @@ const importBlogPosts = async () => {
 };
 
 const BlogGrid = ({ data: post }) => {
+  // console.log(post);
+
   return (
     <Link href={`/blog/${post?.slug}`}>
       <a>
@@ -50,8 +44,6 @@ const BlogGrid = ({ data: post }) => {
       </a>
     </Link>
   );
-
-  return null;
 };
 
 export default function Blog({ postsList }) {
@@ -60,45 +52,6 @@ export default function Blog({ postsList }) {
   const { deviceWidth } = useContext(AppContext);
 
   const isMobile = deviceWidth < 500;
-
-  const blogItems = [
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      img: blogImg1,
-      date: "March 6",
-    },
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      date: "March 7",
-      img: blogImg2,
-    },
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      date: "March 8",
-      img: blogImg3,
-    },
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      date: "March 9",
-      img: blogImg4,
-    },
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      date: "March 10",
-      img: blogImg5,
-    },
-    {
-      name: "Kanjeevaram: The dream weave of deities and divas",
-      description: `It is the queen of silks that is said to be the favourite fabric of the gods and today, it’s the go-to choice of jet-setting women who want to make dazzling appearances…`,
-      date: "March 11",
-      img: blogImg6,
-    },
-  ];
 
   return (
     <PageMotion>
@@ -127,10 +80,7 @@ export default function Blog({ postsList }) {
                           <img
                             width="100"
                             height="100"
-                            src={post?.attributes?.thumbnail?.replace(
-                              "/public",
-                              ""
-                            )}
+                            src={post?.attributes?.thumbnail}
                             alt="Blog"
                           />
                         </picture>
