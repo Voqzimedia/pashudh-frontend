@@ -25,7 +25,7 @@ export default function ProductGrid({ prodList }) {
     <div className="product-grid">
       <Row>
         {prodList.map((product, index) => (
-          <Col md="4" key={index}>
+          <Col md="4" key={product?.id}>
             <motion.div
               whileHover="whileHover"
               animate="animate"

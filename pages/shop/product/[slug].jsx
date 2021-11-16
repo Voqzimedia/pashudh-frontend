@@ -80,9 +80,9 @@ const Product = ({ product, category }) => {
 
   const getrelatedItems = () => {
     const productList = [];
-    // category.products.map((thisProduct) =>
-    //   thisProduct.id != product.id ? productList.push(thisProduct) : null
-    // );
+    category?.products?.map((thisProduct) =>
+      thisProduct.id != product.id ? productList.push(thisProduct) : null
+    );
 
     return productList;
   };
@@ -142,6 +142,8 @@ const Product = ({ product, category }) => {
         })
       : null;
   }
+
+  // console.log(category);
 
   return (
     <PageMotion>
