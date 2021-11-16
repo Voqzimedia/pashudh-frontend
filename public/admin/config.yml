@@ -17,6 +17,6 @@ collections:
       - { label: 'Description', name: 'description', widget: 'string', required: true }
       - { label: 'Publish Date', name: 'date', widget: 'datetime', required: true }
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image', required: true }
-      - { label: "Tags",name: "tags",widget: "list", default: ["code"] }
-      - { label: "Categories",name: "categories",widget: "list", default: ["code"] }
+      - { label: "Tags",name: "tags",widget: "list", default: ["Pashudh"] }
+      - { label: "Categories",name: "categories",widget: "list", default: ["Pashudh"] }
       - { label: 'Body', name: 'body', widget: 'markdown', required: true }
