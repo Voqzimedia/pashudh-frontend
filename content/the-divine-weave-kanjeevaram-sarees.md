@@ -11,14 +11,11 @@ tags:
 categories:
   - Pashudh
 ---
-
 <!--StartFragment-->
 
 There is no discourse that gets complete without mentioning the queen of silks – the Kanjeevaram saree. This saree, known for being the best preferred weave of the Gods, has a vibrant history through the ages of time. Initially weaved as a means of recording temple stories through a philosophy of designs and patterns, the Kanjeevaram saree was originally 9 yards long, but now, is 6 yards long with gold or silver zari.
 
 According to the Myths
-
-![Myths](/public/images/post/the-divine-weave.png "Myths")
 
 Once upon a time, there was a celebrated Sage Markanda, who was fabled to know all the tastes of the Gods. He weaved this silk from the Lotus fibre. Centuries later, his progenies settled in the quaint town of Kanchipuram, Tamil Nadu. The weave comprises the thread called &#39;pattu-nool&#39; from Karnataka, and the zari came from Surat. It was then a weave that is a family affair – one needs more than two hands to wind the thread through the beam. A classic handwoven saree takes anywhere from 5 to 20 days with full 8 hours of work each day.
 
